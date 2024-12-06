@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Fundamentals - Lesson 1A</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .concept-box {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .tech-stack {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .tech-item {
+            flex: 1;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .html-color { background-color: #ffebe6; }
+        .css-color { background-color: #e6f3ff; }
+        .js-color { background-color: #fff5e6; }
+        .example-code {
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        .dynamic-examples {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Web Development Fundamentals - Lesson 1A</h1>
+
+    <div class="concept-box">
+        <h2>1. Basic JavaScript Concepts</h2>
+        <ul>
+            <li><strong>Variables:</strong>
+                <ul>
+                    <li><code>var</code> - Traditional variable declaration (function-scoped)</li>
+                    <li><code>let</code> - Modern variable declaration (block-scoped)</li>
+                    <li><code>const</code> - Constant value declaration (cannot be reassigned)</li>
+                </ul>
+            </li>
+            <li><strong>Data Types:</strong>
+                <ul>
+                    <li>Strings - Text values: <code>"Hello World"</code></li>
+                    <li>Numbers - Numeric values: <code>42, 3.14</code></li>
+                    <li>Booleans - <code>true</code> or <code>false</code></li>
+                    <li>Arrays - Lists: <code>[1, 2, 3]</code></li>
+                    <li>Objects - Key-value pairs: <code>{name: "John", age: 25}</code></li>
+                </ul>
+            </li>
+            <li><strong>Comments:</strong>
+                <ul>
+                    <li>Single-line comments: <code>// This is a comment</code></li>
+                    <li>Multi-line comments: <code>/* This is a multi-line comment */</code></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tech-stack">
+        <div class="tech-item html-color">
+            <h3>HTML</h3>
+            <p>The Skeleton</p>
+            <p>Provides structure to web pages</p>
+        </div>
+        <div class="tech-item css-color">
+            <h3>CSS</h3>
+            <p>The Skin</p>
+            <p>Styles and layouts</p>
+        </div>
+        <div class="tech-item js-color">
+            <h3>JavaScript</h3>
+            <p>The Brain</p>
+            <p>Adds interactivity</p>
+        </div>
+    </div>
+
+    <div class="dynamic-examples">
+        <h2>2. Dynamic Behavior Examples</h2>
+        <h3>Example 1: Interactive Greeting</h3>
+        <div class="example-code">
+            &lt;script&gt;<br>
+            &nbsp;&nbsp;let name = prompt("What is your name?");<br>
+            &nbsp;&nbsp;alert("Hello, " + name + "! Welcome to our website.");<br>
+            &lt;/script&gt;
+        </div>
+        <button onclick="showGreeting()">Try it!</button>
+
+        <h3>Common Dynamic Interactions:</h3>
+        <ul>
+            <li>Button clicks and responses</li>
+            <li>Menu opening/closing</li>
+            <li>Animations and movements</li>
+        </ul>
+    </div>
+
+    <script>
+        function showGreeting() {
+            let name = prompt("What is your name?");
+            if (name) {
+                alert("Hello, " + name + "! Welcome to our website.");
+            }
+        }
+    </script>
+</body>
+</html>
