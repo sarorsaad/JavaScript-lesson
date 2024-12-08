@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple React Flow</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+        }
+
+        .flow-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 40px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .step {
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+            position: relative;
+        }
+
+        .step:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+
+        .app {
+            background: #FFC107;
+        }
+
+        .elements {
+            background: #2196F3;
+            color: white;
+        }
+
+        .virtual-dom {
+            background: #9C27B0;
+            color: white;
+        }
+
+        .changes {
+            background: #FF5722;
+            color: white;
+        }
+
+        .actual-dom {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .arrow {
+            width: 30px;
+            height: 2px;
+            background: #333;
+            position: relative;
+        }
+
+        .arrow::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -4px;
+            width: 10px;
+            height: 10px;
+            border-top: 2px solid #333;
+            border-right: 2px solid #333;
+            transform: rotate(45deg);
+        }
+
+        .description {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .step:hover .description {
+            opacity: 1;
+        }
+
+        .active {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        .active-arrow {
+            background: #333;
+            animation: arrowPulse 1s infinite;
+        }
+
+        .active-arrow::after {
+            border-color: #333;
+        }
+
+        @keyframes arrowPulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="flow-container">
+        <div class="step app" onmouseover="highlightStep(0)">
+            APP
+            <div class="description">Application starts here</div>
+        </div>
+        
+        <div class="arrow"></div>
+        
+        <div class="step elements" onmouseover="highlightStep(1)">
+            React Elements
+            <div class="description">Creates React elements</div>
+        </div>
+        
+        <div class="arrow"></div>
+        
+        <div class="step virtual-dom" onmouseover="highlightStep(2)">
+            Virtual DOM
+            <div class="description">Compares old and new DOM</div>
+        </div>
+        
+        <div class="arrow"></div>
+        
+        <div class="step changes" onmouseover="highlightStep(3)">
+            Changes
+            <div class="description">Calculates needed updates</div>
+        </div>
+        
+        <div class="arrow"></div>
+        
+        <div class="step actual-dom" onmouseover="highlightStep(4)">
+            Actual DOM
+            <div class="description">Updates the real DOM</div>
+        </div>
+    </div>
+
+    <script>
+        const steps = document.querySelectorAll('.step');
+        const arrows = document.querySelectorAll('.arrow');
+
+        function highlightStep(index) {
+            // Reset all steps and arrows
+            steps.forEach(step => step.classList.remove('active'));
+            arrows.forEach(arrow => arrow.classList.remove('active-arrow'));
+
+            // Highlight current step
+            steps[index].classList.add('active');
+
+            // Highlight arrows up to current step
+            for (let i = 0; i < index; i++) {
+                arrows[i].classList.add('active-arrow');
+            }
+        }
+
+        // Reset on mouse leave
+        document.querySelector('.flow-container').addEventListener('mouseleave', () => {
+            steps.forEach(step => step.classList.remove('active'));
+            arrows.forEach(arrow => arrow.classList.remove('active-arrow'));
+        });
+    </script>
+</body>
+</html>

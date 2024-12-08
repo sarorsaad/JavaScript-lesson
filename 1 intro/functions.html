@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Functions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .example-box {
+            background-color: #f0f0f0;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .output {
+            background-color: #e0ffe0;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        button {
+            padding: 8px 15px;
+            margin: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Learning JavaScript Functions</h1>
+
+    <!-- 1. Basic Function -->
+    <div class="example-box">
+        <h2>1. Basic Function</h2>
+        <p>A simple function that says hello:</p>
+        <button onclick="sayHello()">Say Hello</button>
+        <div id="output1" class="output"></div>
+    </div>
+
+    <!-- 2. Function with Parameters -->
+    <div class="example-box">
+        <h2>2. Function with Parameters</h2>
+        <p>A function that greets you by name:</p>
+        <input type="text" id="nameInput" placeholder="Enter your name">
+        <button onclick="greetPerson()">Greet Me</button>
+        <div id="output2" class="output"></div>
+    </div>
+
+    <!-- 3. Function with Return Value -->
+    <div class="example-box">
+        <h2>3. Function with Return Value</h2>
+        <p>Add two numbers:</p>
+        <input type="number" id="num1" placeholder="First number" value="5">
+        <input type="number" id="num2" placeholder="Second number" value="3">
+        <button onclick="calculateSum()">Add Numbers</button>
+        <div id="output3" class="output"></div>
+    </div>
+
+    <!-- 4. Arrow Function -->
+    <div class="example-box">
+        <h2>4. Arrow Function</h2>
+        <p>Modern way to write functions:</p>
+        <button onclick="showArrowFunction()">Try Arrow Function</button>
+        <div id="output4" class="output"></div>
+    </div>
+
+    <!-- 5. Function as Calculator -->
+    <div class="example-box">
+        <h2>5. Practice: Simple Calculator</h2>
+        <input type="number" id="calcNum1" placeholder="First number" value="10">
+        <select id="operator">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">×</option>
+            <option value="/">÷</option>
+        </select>
+        <input type="number" id="calcNum2" placeholder="Second number" value="5">
+        <button onclick="calculate()">Calculate</button>
+        <div id="output5" class="output"></div>
+    </div>
+
+    <script>
+        // 1. Basic Function
+        function sayHello() {
+            document.getElementById('output1').textContent = 'Hello! This is a basic function.';
+        }
+
+        // 2. Function with Parameters
+        function greetPerson() {
+            let name = document.getElementById('nameInput').value || 'friend';
+            document.getElementById('output2').textContent = `Hello, ${name}! Nice to meet you!`;
+        }
+
+        // 3. Function with Return Value
+        function addNumbers(a, b) {
+            return a + b;
+        }
+
+        function calculateSum() {
+            let num1 = Number(document.getElementById('num1').value);
+            let num2 = Number(document.getElementById('num2').value);
+            let sum = addNumbers(num1, num2);
+            document.getElementById('output3').textContent = `${num1} + ${num2} = ${sum}`;
+        }
+
+        // 4. Arrow Function
+        const multiply = (x, y) => x * y;
+
+        function showArrowFunction() {
+            let result = multiply(4, 5);
+            document.getElementById('output4').textContent = 
+                `Arrow function multiplied 4 × 5 = ${result}`;
+        }
+
+        // 5. Calculator Function
+        function calculate() {
+            let num1 = Number(document.getElementById('calcNum1').value);
+            let num2 = Number(document.getElementById('calcNum2').value);
+            let operator = document.getElementById('operator').value;
+            let result;
+
+            switch(operator) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    result = num2 !== 0 ? num1 / num2 : 'Cannot divide by zero';
+                    break;
+            }
+
+            document.getElementById('output5').textContent = 
+                `Result: ${num1} ${operator} ${num2} = ${result}`;
+        }
+    </script>
+</body>
+</html>

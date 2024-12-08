@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Rendering Flow Animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .flow-container {
+            max-width: 1200px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .flow-diagram {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .phase {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 2px solid #61dafb;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .step {
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            min-width: 200px;
+        }
+
+        .step:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 5px 20px rgba(97, 218, 251, 0.4);
+        }
+
+        .app-step {
+            background: #ffd700;
+            color: #333;
+        }
+
+        .elements-step {
+            background: #f8f9fa;
+            border: 2px solid #61dafb;
+        }
+
+        .virtual-dom-step {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .changes-step {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .actual-dom-step {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .arrow {
+            width: 50px;
+            height: 2px;
+            background: #61dafb;
+            position: relative;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .arrow::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -4px;
+            width: 10px;
+            height: 10px;
+            border-top: 2px solid #61dafb;
+            border-right: 2px solid #61dafb;
+            transform: rotate(45deg);
+        }
+
+        .code-preview {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Consolas', monospace;
+            font-size: 14px;
+            max-height: 150px;
+            overflow: auto;
+            margin: 10px 0;
+        }
+
+        .node {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .node-1 { background: #2196F3; }
+        .node-2 { background: #4CAF50; }
+        .node-n { background: #FFC107; }
+
+        .nodes-container {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .highlight {
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px #61dafb,
+                           0 0 10px #61dafb,
+                           0 0 15px #61dafb;
+            }
+            to {
+                box-shadow: 0 0 10px #61dafb,
+                           0 0 20px #61dafb,
+                           0 0 30px #61dafb;
+            }
+        }
+
+        .description {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .step:hover .description {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="flow-container">
+        <div class="phase">Render phase</div>
+        <div class="flow-diagram">
+            <div class="step app-step" onmouseover="highlightStep(this, 'App component initiates the update process')">
+                <div>APP</div>
+                <div class="nodes-container">
+                    <div class="node node-1">1</div>
+                    <div class="node node-2">2</div>
+                    <div class="node node-n">n</div>
+                </div>
+                <div class="description">App component initiates the update process</div>
+            </div>
+
+            <div class="arrow"></div>
+
+            <div class="step elements-step" onmouseover="highlightStep(this, 'React creates elements using createElement()')">
+                <div>React Elements</div>
+                <div class="code-preview">
+                    {
+                        type: 'div',
+                        props: {
+                            children: []
+                        }
+                    }
+                </div>
+                <div class="description">React creates virtual elements</div>
+            </div>
+
+            <div class="arrow"></div>
+
+            <div class="step virtual-dom-step" onmouseover="highlightStep(this, 'React compares previous and new Virtual DOM')">
+                <div>Virtual DOM</div>
+                <div class="code-preview">
+                    Previous ⟷ New
+                </div>
+                <div class="description">Virtual DOM comparison process</div>
+            </div>
+
+            <div class="arrow"></div>
+
+            <div class="step changes-step" onmouseover="highlightStep(this, 'Calculated changes to be applied')">
+                <div>Changes</div>
+                <div class="code-preview">
+                    Diff → Updates
+                </div>
+                <div class="description">Calculated DOM updates</div>
+            </div>
+
+            <div class="arrow"></div>
+
+            <div class="step actual-dom-step" onmouseover="highlightStep(this, 'Changes are applied to the actual DOM')">
+                <div>Actual DOM</div>
+                <div class="code-preview">
+                    &lt;div&gt;
+                        Updated!
+                    &lt;/div&gt;
+                </div>
+                <div class="description">Final DOM updates</div>
+            </div>
+        </div>
+        <div class="phase">Commit phase</div>
+    </div>
+
+    <script>
+        function highlightStep(element, description) {
+            // Remove highlight from all steps
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('highlight');
+                step.style.transform = '';
+            });
+
+            // Add highlight to current step
+            element.classList.add('highlight');
+            element.style.transform = 'translateY(-10px) scale(1.1)';
+
+            // Animate arrows
+            const arrows = document.querySelectorAll('.arrow');
+            arrows.forEach(arrow => {
+                arrow.style.background = '#ccc';
+            });
+
+            // Highlight path to this step
+            let currentElement = element;
+            while (currentElement.previousElementSibling) {
+                if (currentElement.previousElementSibling.classList.contains('arrow')) {
+                    currentElement.previousElementSibling.style.background = '#61dafb';
+                    currentElement.previousElementSibling.style.boxShadow = '0 0 10px #61dafb';
+                }
+                currentElement = currentElement.previousElementSibling;
+            }
+        }
+
+        // Add mouseleave event to container
+        document.querySelector('.flow-container').addEventListener('mouseleave', () => {
+            // Reset all animations
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('highlight');
+                step.style.transform = '';
+            });
+
+            document.querySelectorAll('.arrow').forEach(arrow => {
+                arrow.style.background = '#61dafb';
+                arrow.style.boxShadow = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

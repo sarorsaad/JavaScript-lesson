@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Event Flow Animation</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+        .interactive-element {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .interactive-element:hover {
+            filter: brightness(1.2) drop-shadow(0 0 5px rgba(255,255,0,0.5));
+        }
+        .path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            transition: stroke-dashoffset 1s ease-in-out;
+        }
+        .path.active {
+            stroke-dashoffset: 0;
+        }
+        .highlight {
+            animation: glow 1s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 2px yellow);
+            }
+            to {
+                filter: drop-shadow(0 0 8px gold);
+            }
+        }
+        .step-text {
+            font-size: 20px;
+            margin: 20px;
+            padding: 15px;
+            color: #333;
+            background: #f5f5f5;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .instruction {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="instruction">Hover over each element to see the event flow!</div>
+        <div class="step-text" id="stepText">Hover over the User icon to start</div>
+        
+        <svg viewBox="0 0 800 400">
+            <!-- User Icon -->
+            <g id="user" class="interactive-element" onmouseover="activateStep(0)">
+                <circle cx="100" cy="200" r="20" fill="#4CAF50"/>
+                <line x1="100" y1="220" x2="100" y2="260" stroke="#4CAF50" stroke-width="4"/>
+                <line x1="80" y1="240" x2="120" y2="240" stroke="#4CAF50" stroke-width="4"/>
+                <title>User</title>
+            </g>
+
+            <!-- Button Widget -->
+            <g id="buttonGroup" class="interactive-element" onmouseover="activateStep(1)">
+                <rect id="button" x="300" y="180" width="120" height="40" rx="5" fill="#2196F3"/>
+                <text x="360" y="205" text-anchor="middle" fill="white">Button</text>
+                <title>Button Widget</title>
+            </g>
+
+            <!-- Event Listener -->
+            <g id="listenerGroup" class="interactive-element" onmouseover="activateStep(2)">
+                <rect id="eventListener" x="500" y="180" width="120" height="40" rx="5" fill="#FF5722"/>
+                <text x="560" y="205" text-anchor="middle" fill="white">onClick Event</text>
+                <title>Event Listener</title>
+            </g>
+
+            <!-- JavaScript -->
+            <g id="javascriptGroup" class="interactive-element" onmouseover="activateStep(3)">
+                <ellipse id="javascript" cx="400" cy="300" rx="60" ry="30" fill="#FFC107"/>
+                <text x="400" y="305" text-anchor="middle" fill="white">JavaScript</text>
+                <title>JavaScript Handler</title>
+            </g>
+
+            <!-- Arrows -->
+            <path id="clickPath" class="path" d="M130 200 H280" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+            <path id="eventPath" class="path" d="M420 200 H480" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+            <path id="handlePath" class="path" d="M500 220 Q400 350 130 220" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+            <!-- Arrow Marker -->
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+                </marker>
+            </defs>
+        </svg>
+    </div>
+
+    <script>
+        const steps = [
+            {
+                element: 'user',
+                text: 'Step 1: User interacts with the button',
+                path: 'clickPath'
+            },
+            {
+                element: 'buttonGroup',
+                text: 'Step 2: Button widget receives the interaction',
+                path: 'eventPath'
+            },
+            {
+                element: 'listenerGroup',
+                text: 'Step 3: onClick event listener is triggered',
+                path: 'handlePath'
+            },
+            {
+                element: 'javascriptGroup',
+                text: 'Step 4: JavaScript executes the event handler',
+                path: null
+            }
+        ];
+
+        let currentStep = -1;
+
+        function resetAllElements() {
+            // Reset all elements
+            document.querySelectorAll('.interactive-element').forEach(el => {
+                el.classList.remove('highlight');
+            });
+            // Reset all paths
+            document.querySelectorAll('.path').forEach(path => {
+                path.classList.remove('active');
+            });
+        }
+
+        function activateStep(stepIndex) {
+            if (stepIndex <= currentStep + 1) {
+                resetAllElements();
+                
+                // Update text
+                document.getElementById('stepText').textContent = steps[stepIndex].text;
+                
+                // Highlight current element
+                document.getElementById(steps[stepIndex].element).classList.add('highlight');
+                
+                // Activate path if exists
+                if (steps[stepIndex].path) {
+                    document.getElementById(steps[stepIndex].path).classList.add('active');
+                }
+                
+                // Update current step
+                currentStep = stepIndex;
+                
+                // Show next instruction if not last step
+                if (currentStep < steps.length - 1) {
+                    setTimeout(() => {
+                        document.getElementById('stepText').textContent += '\nHover over the next element to continue';
+                    }, 1000);
+                }
+            }
+        }
+
+        // Add mouseleave event to the SVG to reset when mouse leaves the diagram
+        document.querySelector('svg').addEventListener('mouseleave', () => {
+            currentStep = -1;
+            resetAllElements();
+            document.getElementById('stepText').textContent = 'Hover over the User icon to start';
+        });
+    </script>
+</body>
+</html>

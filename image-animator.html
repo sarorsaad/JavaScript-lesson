@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Animation Creator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .upload-area {
+            border: 3px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            border-color: #4CAF50;
+            background: #f9f9f9;
+        }
+
+        .upload-area.dragover {
+            border-color: #4CAF50;
+            background: #e8f5e9;
+        }
+
+        .image-container {
+            max-width: 600px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .uploaded-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        button.active {
+            background: #2196F3;
+        }
+
+        .animation-settings {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+
+        .slider-container {
+            margin: 10px 0;
+        }
+
+        input[type="range"] {
+            width: 200px;
+        }
+
+        /* Animation Classes */
+        .fade {
+            animation: fade 2s infinite;
+        }
+
+        .bounce {
+            animation: bounce 1s infinite;
+        }
+
+        .rotate {
+            animation: rotate 2s infinite linear;
+        }
+
+        .pulse {
+            animation: pulse 1s infinite;
+        }
+
+        .shake {
+            animation: shake 0.5s infinite;
+        }
+
+        .flip {
+            animation: flip 2s infinite;
+        }
+
+        .zoom {
+            animation: zoom 1s infinite;
+        }
+
+        .slide {
+            animation: slide 2s infinite;
+        }
+
+        @keyframes fade {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        @keyframes flip {
+            0% { transform: perspective(400px) rotateY(0); }
+            100% { transform: perspective(400px) rotateY(360deg); }
+        }
+
+        @keyframes zoom {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(0.8); }
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; margin-bottom: 20px;">Image Animation Creator</h1>
+        
+        <div class="upload-area" id="uploadArea">
+            <h3>Drop your image here or click to upload</h3>
+            <p>Supports: JPG, PNG, GIF</p>
+            <input type="file" id="fileInput" style="display: none" accept="image/*">
+        </div>
+
+        <div class="image-container">
+            <img id="uploadedImage" class="uploaded-image" alt="Uploaded image">
+        </div>
+
+        <div class="controls">
+            <button onclick="applyAnimation('fade')">Fade</button>
+            <button onclick="applyAnimation('bounce')">Bounce</button>
+            <button onclick="applyAnimation('rotate')">Rotate</button>
+            <button onclick="applyAnimation('pulse')">Pulse</button>
+            <button onclick="applyAnimation('shake')">Shake</button>
+            <button onclick="applyAnimation('flip')">3D Flip</button>
+            <button onclick="applyAnimation('zoom')">Zoom</button>
+            <button onclick="applyAnimation('slide')">Slide</button>
+            <button onclick="stopAnimation()">Stop Animation</button>
+        </div>
+
+        <div class="animation-settings">
+            <h3>Animation Settings</h3>
+            <div class="slider-container">
+                <label>Speed: </label>
+                <input type="range" id="speedControl" min="0.1" max="3" step="0.1" value="1">
+                <span id="speedValue">1x</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const uploadedImage = document.getElementById('uploadedImage');
+        const speedControl = document.getElementById('speedControl');
+        const speedValue = document.getElementById('speedValue');
+        let currentAnimation = '';
+
+        // Upload area click handler
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // File input change handler
+        fileInput.addEventListener('change', handleFileSelect);
+
+        // Drag and drop handlers
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            handleFile(file);
+        });
+
+        // Speed control handler
+        speedControl.addEventListener('input', () => {
+            const speed = speedControl.value;
+            speedValue.textContent = speed + 'x';
+            updateAnimationSpeed(speed);
+        });
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            handleFile(file);
+        }
+
+        function handleFile(file) {
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    uploadedImage.src = e.target.result;
+                    uploadedImage.style.display = 'block';
+                    stopAnimation(); // Reset any existing animation
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function applyAnimation(animationName) {
+            stopAnimation();
+            currentAnimation = animationName;
+            uploadedImage.classList.add(animationName);
+            updateAnimationSpeed(speedControl.value);
+            
+            // Highlight active button
+            document.querySelectorAll('.controls button').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.textContent.toLowerCase().includes(animationName)) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        function stopAnimation() {
+            uploadedImage.classList.remove(currentAnimation);
+            currentAnimation = '';
+            // Remove active state from all buttons
+            document.querySelectorAll('.controls button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+        }
+
+        function updateAnimationSpeed(speed) {
+            if (currentAnimation) {
+                uploadedImage.style.animationDuration = `${1/speed}s`;
+            }
+        }
+    </script>
+</body>
+</html>

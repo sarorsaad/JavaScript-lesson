@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive React Lesson</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .slide-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #2a2a2a;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .title {
+            font-size: 2.5em;
+            color: #61dafb; /* React blue */
+            margin-bottom: 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .objective {
+            background: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #61dafb;
+            transform-origin: left;
+            transition: all 0.3s ease;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow-x: auto;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .code-block code {
+            font-family: 'Consolas', monospace;
+            color: #d4d4d4;
+            line-height: 1.5;
+        }
+
+        .highlight {
+            color: #61dafb;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .keyword {
+            color: #569cd6;
+        }
+
+        .step {
+            margin: 30px 0;
+            padding: 20px;
+            background: #333;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .step:hover {
+            transform: translateX(10px);
+            background: #404040;
+        }
+
+        .floating-element {
+            position: absolute;
+            pointer-events: none;
+            transition: all 0.1s ease;
+            opacity: 0.5;
+        }
+
+        .react-logo {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .interactive-element {
+            transition: all 0.3s ease;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background: #61dafb;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .code-block:hover .copy-button {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container" id="slideContainer">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4=" class="react-logo" alt="React Logo">
+        
+        <h1 class="title interactive-element">Lesson 1: Render One Element</h1>
+
+        <div class="objective interactive-element">
+            <h2>Objective:</h2>
+            <p>Learn how to render a single element using ReactDOM.render()</p>
+        </div>
+
+        <div class="step interactive-element">
+            <h3>1. Setup React and Babel</h3>
+            <p>Add React and Babel CDN to your index.html</p>
+        </div>
+
+        <div class="code-block interactive-element">
+            <button class="copy-button">Copy</button>
+            <code>
+<span class="keyword">&lt;!DOCTYPE</span> html<span class="keyword">&gt;</span>
+<span class="keyword">&lt;html</span> <span class="highlight">lang</span>=<span class="string">"en"</span><span class="keyword">&gt;</span>
+<span class="keyword">&lt;head&gt;</span>
+    <span class="keyword">&lt;meta</span> <span class="highlight">charset</span>=<span class="string">"UTF-8"</span><span class="keyword">&gt;</span>
+    <span class="keyword">&lt;meta</span> <span class="highlight">name</span>=<span class="string">"viewport"</span> <span class="highlight">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span><span class="keyword">&gt;</span>
+    <span class="keyword">&lt;title&gt;</span>React Lesson<span class="keyword">&lt;/title&gt;</span>
+    <span class="keyword">&lt;script</span> <span class="highlight">src</span>=<span class="string">"https://unpkg.com/react@17/umd/react.development.js"</span> <span class="highlight">crossorigin</span><span class="keyword">&gt;&lt;/script&gt;</span>
+    <span class="keyword">&lt;script</span> <span class="highlight">src</span>=<span class="string">"https://unpkg.com/react-dom@17/umd/react-dom.development.js"</span> <span class="highlight">crossorigin</span><span class="keyword">&gt;&lt;/script&gt;</span>
+    <span class="keyword">&lt;script</span> <span class="highlight">src</span>=<span class="string">"https://unpkg.com/babel-standalone@6.26.0/babel.min.js"</span><span class="keyword">&gt;&lt;/script&gt;</span>
+<span class="keyword">&lt;/head&gt;</span>
+            </code>
+        </div>
+
+        <div class="step interactive-element">
+            <h3>2. Create Root Element</h3>
+            <p>Add a root div to mount your React application</p>
+        </div>
+
+        <div class="code-block interactive-element">
+            <button class="copy-button">Copy</button>
+            <code>
+<span class="keyword">&lt;body&gt;</span>
+    <span class="keyword">&lt;div</span> <span class="highlight">id</span>=<span class="string">"root"</span><span class="keyword">&gt;&lt;/div&gt;</span>
+<span class="keyword">&lt;/body&gt;</span>
+            </code>
+        </div>
+
+        <div class="step interactive-element">
+            <h3>3. Render React Element</h3>
+            <p>Use ReactDOM.render() to display your first element</p>
+        </div>
+
+        <div class="code-block interactive-element">
+            <button class="copy-button">Copy</button>
+            <code>
+<span class="keyword">&lt;script</span> <span class="highlight">type</span>=<span class="string">"text/babel"</span><span class="keyword">&gt;</span>
+    ReactDOM.render(
+        <span class="keyword">&lt;p&gt;</span>Hello React<span class="keyword">&lt;/p&gt;</span>,
+        document.getElementById(<span class="string">'root'</span>)
+    );
+<span class="keyword">&lt;/script&gt;</span>
+            </code>
+        </div>
+    </div>
+
+    <script>
+        const container = document.getElementById('slideContainer');
+        const interactiveElements = document.querySelectorAll('.interactive-element');
+        
+        // Mouse movement effect
+        container.addEventListener('mousemove', (e) => {
+            const { left, top, width, height } = container.getBoundingClientRect();
+            const x = (e.clientX - left) / width - 0.5;
+            const y = (e.clientY - top) / height - 0.5;
+
+            interactiveElements.forEach(element => {
+                const box = element.getBoundingClientRect();
+                const elementCenterX = box.left + box.width / 2;
+                const elementCenterY = box.top + box.height / 2;
+                
+                const deltaX = (e.clientX - elementCenterX) / width;
+                const deltaY = (e.clientY - elementCenterY) / height;
+                
+                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                const scale = Math.max(1 - distance * 0.2, 0.95);
+
+                element.style.transform = `
+                    translate(${x * 10}px, ${y * 10}px)
+                    scale(${scale})
+                    rotate(${x * 2}deg)
+                `;
+                element.style.boxShadow = `
+                    ${-x * 20}px ${-y * 20}px 20px rgba(97, 218, 251, 0.1)
+                `;
+            });
+        });
+
+        // Reset positions when mouse leaves
+        container.addEventListener('mouseleave', () => {
+            interactiveElements.forEach(element => {
+                element.style.transform = 'translate(0, 0) scale(1) rotate(0)';
+                element.style.boxShadow = 'none';
+            });
+        });
+
+        // Copy button functionality
+        document.querySelectorAll('.copy-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const codeBlock = button.nextElementSibling;
+                const textArea = document.createElement('textarea');
+                textArea.value = codeBlock.textContent;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>

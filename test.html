@@ -6,17 +6,40 @@
     <title>Document</title>
 </head>
 <body>
-    <h1 id="title">saroracademy</h1>
-
-
+    <h1 id="root"></h1>
+    <!-- <button onclick= "alert('hello my student in js lessom')">click me</button> -->
+    <!-- <button onkeypress= "alert('hello my student in js lessom')">click me</button> -->
+    <button onmouseover= "alert('hello my student in js lessom')">click me</button>
+   
     <script>
-//    document.getElementById('title').style.color = 'blue';
-//    document.getElementById('title').style.textDecoration = 'underline';
-   const title= document.getElementById('title');
+        // alert('hello my student in js lessom');
+        // confirm('are you sure');
+        // prompt('enter your name');
+        
+        const root=document.getElementById('root')
+      // Change the text of the H1
+      root.innerHTML = 'HYDERACADEMY';
+    
+      // Create a new paragraph element
+      const newParagraph = document.createElement('p');
+      const mydiv=document.createElement('div');
+    
+      // Set the text content of the new paragraph
+      newParagraph.textContent = 'Welcome to Hyder Academy!';
+    
+    root.appendChild(newParagraph);
+   root.style.color='green';
+  
+//    function sayhello(){
+//     document.write('مرحي ي شباب')
+//    }
+//    sayhello()
 
-   title.style.color='green';
+  //  function sum(x,y){
+  //    return x+y
+  //  }
    
-   
+  //  document.write(sum(12,54))
     </script>
 </body>
 </html>

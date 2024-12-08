@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React UI & Logic Connection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f8ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 40px;
+        }
+
+        .section {
+            width: 45%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .comparison {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .ui-side, .logic-side {
+            flex: 1;
+            padding: 15px;
+            position: relative;
+        }
+
+        .connection-line {
+            position: absolute;
+            background: #61dafb;
+            transition: all 0.3s ease;
+        }
+
+        .component {
+            background: #fff;
+            border: 2px solid #61dafb;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .component:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(97, 218, 251, 0.5);
+        }
+
+        .logic-box {
+            background: #282c34;
+            color: #61dafb;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logic-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(40, 44, 52, 0.5);
+        }
+
+        .sync-animation {
+            animation: sync 2s infinite;
+        }
+
+        @keyframes sync {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s;
+            width: 200px;
+            z-index: 100;
+        }
+
+        .react-logo {
+            width: 80px;
+            height: 80px;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .language-label {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Logo" class="react-logo">
+    <h1>UI & Logic Connection in Web Development</h1>
+
+    <div class="container">
+        <div class="section">
+            <h2 class="title">Traditional JavaScript</h2>
+            <div class="comparison">
+                <div class="ui-side">
+                    <div class="language-label">HTML/CSS</div>
+                    <div class="component" onmouseover="showTraditionalTooltip(this)" onmouseout="hideTooltip(this)">
+                        <input type="date" disabled>
+                        <div class="tooltip">Manual DOM manipulation required</div>
+                    </div>
+                    <div class="component" onmouseover="showTraditionalTooltip(this)" onmouseout="hideTooltip(this)">
+                        <button disabled>Submit</button>
+                        <div class="tooltip">Event listeners must be manually attached</div>
+                    </div>
+                </div>
+                <div class="logic-side">
+                    <div class="language-label">JavaScript</div>
+                    <div class="logic-box" onmouseover="showTraditionalTooltip(this)" onmouseout="hideTooltip(this)">
+                        let birthDate;<br>
+                        document.querySelector('input')...
+                        <div class="tooltip">Complex DOM queries and manual state management</div>
+                    </div>
+                    <div class="logic-box" onmouseover="showTraditionalTooltip(this)" onmouseout="hideTooltip(this)">
+                        function handleSubmit() {<br>
+                        &nbsp;&nbsp;// Manual validation<br>
+                        }
+                        <div class="tooltip">Manual event handling and state updates</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="title">React Framework</h2>
+            <div class="comparison">
+                <div class="ui-side">
+                    <div class="language-label">JSX</div>
+                    <div class="component sync-animation" onmouseover="showReactTooltip(this)" onmouseout="hideTooltip(this)">
+                        &lt;DatePicker<br>value={birthDate}/&gt;
+                        <div class="tooltip">Automatic UI updates when state changes</div>
+                    </div>
+                    <div class="component sync-animation" onmouseover="showReactTooltip(this)" onmouseout="hideTooltip(this)">
+                        &lt;Button onClick={handleSubmit}/&gt;
+                        <div class="tooltip">Declarative event handling</div>
+                    </div>
+                </div>
+                <div class="logic-side">
+                    <div class="language-label">React Logic</div>
+                    <div class="logic-box sync-animation" onmouseover="showReactTooltip(this)" onmouseout="hideTooltip(this)">
+                        const [birthDate, setBirthDate] =<br>useState(null);
+                        <div class="tooltip">Built-in state management with hooks</div>
+                    </div>
+                    <div class="logic-box sync-animation" onmouseover="showReactTooltip(this)" onmouseout="hideTooltip(this)">
+                        const handleSubmit = () => {<br>
+                        &nbsp;&nbsp;// Reactive updates<br>
+                        }
+                        <div class="tooltip">Automatic UI updates when state changes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTraditionalTooltip(element) {
+            const tooltip = element.querySelector('.tooltip');
+            tooltip.style.visibility = 'visible';
+            tooltip.style.opacity = '1';
+        }
+
+        function showReactTooltip(element) {
+            const tooltip = element.querySelector('.tooltip');
+            tooltip.style.visibility = 'visible';
+            tooltip.style.opacity = '1';
+        }
+
+        function hideTooltip(element) {
+            const tooltip = element.querySelector('.tooltip');
+            tooltip.style.visibility = 'hidden';
+            tooltip.style.opacity = '0';
+        }
+    </script>
+</body>
+</html>

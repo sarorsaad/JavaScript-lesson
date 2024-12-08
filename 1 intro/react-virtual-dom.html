@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Virtual DOM Animation</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 50px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .dom-container {
+            border: 2px solid #333;
+            padding: 20px;
+            border-radius: 8px;
+            background: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tooltip {
+            visibility: hidden;
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            width: 200px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+            z-index: 100;
+        }
+
+        .dom-container:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .tooltip::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
+        }
+
+        .node {
+            border: 1px solid #666;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .node:hover {
+            background: #61dafb;
+            color: white;
+        }
+
+        .children {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .react-logo {
+            width: 100px;
+            height: 100px;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .course-link {
+            margin: 20px;
+            padding: 15px 30px;
+            background: #61dafb;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .course-link:hover {
+            background: #4fa8c7;
+            transform: translateY(-2px);
+        }
+
+        .arrow {
+            font-size: 40px;
+            color: #61dafb;
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Logo" class="react-logo">
+    <h1>React Virtual DOM Visualization</h1>
+    
+    <div class="container">
+        <div class="dom-container">
+            <h3>Virtual DOM</h3>
+            <div class="node">Parent
+                <div class="children">
+                    <div class="node">Child</div>
+                    <div class="node">Child</div>
+                </div>
+            </div>
+            <div class="tooltip">
+                Virtual DOM is a lightweight copy of the actual DOM. When state changes occur, 
+                React first updates this virtual representation, which is much faster than 
+                updating the actual DOM.
+            </div>
+        </div>
+
+        <div class="arrow">➜</div>
+
+        <div class="dom-container">
+            <h3>React DOM</h3>
+            <div class="node">Parent
+                <div class="children">
+                    <div class="node">Child</div>
+                    <div class="node">Child</div>
+                </div>
+            </div>
+            <div class="tooltip">
+                React compares the updated Virtual DOM with the previous version 
+                to determine the minimal set of changes needed. This process is 
+                called "Reconciliation" or "Diffing".
+            </div>
+        </div>
+
+        <div class="arrow">➜</div>
+
+        <div class="dom-container">
+            <h3>HTML</h3>
+            <div class="node">Parent
+                <div class="children">
+                    <div class="node">Child</div>
+                    <div class="node">Child</div>
+                </div>
+            </div>
+            <div class="tooltip">
+                Only the necessary changes are applied to the actual DOM, 
+                making the update process efficient. This approach minimizes 
+                expensive DOM manipulation operations.
+            </div>
+        </div>
+    </div>
+
+    <a href="https://www.youtube.com/watch?v=aI_fsq7E2w8&list=PLYyqC4bNbCIdSZ-JayMLl4WO2Cr995vyS&index=5" 
+       class="course-link" 
+       target="_blank">
+        Watch Full Tutorial on YouTube
+    </a>
+
+    <script type="text/babel">
+        // React component can be added here if needed
+    </script>
+</body>
+</html>
