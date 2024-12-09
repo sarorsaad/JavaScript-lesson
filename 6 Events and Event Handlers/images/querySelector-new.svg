@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="200" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .title { font-family: Arial, sans-serif; font-size: 32px; fill: #4CAF50; }
+        .code { font-family: 'Courier New', monospace; font-size: 24px; }
+        .document { fill: #FF6B6B; }
+        .method { fill: #00B4D8; }
+        .params { fill: #FFD700; }
+    </style>
+    
+    <!-- Title -->
+    <text x="50" y="50" class="title">CSS Selectors</text>
+    
+    <!-- Dark background for code -->
+    <rect x="40" y="70" width="720" height="100" fill="#282C34" rx="5"/>
+    
+    <!-- Method Syntax -->
+    <text x="60" y="110" class="code">
+        <tspan class="document">document</tspan>
+        <tspan fill="#fff">.</tspan>
+        <tspan class="method">querySelector</tspan>
+        <tspan class="params">()</tspan>
+        <tspan fill="#fff">;</tspan>
+    </text>
+    
+    <text x="60" y="150" class="code">
+        <tspan class="document">document</tspan>
+        <tspan fill="#fff">.</tspan>
+        <tspan class="method">querySelectorAll</tspan>
+        <tspan class="params">()</tspan>
+        <tspan fill="#fff">;</tspan>
+    </text>
+</svg>

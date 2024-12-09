@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="300" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .title { font-family: Arial, sans-serif; font-size: 32px; fill: #4CAF50; }
+        .code { font-family: 'Courier New', monospace; font-size: 24px; }
+        .element { fill: #FF6B6B; }
+        .method { fill: #4CAF50; }
+        .event { fill: #00B4D8; }
+        .function { fill: #FFD700; }
+        .comment { fill: #6A737D; font-style: italic; }
+    </style>
+    
+    <!-- Title -->
+    <text x="50" y="50" class="title">Event Listener Syntax</text>
+    
+    <!-- Dark background for code -->
+    <rect x="40" y="70" width="720" height="180" fill="#282C34" rx="5"/>
+    
+    <!-- Method Syntax -->
+    <text x="60" y="110" class="code">
+        <tspan class="element">element</tspan>
+        <tspan fill="#fff">.</tspan>
+        <tspan class="method">addEventListener</tspan>
+        <tspan fill="#fff">(</tspan>
+        <tspan class="event">'keydown'</tspan>
+        <tspan fill="#fff">, </tspan>
+        <tspan class="function">function</tspan>
+        <tspan fill="#fff">(</tspan>
+        <tspan class="event">event</tspan>
+        <tspan fill="#fff">) {</tspan>
+    </text>
+    
+    <text x="80" y="150" class="code">
+        <tspan class="comment">// Add your code here</tspan>
+    </text>
+    
+    <text x="80" y="190" class="code">
+        <tspan fill="#fff">    console.</tspan>
+        <tspan class="method">log</tspan>
+        <tspan fill="#fff">(</tspan>
+        <tspan class="event">'keydown event occurred'</tspan>
+        <tspan fill="#fff">);</tspan>
+    </text>
+    
+    <text x="60" y="230" class="code">
+        <tspan fill="#fff">});</tspan>
+    </text>
+</svg>

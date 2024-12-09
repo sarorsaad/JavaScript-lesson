@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="200" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .code { font-family: 'Courier New', monospace; font-size: 24px; }
+        .orange { fill: #FF6B2B; }
+        .black { fill: #000000; }
+    </style>
+    
+    <text x="50" y="100" class="code black">document.</text>
+    <text x="200" y="100" class="code orange">getElementById</text>
+    <text x="400" y="100" class="code black">("myId")</text>
+</svg>

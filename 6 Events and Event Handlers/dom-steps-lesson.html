@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOM Manipulation Steps</title>
+    <title>DOM Manipulation Steps Tutorial</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -221,21 +221,28 @@
     <!-- Step 1: Selecting Elements -->
     <div class="step-section">
         <h2>Step 1: Select HTML Elements</h2>
+        <div style="text-align: right;">
+            <button onclick="resetAllSelectors()" style="background-color: #dc3545; margin-bottom: 10px;">Reset All</button>
+        </div>
 
         <!-- By ID Example -->
         <div class="code-example">
             <h3>Select by ID:</h3>
-            <p id="textById">This text will be changed using getElementById</p>
-            <button onclick="changeTextById()">Change Text (ID)</button>
-            <img src="images/getelementbyid.svg" alt="getElementById" class="selector-image" id="getElementById-image">
+            <div class="interactive-demo">
+                <img src="images/getelementbyid-dark.svg" alt="getElementById" id="getElementByIdImage" style="max-width: 100%; margin: 20px 0; display: none; opacity: 0; transition: opacity 0.5s ease;">
+                <p id="textById" style="font-size: 18px; padding: 15px; background: #f5f5f5; border-radius: 5px;">This element selected using getElementById</p>
+                <button onclick="changeTextById()" style="margin-top: 10px;">Change Text (ID)</button>
+            </div>
         </div>
 
         <!-- By Selector Example -->
         <div class="code-example">
             <h3>Select by Selector:</h3>
-            <p class="selector-demo">This text will be changed using querySelector</p>
-            <button onclick="changeTextBySelector()">Change Text (Selector)</button>
-            <img src="images/css-selectors.svg" alt="CSS Selectors" class="selector-image" id="querySelector-image">
+            <div class="interactive-demo">
+                <img src="images/querySelector-new.svg" alt="querySelector methods" id="querySelectorImage" style="max-width: 100%; margin: 20px 0; display: none; opacity: 0; transition: opacity 0.5s ease;">
+                <p class="selector-demo" style="font-size: 18px; padding: 15px; background: #f5f5f5; border-radius: 5px;">This element selected using querySelector</p>
+                <button onclick="changeTextBySelector()" style="margin-top: 10px;">Change Text (Selector)</button>
+            </div>
         </div>
     </div>
 
@@ -339,65 +346,102 @@
 
     <!-- Step 4: Event Listeners -->
     <div class="step-section">
-        <h2>Step 4: Add Event Listeners</h2>
+        <h2 style="font-size: 32px; color: #4CAF50;">Step 4: Add Event Listeners</h2>
+        
+        <!-- Event Syntax -->
         <div class="code-example">
-            <div class="event-playground">
-                <div class="diagram-container">
-                    <div class="diagram-box" id="flow-diagram">
-                        <h3>Event Flow</h3>
-                        <img src="images/event-flow.svg" alt="Event Flow" style="width: 100%">
-                    </div>
-                    <div class="diagram-box" id="syntax-diagram">
-                        <h3>Event Listener Syntax</h3>
-                        <img src="images/event-syntax.svg" alt="Event Syntax" style="width: 100%">
-                    </div>
+            <h3 style="font-size: 24px; color: #333;">Event Listener Syntax</h3>
+            <img src="images/event-syntax-dark.svg" alt="Event Listener Syntax" style="max-width: 100%; margin: 20px 0;">
+        </div>
+
+        <!-- Interactive Demo -->
+        <div class="code-example">
+            <h3 style="font-size: 24px; color: #333;">Interact with me! (click, hover, or press keys)</h3>
+            <div class="event-demo" style="font-size: 20px; padding: 20px; background: #282C34; color: white; border-radius: 8px; cursor: pointer; transition: all 0.3s ease;">
+                Try different events here!
+            </div>
+            
+            <!-- Event Log with improved styling -->
+            <div style="margin-top: 20px;">
+                <h4 style="font-size: 20px; color: #4CAF50;">Event Log:</h4>
+                <div class="event-log" style="font-family: 'Courier New', monospace; font-size: 16px; background: #282C34; color: #00B4D8; padding: 15px; border-radius: 8px; max-height: 200px; overflow-y: auto;">
                 </div>
-
-                <div class="event-demo" id="eventDemo">
-                    Interact with me! (click, hover, or press keys)
-                </div>
-
-                <div class="code-label">Event Log:</div>
-                <div class="event-log" id="eventLog"></div>
-
-                <div class="code-label">Event Listener Code:</div>
-                <textarea class="code-input" id="event-code" readonly></textarea>
             </div>
         </div>
     </div>
 
     <script>
         // Step 1: Selecting Elements Examples
-        function changeTextById() {
-            const demoElement = document.getElementById('textById');
-            const image = document.getElementById('getElementById-image');
+        function resetAllSelectors() {
+            // Reset getElementById example
+            const elementById = document.getElementById('textById');
+            const imageById = document.getElementById('getElementByIdImage');
+            elementById.textContent = 'This element selected using getElementById';
+            elementById.style.color = '';
+            elementById.style.fontWeight = '';
+            elementById.style.transform = '';
             
-            if (demoElement) {
-                // Toggle text and image
-                if (demoElement.innerHTML === 'This text will be changed using getElementById') {
-                    demoElement.innerHTML = 'Text changed using getElementById!';
-                    image.classList.add('visible');
-                } else {
-                    demoElement.innerHTML = 'This text will be changed using getElementById';
-                    image.classList.remove('visible');
-                }
-            }
+            // Hide getElementById image with fade out
+            imageById.style.opacity = '0';
+            setTimeout(() => {
+                imageById.style.display = 'none';
+            }, 500);
+
+            // Reset querySelector example
+            const elementBySelector = document.querySelector('.selector-demo');
+            const imageBySelector = document.getElementById('querySelectorImage');
+            elementBySelector.textContent = 'This element selected using querySelector';
+            elementBySelector.style.color = '';
+            elementBySelector.style.fontWeight = '';
+            elementBySelector.style.transform = '';
+            
+            // Hide querySelector image with fade out
+            imageBySelector.style.opacity = '0';
+            setTimeout(() => {
+                imageBySelector.style.display = 'none';
+            }, 500);
+        }
+
+        function changeTextById() {
+            const element = document.getElementById('textById');
+            const image = document.getElementById('getElementByIdImage');
+            
+            element.textContent = 'Text changed using getElementById!';
+            element.style.color = '#ff6b6b';
+            element.style.fontWeight = 'bold';
+            element.style.transition = 'all 0.3s ease';
+            element.style.transform = 'scale(1.05)';
+            
+            // Show and fade in the image
+            image.style.display = 'block';
+            setTimeout(() => {
+                image.style.opacity = '1';
+            }, 50);
+            
+            setTimeout(() => {
+                element.style.transform = 'scale(1)';
+            }, 300);
         }
 
         function changeTextBySelector() {
             const element = document.querySelector('.selector-demo');
-            const image = document.getElementById('querySelector-image');
+            const image = document.getElementById('querySelectorImage');
             
-            if (element) {
-                // Toggle text and image
-                if (element.innerHTML === 'This text will be changed using querySelector') {
-                    element.innerHTML = 'Text changed using querySelector!';
-                    image.classList.add('visible');
-                } else {
-                    element.innerHTML = 'This text will be changed using querySelector';
-                    image.classList.remove('visible');
-                }
-            }
+            element.textContent = 'Element found using querySelector!';
+            element.style.color = '#00B4D8';
+            element.style.fontWeight = 'bold';
+            element.style.transition = 'all 0.3s ease';
+            element.style.transform = 'scale(1.05)';
+            
+            // Show and fade in the image
+            image.style.display = 'block';
+            setTimeout(() => {
+                image.style.opacity = '1';
+            }, 50);
+            
+            setTimeout(() => {
+                element.style.transform = 'scale(1)';
+            }, 300);
         }
 
         // Step 2: Store Elements in Variables Example
@@ -550,56 +594,53 @@
             updateStyle();
         }
 
-        // Event Listener Demo
-        window.onload = function() {
-            const demoBox = document.getElementById('eventDemo');
-            const eventLog = document.getElementById('eventLog');
-            const eventCode = document.getElementById('event-code');
-            const flowDiagram = document.getElementById('flow-diagram');
-            const syntaxDiagram = document.getElementById('syntax-diagram');
-            
-            // Show diagrams with animation
-            setTimeout(() => {
-                flowDiagram.classList.add('visible');
-                setTimeout(() => {
-                    syntaxDiagram.classList.add('visible');
-                }, 200);
-            }, 500);
+        // Event Demo
+        function initEventDemo() {
+            const eventDemo = document.querySelector('.event-demo');
+            const eventLog = document.querySelector('.event-log');
 
             function logEvent(eventType, details = '') {
-                const timestamp = new Date().toLocaleTimeString();
-                const log = document.createElement('p');
-                log.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${eventType} ${details}`;
-                eventLog.insertBefore(log, eventLog.firstChild);
-                
-                // Update code preview
-                eventCode.value = `element.addEventListener('${eventType}', function(event) {\n` +
-                                `    console.log('${eventType} event occurred');\n` +
-                                `    // Add your code here\n` +
-                                `});`;
+                const time = new Date().toLocaleTimeString();
+                const logEntry = document.createElement('div');
+                logEntry.style.borderBottom = '1px solid #3E4451';
+                logEntry.style.padding = '5px 0';
+                logEntry.innerHTML = `
+                    <span style="color: #6A737D;">[${time}]</span>
+                    <span style="color: #4CAF50;">${eventType}</span>
+                    <span style="color: #FFD700;">${details}</span>
+                `;
+                eventLog.insertBefore(logEntry, eventLog.firstChild);
             }
 
-            // Add event listeners
-            demoBox.addEventListener('click', function(event) {
-                logEvent('click', `at (${event.offsetX}, ${event.offsetY})`);
-                this.style.backgroundColor = '#e3f2fd';
-                setTimeout(() => this.style.backgroundColor = '', 200);
-            });
-
-            demoBox.addEventListener('mouseover', function() {
+            eventDemo.addEventListener('mouseover', () => {
                 logEvent('mouseover');
+                eventDemo.style.transform = 'scale(1.02)';
+                eventDemo.style.backgroundColor = '#3E4451';
             });
 
-            demoBox.addEventListener('mouseout', function() {
+            eventDemo.addEventListener('mouseout', () => {
                 logEvent('mouseout');
+                eventDemo.style.transform = 'scale(1)';
+                eventDemo.style.backgroundColor = '#282C34';
             });
 
-            document.addEventListener('keydown', function(event) {
-                if (document.activeElement !== eventCode) {
-                    logEvent('keydown', `Key: ${event.key}`);
-                }
+            eventDemo.addEventListener('click', () => {
+                logEvent('click');
+                eventDemo.style.backgroundColor = '#4CAF50';
+                setTimeout(() => {
+                    eventDemo.style.backgroundColor = '#282C34';
+                }, 200);
             });
-        };
+
+            document.addEventListener('keydown', (event) => {
+                logEvent('keydown', `Key: ${event.key}`);
+            });
+        }
+
+        // Initialize all demos when page loads
+        window.addEventListener('load', () => {
+            initEventDemo();
+        });
     </script>
 </body>
 </html>
