@@ -213,6 +213,137 @@
             opacity: 1;
             transform: translateY(0);
         }
+        .interactive-demo {
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .demo-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+        .button-group {
+            margin: 10px 0;
+            display: flex;
+            gap: 10px;
+        }
+        #demo-target {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px dashed #ccc;
+            border-radius: 4px;
+        }
+        #element-container {
+            min-height: 50px;
+            border: 1px dashed #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .interactive-demo {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.demo-section {
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+}
+.button-group {
+    margin: 10px 0;
+    display: flex;
+    gap: 10px;
+}
+#demo-target {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+}
+#element-container {
+    min-height: 50px;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+        /* Add these styles for code examples */
+        #step5 .code-example {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 18px;
+        }
+        #step5 .code-example h3 {
+            color: #4CAF50;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        #step5 .code-example pre {
+            background-color: #2d2d2d;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        #step5 .code-example code {
+            font-size: 18px;
+            line-height: 1.5;
+            color: #ddd;
+        }
+
+        /* Step 6 specific styles */
+        #step6 {
+            background-color: #282c34;
+            color: #ffffff;
+        }
+        #step6 .code-example {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        #step6 pre {
+            background-color: #1e1e1e;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        #step6 code {
+            color: #61DAFB;
+            font-family: 'Consolas', monospace;
+        }
+        #step6 ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        #step6 ul li {
+            margin: 10px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+        #step6 ul li:before {
+            content: "→";
+            color: #61DAFB;
+            position: absolute;
+            left: 0;
+        }
+        #step6 h3 {
+            color: #61DAFB;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        #step6 strong {
+            color: #61DAFB;
+        }
     </style>
 </head>
 <body>
@@ -642,5 +773,226 @@
             initEventDemo();
         });
     </script>
+
+<!-- Step 5: Complete DOM Example -->
+<div id="step5" class="step-section">
+    <h2 style="font-size: 32px; color: #4CAF50;">Step 5: Complete DOM Example</h2>
+    <p>Let's see how to combine element selection, modification, and events together in one example. We'll create all content using JavaScript!</p>
+    
+    <!-- HTML Code Example -->
+    <div class="code-example">
+        <h3>HTML Code:</h3>
+        <pre><code>&lt;!-- Just an empty div with an ID -->
+&lt;div id="root">&lt;/div></code></pre>
+    </div>
+
+    <!-- JavaScript Code Example -->
+    <div class="code-example">
+        <h3>JavaScript Code:</h3>
+        <pre><code>// 1. Select the element
+const rootElement = document.getElementById('root');
+
+// 2. Create and append new elements
+const title = document.createElement('h3');
+title.textContent = 'Interactive Element';
+rootElement.appendChild(title);
+
+const paragraph = document.createElement('p');
+paragraph.textContent = 'Click me or hover over me!';
+rootElement.appendChild(paragraph);
+
+// 3. Modify the element's style
+rootElement.style.padding = '20px';
+rootElement.style.border = '2px solid #4CAF50';
+rootElement.style.borderRadius = '8px';
+rootElement.style.cursor = 'pointer';
+rootElement.style.backgroundColor = '#1e1e1e';
+rootElement.style.transition = 'all 0.3s ease';
+rootElement.style.fontFamily = 'Arial, sans-serif';
+rootElement.style.color = '#ffffff';
+rootElement.style.fontSize = '18px';
+rootElement.style.margin = '20px';
+rootElement.style.maxWidth = '600px';
+
+// Style the title and paragraph
+title.style.fontSize = '24px';
+title.style.color = '#4CAF50';
+title.style.marginBottom = '10px';
+
+paragraph.style.fontSize = '18px';
+paragraph.style.color = '#ddd';
+paragraph.style.lineHeight = '1.5';
+
+// 4. Add multiple event listeners
+rootElement.addEventListener('click', function() {
+    this.style.backgroundColor = getRandomColor();
+    const timeStamp = document.createElement('p');
+    timeStamp.textContent = 'Clicked at: ' + new Date().toLocaleTimeString();
+    timeStamp.style.color = '#4CAF50';
+    timeStamp.style.fontSize = '16px';
+    timeStamp.style.marginTop = '5px';
+    this.appendChild(timeStamp);
+});
+
+rootElement.addEventListener('mouseover', function() {
+    this.style.transform = 'scale(1.05)';
+});
+
+rootElement.addEventListener('mouseout', function() {
+    this.style.transform = 'scale(1)';
+});
+
+// Helper function for random colors
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}</code></pre>
+    </div>
+
+    <!-- Live Demo -->
+    <div class="demo-section">
+        <h3>Live Demo:</h3>
+        <div id="root"></div>
+    </div>
+
+    <div class="explanation">
+        <h3>What's Happening Here?</h3>
+        <ol>
+            <li>We start with an empty div that has <code>id="root"</code></li>
+            <li>Using JavaScript, we:
+                <ul>
+                    <li>Create new elements (<code>createElement</code>)</li>
+                    <li>Set their content (<code>textContent</code>)</li>
+                    <li>Append them to our root element (<code>appendChild</code>)</li>
+                </ul>
+            </li>
+            <li>We style the element entirely through JavaScript</li>
+            <li>We add three different event listeners:
+                <ul>
+                    <li><code>click</code>: Changes background color and adds a timestamp</li>
+                    <li><code>mouseover</code>: Makes the element slightly larger</li>
+                    <li><code>mouseout</code>: Returns the element to its original size</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<script>
+    // Step 5 Demo Initialization
+    window.addEventListener('load', function() {
+        const rootElement = document.getElementById('root');
+        
+        // Create and append elements
+        const title = document.createElement('h3');
+        title.textContent = 'Interactive Element';
+        rootElement.appendChild(title);
+
+        const paragraph = document.createElement('p');
+        paragraph.textContent = 'Click me or hover over me!';
+        rootElement.appendChild(paragraph);
+
+        // Initial styles
+        rootElement.style.padding = '20px';
+        rootElement.style.border = '2px solid #4CAF50';
+        rootElement.style.borderRadius = '8px';
+        rootElement.style.cursor = 'pointer';
+        rootElement.style.backgroundColor = '#1e1e1e';
+        rootElement.style.transition = 'all 0.3s ease';
+        rootElement.style.fontFamily = 'Arial, sans-serif';
+        rootElement.style.color = '#ffffff';
+        rootElement.style.fontSize = '18px';
+        rootElement.style.margin = '20px';
+        rootElement.style.maxWidth = '600px';
+
+        // Style the title and paragraph
+        title.style.fontSize = '24px';
+        title.style.color = '#4CAF50';
+        title.style.marginBottom = '10px';
+
+        paragraph.style.fontSize = '18px';
+        paragraph.style.color = '#ddd';
+        paragraph.style.lineHeight = '1.5';
+
+        // Event listeners
+        rootElement.addEventListener('click', function() {
+            this.style.backgroundColor = getRandomColor();
+            const timeStamp = document.createElement('p');
+            timeStamp.textContent = 'Clicked at: ' + new Date().toLocaleTimeString();
+            timeStamp.style.color = '#4CAF50';
+            timeStamp.style.fontSize = '16px';
+            timeStamp.style.marginTop = '5px';
+            this.appendChild(timeStamp);
+        });
+
+        rootElement.addEventListener('mouseover', function() {
+            this.style.transform = 'scale(1.05)';
+        });
+
+        rootElement.addEventListener('mouseout', function() {
+            this.style.transform = 'scale(1)';
+        });
+    });
+
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+</script>
+<!-- Step 6: Converting to React -->
+<div id="step6" class="step-section">
+    <h2 style="font-size: 32px; color: #61DAFB; display: flex; align-items: center; gap: 10px;">
+        <svg viewBox="0 0 24 24" width="36" height="36">
+            <path fill="#61DAFB" d="M12 9.861A2.139 2.139 0 1 0 12 14.139 2.139 2.139 0 1 0 12 9.861zM6.008 16.255l-.472-.12C2.018 15.246 0 13.737 0 11.996s2.018-3.25 5.536-4.139l.472-.119.133.468a23.53 23.53 0 0 0 1.363 3.578l.101.213-.101.213a23.307 23.307 0 0 0-1.363 3.578l-.133.467zM5.317 8.95c-2.674.751-4.315 1.9-4.315 3.046 0 1.145 1.641 2.294 4.315 3.046a24.95 24.95 0 0 1 1.182-3.046A24.752 24.752 0 0 1 5.317 8.95zM17.992 16.255l-.133-.469a23.357 23.357 0 0 0-1.364-3.577l-.101-.213.101-.213a23.42 23.42 0 0 0 1.364-3.578l.133-.468.473.119c3.517.889 5.535 2.398 5.535 4.14s-2.018 3.25-5.535 4.139l-.473.12zm-.491-4.259c.48 1.039.877 2.06 1.182 3.046 2.675-.752 4.315-1.901 4.315-3.046 0-1.146-1.641-2.294-4.315-3.046a24.788 24.788 0 0 1-1.182 3.046zM5.31 8.945l-.133-.467C4.188 4.992 4.488 2.494 6 1.622c1.483-.856 3.864.155 6.359 2.716l.34.349-.34.349a23.552 23.552 0 0 0-2.422 2.967l-.135.193-.235.02a23.657 23.657 0 0 0-3.785.61l-.472.119zm1.896-6.63c-.268 0-.505.058-.705.173-.994.573-1.17 2.565-.485 5.253a25.122 25.122 0 0 1 3.233-.501 24.847 24.847 0 0 1 2.052-2.544c-1.56-1.519-3.037-2.381-4.095-2.381zM16.795 22.677c-.001 0-.001 0 0 0-1.425 0-3.255-1.073-5.154-3.023l-.34-.349.34-.349a23.53 23.53 0 0 0 2.421-2.968l.135-.193.235-.02a23.63 23.63 0 0 0 3.787-.609l.472-.119.134.468c.987 3.484.688 5.983-.824 6.854a2.38 2.38 0 0 1-1.205.308zm-4.096-3.381c1.56 1.519 3.037 2.381 4.095 2.381h.001c.267 0 .505-.058.704-.173.994-.573 1.171-2.566.485-5.254a25.02 25.02 0 0 1-3.234.501 24.674 24.674 0 0 1-2.051 2.545zM18.69 8.945l-.472-.119a23.479 23.479 0 0 0-3.787-.61l-.234-.02-.135-.193a23.414 23.414 0 0 0-2.421-2.967l-.34-.349.34-.349C14.135 1.778 16.515.767 18 1.622c1.512.872 1.812 3.37.824 6.855l-.134.468zM14.75 7.24c1.142.104 2.227.273 3.234.501.686-2.688.509-4.68-.485-5.253-.988-.571-2.845.304-4.8 2.208A24.849 24.849 0 0 1 14.75 7.24zM7.206 22.677A2.38 2.38 0 0 1 6 22.369c-1.512-.871-1.812-3.369-.823-6.854l.132-.468.472.119c1.155.291 2.429.496 3.785.609l.235.02.134.193a23.596 23.596 0 0 0 2.422 2.968l.34.349-.34.349c-1.898 1.95-3.728 3.023-5.151 3.023zm-1.19-6.427c-.686 2.688-.509 4.681.485 5.254.987.563 2.843-.305 4.8-2.208a24.998 24.998 0 0 1-2.052-2.545 24.976 24.976 0 0 1-3.233-.501zM12 16.878c-.823 0-1.669-.036-2.516-.106l-.235-.02-.135-.193a30.388 30.388 0 0 1-1.35-2.122 30.354 30.354 0 0 1-1.166-2.228l-.1-.213.1-.213a30.3 30.3 0 0 1 1.166-2.228c.414-.716.869-1.43 1.35-2.122l.135-.193.235-.02a29.785 29.785 0 0 1 5.033 0l.234.02.134.193a30.006 30.006 0 0 1 2.517 4.35l.101.213-.101.213a29.6 29.6 0 0 1-2.517 4.35l-.134.193-.234.02c-.847.07-1.694.106-2.517.106zm-2.197-1.084c1.48.111 2.914.111 4.395 0a29.006 29.006 0 0 0 2.196-3.798 28.585 28.585 0 0 0-2.197-3.798 29.031 29.031 0 0 0-4.394 0 28.477 28.477 0 0 0-2.197 3.798 29.114 29.114 0 0 0 2.197 3.798z"/>
+        </svg>
+        Step 6: Converting to React
+    </h2>
+
+    <div class="code-example">
+        <h3>Why Convert to React?</h3>
+        <div>
+            <p>Converting from pure JavaScript to React offers several significant advantages:</p>
+            <ul>
+                <li><strong style="color: #61DAFB">Component-Based Architecture:</strong> React's component structure makes code more reusable, maintainable, and easier to test.</li>
+                <li><strong style="color: #61DAFB">Virtual DOM:</strong> React's virtual DOM optimizes rendering performance by minimizing actual DOM manipulations.</li>
+                <li><strong style="color: #61DAFB">State Management:</strong> React provides efficient ways to manage application state with hooks and context.</li>
+                <li><strong style="color: #61DAFB">Declarative Syntax:</strong> Write what you want to achieve rather than how to achieve it, making code more readable.</li>
+                <li><strong style="color: #61DAFB">Rich Ecosystem:</strong> Access to a vast collection of libraries, tools, and community support.</li>
+            </ul>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <h3>Getting Started with React</h3>
+            <img src="https://legacy.reactjs.org/logo-og.png" alt="React Setup" style="max-width: 100%; border-radius: 8px; margin: 15px 0;">
+            <pre><code style="color: #61DAFB">
+<!-- 1. Include React Libraries -->
+&lt;script src="https://unpkg.com/react@17/umd/react.development.js">&lt;/script>
+&lt;script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js">&lt;/script>
+&lt;script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js">&lt;/script>
+
+<!-- 2. Create a root element -->
+&lt;div id="root">&lt;/div>
+
+<!-- 3. Write React code -->
+&lt;script type="text/babel">
+    function App() {
+        return &lt;h1>Hello React!&lt;/h1>;
+    }
+
+    ReactDOM.render(&lt;App />, document.getElementById('root'));
+&lt;/script>
+            </code></pre>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
