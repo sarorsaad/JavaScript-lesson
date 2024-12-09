@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation & Events Tutorial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .demo-box {
+            padding: 15px;
+            background-color: #f5f5f5;
+            margin: 10px 0;
+        }
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="mainTitle">DOM Manipulation & Events Tutorial</h1>
+
+    <!-- Section 1: getElementById Demo -->
+    <div class="section">
+        <h2>1. Selecting Elements with getElementById</h2>
+        <div class="demo-box">
+            <p id="demo1">This text will change when you click the button</p>
+            <button onclick="changeText()">Change Text</button>
+        </div>
+    </div>
+
+    <!-- Section 2: querySelector Demo -->
+    <div class="section">
+        <h2>2. Using querySelector</h2>
+        <div class="demo-box">
+            <p class="queryDemo">This element is selected by class</p>
+            <button id="querySelectorBtn">Change Style</button>
+        </div>
+    </div>
+
+    <!-- Section 3: Styling Elements -->
+    <div class="section">
+        <h2>3. Dynamic Styling</h2>
+        <div class="demo-box">
+            <p id="styleDemo">Watch me change styles!</p>
+            <button onclick="changeStyles()">Apply Styles</button>
+            <button onclick="resetStyles()">Reset Styles</button>
+        </div>
+    </div>
+
+    <!-- Section 4: Event Listeners -->
+    <div class="section">
+        <h2>4. Event Listeners</h2>
+        <div class="demo-box">
+            <div id="eventBox" style="width: 200px; height: 100px; background-color: #ddd;">
+                Hover over me!
+            </div>
+            <p id="eventStatus">Events will be logged here</p>
+        </div>
+    </div>
+
+    <script>
+        // Section 1: getElementById Demo
+        function changeText() {
+            const demoElement = document.getElementById('demo1');
+            demoElement.innerHTML = 'Text changed using getElementById!';
+        }
+
+        // Section 2: querySelector Demo
+        document.getElementById('querySelectorBtn').addEventListener('click', function() {
+            const element = document.querySelector('.queryDemo');
+            element.style.color = 'red';
+            element.style.fontWeight = 'bold';
+        });
+
+        // Section 3: Styling Elements
+        function changeStyles() {
+            const element = document.getElementById('styleDemo');
+            element.style.color = 'blue';
+            element.style.fontSize = '24px';
+            element.style.fontWeight = 'bold';
+            element.style.textShadow = '2px 2px 4px rgba(0,0,0,0.3)';
+        }
+
+        function resetStyles() {
+            const element = document.getElementById('styleDemo');
+            element.style.color = '';
+            element.style.fontSize = '';
+            element.style.fontWeight = '';
+            element.style.textShadow = '';
+        }
+
+        // Section 4: Event Listeners
+        const eventBox = document.getElementById('eventBox');
+        const eventStatus = document.getElementById('eventStatus');
+
+        eventBox.addEventListener('mouseover', function() {
+            this.style.backgroundColor = '#90EE90';
+            eventStatus.textContent = 'Mouse is over the box!';
+        });
+
+        eventBox.addEventListener('mouseout', function() {
+            this.style.backgroundColor = '#ddd';
+            eventStatus.textContent = 'Mouse left the box';
+        });
+
+        eventBox.addEventListener('click', function() {
+            this.style.backgroundColor = '#87CEEB';
+            eventStatus.textContent = 'Box was clicked!';
+        });
+    </script>
+</body>
+</html>

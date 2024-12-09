@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation Steps</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .step-section {
+            border: 1px solid #ddd;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .code-example {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .selector-image {
+            max-width: 100%;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            display: none;
+            transition: all 1s ease;
+        }
+        .selector-image.moving {
+            display: block;
+            animation: moveToContainer 2s forwards;
+        }
+        .method-images {
+            position: relative;
+            height: 200px;
+            margin: 20px 0;
+        }
+        .container-image {
+            max-width: 300px;
+            margin: 20px auto;
+            display: block;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .container-image.visible {
+            opacity: 1;
+        }
+        .stored-images {
+            position: relative;
+            height: 0;
+            overflow: hidden;
+            transition: height 1s ease;
+        }
+        .stored-images.visible {
+            height: 200px;
+        }
+        @keyframes moveToContainer {
+            0% {
+                transform: scale(1) translate(0, 0);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(0.8) translate(25%, 25%);
+                opacity: 0.9;
+            }
+            100% {
+                transform: scale(0.6) translate(50%, 50%);
+                opacity: 0;
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .code-playground {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+        }
+        .code-input {
+            width: 100%;
+            min-height: 80px;
+            font-family: monospace;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background: #282c34;
+            color: #fff;
+        }
+        .output-preview {
+            margin: 10px 0;
+            padding: 15px;
+            border: 2px dashed #ced4da;
+            border-radius: 4px;
+            background: white;
+        }
+        .code-label {
+            font-weight: bold;
+            color: #495057;
+            margin: 5px 0;
+        }
+        .style-playground {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+        }
+        .style-properties {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .style-property {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .style-property input {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+        .style-property label {
+            min-width: 80px;
+            font-size: 14px;
+        }
+        .style-preview {
+            margin: 15px 0;
+            padding: 20px;
+            border: 2px dashed #ced4da;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .event-playground {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+        }
+        .event-demo {
+            padding: 20px;
+            margin: 15px 0;
+            border: 2px dashed #ced4da;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .event-demo:hover {
+            background: #e9ecef;
+        }
+        .event-log {
+            margin: 10px 0;
+            padding: 10px;
+            background: #282c34;
+            color: #fff;
+            border-radius: 4px;
+            font-family: monospace;
+            min-height: 100px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .event-log p {
+            margin: 5px 0;
+            padding: 0;
+        }
+        .event-log .timestamp {
+            color: #888;
+        }
+        .diagram-container {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .diagram-box {
+            flex: 1;
+            min-width: 300px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        .diagram-box.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <h1>DOM Manipulation Steps Tutorial</h1>
+
+    <!-- Step 1: Selecting Elements -->
+    <div class="step-section">
+        <h2>Step 1: Select HTML Elements</h2>
+
+        <!-- By ID Example -->
+        <div class="code-example">
+            <h3>Select by ID:</h3>
+            <p id="textById">This text will be changed using getElementById</p>
+            <button onclick="changeTextById()">Change Text (ID)</button>
+            <img src="images/getelementbyid.svg" alt="getElementById" class="selector-image" id="getElementById-image">
+        </div>
+
+        <!-- By Selector Example -->
+        <div class="code-example">
+            <h3>Select by Selector:</h3>
+            <p class="selector-demo">This text will be changed using querySelector</p>
+            <button onclick="changeTextBySelector()">Change Text (Selector)</button>
+            <img src="images/css-selectors.svg" alt="CSS Selectors" class="selector-image" id="querySelector-image">
+        </div>
+    </div>
+
+    <!-- Step 2: Store Elements in Variables -->
+    <div class="step-section">
+        <h2>Step 2: Store Elements in Variables</h2>
+        <div class="code-example">
+            <h3>Using Variables:</h3>
+            <p id="variableDemo">This element will be stored in a variable</p>
+            <button onclick="demonstrateVariables()">Store in Variable</button>
+            
+            <div class="method-images">
+                <img src="images/css-selectors.svg" alt="CSS Selectors" class="selector-image" id="querySelector-store">
+                <img src="images/getelementbyid.svg" alt="getElementById" class="selector-image" id="getElementById-store">
+            </div>
+            
+            <div class="stored-images">
+                <img src="images/variable-container.svg" alt="Variable Container" class="container-image">
+                <div class="stored-content"></div>
+            </div>
+
+            <div class="variable-info" style="display: none; margin-top: 10px; padding: 10px; background: #e8f5e9; border-radius: 5px;">
+                <p>✨ Elements are now stored in the variable container!</p>
+                <code>const queryElement = document.querySelector('.selector');</code><br>
+                <code>const idElement = document.getElementById('myId');</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 3: Modify Elements -->
+    <div class="step-section">
+        <h2>Step 3: Modify Elements</h2>
+        
+        <!-- innerHTML Example -->
+        <div class="code-example">
+            <h3>Change innerHTML:</h3>
+            <p id="innerHTMLDemo">Original Text (click to see innerHTML)</p>
+            <button onclick="changeInnerHTML()">Change Inner HTML</button>
+            <img src="images/inner-html.svg" alt="innerHTML Diagram" class="selector-image" id="innerHTML-image">
+            
+            <!-- Interactive Code Playground -->
+            <div class="code-playground" style="display: none;" id="innerHTML-playground">
+                <div class="code-label">📝 Try your own innerHTML code:</div>
+                <textarea class="code-input" id="innerHTML-code">element.innerHTML = 'Text changed with <strong>innerHTML</strong>!';</textarea>
+                <button onclick="runCustomInnerHTML()">Run Code</button>
+                
+                <div class="code-label">Output:</div>
+                <div class="output-preview" id="innerHTML-output">
+                    Original Text
+                </div>
+            </div>
+
+            <div class="html-info" style="display: none; margin-top: 10px; padding: 10px; background: #fff3e0; border-radius: 5px;">
+                <p>📝 innerHTML allows you to modify the HTML content inside an element</p>
+                <code>element.innerHTML = 'Text changed with &lt;strong&gt;innerHTML&lt;/strong&gt;!';</code>
+            </div>
+        </div>
+
+        <!-- Style Example -->
+        <div class="code-example">
+            <h3>Change Style:</h3>
+            <div class="style-preview" id="styleDemo">Style will be changed</div>
+            <button onclick="toggleStylePlayground()">Try Styling</button>
+            
+            <!-- Interactive Style Playground -->
+            <div class="style-playground" style="display: none;" id="style-playground">
+                <div class="code-label">🎨 Customize styles:</div>
+                <div class="style-properties">
+                    <div class="style-property">
+                        <label>Color:</label>
+                        <input type="color" id="textColor" onchange="updateStyle()">
+                    </div>
+                    <div class="style-property">
+                        <label>Font Size:</label>
+                        <input type="range" min="12" max="48" value="16" id="fontSize" onchange="updateStyle()">
+                    </div>
+                    <div class="style-property">
+                        <label>Background:</label>
+                        <input type="color" id="bgColor" value="#ffffff" onchange="updateStyle()">
+                    </div>
+                    <div class="style-property">
+                        <label>Padding:</label>
+                        <input type="range" min="0" max="50" value="20" id="padding" onchange="updateStyle()">
+                    </div>
+                    <div class="style-property">
+                        <label>Border:</label>
+                        <input type="range" min="0" max="20" value="2" id="border" onchange="updateStyle()">
+                    </div>
+                    <div class="style-property">
+                        <label>Radius:</label>
+                        <input type="range" min="0" max="50" value="4" id="radius" onchange="updateStyle()">
+                    </div>
+                </div>
+
+                <div class="code-label">Generated Code:</div>
+                <textarea class="code-input" id="style-code" readonly></textarea>
+                <button onclick="resetStyle()">Reset Styles</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 4: Event Listeners -->
+    <div class="step-section">
+        <h2>Step 4: Add Event Listeners</h2>
+        <div class="code-example">
+            <div class="event-playground">
+                <div class="diagram-container">
+                    <div class="diagram-box" id="flow-diagram">
+                        <h3>Event Flow</h3>
+                        <img src="images/event-flow.svg" alt="Event Flow" style="width: 100%">
+                    </div>
+                    <div class="diagram-box" id="syntax-diagram">
+                        <h3>Event Listener Syntax</h3>
+                        <img src="images/event-syntax.svg" alt="Event Syntax" style="width: 100%">
+                    </div>
+                </div>
+
+                <div class="event-demo" id="eventDemo">
+                    Interact with me! (click, hover, or press keys)
+                </div>
+
+                <div class="code-label">Event Log:</div>
+                <div class="event-log" id="eventLog"></div>
+
+                <div class="code-label">Event Listener Code:</div>
+                <textarea class="code-input" id="event-code" readonly></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Step 1: Selecting Elements Examples
+        function changeTextById() {
+            const demoElement = document.getElementById('textById');
+            const image = document.getElementById('getElementById-image');
+            
+            if (demoElement) {
+                // Toggle text and image
+                if (demoElement.innerHTML === 'This text will be changed using getElementById') {
+                    demoElement.innerHTML = 'Text changed using getElementById!';
+                    image.classList.add('visible');
+                } else {
+                    demoElement.innerHTML = 'This text will be changed using getElementById';
+                    image.classList.remove('visible');
+                }
+            }
+        }
+
+        function changeTextBySelector() {
+            const element = document.querySelector('.selector-demo');
+            const image = document.getElementById('querySelector-image');
+            
+            if (element) {
+                // Toggle text and image
+                if (element.innerHTML === 'This text will be changed using querySelector') {
+                    element.innerHTML = 'Text changed using querySelector!';
+                    image.classList.add('visible');
+                } else {
+                    element.innerHTML = 'This text will be changed using querySelector';
+                    image.classList.remove('visible');
+                }
+            }
+        }
+
+        // Step 2: Store Elements in Variables Example
+        function demonstrateVariables() {
+            const demoElement = document.getElementById('variableDemo');
+            const querySelectorImage = document.getElementById('querySelector-store');
+            const getElementByIdImage = document.getElementById('getElementById-store');
+            const storedImages = document.querySelector('.stored-images');
+            const containerImage = document.querySelector('.container-image');
+            const info = document.querySelector('.variable-info');
+            
+            if (demoElement) {
+                if (demoElement.innerHTML === 'This element will be stored in a variable') {
+                    // Step 1: Show container
+                    storedImages.classList.add('visible');
+                    setTimeout(() => {
+                        containerImage.classList.add('visible');
+                    }, 100);
+
+                    // Step 2: Show and animate images
+                    setTimeout(() => {
+                        querySelectorImage.style.display = 'block';
+                        getElementByIdImage.style.display = 'block';
+                        
+                        setTimeout(() => {
+                            querySelectorImage.classList.add('moving');
+                            getElementByIdImage.classList.add('moving');
+                        }, 100);
+                    }, 1000);
+
+                    demoElement.innerHTML = 'Elements are now being stored in variables!';
+                    demoElement.style.color = 'blue';
+                    
+                    // Show info after animation
+                    setTimeout(() => {
+                        info.style.display = 'block';
+                    }, 3000);
+                } else {
+                    // Reset everything
+                    querySelectorImage.classList.remove('moving');
+                    getElementByIdImage.classList.remove('moving');
+                    containerImage.classList.remove('visible');
+                    
+                    setTimeout(() => {
+                        storedImages.classList.remove('visible');
+                        querySelectorImage.style.display = 'none';
+                        getElementByIdImage.style.display = 'none';
+                        info.style.display = 'none';
+                    }, 1000);
+
+                    demoElement.innerHTML = 'This element will be stored in a variable';
+                    demoElement.style.color = '';
+                }
+            }
+        }
+
+        // Step 3: Modify Elements Examples
+        function changeInnerHTML() {
+            const element = document.getElementById('innerHTMLDemo');
+            const image = document.getElementById('innerHTML-image');
+            const info = element.parentElement.querySelector('.html-info');
+            const playground = document.getElementById('innerHTML-playground');
+            
+            if (element.innerHTML === 'Original Text (click to see innerHTML)') {
+                element.innerHTML = 'Text changed with <strong>innerHTML</strong>!';
+                image.classList.add('visible');
+                info.style.display = 'block';
+                playground.style.display = 'block';
+            } else {
+                element.innerHTML = 'Original Text (click to see innerHTML)';
+                image.classList.remove('visible');
+                info.style.display = 'none';
+                playground.style.display = 'none';
+            }
+        }
+
+        function runCustomInnerHTML() {
+            const codeInput = document.getElementById('innerHTML-code');
+            const outputElement = document.getElementById('innerHTML-output');
+            
+            try {
+                // Extract the content after the equals sign
+                const codeText = codeInput.value;
+                const contentMatch = codeText.match(/innerHTML\s*=\s*['"](.*)['"];?/);
+                
+                if (contentMatch && contentMatch[1]) {
+                    outputElement.innerHTML = contentMatch[1];
+                    outputElement.style.color = '#000';
+                } else {
+                    throw new Error('Invalid innerHTML format. Use: element.innerHTML = "your content";');
+                }
+            } catch (error) {
+                outputElement.innerHTML = '❌ ' + error.message;
+                outputElement.style.color = '#dc3545';
+            }
+        }
+
+        function toggleStylePlayground() {
+            const playground = document.getElementById('style-playground');
+            playground.style.display = playground.style.display === 'none' ? 'block' : 'none';
+            if (playground.style.display === 'block') {
+                updateStyle(); // Initialize with current values
+            }
+        }
+
+        function updateStyle() {
+            const element = document.getElementById('styleDemo');
+            const textColor = document.getElementById('textColor').value;
+            const fontSize = document.getElementById('fontSize').value;
+            const bgColor = document.getElementById('bgColor').value;
+            const padding = document.getElementById('padding').value;
+            const border = document.getElementById('border').value;
+            const radius = document.getElementById('radius').value;
+
+            // Apply styles
+            element.style.color = textColor;
+            element.style.fontSize = `${fontSize}px`;
+            element.style.backgroundColor = bgColor;
+            element.style.padding = `${padding}px`;
+            element.style.border = `${border}px solid #333`;
+            element.style.borderRadius = `${radius}px`;
+
+            // Update code preview
+            const codePreview = document.getElementById('style-code');
+            codePreview.value = `element.style.color = '${textColor}';\n` +
+                               `element.style.fontSize = '${fontSize}px';\n` +
+                               `element.style.backgroundColor = '${bgColor}';\n` +
+                               `element.style.padding = '${padding}px';\n` +
+                               `element.style.border = '${border}px solid #333';\n` +
+                               `element.style.borderRadius = '${radius}px';`;
+        }
+
+        function resetStyle() {
+            const element = document.getElementById('styleDemo');
+            const inputs = document.querySelectorAll('.style-property input');
+            
+            // Reset all inputs to default values
+            inputs.forEach(input => {
+                if (input.type === 'color') {
+                    input.value = input.id === 'textColor' ? '#000000' : '#ffffff';
+                } else if (input.type === 'range') {
+                    input.value = input.id === 'fontSize' ? '16' :
+                                input.id === 'padding' ? '20' :
+                                input.id === 'border' ? '2' : '4';
+                }
+            });
+
+            // Reset element styles
+            element.style = '';
+            updateStyle();
+        }
+
+        // Event Listener Demo
+        window.onload = function() {
+            const demoBox = document.getElementById('eventDemo');
+            const eventLog = document.getElementById('eventLog');
+            const eventCode = document.getElementById('event-code');
+            const flowDiagram = document.getElementById('flow-diagram');
+            const syntaxDiagram = document.getElementById('syntax-diagram');
+            
+            // Show diagrams with animation
+            setTimeout(() => {
+                flowDiagram.classList.add('visible');
+                setTimeout(() => {
+                    syntaxDiagram.classList.add('visible');
+                }, 200);
+            }, 500);
+
+            function logEvent(eventType, details = '') {
+                const timestamp = new Date().toLocaleTimeString();
+                const log = document.createElement('p');
+                log.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${eventType} ${details}`;
+                eventLog.insertBefore(log, eventLog.firstChild);
+                
+                // Update code preview
+                eventCode.value = `element.addEventListener('${eventType}', function(event) {\n` +
+                                `    console.log('${eventType} event occurred');\n` +
+                                `    // Add your code here\n` +
+                                `});`;
+            }
+
+            // Add event listeners
+            demoBox.addEventListener('click', function(event) {
+                logEvent('click', `at (${event.offsetX}, ${event.offsetY})`);
+                this.style.backgroundColor = '#e3f2fd';
+                setTimeout(() => this.style.backgroundColor = '', 200);
+            });
+
+            demoBox.addEventListener('mouseover', function() {
+                logEvent('mouseover');
+            });
+
+            demoBox.addEventListener('mouseout', function() {
+                logEvent('mouseout');
+            });
+
+            document.addEventListener('keydown', function(event) {
+                if (document.activeElement !== eventCode) {
+                    logEvent('keydown', `Key: ${event.key}`);
+                }
+            });
+        };
+    </script>
+</body>
+</html>

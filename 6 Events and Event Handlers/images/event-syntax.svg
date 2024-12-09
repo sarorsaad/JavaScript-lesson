@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="300">
+    <rect width="100%" height="100%" fill="#ffffff"/>
+    
+    <!-- Title -->
+    <text x="400" y="50" text-anchor="middle" font-family="Arial" font-size="36" fill="#4285f4">Syntax of Event Listener</text>
+    
+    <!-- Main Syntax Box -->
+    <rect x="50" y="100" width="700" height="60" fill="#fff" stroke="#333" stroke-width="2"/>
+    <text x="60" y="140" font-family="monospace" font-size="24">
+        <tspan fill="#ff4444">element</tspan>
+        <tspan fill="#000">.addEventListener(</tspan>
+        <tspan fill="#ff4444">&lt;eventName&gt;</tspan>
+        <tspan fill="#000">,</tspan>
+        <tspan fill="#2196f3">callback</tspan>
+        <tspan fill="#000">,{</tspan>
+        <tspan fill="#4caf50">capture:boolean</tspan>
+        <tspan fill="#000">})</tspan>
+    </text>
+    
+    <!-- Explanation Labels -->
+    <rect x="50" y="200" width="300" height="30" fill="#fff" stroke="#4caf50" stroke-width="2"/>
+    <text x="60" y="220" font-family="Arial" font-size="14">element, in which event attached</text>
+    
+    <rect x="50" y="240" width="300" height="30" fill="#fff" stroke="#ff4444" stroke-width="2"/>
+    <text x="60" y="260" font-family="Arial" font-size="14">It can be 'click','key up','key down' etc.</text>
+    
+    <rect x="400" y="200" width="300" height="30" fill="#fff" stroke="#2196f3" stroke-width="2"/>
+    <text x="410" y="220" font-family="Arial" font-size="14">This function fires after the event happened</text>
+    
+    <rect x="400" y="240" width="300" height="30" fill="#fff" stroke="#4caf50" stroke-width="2"/>
+    <text x="410" y="260" font-family="Arial" font-size="14">It tells event phase</text>
+</svg>

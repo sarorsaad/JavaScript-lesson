@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="150">
+    <rect width="100%" height="100%" fill="#282c34"/>
+    <text x="30" y="40" fill="#98c379" font-family="monospace" font-size="24">CSS Selectors</text>
+    <text x="30" y="80" fill="#e06c75" font-family="monospace" font-size="20">document</text>
+    <text x="130" y="80" fill="#56b6c2" font-family="monospace" font-size="20">.querySelector()</text>
+    <text x="30" y="120" fill="#e06c75" font-family="monospace" font-size="20">document</text>
+    <text x="130" y="120" fill="#56b6c2" font-family="monospace" font-size="20">.querySelectorAll()</text>
+</svg>

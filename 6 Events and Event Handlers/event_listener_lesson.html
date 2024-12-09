@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Listener Tutorial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .lesson-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .demo-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .primary-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .hover-btn {
+            background-color: #2196F3;
+            color: white;
+        }
+        .counter-btn {
+            background-color: #9C27B0;
+            color: white;
+        }
+        .event-box {
+            width: 100px;
+            height: 100px;
+            background-color: #ff9800;
+            margin: 20px auto;
+            transition: all 0.3s;
+        }
+        .highlight {
+            background-color: #ffeb3b;
+            transform: scale(1.1);
+        }
+        .code-block {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            margin: 10px 0;
+            position: relative;
+            line-height: 1.5;
+        }
+        .code-line {
+            padding: 2px 5px;
+            transition: background-color 0.3s;
+            border-radius: 3px;
+        }
+        .code-line.active {
+            background-color: #2c4f2c;
+            animation: highlight 1s ease;
+        }
+        @keyframes highlight {
+            0% { background-color: #2c4f2c; }
+            50% { background-color: #3c6e3c; }
+            100% { background-color: #2c4f2c; }
+        }
+        .comment { color: #6a9955; }
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .function { color: #dcdcaa; }
+        #counter-display {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        .argument-box {
+            border: 2px solid #4CAF50;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+        }
+        .argument-title {
+            color: #2196F3;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .event-type-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .event-type {
+            padding: 5px 10px;
+            background-color: #e1f5fe;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .event-type:hover {
+            background-color: #81d4fa;
+        }
+        .event-type.active {
+            background-color: #29b6f6;
+            color: white;
+        }
+        .demo-box {
+            width: 150px;
+            height: 150px;
+            background-color: #9575cd;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .capture-indicator {
+            position: fixed;
+            background: rgba(76, 175, 80, 0.9);
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+            z-index: 1000;
+        }
+        .diagram-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            position: relative;
+        }
+        .diagram-svg {
+            width: 100%;
+            height: 400px;
+        }
+        .diagram-arrow {
+            stroke-dasharray: 10;
+            animation: dash 1s linear infinite;
+        }
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -20;
+            }
+        }
+        .diagram-box {
+            fill: white;
+            stroke: #2196F3;
+            stroke-width: 2;
+            rx: 5;
+        }
+        .diagram-text {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        .diagram-highlight {
+            animation: highlight 2s ease infinite;
+        }
+        @keyframes highlight {
+            0%, 100% { fill: #4CAF50; fill-opacity: 0.1; }
+            50% { fill: #4CAF50; fill-opacity: 0.3; }
+        }
+        .callback-demo {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .callback-visual {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        .callback-step {
+            background: white;
+            padding: 15px;
+            border: 2px solid #2196F3;
+            border-radius: 8px;
+            width: 200px;
+            text-align: center;
+            position: relative;
+        }
+        .callback-arrow {
+            width: 50px;
+            height: 2px;
+            background: #2196F3;
+            position: relative;
+            animation: flowArrow 2s infinite;
+        }
+        .callback-arrow::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -4px;
+            border: 5px solid transparent;
+            border-left-color: #2196F3;
+        }
+        @keyframes flowArrow {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+        .callback-output {
+            min-height: 100px;
+            background: #1e1e1e;
+            color: #fff;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin-top: 20px;
+        }
+        .callback-type {
+            display: inline-block;
+            padding: 5px 15px;
+            margin: 5px;
+            background: #e3f2fd;
+            border: 1px solid #2196F3;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .callback-type:hover {
+            background: #bbdefb;
+        }
+        .callback-type.active {
+            background: #2196F3;
+            color: white;
+        }
+        .event-info {
+            position: absolute;
+            background: rgba(33, 150, 243, 0.9);
+            color: white;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <div style="background: #e3f2fd; padding: 10px; border-radius: 4px; margin-bottom: 20px;">
+            <p style="margin: 0;">
+                Reference: <a href="https://copilot.microsoft.com/chats/dRZyJqyCZbMkLiMtNEAwz" target="_blank" style="color: #2196F3; text-decoration: none;">Microsoft Copilot Chat - Event Listeners Tutorial</a>
+            </p>
+        </div>
+
+        <h1>Interactive Event Listeners Tutorial</h1>
+
+        <div class="demo-section">
+            <h2>Understanding addEventListener Arguments</h2>
+            
+            <div class="diagram-container">
+                <svg class="diagram-svg" viewBox="0 0 800 400">
+                    <!-- Main addEventListener box -->
+                    <rect x="250" y="150" width="300" height="60" class="diagram-box"/>
+                    <text x="400" y="185" text-anchor="middle" class="diagram-text">
+                        element.addEventListener(type, callback, options)
+                    </text>
+
+                    <!-- Argument 1: Event Type -->
+                    <rect x="50" y="50" width="200" height="80" class="diagram-box diagram-highlight"/>
+                    <text x="150" y="85" text-anchor="middle" class="diagram-text">
+                        <tspan x="150" dy="0">Argument 1: Event Type</tspan>
+                        <tspan x="150" dy="25">'click', 'mouseover'</tspan>
+                    </text>
+                    <path d="M150 130 L300 150" class="diagram-arrow" 
+                          stroke="#2196F3" stroke-width="2" fill="none"/>
+
+                    <!-- Argument 2: Callback Function -->
+                    <rect x="300" y="50" width="200" height="80" class="diagram-box diagram-highlight"/>
+                    <text x="400" y="85" text-anchor="middle" class="diagram-text">
+                        <tspan x="400" dy="0">Argument 2: Callback</tspan>
+                        <tspan x="400" dy="25">function() { ... }</tspan>
+                    </text>
+                    <path d="M400 130 L400 150" class="diagram-arrow" 
+                          stroke="#2196F3" stroke-width="2" fill="none"/>
+
+                    <!-- Argument 3: Options -->
+                    <rect x="550" y="50" width="200" height="80" class="diagram-box diagram-highlight"/>
+                    <text x="650" y="85" text-anchor="middle" class="diagram-text">
+                        <tspan x="650" dy="0">Argument 3: Options</tspan>
+                        <tspan x="650" dy="25">{ capture, once }</tspan>
+                    </text>
+                    <path d="M650 130 L500 150" class="diagram-arrow" 
+                          stroke="#2196F3" stroke-width="2" fill="none"/>
+
+                    <!-- Event Flow Visualization -->
+                    <rect x="250" y="250" width="300" height="100" class="diagram-box"/>
+                    <text x="400" y="280" text-anchor="middle" class="diagram-text">
+                        <tspan x="400" dy="0">Event Flow</tspan>
+                        <tspan x="400" dy="25">1. Capture Phase ↓</tspan>
+                        <tspan x="400" dy="25">2. Target Phase ●</tspan>
+                        <tspan x="400" dy="25">3. Bubble Phase ↑</tspan>
+                    </text>
+                    <path d="M400 210 L400 250" class="diagram-arrow" 
+                          stroke="#2196F3" stroke-width="2" fill="none"/>
+                </svg>
+            </div>
+
+            <div class="argument-box">
+                <div class="argument-title">Argument 1: Event Type</div>
+                <p>The type of event you want to listen for (e.g., 'click', 'mouseover')</p>
+                <div class="event-type-list">
+                    <span class="event-type" data-event="click">click</span>
+                    <span class="event-type" data-event="mouseover">mouseover</span>
+                    <span class="event-type" data-event="mouseout">mouseout</span>
+                </div>
+                <div class="demo-box" id="eventTypeDemo">
+                    Try clicking or hovering!<br>
+                    Active events will be shown here
+                </div>
+                <div class="code-block">
+                    <div class="code-line" data-line="1"><span class="comment">// Select element and add event listener</span></div>
+                    <div class="code-line" data-line="2">element.<span class="function">addEventListener</span>(<span class="string">'<span id="eventTypeCode">click</span>'</span>, callback);</div>
+                </div>
+            </div>
+
+            <div class="argument-box">
+                <div class="argument-title">Argument 2: Callback Function</div>
+                <p>The function that runs when the event occurs:</p>
+                <button id="callbackDemo" class="primary-btn">Click to Test Callback</button>
+                <div class="code-block">
+                    <div class="code-line" data-line="1"><span class="keyword">function</span> <span class="function">handleClick</span>() {</div>
+                    <div class="code-line" data-line="2">&nbsp;&nbsp;&nbsp;&nbsp;<span class="function">alert</span>(<span class="string">'Button was clicked!'</span>);</div>
+                    <div class="code-line" data-line="3">}</div>
+                    <div class="code-line" data-line="4"></div>
+                    <div class="code-line" data-line="5">button.<span class="function">addEventListener</span>(<span class="string">'click'</span>, handleClick);</div>
+                </div>
+            </div>
+
+            <div class="argument-box">
+                <div class="argument-title">Argument 3: Options (Optional)</div>
+                <p>Additional settings for the event listener:</p>
+                <div style="position: relative; border: 2px solid #2196F3; padding: 20px; margin: 10px 0;">
+                    <button id="optionsDemo" class="primary-btn">Click Once Only</button>
+                </div>
+                <div class="code-block">
+                    <div class="code-line" data-line="1">button.<span class="function">addEventListener</span>(<span class="string">'click'</span>, handleClick, {</div>
+                    <div class="code-line" data-line="2">&nbsp;&nbsp;&nbsp;&nbsp;once: <span class="keyword">true</span>&nbsp;&nbsp;<span class="comment">// Event will only fire once</span></div>
+                    <div class="code-line" data-line="3">});</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>1. Basic Click Event</h2>
+            <p>Click the button below to see the code execution in real-time:</p>
+            <button id="basicBtn" class="primary-btn">Click Me!</button>
+            <div class="code-block">
+                <div class="code-line" data-line="1"><span class="comment">// Select the button element</span></div>
+                <div class="code-line" data-line="2"><span class="keyword">const</span> button = <span class="function">document.querySelector</span>(<span class="string">'#basicBtn'</span>);</div>
+                <div class="code-line" data-line="3"></div>
+                <div class="code-line" data-line="4"><span class="comment">// Add click event listener</span></div>
+                <div class="code-line" data-line="5">button.<span class="function">addEventListener</span>(<span class="string">'click'</span>, () => {</div>
+                <div class="code-line" data-line="6">&nbsp;&nbsp;&nbsp;&nbsp;<span class="function">alert</span>(<span class="string">'Button clicked!'</span>);</div>
+                <div class="code-line" data-line="7">});</div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>2. Mouse Events</h2>
+            <p>Hover over the box to see the code execution:</p>
+            <div id="hoverBox" class="event-box"></div>
+            <div class="code-block">
+                <div class="code-line" data-line="1"><span class="keyword">const</span> box = <span class="function">document.querySelector</span>(<span class="string">'#hoverBox'</span>);</div>
+                <div class="code-line" data-line="2"></div>
+                <div class="code-line" data-line="3"><span class="comment">// Mouse over event</span></div>
+                <div class="code-line" data-line="4">box.<span class="function">addEventListener</span>(<span class="string">'mouseover'</span>, () => {</div>
+                <div class="code-line" data-line="5">&nbsp;&nbsp;&nbsp;&nbsp;box.classList.<span class="function">add</span>(<span class="string">'highlight'</span>);</div>
+                <div class="code-line" data-line="6">});</div>
+                <div class="code-line" data-line="7"></div>
+                <div class="code-line" data-line="8"><span class="comment">// Mouse out event</span></div>
+                <div class="code-line" data-line="9">box.<span class="function">addEventListener</span>(<span class="string">'mouseout'</span>, () => {</div>
+                <div class="code-line" data-line="10">&nbsp;&nbsp;&nbsp;&nbsp;box.classList.<span class="function">remove</span>(<span class="string">'highlight'</span>);</div>
+                <div class="code-line" data-line="11">});</div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>3. Counter Example</h2>
+            <p>Click the button to see state management in action:</p>
+            <div id="counter-display">0</div>
+            <button id="counterBtn" class="counter-btn">Increment Counter</button>
+            <div class="code-block">
+                <div class="code-line" data-line="1"><span class="keyword">let</span> count = 0;</div>
+                <div class="code-line" data-line="2"><span class="keyword">const</span> counterBtn = <span class="function">document.querySelector</span>(<span class="string">'#counterBtn'</span>);</div>
+                <div class="code-line" data-line="3"><span class="keyword">const</span> display = <span class="function">document.querySelector</span>(<span class="string">'#counter-display'</span>);</div>
+                <div class="code-line" data-line="4"></div>
+                <div class="code-line" data-line="5">counterBtn.<span class="function">addEventListener</span>(<span class="string">'click'</span>, () => {</div>
+                <div class="code-line" data-line="6">&nbsp;&nbsp;&nbsp;&nbsp;count++;</div>
+                <div class="code-line" data-line="7">&nbsp;&nbsp;&nbsp;&nbsp;display.textContent = count;</div>
+                <div class="code-line" data-line="8">});</div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>Understanding Callback Functions in Event Listeners</h2>
+            
+            <div class="callback-demo">
+                <h3>What is a Callback Function?</h3>
+                <p>A callback function is code that runs when an event occurs. Let's see different types of callbacks:</p>
+                
+                <div class="callback-types">
+                    <span class="callback-type" data-type="simple">Simple Function</span>
+                    <span class="callback-type" data-type="event">Event Object</span>
+                    <span class="callback-type" data-type="arrow">Arrow Function</span>
+                </div>
+
+                <div class="callback-visual">
+                    <div class="callback-step" id="eventStep">
+                        Event Occurs
+                        <br>
+                        <small>(click, mouseover, etc.)</small>
+                    </div>
+                    <div class="callback-arrow"></div>
+                    <div class="callback-step" id="callbackStep">
+                        Callback Executes
+                        <br>
+                        <small>function() { ... }</small>
+                    </div>
+                    <div class="callback-arrow"></div>
+                    <div class="callback-step" id="resultStep">
+                        Result
+                        <br>
+                        <small>(DOM updates, alerts, etc.)</small>
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-line" data-line="1" id="callbackCode">
+                        <span class="comment">// Select callback type above to see code</span>
+                    </div>
+                </div>
+
+                <div class="callback-output" id="callbackOutput">
+                    Click the callback types above to see them in action...
+                </div>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>Try it yourself!</h3>
+                <button id="demoButton" class="primary-btn">Interactive Button</button>
+                <div id="demoBox" style="width: 100px; height: 100px; background: #9c27b0; margin: 20px; cursor: pointer;"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Function to highlight code lines
+        function highlightCodeLine(codeBlock, lineNumbers, duration = 1000) {
+            const lines = codeBlock.querySelectorAll('.code-line');
+            lines.forEach(line => line.classList.remove('active'));
+            
+            lineNumbers.forEach((lineNum, index) => {
+                setTimeout(() => {
+                    const line = codeBlock.querySelector(`[data-line="${lineNum}"]`);
+                    if (line) {
+                        line.classList.add('active');
+                        setTimeout(() => line.classList.remove('active'), duration);
+                    }
+                }, index * (duration / 2));
+            });
+        }
+
+        // Basic Click Event
+        const basicBtn = document.getElementById('basicBtn');
+        const basicCodeBlock = basicBtn.nextElementSibling;
+        
+        basicBtn.addEventListener('click', () => {
+            highlightCodeLine(basicCodeBlock, [1, 2, 4, 5, 6, 7]);
+            basicBtn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                basicBtn.style.transform = 'scale(1)';
+                alert('Button clicked! This is a basic event listener.');
+            }, 200);
+        });
+
+        // Mouse Events
+        const hoverBox = document.getElementById('hoverBox');
+        const hoverCodeBlock = hoverBox.nextElementSibling;
+        
+        hoverBox.addEventListener('mouseover', () => {
+            highlightCodeLine(hoverCodeBlock, [1, 3, 4, 5, 6]);
+            hoverBox.classList.add('highlight');
+        });
+
+        hoverBox.addEventListener('mouseout', () => {
+            highlightCodeLine(hoverCodeBlock, [1, 8, 9, 10, 11]);
+            hoverBox.classList.remove('highlight');
+        });
+
+        // Counter Example
+        const counterBtn = document.getElementById('counterBtn');
+        const counterDisplay = document.getElementById('counter-display');
+        const counterCodeBlock = counterBtn.nextElementSibling;
+        let count = 0;
+        
+        counterBtn.addEventListener('click', () => {
+            highlightCodeLine(counterCodeBlock, [1, 2, 3, 5, 6, 7, 8]);
+            count++;
+            counterDisplay.textContent = count;
+            counterBtn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                counterBtn.style.transform = 'scale(1)';
+            }, 200);
+        });
+
+        // Simplified Event Type Demo
+        const eventTypeDemo = document.getElementById('eventTypeDemo');
+        const eventTypes = document.querySelectorAll('.event-type');
+        const eventTypeCode = document.getElementById('eventTypeCode');
+        const activeEvents = new Set();
+
+        function updateEventDisplay() {
+            eventTypeDemo.innerHTML = `Try clicking or hovering!<br>Active events: ${
+                activeEvents.size ? Array.from(activeEvents).join(', ') : 'none'
+            }`;
+        }
+
+        eventTypes.forEach(eventType => {
+            eventType.addEventListener('click', function() {
+                const eventName = this.dataset.event;
+                if (this.classList.contains('active')) {
+                    this.classList.remove('active');
+                    activeEvents.delete(eventName);
+                    eventTypeDemo.removeEventListener(eventName, demoEventHandler);
+                } else {
+                    this.classList.add('active');
+                    activeEvents.add(eventName);
+                    eventTypeDemo.addEventListener(eventName, demoEventHandler);
+                }
+                updateEventDisplay();
+                eventTypeCode.textContent = eventName;
+            });
+        });
+
+        function demoEventHandler(event) {
+            eventTypeDemo.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                eventTypeDemo.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // Simplified Callback Demo
+        const callbackDemo = document.getElementById('callbackDemo');
+        function handleClick() {
+            alert('Button was clicked!');
+        }
+        callbackDemo.addEventListener('click', handleClick);
+
+        // Simplified Options Demo
+        const optionsDemo = document.getElementById('optionsDemo');
+        optionsDemo.addEventListener('click', () => {
+            alert('This button will only work once!');
+            optionsDemo.textContent = 'Try clicking again (it won\'t work)';
+        }, { once: true });
+
+        // Callback demonstration
+        const callbackTypes = document.querySelectorAll('.callback-type');
+        const callbackCode = document.getElementById('callbackCode');
+        const callbackOutput = document.getElementById('callbackOutput');
+        const demoButton = document.getElementById('demoButton');
+        const demoBox = document.getElementById('demoBox');
+        
+        const callbacks = {
+            simple: {
+                code: `function handleClick() {
+    console.log('Button clicked!');
+    // Do something when clicked
+}
+element.addEventListener('click', handleClick);`,
+                demo: function() {
+                    return 'Simple function executed!\nThis is a regular named function.';
+                }
+            },
+            event: {
+                code: `element.addEventListener('click', function(event) {
+    console.log('Click position:', event.clientX, event.clientY);
+    console.log('Target:', event.target.tagName);
+});`,
+                demo: function(event) {
+                    return `Event object properties:\n` +
+                           `• Type: ${event.type}\n` +
+                           `• Position: (${event.clientX}, ${event.clientY})\n` +
+                           `• Target: ${event.target.tagName}`;
+                }
+            },
+            arrow: {
+                code: `element.addEventListener('click', () => {
+    console.log('Arrow function executed!');
+    // Shorter syntax for simple functions
+});`,
+                demo: function() {
+                    return 'Arrow function executed!\nNotice the shorter () => { } syntax.';
+                }
+            }
+        };
+
+        let currentCallback = null;
+
+        callbackTypes.forEach(type => {
+            type.addEventListener('click', function() {
+                const callbackType = this.dataset.type;
+                
+                // Update UI
+                callbackTypes.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update code display
+                callbackCode.innerHTML = `<pre>${callbacks[callbackType].code}</pre>`;
+                
+                // Update current callback
+                currentCallback = callbacks[callbackType].demo;
+                
+                // Update output
+                callbackOutput.textContent = 'Click the purple box or button to test this callback...';
+            });
+        });
+
+        // Demo elements event listeners
+        [demoButton, demoBox].forEach(element => {
+            element.addEventListener('click', function(event) {
+                if (currentCallback) {
+                    callbackOutput.textContent = currentCallback(event);
+                    
+                    // Animate the visual flow
+                    document.querySelectorAll('.callback-step').forEach((step, index) => {
+                        setTimeout(() => {
+                            step.style.background = '#e3f2fd';
+                            setTimeout(() => {
+                                step.style.background = 'white';
+                            }, 500);
+                        }, index * 600);
+                    });
+                } else {
+                    callbackOutput.textContent = 'Please select a callback type first!';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
