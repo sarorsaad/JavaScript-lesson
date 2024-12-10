@@ -14,8 +14,42 @@
     </div>
 
 <script type="text/babel">
+/*
+ * Title: JSX Expressions and Variables in React
+ * 
+ * Syntax Rules:
+ * 1. Variables: {variableName}
+ * 2. Math Operations: {number1 + number2}, {number1 * number2}
+ * 3. Function Calls: {functionName(param1, param2)}
+ * 
+ * Note: Everything inside {} will be evaluated as JavaScript
+ */
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<h1>Hello React</h1>);
+
+// 1. Variable Syntax: const variableName = value;
+const name = "React";
+const number = 42;
+
+// 2. Function Syntax: const functionName = (params) => { return value; }
+const calculateSum = (a, b) => {
+    return a + b;
+};
+
+root.render(
+    <div>
+        {/* Using Variables: {variableName} */}
+        <h1>Hello {name}!</h1>
+        <p>My favorite number is: {number}</p>
+
+        {/* Using Math Operations: {expression} */}
+        <p>Addition: {10 + 5}</p>
+        <p>Multiplication: {6 * 8}</p>
+
+        {/* Using Function Calls: {functionName(args)} */}
+        <p>Sum of 15 and 25 is: {calculateSum(15, 25)}</p>
+    </div>
+);
 </script>
 </body>
 </html>

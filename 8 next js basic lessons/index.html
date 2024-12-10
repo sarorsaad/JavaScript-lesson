@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next.js Basic Lessons</title>
+    <style>
+        body {
+            margin-left: 20px;
+            margin-right: 20px;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+        }
+        .code-block {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+        h1, h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Next.js Basic Lessons</h1>
+
+    <div class="section">
+        <h2>Step 1: Introduction to Next.js</h2>
+        <p>Next.js is a React framework that enables features such as:</p>
+        <ul>
+            <li>Server-side rendering (SSR)</li>
+            <li>Static site generation (SSG)</li>
+            <li>API routes</li>
+            <li>File-based routing</li>
+            <li>Built-in CSS and Sass support</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Step 2: Setting Up Next.js</h2>
+        <p>To create a new Next.js project, run:</p>
+        <div class="code-block">
+            npx create-next-app@latest my-next-app
+        </div>
+        <p>This will create a new Next.js project with the following structure:</p>
+        <div class="code-block">
+            my-next-app/
+            ├── pages/
+            │   ├── _app.js
+            │   └── index.js
+            ├── public/
+            ├── styles/
+            ├── package.json
+            └── next.config.js
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Step 3: File-Based Routing</h2>
+        <p>Next.js uses file-based routing. Files in the pages directory automatically become routes:</p>
+        <div class="code-block">
+            pages/
+            ├── index.js         // → /
+            ├── about.js         // → /about
+            └── posts/
+                ├── index.js     // → /posts
+                └── [id].js      // → /posts/1, /posts/2, etc.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Step 4: Basic Next.js Page</h2>
+        <p>Here's a basic Next.js page component:</p>
+        <div class="code-block">
+            // pages/index.js
+            export default function Home() {
+                return (
+                    &lt;div&gt;
+                        &lt;h1&gt;Welcome to Next.js!&lt;/h1&gt;
+                        &lt;p&gt;This is a basic Next.js page.&lt;/p&gt;
+                    &lt;/div&gt;
+                )
+            }
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Step 5: Data Fetching Methods</h2>
+        <p>Next.js provides three main data fetching methods:</p>
+        <ul>
+            <li><strong>getStaticProps</strong> - Fetch data at build time</li>
+            <li><strong>getServerSideProps</strong> - Fetch data on each request</li>
+            <li><strong>getStaticPaths</strong> - Specify dynamic routes to pre-render</li>
+        </ul>
+        <div class="code-block">
+            // Example of getStaticProps
+            export async function getStaticProps() {
+                const res = await fetch('https://api.example.com/data')
+                const data = await res.json()
+            
+                return {
+                    props: {
+                        data,
+                    },
+                }
+            }
+        </div>
+    </div>
+</body>
+</html>
