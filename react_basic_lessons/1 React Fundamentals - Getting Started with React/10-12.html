@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Fundamentals - Practice Exercises</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+<script type="text/babel">
+
+// Object styles
+const styles = {
+    container: {
+        backgroundColor: '#f0f0f0',
+        padding: '20px',
+        borderRadius: '8px',
+        maxWidth: '600px',
+        margin: '20px auto'
+    },
+    heading: {
+        color: '#333',
+        fontSize: '24px',
+        textAlign: 'center',
+        marginBottom: '15px'
+    },
+    calculation: {
+        color: '#007bff',
+        fontWeight: 'bold',
+        border: '1px solid #ddd',
+        padding: '10px',
+        borderRadius: '4px'
+    },
+    greeting: {
+        color: '#28a745',
+        fontStyle: 'italic',
+        backgroundColor: '#e9ecef',
+        padding: '8px',
+        borderRadius: '4px'
+    }
+};
+
+let name = "sami"
+function greeting(name){
+    return "Hello " + name
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(
+    <div style={styles.container}>
+        <h1 style={styles.heading}>Hello {name}</h1>
+        <h1 style={styles.calculation}>{2*12}</h1>
+        <h1 style={styles.greeting}>{greeting("samia")}</h1>
+        
+        {/* Inline style example */}
+        <h2 style={{
+            color: '#dc3545',
+            textDecoration: 'underline',
+            margin: '10px 0'
+        }}>
+            This is inline styled
+        </h2>
+    </div>
+)
+
+</script>
+    
+</body>
+</html>
