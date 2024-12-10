@@ -7,6 +7,98 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    <style>
+        .jsx-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+
+        .jsx-title {
+            font-size: 2.5em;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        .code-window {
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: #2d2d2d;
+            padding: 10px 15px;
+            border-bottom: 1px solid #3d3d3d;
+        }
+
+        .code-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .code-content {
+            padding: 30px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #d4d4d4;
+            white-space: pre;
+        }
+
+        .code-content .comment { color: #6a9955; }
+        .code-content .keyword { color: #569cd6; }
+        .code-content .string { color: #ce9178; }
+        .code-content .function { color: #4ec9b0; }
+        .code-content .number { color: #b5cea8; }
+        .code-content .boolean { color: #569cd6; }
+        .code-content .jsx-comment { color: #6a9955; }
+
+        .output-window {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+
+        .output-header {
+            background: #f5f5f5;
+            padding: 12px 20px;
+            border-bottom: 1px solid #eaeaea;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .output-content {
+            padding: 20px;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+
+        .output-line {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .output-line:last-child {
+            border-bottom: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -490,6 +582,66 @@
                 border-radius: 5px;
                 min-height: 100px;
             "></div>
+        </div>
+    </div>
+
+    <h2 style="color: #333; margin: 30px 0 10px;">Step 6: JSX Expressions</h2>
+    
+    <div class="jsx-section">
+        <h2 class="jsx-title">JSX Expressions</h2>
+        <div class="explanation">
+            <p>JSX Expressions represent any piece of JavaScript code that produces a value. An expression is code that resolves to a value.</p>
+
+            <div class="key-points">
+                <h3>Key Points:</h3>
+                <ul>
+                    <li>Always use curly braces {} to embed JavaScript expressions in JSX</li>
+                    <li>Variables must be declared before they can be used</li>
+                    <li>Functions must be defined before they can be called</li>
+                    <li>Any valid JavaScript expression can go inside the curly braces</li>
+                </ul>
+            </div>
+
+            <div class="code-example">
+                <div class="code-window">
+                    <div class="code-content">
+                        <span class="keyword">const</span> root = ReactDOM.<span class="function">createRoot</span>(document.<span class="function">getElementById</span>(<span class="string">'root'</span>));
+
+                        <span class="comment">// These all produce values (expressions):</span>
+                        <span class="keyword">const</span> name = <span class="string">"React"</span>;
+                        <span class="keyword">const</span> number = <span class="number">42</span>;
+                        <span class="keyword">const</span> isLoggedIn = <span class="boolean">true</span>;
+
+                        <span class="keyword">const</span> <span class="function">getGreeting</span> = () => {
+                            <span class="keyword">return</span> <span class="string">"Welcome back!"</span>;
+                        };
+
+                        root.<span class="function">render</span>(
+                            <span class="jsx-tag">&lt;div&gt;</span>
+                                <span class="jsx-comment">{/* Variable expression - resolves to "React" */}</span>
+                                <span class="jsx-tag">&lt;p&gt;</span>Name: {name}<span class="jsx-tag">&lt;/p&gt;</span>
+
+                                <span class="jsx-comment">{/* Mathematical expression - resolves to 50 */}</span>
+                                <span class="jsx-tag">&lt;p&gt;</span>Result: {number + 8}<span class="jsx-tag">&lt;/p&gt;</span>
+
+                                <span class="jsx-comment">{/* Function expression - resolves to "Welcome back!" */}</span>
+                                <span class="jsx-tag">&lt;p&gt;</span>Greeting: {<span class="function">getGreeting</span>()}<span class="jsx-tag">&lt;/p&gt;</span>
+                            <span class="jsx-tag">&lt;/div&gt;</span>
+                        );
+                    </div>
+                </div>
+
+                <div class="output-window">
+                    <div class="output-header">
+                        Output
+                    </div>
+                    <div class="output-content">
+                        <div class="output-line">Name: React</div>
+                        <div class="output-line">Result: 50</div>
+                        <div class="output-line">Greeting: Welcome back!</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

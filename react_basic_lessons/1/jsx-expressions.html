@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSX Expressions Interactive</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .expression-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            background: #f9f9f9;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .expression-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .expression-type {
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        .code-block {
+            background: #1e1e1e;
+            color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        .result {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+
+        // Example expressions
+        const name = "React";
+        const number = 42;
+        const getGreeting = () => "Hello from JSX!";
+
+        const ExpressionCard = ({ type, code, result, icon }) => (
+            <div className="expression-card" onClick={() => alert(`Result: ${result}`)}>
+                <img src={icon} className="icon" alt={type} />
+                <span className="expression-type">{type}</span>
+                <div className="code-block">{code}</div>
+                <div>Result: <span className="result">{result}</span></div>
+            </div>
+        );
+
+        const App = () => (
+            <div className="container">
+                <h1>JSX Expressions Interactive Guide</h1>
+                
+                <ExpressionCard 
+                    type="Variable Expression"
+                    code="const name = 'React'; ... {name}"
+                    result={name}
+                    icon="https://cdn-icons-png.flaticon.com/128/1183/1183672.png"
+                />
+                
+                <ExpressionCard 
+                    type="Mathematical Expression"
+                    code="const number = 42; ... {number + 8}"
+                    result={number + 8}
+                    icon="https://cdn-icons-png.flaticon.com/128/897/897368.png"
+                />
+                
+                <ExpressionCard 
+                    type="Function Expression"
+                    code="const getGreeting = () => 'Hello from JSX!'; ... {getGreeting()}"
+                    result={getGreeting()}
+                    icon="https://cdn-icons-png.flaticon.com/128/2921/2921222.png"
+                />
+                
+                <p>Click on any card to see the result in an alert!</p>
+            </div>
+        );
+
+        root.render(<App />);
+    </script>
+</body>
+</html>
