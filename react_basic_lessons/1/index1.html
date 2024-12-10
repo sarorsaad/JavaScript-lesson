@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Basic Lessons</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    <style>
+        body {
+            margin-left: 20px;
+            margin-right: 20px;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: #333; text-align: center;">React Basic Lessons</h1>
+
+    <!-- Step 1: Create React Container - Root Element -->
+    <h2 style="color: #333; margin: 30px 0 10px;">Step 1: Create React Container</h2>
+    <div style="
+        margin: 20px 0;
+        padding: 20px;
+        background-color: #1e1e1e;
+        border-radius: 8px;
+        font-family: monospace;
+    ">
+        <div style="color: #e6e6e6; margin-bottom: 20px;">
+            To start using React, we need to create a root container where our React components will be rendered.
+        </div>
+
+        <!-- Code Block -->
+        <div style="
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        ">
+            <div style="color: #6a9955">// Create a root container</div>
+            <div>
+                <span style="color: #569cd6">const</span>
+                <span style="color: #4fc1ff"> root</span>
+                <span style="color: #d4d4d4"> = </span>
+                <span style="color: #4ec9b0">ReactDOM</span>
+                <span style="color: #d4d4d4">.</span>
+                <span style="color: #dcdcaa">createRoot</span>
+                <span style="color: #d4d4d4">(</span>
+                <span style="color: #dcdcaa">document</span>
+                <span style="color: #d4d4d4">.</span>
+                <span style="color: #dcdcaa">getElementById</span>
+                <span style="color: #d4d4d4">(</span>
+                <span style="color: #ce9178">'root'</span>
+                <span style="color: #d4d4d4">));</span>
+            </div>
+        </div>
+
+        <!-- Component Hierarchy Visualization -->
+        <div style="margin-top: 30px;">
+            <div style="color: #61dafb; margin-bottom: 15px;">Component Hierarchy</div>
+            <div style="
+                border: 2px solid #61dafb;
+                padding: 20px;
+                border-radius: 8px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            ">
+                <!-- App Component -->
+                <div style="
+                    border: 1px solid #fff;
+                    padding: 10px 20px;
+                    margin-bottom: 20px;
+                    background: #2d2d2d;
+                    border-radius: 4px;
+                ">
+                    <span style="color: #e6e6e6">&lt;App /&gt;</span>
+                </div>
+                
+                <!-- Child Components -->
+                <div style="
+                    display: flex;
+                    gap: 20px;
+                    margin-top: 10px;
+                ">
+                    <div style="
+                        border: 1px solid #fff;
+                        padding: 10px;
+                        background: #2d2d2d;
+                        border-radius: 4px;
+                    ">
+                        <span style="color: #e6e6e6">&lt;Component1 /&gt;</span>
+                    </div>
+                    <div style="
+                        border: 1px solid #fff;
+                        padding: 10px;
+                        background: #2d2d2d;
+                        border-radius: 4px;
+                    ">
+                        <span style="color: #e6e6e6">&lt;Component2 /&gt;</span>
+                    </div>
+                    <div style="
+                        border: 1px solid #fff;
+                        padding: 10px;
+                        background: #2d2d2d;
+                        border-radius: 4px;
+                    ">
+                        <span style="color: #e6e6e6">&lt;Component3 /&gt;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 2: Understanding React Rendering Process -->
+    <h2 style="color: #333; margin: 30px 0 10px;">Step 2: Understanding React Rendering Process</h2>
+    <div style="
+        margin: 20px 0;
+        padding: 20px;
+        background-color: #1e1e1e;
+        border-radius: 8px;
+        font-family: monospace;
+    ">
+        <div style="color: #e6e6e6; margin-bottom: 20px;">
+            Rendering in React is the process of displaying content on the screen.<br>
+            This is done by render() method.
+        </div>
+
+        <!-- Code Block -->
+        <div style="
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        ">
+            <div style="color: #6a9955">// Render content to root container</div>
+            <div>
+                <span style="color: #4fc1ff">root</span>
+                <span style="color: #d4d4d4">.</span>
+                <span style="color: #dcdcaa">render</span>
+                <span style="color: #d4d4d4">(</span>
+                <span style="color: #808080">&lt;</span>
+                <span style="color: #4ec9b0">App</span>
+                <span style="color: #808080"> /&gt;</span>
+                <span style="color: #d4d4d4">);</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 3: Rendering Single React Element -->
+    <h2 style="color: #333; margin: 30px 0 10px;">Step 3: Rendering Single React Element</h2>
+    <div style="
+        margin: 20px 0;
+        padding: 20px;
+        background-color: #1e1e1e;
+        border-radius: 8px;
+        font-family: monospace;
+    ">
+        <!-- Code Block -->
+        <div style="
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        ">
+            <div style="color: #6a9955">// Render single element</div>
+            <div>
+                <span style="color: #4fc1ff">root</span>
+                <span style="color: #d4d4d4">.</span>
+                <span style="color: #dcdcaa">render</span>
+                <span style="color: #d4d4d4">(</span>
+            </div>
+            <div style="margin-left: 20px;">
+                <span style="color: #808080">&lt;</span>
+                <span style="color: #4ec9b0">h1</span>
+                <span style="color: #808080">&gt;</span>
+                <span style="color: #ce9178">Hello, World!</span>
+                <span style="color: #808080">&lt;/</span>
+                <span style="color: #4ec9b0">h1</span>
+                <span style="color: #808080">&gt;</span>
+            </div>
+            <div>
+                <span style="color: #d4d4d4">);</span>
+            </div>
+        </div>
+
+        <!-- Output -->
+        <div>
+            <div style="color: #61dafb; margin-bottom: 15px;">Output:</div>
+            <div id="step3-demo" style="
+                background: white;
+                padding: 20px;
+                border-radius: 5px;
+                min-height: 50px;
+            "></div>
+        </div>
+    </div>
+
+    <!-- Step 4: Render Multiple React Elements -->
+    <h2 style="color: #333; margin: 30px 0 10px;">Step 4: Render Multiple React Elements</h2>
+    <div style="
+        margin: 20px 0;
+        padding: 20px;
+        background-color: #1e1e1e;
+        border-radius: 8px;
+        font-family: monospace;
+    ">
+        <!-- Code Block -->
+        <div style="
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        ">
+            <div style="color: #6a9955">// Render multiple elements wrapped in a single parent container</div>
+            <div>
+                <span style="color: #4fc1ff">root</span>
+                <span style="color: #d4d4d4">.</span>
+                <span style="color: #dcdcaa">render</span>
+                <span style="color: #d4d4d4">(</span>
+            </div>
+            <div style="margin-left: 20px;">
+                <span style="color: #808080">&lt;</span>
+                <span style="color: #4ec9b0">div</span>
+                <span style="color: #808080">&gt;</span>
+            </div>
+            <div style="margin-left: 40px;">
+                <span style="color: #808080">&lt;</span>
+                <span style="color: #4ec9b0">h1</span>
+                <span style="color: #808080">&gt;</span>
+                <span style="color: #ce9178">Hello, World!</span>
+                <span style="color: #808080">&lt;/</span>
+                <span style="color: #4ec9b0">h1</span>
+                <span style="color: #808080">&gt;</span>
+            </div>
+            <div style="margin-left: 40px;">
+                <span style="color: #808080">&lt;</span>
+                <span style="color: #4ec9b0">p</span>
+                <span style="color: #808080">&gt;</span>
+                <span style="color: #ce9178">This is a paragraph.</span>
+                <span style="color: #808080">&lt;/</span>
+                <span style="color: #4ec9b0">p</span>
+                <span style="color: #808080">&gt;</span>
+            </div>
+            <div style="margin-left: 40px;">
+                <span style="color: #808080">&lt;</span>
+                <span style="color: #4ec9b0">button</span>
+                <span style="color: #808080">&gt;</span>
+                <span style="color: #ce9178">Click Me!</span>
+                <span style="color: #808080">&lt;/</span>
+                <span style="color: #4ec9b0">button</span>
+                <span style="color: #808080">&gt;</span>
+            </div>
+            <div style="margin-left: 20px;">
+                <span style="color: #808080">&lt;/</span>
+                <span style="color: #4ec9b0">div</span>
+                <span style="color: #808080">&gt;</span>
+            </div>
+            <div>
+                <span style="color: #d4d4d4">);</span>
+            </div>
+        </div>
+
+        <!-- Output -->
+        <div>
+            <div style="color: #61dafb; margin-bottom: 15px;">Output:</div>
+            <div id="step4-demo" style="
+                background: white;
+                padding: 20px;
+                border-radius: 5px;
+                min-height: 100px;
+            "></div>
+        </div>
+    </div>
+
+    <!-- Step 5: Introduction to JSX -->
+    <h2 style="color: #333; margin: 30px 0 10px;">Step 5: Introduction to JSX</h2>
+    
+    <div style="
+        margin: 20px 0;
+        padding: 20px;
+        background-color: #1e1e1e;
+        border-radius: 8px;
+        font-family: monospace;
+        border: 10px solid red;
+    ">
+        <!-- Title and Description -->
+        <div style="color: #61dafb; margin-bottom: 20px; font-size: 1.2em;">
+            JSX: Write HTML-like code within JavaScript
+        </div>
+        <div style="color: #e6e6e6; margin-bottom: 20px; line-height: 1.6;">
+            JSX stands for JavaScript XML, and it's a syntax extension for JavaScript used in React. 
+            It allows you to write HTML-like code directly in JavaScript.
+        </div>
+
+        <!-- Code Comparison -->
+        <div style="
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        ">
+            <!-- JSX Code -->
+            <div style="flex: 1;">
+                <h3 style="color: #61dafb; margin-bottom: 15px;">JSX Syntax</h3>
+                <div style="
+                    background: #2d2d2d;
+                    padding: 15px;
+                    border-radius: 5px;
+                    line-height: 1.6;
+                ">
+                    <div style="color: #6a9955">// JSX Example</div>
+                    <div>
+                        <span style="color: #4fc1ff">root</span>
+                        <span style="color: #d4d4d4">.</span>
+                        <span style="color: #dcdcaa">render</span>
+                        <span style="color: #d4d4d4">(</span>
+                    </div>
+                    <div style="margin-left: 20px;">
+                        <span style="color: #808080">&lt;</span>
+                        <span style="color: #4ec9b0">div</span>
+                        <span style="color: #808080">&gt;</span>
+                    </div>
+                    <div style="margin-left: 40px;">
+                        <span style="color: #808080">&lt;</span>
+                        <span style="color: #4ec9b0">h1</span>
+                        <span style="color: #808080">&gt;</span>
+                        <span style="color: #ce9178">Hello, World!</span>
+                        <span style="color: #808080">&lt;/</span>
+                        <span style="color: #4ec9b0">h1</span>
+                        <span style="color: #808080">&gt;</span>
+                    </div>
+                    <div style="margin-left: 40px;">
+                        <span style="color: #808080">&lt;</span>
+                        <span style="color: #4ec9b0">p</span>
+                        <span style="color: #808080">&gt;</span>
+                        <span style="color: #ce9178">This is JSX!</span>
+                        <span style="color: #808080">&lt;/</span>
+                        <span style="color: #4ec9b0">p</span>
+                        <span style="color: #808080">&gt;</span>
+                    </div>
+                    <div style="margin-left: 20px;">
+                        <span style="color: #808080">&lt;/</span>
+                        <span style="color: #4ec9b0">div</span>
+                        <span style="color: #808080">&gt;</span>
+                    </div>
+                    <div>
+                        <span style="color: #d4d4d4">);</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Regular JavaScript -->
+            <div style="flex: 1;">
+                <h3 style="color: #61dafb; margin-bottom: 15px;">Equivalent JavaScript</h3>
+                <div style="
+                    background: #2d2d2d;
+                    padding: 15px;
+                    border-radius: 5px;
+                    line-height: 1.6;
+                ">
+                    <div style="color: #6a9955">// Without JSX</div>
+                    <div>
+                        <span style="color: #4fc1ff">root</span>
+                        <span style="color: #d4d4d4">.</span>
+                        <span style="color: #dcdcaa">render</span>
+                        <span style="color: #d4d4d4">(</span>
+                    </div>
+                    <div style="margin-left: 20px;">
+                        <span style="color: #dcdcaa">React.createElement</span>
+                        <span style="color: #d4d4d4">(</span>
+                        <span style="color: #ce9178">'div'</span>
+                        <span style="color: #d4d4d4">, null, [</span>
+                    </div>
+                    <div style="margin-left: 40px;">
+                        <span style="color: #dcdcaa">React.createElement</span>
+                        <span style="color: #d4d4d4">(</span>
+                        <span style="color: #ce9178">'h1'</span>
+                        <span style="color: #d4d4d4">, null, </span>
+                        <span style="color: #ce9178">'Hello, World!'</span>
+                        <span style="color: #d4d4d4">),</span>
+                    </div>
+                    <div style="margin-left: 40px;">
+                        <span style="color: #dcdcaa">React.createElement</span>
+                        <span style="color: #d4d4d4">(</span>
+                        <span style="color: #ce9178">'p'</span>
+                        <span style="color: #d4d4d4">, null, </span>
+                        <span style="color: #ce9178">'This is JSX!'</span>
+                        <span style="color: #d4d4d4">)</span>
+                    </div>
+                    <div style="margin-left: 20px;">
+                        <span style="color: #d4d4d4">]);</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Demo -->
+        <div>
+            <h3 style="color: #61dafb; margin-bottom: 15px;">Live Result</h3>
+            <div id="step5-demo" style="
+                background: white;
+                padding: 20px;
+                border-radius: 5px;
+                min-height: 100px;
+            "></div>
+        </div>
+    </div>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Step 3 Demo
+        const step3Root = ReactDOM.createRoot(document.getElementById('step3-demo'));
+        step3Root.render(
+            <h1>Hello, World!</h1>
+        );
+
+        // Step 4 Demo
+        const step4Root = ReactDOM.createRoot(document.getElementById('step4-demo'));
+        step4Root.render(
+            <div>
+                <h1>Hello, World!</h1>
+                <p>This is a paragraph.</p>
+                <button>Click Me!</button>
+            </div>
+        );
+
+        // Step 5 Demo
+        const step5Root = ReactDOM.createRoot(document.getElementById('step5-demo'));
+        step5Root.render(
+            <div>
+                <h1>Hello, World!</h1>
+                <p>This is JSX!</p>
+            </div>
+        );
+    </script>
+</body>
+</html>
