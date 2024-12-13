@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is React?</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .definition {
+            background-color: #e3f2fd;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .arabic-text {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            direction: rtl;
+            margin-bottom: 0.5rem;
+            color: #1976d2;
+        }
+
+        .english-text {
+            color: #2196f3;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-title {
+            color: #1565c0;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #90caf9;
+            padding-bottom: 0.5rem;
+        }
+
+        .feature-content {
+            padding-left: 1.5rem;
+        }
+
+        .feature-content li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>What is React?</h1>
+        
+        <div class="definition">
+            <p class="arabic-text">React هي مكتبة JavaScript لبناء واجهات المستخدم</p>
+            <p class="english-text">React is a JavaScript library for building user interfaces</p>
+        </div>
+
+        <div class="content">
+            <div class="feature-card">
+                <h2 class="feature-title">Component-Based (مبني على المكونات)</h2>
+                <ul class="feature-content">
+                    <li class="arabic-text">يمكنك بناء عناصر واجهة المستخدم المعزولة والقابلة لإعادة الاستخدام</li>
+                    <li class="english-text">You can build encapsulated, reusable UI components</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h2 class="feature-title">Declarative (تصريحي)</h2>
+                <ul class="feature-content">
+                    <li class="arabic-text">تصف كيف يجب أن تبدو واجهة المستخدم في كل حالة</li>
+                    <li class="english-text">Describe how your UI should look in each state</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h2 class="feature-title">Learn Once, Write Anywhere</h2>
+                <ul class="feature-content">
+                    <li class="arabic-text">تعلم مرة واحدة، اكتب في أي مكان</li>
+                    <li class="english-text">Can be used for web, mobile (React Native), and desktop applications</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h2 class="feature-title">Why React?</h2>
+                <ul class="feature-content">
+                    <li>
+                        <strong>Popularity (الشعبية)</strong>
+                        <p class="arabic-text">أكثر مكتبة JavaScript شعبية لبناء واجهات المستخدم</p>
+                        <p class="english-text">Most popular JavaScript library for building UIs</p>
+                    </li>
+                    <li>
+                        <strong>Community Support (دعم المجتمع)</strong>
+                        <p class="arabic-text">مجتمع كبير من المطورين</p>
+                        <p class="english-text">Large ecosystem of libraries and tools</p>
+                    </li>
+                    <li>
+                        <strong>Performance (الأداء)</strong>
+                        <p class="arabic-text">أداء عالي مع Virtual DOM</p>
+                        <p class="english-text">High performance with Virtual DOM</p>
+                    </li>
+                    <li>
+                        <strong>Flexibility (المرونة)</strong>
+                        <p class="arabic-text">يمكن استخدامه مع أي مكتبة أو إطار عمل آخر</p>
+                        <p class="english-text">Can be integrated with other libraries or frameworks</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <nav class="navigation">
+            <a href="../index.html" class="back-button">← Back to Section 1</a>
+            <a href="../Browser_Process/index.html" class="next-button">Next: Browser Process →</a>
+        </nav>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
