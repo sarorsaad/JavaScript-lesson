@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Process Explained | شرح عملية المتصفح</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="language-switch">
+        <button onclick="toggleArabic()" class="lang-btn">عربي</button>
+    </div>
+
+    <div class="container">
+        <h1>Browser Process Explained</h1>
+        <p class="intro">Learn how browsers process and render web pages through an interactive journey.</p>
+
+        <div class="section" id="dom-section">
+            <h2>1. HTML to DOM Conversion</h2>
+            <div class="definition">
+                <p>The browser converts HTML code into a DOM (Document Object Model) tree structure. Each HTML element becomes a node in this tree.</p>
+                <p class="arabic-translation">يقوم المتصفح بتحويل كود HTML إلى هيكل شجرة DOM (نموذج كائن المستند). يصبح كل عنصر HTML عقدة في هذه الشجرة.</p>
+            </div>
+            <div class="interactive-demo">
+                <div class="code-panel">
+                    <h3>Sample HTML Code:</h3>
+                    <pre class="code-editor">
+<code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Sample Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello World&lt;/h1&gt;
+    &lt;div&gt;
+        &lt;p&gt;This is a paragraph&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+                    </pre>
+                </div>
+                <div class="visualization-panel">
+                    <div class="tree-container" id="dom-tree">
+                        <!-- Will be filled by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="cssom-section">
+            <h2>2. CSS to CSSOM Conversion</h2>
+            <div class="definition">
+                <p>The browser converts CSS into the CSSOM (CSS Object Model), which represents all styling information for the document.</p>
+                <p class="arabic-translation">يقوم المتصفح بتحويل CSS إلى CSSOM (نموذج كائن CSS)، والذي يمثل جميع معلومات التنسيق للمستند.</p>
+            </div>
+            <div class="interactive-demo">
+                <div class="code-panel">
+                    <h3>Sample CSS Code:</h3>
+                    <pre class="code-editor">
+<code>h1 {
+    color: blue;
+}
+#text {
+    color: green;
+}</code>
+                    </pre>
+                </div>
+                <div class="visualization-panel">
+                    <div class="tree-container" id="cssom-tree">
+                        <!-- Will be filled by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="render-tree-section">
+            <h2>3. Building the Render Tree</h2>
+            <div class="definition">
+                <p>The browser combines DOM and CSSOM to create the Render Tree, which contains only the visible elements with their styles.</p>
+                <p class="arabic-translation">يجمع المتصفح DOM و CSSOM لإنشاء شجرة العرض، والتي تحتوي فقط على العناصر المرئية مع أنماطها.</p>
+            </div>
+            <div class="interactive-demo">
+                <div class="visualization-panel full-width">
+                    <div class="tree-container" id="render-tree">
+                        <!-- Will be filled by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="layout-paint-section">
+            <h2>4. Layout and Paint</h2>
+            <div class="definition">
+                <p>1. Calculate Position: The browser determines the exact position and size of each element</p>
+                <p>2. Apply Properties: Visual properties like colors are applied</p>
+                <div class="arabic-translation">
+                    <p>1. حساب الموضع: يحدد المتصفح الموضع والحجم الدقيق لكل عنصر</p>
+                    <p>2. تطبيق الخصائص: يتم تطبيق الخصائص المرئية مثل الألوان</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="js-execution-section">
+            <h2>5. JavaScript Execution</h2>
+            <div class="definition">
+                <p>1. Updates are applied immediately</p>
+                <p>2. Multiple reflows and repaints may occur</p>
+                <p>3. The developer must manually ensure efficient updates</p>
+                <div class="arabic-translation">
+                    <p>1. يتم تطبيق التحديثات فوراً</p>
+                    <p>2. قد تحدث عمليات إعادة تدفق ورسم متعددة</p>
+                    <p>3. يجب على المطور ضمان كفاءة التحديثات يدوياً</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleArabic() {
+            const translations = document.querySelectorAll('.arabic-translation');
+            translations.forEach(translation => {
+                translation.style.display = translation.style.display === 'none' ? 'block' : 'none';
+            });
+            
+            const btn = document.querySelector('.lang-btn');
+            btn.classList.toggle('active');
+        }
+
+        // Hide Arabic translations initially
+        document.addEventListener('DOMContentLoaded', () => {
+            const translations = document.querySelectorAll('.arabic-translation');
+            translations.forEach(translation => {
+                translation.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
