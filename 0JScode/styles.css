@@ -95,6 +95,33 @@ button:hover {
     background-color: #2980b9;
 }
 
+.btn-lesson,
+.btn-quiz {
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 5px;
+    text-decoration: none;
+    border-radius: 4px;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.btn-lesson {
+    background-color: #3498db;
+}
+
+.btn-quiz {
+    background-color: #2ecc71;
+}
+
+.btn-lesson:hover {
+    background-color: #2980b9;
+}
+
+.btn-quiz:hover {
+    background-color: #27ae60;
+}
+
 .code-editor {
     background-color: #1e1e1e;
     color: #d4d4d4;

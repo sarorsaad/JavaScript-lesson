@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Workflow Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .home-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        .home-link i {
+            margin-right: 8px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .quiz-container {
+            margin-top: 20px;
+        }
+
+        .question {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        .options {
+            margin-top: 15px;
+        }
+
+        .option {
+            display: block;
+            padding: 12px 15px;
+            margin: 10px 0;
+            background-color: white;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background-color: #e9ecef;
+        }
+
+        .option.selected {
+            background-color: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+
+        .option.correct {
+            background-color: #2ecc71;
+            color: white;
+            border-color: #2ecc71;
+        }
+
+        .option.incorrect {
+            background-color: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .result {
+            text-align: center;
+            display: none;
+            margin-top: 20px;
+        }
+
+        .result h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #3498db;
+            width: 0;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../0JScode/0 home.html" class="home-link"><i class="fas fa-home"></i>Back to Home</a>
+        <h1><i class="fas fa-code"></i> Development Workflow Quiz</h1>
+        
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+
+        <div class="quiz-container">
+            <!-- Questions will be dynamically added here -->
+        </div>
+
+        <div class="controls">
+            <button class="btn" id="prevBtn" disabled>Previous</button>
+            <button class="btn" id="nextBtn">Next</button>
+        </div>
+
+        <div class="result">
+            <h2>Quiz Complete!</h2>
+            <p>Your score: <span id="score">0</span>/<span id="totalQuestions">0</span></p>
+            <button class="btn" id="retryBtn">Try Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the primary purpose of data in applications?",
+                options: [
+                    "To make applications look better",
+                    "To provide meaningful output and functionality",
+                    "To slow down the application",
+                    "To increase file size"
+                ],
+                correct: 1
+            },
+            {
+                question: "Which of the following is NOT a common data type?",
+                options: [
+                    "Numbers",
+                    "Strings",
+                    "Pictures",
+                    "Booleans"
+                ],
+                correct: 2
+            },
+            {
+                question: "What is the main purpose of functions in programming?",
+                options: [
+                    "To make code longer",
+                    "To store data permanently",
+                    "To perform specific tasks and keep code organized",
+                    "To create user interfaces"
+                ],
+                correct: 2
+            },
+            {
+                question: "Which statement about loops is correct?",
+                options: [
+                    "Loops can only be used once in a program",
+                    "Loops are used to repeatedly execute code blocks",
+                    "Loops can only work with numbers",
+                    "Loops always run exactly 10 times"
+                ],
+                correct: 1
+            },
+            {
+                question: "What is the purpose of conditional statements?",
+                options: [
+                    "To make decisions based on certain criteria",
+                    "To store multiple values",
+                    "To create functions",
+                    "To connect to databases"
+                ],
+                correct: 0
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = new Array(questions.length).fill(false);
+
+        const quizContainer = document.querySelector('.quiz-container');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const resultDiv = document.querySelector('.result');
+        const progressBar = document.querySelector('.progress');
+
+        function createQuestions() {
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = `question ${index === 0 ? 'active' : ''}`;
+                
+                questionDiv.innerHTML = `
+                    <h3>Question ${index + 1}: ${q.question}</h3>
+                    <div class="options">
+                        ${q.options.map((option, i) => `
+                            <div class="option" data-index="${i}">${option}</div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                quizContainer.appendChild(questionDiv);
+            });
+
+            // Add click handlers to options
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', selectOption);
+            });
+        }
+
+        function selectOption(e) {
+            if (answered[currentQuestion]) return;
+
+            const selectedOption = e.target;
+            const questionDiv = selectedOption.closest('.question');
+            const options = questionDiv.querySelectorAll('.option');
+            const selectedIndex = parseInt(selectedOption.dataset.index);
+            
+            options.forEach(opt => opt.classList.remove('selected'));
+            selectedOption.classList.add('selected');
+            
+            // Check if answer is correct
+            if (selectedIndex === questions[currentQuestion].correct) {
+                selectedOption.classList.add('correct');
+                score++;
+            } else {
+                selectedOption.classList.add('incorrect');
+                options[questions[currentQuestion].correct].classList.add('correct');
+            }
+            
+            answered[currentQuestion] = true;
+            updateNextButton();
+        }
+
+        function showQuestion(index) {
+            document.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
+            document.querySelectorAll('.question')[index].classList.add('active');
+            
+            prevBtn.disabled = index === 0;
+            updateNextButton();
+            updateProgress();
+        }
+
+        function updateNextButton() {
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.textContent = answered[currentQuestion] ? 'Finish' : 'Next';
+            } else {
+                nextBtn.textContent = 'Next';
+            }
+            nextBtn.disabled = !answered[currentQuestion];
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function showResult() {
+            document.querySelectorAll('.question').forEach(q => q.style.display = 'none');
+            document.querySelector('.controls').style.display = 'none';
+            resultDiv.style.display = 'block';
+            document.getElementById('score').textContent = score;
+            document.getElementById('totalQuestions').textContent = questions.length;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            } else if (answered[currentQuestion]) {
+                showResult();
+            }
+        });
+
+        document.getElementById('retryBtn').addEventListener('click', () => {
+            location.reload();
+        });
+
+        // Initialize quiz
+        createQuestions();
+        updateProgress();
+    </script>
+</body>
+</html>
