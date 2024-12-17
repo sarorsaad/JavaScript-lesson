@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next.js Learning Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="logo">
+            <img src="assets/nextjs-logo.svg" alt="Next.js Logo" class="nextjs-logo">
+        </div>
+        <ul class="lessons-menu">
+            <li data-lesson="1" class="active">Introduction to Next.js</li>
+            <li data-lesson="2">Framework & Tools</li>
+            <li data-lesson="3">Client-Server Architecture</li>
+            <li data-lesson="4">Full-stack Development</li>
+            <li data-lesson="5">Server-side Rendering</li>
+            <li data-lesson="6">Static Site Generation</li>
+            <li data-lesson="7">Routing System</li>
+            <li data-lesson="8">Development Tools</li>
+            <li data-lesson="9">Best Practices</li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <div class="lesson-container">
+            <div class="lesson-header">
+                <h1 id="lesson-title">Introduction to Next.js</h1>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+            </div>
+            
+            <div class="lesson-content">
+                <div class="interactive-demo">
+                    <div class="demo-container">
+                        <!-- Interactive demos will be loaded here -->
+                    </div>
+                    <div class="navigation-controls">
+                        <button class="prev-lesson">← Previous Lesson</button>
+                        <div class="lesson-progress">
+                            <span class="current-lesson">1</span>/<span class="total-lessons">9</span>
+                        </div>
+                        <button class="next-lesson">Next Lesson →</button>
+                    </div>
+                </div>
+
+                <div class="explanation">
+                    <div class="text-content">
+                        <!-- Lesson text content will be loaded here -->
+                    </div>
+                    <div class="lesson-actions">
+                        <button class="mark-complete">Mark as Complete</button>
+                        <button class="practice-lesson">Practice Exercise</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSX Attributes - Interactive Lesson</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e1e1e1;
+            border-radius: 4px;
+        }
+
+        .demo-box {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .code-block {
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+
+        .result {
+            background-color: #e9ecef;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #1a73e8;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #1557b0;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+        }
+
+        .custom-class {
+            background-color: #e3f2fd;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .user-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .list-item {
+            padding: 8px;
+            margin: 4px 0;
+            background-color: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .success { color: #4caf50; }
+        .error { color: #f44336; }
+
+        .tab-panel {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .tab {
+            padding: 8px 16px;
+            cursor: pointer;
+            background: #eee;
+            border: none;
+            margin-right: 4px;
+        }
+
+        .tab.active {
+            background: #1a73e8;
+            color: white;
+        }
+
+        .form-group {
+            margin: 10px 0;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 5px;
+            border-radius: 4px;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function UserProfile({ name, age }) {
+            return (
+                <div className="user-card">
+                    <h3>{name}</h3>
+                    <p>Age: {age}</p>
+                </div>
+            );
+        }
+
+        function JSXAttributesLesson() {
+            const [inputValue, setInputValue] = React.useState("");
+            const [isActive, setIsActive] = React.useState(true);
+            const [textColor, setTextColor] = React.useState("blue");
+            const [isChecked, setIsChecked] = React.useState(false);
+            const [activeTab, setActiveTab] = React.useState(0);
+            const [items] = React.useState(['Apple', 'Banana', 'Orange', 'Mango']);
+
+            const handleButtonClick = () => {
+                alert('Button clicked!');
+            };
+
+            const tabs = ['Styling', 'Events', 'Props', 'Forms'];
+
+            return (
+                <div className="container">
+                    <h1>JSX Attributes in Practice</h1>
+
+                    {/* Styling Components */}
+                    <div className="section" style={{ display: activeTab === 0 ? 'block' : 'none' }}>
+                        <h2>1. Styling Components</h2>
+                        
+                        <div className="demo-box">
+                            <h3>className Attribute</h3>
+                            <div className="code-block">
+                                {'<div className="custom-class">Styled with CSS class</div>'}
+                            </div>
+                            <div className="result">
+                                <div className="custom-class">Styled with CSS class</div>
+                            </div>
+                        </div>
+
+                        <div className="demo-box">
+                            <h3>style Attribute</h3>
+                            <div className="code-block">
+                                {'<div style={{ color: textColor, fontWeight: "bold" }}>'}
+                            </div>
+                            <div className="result">
+                                <input 
+                                    type="color" 
+                                    value={textColor}
+                                    onChange={(e) => setTextColor(e.target.value)}
+                                />
+                                <div style={{ color: textColor, fontWeight: "bold" }}>
+                                    This text color is controlled by the input above
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Event Handling */}
+                    <div className="section" style={{ display: activeTab === 1 ? 'block' : 'none' }}>
+                        <h2>2. Event Handling</h2>
+                        
+                        <div className="demo-box">
+                            <h3>onClick Event</h3>
+                            <div className="code-block">
+                                {'<button onClick={() => alert("Button clicked!")}>Click Me</button>'}
+                            </div>
+                            <div className="result">
+                                <button onClick={handleButtonClick}>Click Me</button>
+                            </div>
+                        </div>
+
+                        <div className="demo-box">
+                            <h3>onChange Event</h3>
+                            <div className="code-block">
+                                {'<input onChange={(e) => setInputValue(e.target.value)} />'}
+                            </div>
+                            <div className="result">
+                                <input 
+                                    type="text"
+                                    value={inputValue}
+                                    onChange={(e) => setInputValue(e.target.value)}
+                                    placeholder="Type something..."
+                                />
+                                <p>You typed: {inputValue}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Props and Data Passing */}
+                    <div className="section" style={{ display: activeTab === 2 ? 'block' : 'none' }}>
+                        <h2>3. Props and Conditional Rendering</h2>
+                        
+                        <div className="demo-box">
+                            <h3>Passing Props</h3>
+                            <div className="code-block">
+                                {'<UserProfile name="John Doe" age={30} />'}
+                            </div>
+                            <div className="result">
+                                <UserProfile name="John Doe" age={30} />
+                            </div>
+                        </div>
+
+                        <div className="demo-box">
+                            <h3>Conditional Attributes</h3>
+                            <div className="code-block">
+                                {'<button disabled={!isActive}>Conditional Button</button>'}
+                            </div>
+                            <div className="result">
+                                <button 
+                                    disabled={!isActive}
+                                    onClick={() => alert('Active!')}
+                                >
+                                    Conditional Button
+                                </button>
+                                <button onClick={() => setIsActive(!isActive)}>
+                                    Toggle Active State
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Forms and Lists */}
+                    <div className="section" style={{ display: activeTab === 3 ? 'block' : 'none' }}>
+                        <h2>4. Forms and Lists</h2>
+                        
+                        <div className="demo-box">
+                            <h3>Form Controls</h3>
+                            <div className="code-block">
+                                {'<input type="checkbox" checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} />'}
+                            </div>
+                            <div className="result">
+                                <label>
+                                    <input 
+                                        type="checkbox"
+                                        checked={isChecked}
+                                        onChange={(e) => setIsChecked(e.target.checked)}
+                                    />
+                                    Toggle me
+                                </label>
+                                <p>Checkbox is: {isChecked ? 'Checked' : 'Unchecked'}</p>
+                            </div>
+                        </div>
+
+                        <div className="demo-box">
+                            <h3>Rendering Lists with Keys</h3>
+                            <div className="code-block">
+                                {'items.map((item, index) => <div key={index}>{item}</div>)'}
+                            </div>
+                            <div className="result">
+                                {items.map((item, index) => (
+                                    <div key={index} className="list-item">
+                                        {item}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Navigation Tabs */}
+                    <div className="tab-panel">
+                        {tabs.map((tab, index) => (
+                            <button
+                                key={index}
+                                className={`tab ${activeTab === index ? 'active' : ''}`}
+                                onClick={() => setActiveTab(index)}
+                            >
+                                {tab}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<JSXAttributesLesson />, document.getElementById('root'));
+    </script>
+</body>
+</html>

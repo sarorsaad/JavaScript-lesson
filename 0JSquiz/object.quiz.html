@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Objects Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        .home-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        .home-link i {
+            margin-right: 8px;
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+        }
+
+        .question.answered {
+            border-color: #4CAF50;
+        }
+
+        .options {
+            margin-top: 10px;
+        }
+
+        .option {
+            display: block;
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .option.selected {
+            background-color: #e3f2fd;
+            border-color: #2196f3;
+        }
+
+        .option.correct {
+            background-color: #c8e6c9;
+            border-color: #4caf50;
+        }
+
+        .option.wrong {
+            background-color: #ffcdd2;
+            border-color: #f44336;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background-color: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .feedback.wrong {
+            background-color: #ffcdd2;
+            color: #c62828;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background-color: #1976d2;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background-color: #4CAF50;
+            transition: width 0.3s ease;
+        }
+
+        .question-number {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <a href="../0JScode/0 home.html" class="home-link"><i class="fas fa-arrow-left"></i>Back to Home</a>
+    
+    <div class="quiz-container">
+        <h1>JavaScript Objects Quiz</h1>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div id="quiz"></div>
+        <button class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "What is an object in JavaScript?",
+                options: [
+                    "A primitive data type",
+                    "A container for related data and code",
+                    "A function that returns a value",
+                    "A type of loop"
+                ],
+                correct: 1
+            },
+            {
+                question: "Which syntax is used to create an object literal in JavaScript?",
+                options: [
+                    "[]",
+                    "()",
+                    "{}",
+                    "<>"
+                ],
+                correct: 2
+            },
+            {
+                question: "In an object, what is a method?",
+                options: [
+                    "A property that stores a number",
+                    "A property that stores a string",
+                    "A property that stores a function",
+                    "A property that stores an array"
+                ],
+                correct: 2
+            },
+            {
+                question: "Which of these is NOT a way to create objects in JavaScript?",
+                options: [
+                    "Object literals",
+                    "Constructor functions",
+                    "Classes",
+                    "Arrays"
+                ],
+                correct: 3
+            },
+            {
+                question: "What is the document object in JavaScript?",
+                options: [
+                    "A text file",
+                    "The root of the DOM",
+                    "A browser window",
+                    "A JavaScript function"
+                ],
+                correct: 1
+            },
+            {
+                question: "Which object is the document object a part of?",
+                options: [
+                    "Window object",
+                    "Navigator object",
+                    "Screen object",
+                    "Location object"
+                ],
+                correct: 0
+            },
+            {
+                question: "Which of these is a built-in JavaScript object?",
+                options: [
+                    "Window",
+                    "Browser",
+                    "Math",
+                    "Screen"
+                ],
+                correct: 2
+            },
+            {
+                question: "How do you access a property of an object?",
+                options: [
+                    "object->property",
+                    "object[property]",
+                    "object.property",
+                    "Both B and C"
+                ],
+                correct: 3
+            },
+            {
+                question: "What is the purpose of the window object?",
+                options: [
+                    "To manipulate the DOM",
+                    "To represent the browser window",
+                    "To handle mathematical operations",
+                    "To store user data"
+                ],
+                correct: 1
+            },
+            {
+                question: "Which method is used to create a new element in the DOM?",
+                options: [
+                    "document.makeElement()",
+                    "document.createElement()",
+                    "document.newElement()",
+                    "document.addElement()"
+                ],
+                correct: 1
+            },
+            {
+                question: "What is the output of console.log(typeof {})?",
+                options: [
+                    "'object'",
+                    "'Object'",
+                    "'function'",
+                    "'undefined'"
+                ],
+                correct: 0
+            },
+            {
+                question: "Which object provides information about the browser being used?",
+                options: [
+                    "Window",
+                    "Document",
+                    "Navigator",
+                    "Location"
+                ],
+                correct: 2
+            },
+            {
+                question: "What is the correct way to get the current URL of the webpage?",
+                options: [
+                    "window.URL",
+                    "document.URL",
+                    "navigator.URL",
+                    "location.URL"
+                ],
+                correct: 1
+            },
+            {
+                question: "In an object literal, what separates the key from its value?",
+                options: [
+                    "=",
+                    ":",
+                    "->",
+                    "=>"
+                ],
+                correct: 1
+            },
+            {
+                question: "Which of these is a valid object method definition?",
+                options: [
+                    "method: => { }",
+                    "method: function() { }",
+                    "method() => { }",
+                    "All of the above"
+                ],
+                correct: 1
+            }
+        ];
+
+        let selectedAnswers = new Array(quizData.length).fill(-1);
+        let questionsAnswered = 0;
+
+        function createQuiz() {
+            const quizContainer = document.getElementById('quiz');
+            quizData.forEach((question, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `
+                    <div class="question-number">Question ${index + 1} of ${quizData.length}</div>
+                    <p>${question.question}</p>
+                    <div class="options">
+                        ${question.options.map((option, optionIndex) => `
+                            <div class="option" onclick="selectOption(${index}, ${optionIndex})">
+                                ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback-${index}"></div>
+                `;
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            const questionDiv = document.querySelectorAll('.question')[questionIndex];
+            const options = questionDiv.querySelectorAll('.option');
+            const feedback = document.getElementById(`feedback-${questionIndex}`);
+            
+            if (!questionDiv.classList.contains('answered')) {
+                questionsAnswered++;
+                updateProgress();
+            }
+
+            options.forEach(option => {
+                option.classList.remove('selected', 'correct', 'wrong');
+            });
+
+            selectedAnswers[questionIndex] = optionIndex;
+            const selectedOption = options[optionIndex];
+            selectedOption.classList.add('selected');
+
+            const isCorrect = optionIndex === quizData[questionIndex].correct;
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'wrong'}`;
+            feedback.style.display = 'block';
+            feedback.textContent = isCorrect ? '✓ Correct!' : '✗ Incorrect. Try again!';
+
+            questionDiv.classList.add('answered');
+            
+            if (!isCorrect) {
+                options[quizData[questionIndex].correct].classList.add('correct');
+                selectedOption.classList.add('wrong');
+            } else {
+                selectedOption.classList.add('correct');
+            }
+        }
+
+        function updateProgress() {
+            const progress = document.getElementById('progress');
+            const percentage = (questionsAnswered / quizData.length) * 100;
+            progress.style.width = `${percentage}%`;
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            selectedAnswers.forEach((answer, index) => {
+                if (answer === quizData[index].correct) {
+                    score++;
+                }
+            });
+
+            const percentage = (score / quizData.length) * 100;
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <h2>Quiz Results</h2>
+                <p>You scored ${score} out of ${quizData.length} (${percentage.toFixed(1)}%)</p>
+                ${percentage >= 70 ? 
+                    '<p style="color: #4CAF50;">Great job! You have a good understanding of JavaScript Objects!</p>' :
+                    '<p style="color: #f44336;">Keep practicing! Review the material and try again.</p>'
+                }
+            `;
+            resultDiv.style.display = 'block';
+
+            // Scroll to results
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Initialize the quiz
+        createQuiz();
+    </script>
+</body>
+</html>

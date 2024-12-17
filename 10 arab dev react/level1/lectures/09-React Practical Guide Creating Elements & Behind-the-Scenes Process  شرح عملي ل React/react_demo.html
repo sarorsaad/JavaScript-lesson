@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Basics: Virtual DOM and Rendering</title>
+    <!-- Load React -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .demo-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+        }
+        button {
+            background: #61dafb;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .explanation {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>React Basics: Understanding Virtual DOM</h1>
+        
+        <div class="explanation">
+            <h2>What is Virtual DOM?</h2>
+            <p>The Virtual DOM is React's way of keeping a lightweight copy of the real DOM in memory. When changes occur:</p>
+            <ol>
+                <li>React first updates its Virtual DOM</li>
+                <li>Compares it with the previous version</li>
+                <li>Only updates the real DOM where necessary</li>
+            </ol>
+        </div>
+
+        <div class="demo-section">
+            <h2>Interactive Demo</h2>
+            <p>Click the buttons below to see React in action:</p>
+            <div id="root"></div>
+            <div>
+                <button onclick="updateContent()">Update Content</button>
+                <button onclick="addElement()">Add Element</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple React demo
+        let counter = 1;
+        
+        function updateContent() {
+            const element = React.createElement(
+                'div',
+                null,
+                `Updated content ${counter++}`
+            );
+            const root = ReactDOM.createRoot(document.getElementById('root'));
+            root.render(element);
+        }
+
+        function addElement() {
+            const element = React.createElement(
+                'div',
+                null,
+                [
+                    React.createElement('p', null, `Element ${counter++}`),
+                    React.createElement('p', null, 'Click buttons to see changes!')
+                ]
+            );
+            const root = ReactDOM.createRoot(document.getElementById('root'));
+            root.render(element);
+        }
+
+        // Initial render
+        document.addEventListener('DOMContentLoaded', () => {
+            const element = React.createElement(
+                'div',
+                null,
+                'Click a button to start!'
+            );
+            const root = ReactDOM.createRoot(document.getElementById('root'));
+            root.render(element);
+        });
+    </script>
+</body>
+</html>

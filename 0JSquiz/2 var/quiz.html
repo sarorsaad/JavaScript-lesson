@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .home-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #1a73e8;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .home-link:hover {
+            background-color: #e8f0fe;
+        }
+
+        .home-link i {
+            margin-right: 8px;
+        }
+    </style>
+    <link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+    <a href="../../0JScode/0 home.html" class="home-link"><i class="fas fa-arrow-left"></i>Back to Web Development</a>
+    <div class="quiz-container">
+        <h1>JavaScript Variables and Data Types Quiz</h1>
+        <div id="quiz">
+            <div class="question-container">
+                <h2>Question <span id="question-number">1</span>/11</h2>
+                <p id="question-text"></p>
+                <div id="options" class="options">
+                </div>
+            </div>
+            <button id="submit-btn">Submit Answer</button>
+            <button id="next-btn" style="display: none;">Next Question</button>
+        </div>
+        <div id="results" style="display: none;">
+            <h2>Quiz Complete!</h2>
+            <p>Your score: <span id="score">0</span>/11</p>
+            <button id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+    <script src="quiz.js"></script>
+</body>
+</html>

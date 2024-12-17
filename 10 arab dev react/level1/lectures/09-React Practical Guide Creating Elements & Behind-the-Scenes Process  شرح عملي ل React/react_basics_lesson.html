@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Basics: Virtual DOM and Rendering</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .lesson-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        .visualization {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .code-example {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+        }
+
+        .interactive-demo {
+            border: 2px solid #61dafb;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        button {
+            background: #61dafb;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #282c34;
+            cursor: pointer;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #4fa8d5;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        #virtual-dom-demo {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .dom-tree {
+            flex: 1;
+            margin: 10px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .success-message {
+            color: #28a745;
+            padding: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>React Basics: Understanding Virtual DOM and Rendering</h1>
+        
+        <div class="lesson-section">
+            <h2>1. What is React?</h2>
+            <p>React is a JavaScript library for building user interfaces. It uses a special concept called the Virtual DOM to make web applications fast and efficient.</p>
+        </div>
+
+        <div class="lesson-section">
+            <h2>2. The Virtual DOM Concept</h2>
+            <div class="visualization" id="virtual-dom-demo">
+                <div class="dom-tree">
+                    <h3>Real DOM</h3>
+                    <div id="real-dom-display"></div>
+                </div>
+                <div class="dom-tree">
+                    <h3>Virtual DOM</h3>
+                    <div id="virtual-dom-display"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-section">
+            <h2>3. Interactive Demo</h2>
+            <div class="interactive-demo">
+                <div id="root"></div>
+                <div class="controls">
+                    <button onclick="updateContent()">Update Content</button>
+                    <button onclick="addElement()">Add Element</button>
+                    <button onclick="removeElement()">Remove Element</button>
+                </div>
+                <p class="success-message" id="success-message">Changes applied successfully!</p>
+            </div>
+        </div>
+
+        <div class="lesson-section">
+            <h2>4. Practice Area</h2>
+            <div class="code-example">
+                <pre><code id="practice-code">
+// Try creating your own React element!
+const element = React.createElement(
+    'div',
+    null,
+    'Your content here'
+);
+                </code></pre>
+            </div>
+        </div>
+    </div>
+    <script src="react_basics_lesson.js"></script>
+</body>
+</html>

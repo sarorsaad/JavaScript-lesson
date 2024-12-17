@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Guide to JSX - Interactive Lesson</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e1e1e1;
+            padding-bottom: 10px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #666;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -12px;
+        }
+
+        .tab.active {
+            color: #1a73e8;
+            border-bottom: 2px solid #1a73e8;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+
+        .demo-box {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border: 1px solid #e1e1e1;
+        }
+
+        .code-block {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-family: monospace;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block .copy-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #333;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        .code-block .copy-btn:hover {
+            opacity: 1;
+        }
+
+        .result {
+            background-color: #e9ecef;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px dashed #adb5bd;
+        }
+
+        .interactive {
+            background-color: #e3f2fd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border: 1px solid #90caf9;
+        }
+
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #1a73e8;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #1557b0;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        input, select {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background-color: #f8f9fa;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted #666;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            white-space: nowrap;
+            z-index: 1;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            background-color: white;
+        }
+
+        .flex-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .nav-tabs {
+                flex-wrap: wrap;
+            }
+
+            .tab {
+                flex: 1 1 auto;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Example components
+        const StyledComponent = ({ customClass, customStyle, children }) => (
+            <div className={customClass} style={customStyle}>
+                {children}
+            </div>
+        );
+
+        const UserCard = ({ name, age, role }) => (
+            <div className="card">
+                <h3>{name}</h3>
+                <p>Age: {age}</p>
+                <p>Role: {role}</p>
+            </div>
+        );
+
+        function CompleteJSXGuide() {
+            const [activeTab, setActiveTab] = React.useState(0);
+            const [expression, setExpression] = React.useState("2 + 2");
+            const [userName, setUserName] = React.useState("John");
+            const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+            const [textColor, setTextColor] = React.useState("#1a73e8");
+            const [customStyle, setCustomStyle] = React.useState({ 
+                color: '#333',
+                fontSize: '16px',
+                fontWeight: 'normal'
+            });
+
+            const evaluateExpression = (expr) => {
+                try {
+                    return eval(expr);
+                } catch (error) {
+                    return "Invalid expression";
+                }
+            };
+
+            const tabs = [
+                "JSX Expressions",
+                "Attributes & Props",
+                "Practical Examples",
+                "Best Practices"
+            ];
+
+            const handleStyleChange = (property, value) => {
+                setCustomStyle(prev => ({
+                    ...prev,
+                    [property]: value
+                }));
+            };
+
+            return (
+                <div className="container">
+                    <h1>Complete Guide to JSX</h1>
+                    
+                    <div className="nav-tabs">
+                        {tabs.map((tab, index) => (
+                            <button
+                                key={index}
+                                className={`tab ${activeTab === index ? 'active' : ''}`}
+                                onClick={() => setActiveTab(index)}
+                            >
+                                {tab}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* JSX Expressions Section */}
+                    <div className="section" style={{ display: activeTab === 0 ? 'block' : 'none' }}>
+                        <h2>1. JSX Expressions</h2>
+                        <p>JSX expressions allow you to embed any valid JavaScript expression inside curly braces {'{}'}</p>
+
+                        <div className="demo-box">
+                            <h3>Simple Math Expression</h3>
+                            <div className="code-block">
+                                {'<div>{2 + 2}</div>'}
+                            </div>
+                            <div className="result">
+                                Result: {2 + 2}
+                            </div>
+                        </div>
+
+                        <div className="interactive">
+                            <h3>Try Your Own Expression</h3>
+                            <input
+                                type="text"
+                                value={expression}
+                                onChange={(e) => setExpression(e.target.value)}
+                                placeholder="Enter a JavaScript expression"
+                            />
+                            <div className="result">
+                                Result: {evaluateExpression(expression)}
+                            </div>
+                        </div>
+
+                        <div className="demo-box">
+                            <h3>Conditional Rendering</h3>
+                            <div className="code-block">
+                                {'<div>{isLoggedIn ? "Welcome back!" : "Please log in"}</div>'}
+                            </div>
+                            <div className="result">
+                                <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
+                                    Toggle Login State
+                                </button>
+                                <p>{isLoggedIn ? "Welcome back!" : "Please log in"}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Attributes & Props Section */}
+                    <div className="section" style={{ display: activeTab === 1 ? 'block' : 'none' }}>
+                        <h2>2. JSX Attributes & Props</h2>
+                        
+                        <div className="demo-box">
+                            <h3>Basic Attributes</h3>
+                            <div className="code-block">
+                                {'<div className="highlight" id="demo">Content</div>'}
+                            </div>
+                            <div className="result">
+                                <div className="highlight">Content with className="highlight"</div>
+                            </div>
+                        </div>
+
+                        <div className="interactive">
+                            <h3>Dynamic Styles</h3>
+                            <div className="flex-container">
+                                <input
+                                    type="color"
+                                    value={textColor}
+                                    onChange={(e) => setTextColor(e.target.value)}
+                                />
+                                <select 
+                                    value={customStyle.fontWeight}
+                                    onChange={(e) => handleStyleChange('fontWeight', e.target.value)}
+                                >
+                                    <option value="normal">Normal</option>
+                                    <option value="bold">Bold</option>
+                                </select>
+                                <input
+                                    type="range"
+                                    min="12"
+                                    max="24"
+                                    value={customStyle.fontSize.replace('px', '')}
+                                    onChange={(e) => handleStyleChange('fontSize', `${e.target.value}px`)}
+                                />
+                            </div>
+                            <div className="result" style={{ color: textColor, ...customStyle }}>
+                                This text is styled using dynamic attributes
+                            </div>
+                        </div>
+
+                        <div className="demo-box">
+                            <h3>Props Example</h3>
+                            <div className="code-block">
+                                {'<UserCard name="John Doe" age={25} role="Developer" />'}
+                            </div>
+                            <div className="result">
+                                <UserCard name="John Doe" age={25} role="Developer" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Practical Examples Section */}
+                    <div className="section" style={{ display: activeTab === 2 ? 'block' : 'none' }}>
+                        <h2>3. Practical Examples</h2>
+
+                        <div className="demo-box">
+                            <h3>Form Handling</h3>
+                            <div className="code-block">
+                                {'<input value={userName} onChange={(e) => setUserName(e.target.value)} />'}
+                            </div>
+                            <div className="result">
+                                <input
+                                    value={userName}
+                                    onChange={(e) => setUserName(e.target.value)}
+                                    placeholder="Enter your name"
+                                />
+                                <p>Hello, {userName}!</p>
+                            </div>
+                        </div>
+
+                        <div className="demo-box">
+                            <h3>Conditional Classes</h3>
+                            <div className="code-block">
+                                {'<div className={isLoggedIn ? "success" : "error"}>'}
+                            </div>
+                            <div className="result">
+                                <div className={isLoggedIn ? "success" : "error"}>
+                                    {isLoggedIn ? "Logged In ✓" : "Not Logged In ✗"}
+                                </div>
+                                <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
+                                    Toggle Login
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Best Practices Section */}
+                    <div className="section" style={{ display: activeTab === 3 ? 'block' : 'none' }}>
+                        <h2>4. Best Practices</h2>
+
+                        <div className="demo-box">
+                            <h3>1. Use Appropriate Attribute Names</h3>
+                            <div className="code-block">
+                                {`// ❌ Wrong
+<div class="container">
+// ✓ Correct
+<div className="container">`}
+                            </div>
+                        </div>
+
+                        <div className="demo-box">
+                            <h3>2. Props Documentation</h3>
+                            <div className="code-block">
+                                {`UserCard.propTypes = {
+    name: PropTypes.string.isRequired,
+    age: PropTypes.number,
+    role: PropTypes.string
+}`}
+                            </div>
+                        </div>
+
+                        <table className="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Aspect</th>
+                                    <th>JSX Expressions</th>
+                                    <th>JSX Attributes</th>
+                                    <th>Props</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Location</td>
+                                    <td>Inside element content</td>
+                                    <td>In element tags</td>
+                                    <td>Within component logic</td>
+                                </tr>
+                                <tr>
+                                    <td>Syntax</td>
+                                    <td>Always {'{}'}</td>
+                                    <td>""
+
+ or {'{}'}</td>
+                                    <td>Accessed via parameters</td>
+                                </tr>
+                                <tr>
+                                    <td>Purpose</td>
+                                    <td>Render dynamic content</td>
+                                    <td>Configure elements</td>
+                                    <td>Pass data between components</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<CompleteJSXGuide />, document.getElementById('root'));
+    </script>
+</body>
+</html>

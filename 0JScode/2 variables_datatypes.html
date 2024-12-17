@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variables and Data Types - sarorAcademy</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f5f6fa;
+            --text-color: #2c3e50;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .lesson-section, .demo-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 2.5rem;
+        }
+
+        .code-block {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            font-family: 'Consolas', monospace;
+            position: relative;
+        }
+
+        .code-block button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .code-block:hover button {
+            opacity: 1;
+        }
+
+        .demo-container {
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .demo-output {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            min-height: 100px;
+        }
+
+        .btn {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="0 home.html" class="home-link"><i class="fas fa-home"></i>Back to Home</a>
+    <h1>Variables and Primitive Data Typesin JavaScript</h1>
+
+    <div class="container">
+        <div class="lesson-section">
+            <h2>Understanding Variables</h2>
+            <p>Variables are containers for storing data values. JavaScript provides three ways to declare variables:</p>
+            <img src="../00xximg/2 variable.png" alt="Variable Declaration Diagram" style="width: 50%; height: auto; margin: 1rem 0;">
+            
+            <div class="code-block">
+                <button onclick="copyCode(this)">Copy</button>
+                <pre><code>// Using var (function-scoped)
+var name = "John";
+
+// Using let (block-scoped)
+let age = 25;
+
+// Using const (constant value)
+const PI = 3.14159;</code></pre>
+            </div>
+
+            <h3>Primitive Data Types</h3>
+            <div class="code-block">
+                <button onclick="copyCode(this)">Copy</button>
+                <pre><code>// String
+let text = "Hello World";
+
+// Number
+let count = 42;
+let price = 19.99;
+
+// Boolean
+let isActive = true;
+
+// Undefined
+let undefinedVar;
+
+// Null
+let emptyValue = null;
+
+// Symbol
+let uniqueId = Symbol('id');
+
+// BigInt
+let bigNumber = 9007199254740991n;</code></pre>
+            </div>
+
+            <div class="note">
+                <strong>Pro Tip:</strong> Always use <code>const</code> by default, and only use <code>let</code> when you need to reassign values. Avoid using <code>var</code> in modern JavaScript.
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>Interactive Examples</h2>
+            
+            <div class="demo-container">
+                <h3>Variable Declaration Demo</h3>
+                <button class="btn" onclick="runVariableDemo()">Run Demo</button>
+                <div id="variable-output" class="demo-output"></div>
+            </div>
+
+            <div class="demo-container">
+                <h3>Data Type Checker</h3>
+                <button class="btn" onclick="checkDataTypes()">Check Types</button>
+                <div id="type-output" class="demo-output"></div>
+            </div>
+
+            <div class="demo-container">
+                <h3>Try it yourself!</h3>
+                <p>Enter a value and we'll tell you its type:</p>
+                <input type="text" id="user-input" class="form-control">
+                <button class="btn" onclick="checkUserInput()">Check Type</button>
+                <div id="user-output" class="demo-output"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const textArea = document.createElement('textarea');
+            textArea.value = codeBlock.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            button.textContent = 'Copied!';
+            setTimeout(() => {
+                button.textContent = 'Copy';
+            }, 2000);
+        }
+
+        function runVariableDemo() {
+            const output = document.getElementById('variable-output');
+            let name = "Alice";
+            const age = 25;
+            var hobby = "coding";
+
+            output.innerHTML = `
+                <strong>let name:</strong> ${name}<br>
+                <strong>const age:</strong> ${age}<br>
+                <strong>var hobby:</strong> ${hobby}<br>
+            `;
+
+            // Demonstrate variable behavior
+            name = "Bob";
+            hobby = "reading";
+            // This would cause an error: age = 26;
+
+            output.innerHTML += `
+                <br>After reassignment:<br>
+                <strong>name:</strong> ${name}<br>
+                <strong>hobby:</strong> ${hobby}<br>
+                <strong>age:</strong> ${age} (constant, cannot be changed)
+            `;
+        }
+
+        function checkDataTypes() {
+            const output = document.getElementById('type-output');
+            const examples = {
+                string: "Hello World",
+                number: 42,
+                boolean: true,
+                undefined: undefined,
+                null: null,
+                symbol: Symbol('id'),
+                bigint: BigInt(9007199254740991)
+            };
+
+            let html = '';
+            for (const [type, value] of Object.entries(examples)) {
+                html += `<strong>${type}:</strong> ${String(value)} (typeof: ${typeof value})<br>`;
+            }
+            output.innerHTML = html;
+        }
+
+        function checkUserInput() {
+            const input = document.getElementById('user-input').value;
+            const output = document.getElementById('user-output');
+            
+            // Try to parse as number
+            const numberValue = Number(input);
+            if (!isNaN(numberValue)) {
+                output.innerHTML = `Your input "${input}" is a <strong>number</strong>`;
+                return;
+            }
+
+            // Check for boolean
+            if (input.toLowerCase() === 'true' || input.toLowerCase() === 'false') {
+                output.innerHTML = `Your input "${input}" is a <strong>boolean</strong>`;
+                return;
+            }
+
+            // Default to string
+            output.innerHTML = `Your input "${input}" is a <strong>string</strong>`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Objects</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .demo-section {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .code-section {
+            background: #2d2d2d;
+            color: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+
+        .code-title {
+            color: #66d9ef;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .code-comment {
+            color: #75715e;
+        }
+
+        .output-section {
+            background: #fff;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+
+        .object-visual {
+            max-width: 45%;
+            height: auto;
+            margin: 1rem;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .try-it-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .try-it-button:hover {
+            background: #45a049;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        #objectDemo, #builtInDemo, #browserDemo, #documentDemo {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <a href="0 home.html" class="home-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    
+    <div class="container">
+        <h1>JavaScript Objects</h1>
+        
+        <section class="section">
+            <h2>What is an Object?</h2>
+            <div class="image-container">
+                <img src="../0JSimg/4 object.png" alt="Object Example" class="object-visual">
+                <img src="../0JSimg/4 object syntax.jpg" alt="Object Example" class="object-visual">
+            </div>
+            <p>In JavaScript, objects are containers that store related data and code. Think of them as real-world objects with properties and behaviors.</p>
+        </section>
+
+        <section class="section">
+            <h2>1. User-Defined Objects</h2>
+            <p>These are custom objects created by the user to model specific behaviors or data. They can be created using:</p>
+            <ul>
+                <li>Object literals</li>
+                <li>Classes</li>
+                <li>Constructor functions</li>
+            </ul>
+
+            <h3>Object Literals in JavaScript</h3>
+            <p>Object literals are the simplest and most direct way to create objects in JavaScript. They use a pair of curly braces <code>{}</code> to define an object and its properties in a straightforward manner.</p>
+
+            <h4>Syntax of Object Literals</h4>
+            <p>An object literal is defined with key-value pairs, where:</p>
+            <ul>
+                <li><strong>Keys</strong> are property names (usually strings)</li>
+                <li><strong>Values</strong> are data (of any type) or methods (functions)</li>
+            </ul>
+
+            <div class="content-grid">
+                <div class="code-section">
+                   
+<span class="code-title">// Object Literal Syntax</span>
+<span class="code-comment">// Creating a person object using object literal notation</span>
+const person = {
+    name: 'John',    <span class="code-comment">// property: value</span>
+    age: 30,         <span class="code-comment">// property: value</span>
+    greet: function() {    <span class="code-comment">// method</span>
+        return `Hello, my name is ${this.name}!`;
+    }
+};
+
+</div>
+                <div class="demo-section">
+                    <h3>Try it yourself:</h3>
+                    <button onclick="runUserDefinedDemo()" class="try-it-button">Run Demo</button>
+                    <div id="objectDemo" class="output-section"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>2. Document Objects</h2>
+            <p>The document object is a specific JavaScript object provided by the browser that acts as the root or entry point to interact with the DOM. It represents the webpage (the HTML document) currently loaded in the browser.</p>
+
+            <h3>Characteristics</h3>
+            <ul>
+                <li>It is part of the Window object (global scope in browsers)</li>
+                <li>It provides methods and properties for interacting with the DOM and accessing/manipulating elements on the page</li>
+                <li>It acts as a programming interface to access the content and structure of the HTML document</li>
+            </ul>
+
+            <h3>Examples of the Document Object</h3>
+            <div class="content-grid">
+                <div class="code-section">
+<span class="code-title">// Document Object Methods and Properties</span>
+<span class="code-comment">// Accessing basic document information</span>
+console.log(document.title);         // Access the page's title
+console.log(document.URL);           // Get the URL of the current document
+
+<span class="code-comment">// DOM manipulation examples</span>
+const element = document.getElementById("header");  // Get element by ID
+const newElement = document.createElement('p');     // Create new element
+newElement.textContent = 'This is a new paragraph!';
+</div>
+                <div class="demo-section">
+                    <h3>Try it yourself:</h3>
+                    <button onclick="runDocumentDemo()" class="try-it-button">Run Demo</button>
+                    <div id="documentDemo" class="output-section"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>3. Built-in Objects</h2>
+            <p>These are standard objects provided by JavaScript to perform common tasks.</p>
+            <div class="content-grid">
+                <div class="code-section">
+// Math object example
+console.log('PI value:', Math.PI);
+console.log('Random number:', Math.random());
+
+// Date object example
+const today = new Date();
+console.log('Current date:', today.toDateString());
+</div>
+                <div class="demo-section">
+                    <h3>Try it yourself:</h3>
+                    <button onclick="runBuiltInDemo()" class="try-it-button">Run Demo</button>
+                    <div id="builtInDemo" class="output-section"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>4. Browser Objects</h2>
+            <p>These are objects provided by the browser to interact with the browser environment.</p>
+            <div class="content-grid">
+                <div class="code-section">
+// Window object properties
+console.log('Window width:', window.innerWidth);
+console.log('Window height:', window.innerHeight);
+
+// Navigator object
+console.log('Browser:', navigator.userAgent);
+</div>
+                <div class="demo-section">
+                    <h3>Try it yourself:</h3>
+                    <button onclick="runBrowserDemo()" class="try-it-button">Run Demo</button>
+                    <div id="browserDemo" class="output-section"></div>
+                </div>
+            </div>
+        </section>
+
+     
+    </div>
+ 
+    <script>
+        function appendToOutput(elementId, text) {
+            const output = document.getElementById(elementId);
+            output.innerHTML += text + '<br>';
+        }
+
+        function clearOutput(elementId) {
+            document.getElementById(elementId).innerHTML = '';
+        }
+
+        function runUserDefinedDemo() {
+            clearOutput('objectDemo');
+            const person = {
+                name: 'John',
+                age: 30,
+                greet: function() {
+                    return `Hello, my name is ${this.name}!`;
+                }
+            };
+            appendToOutput('objectDemo', `Name: ${person.name}`);
+            appendToOutput('objectDemo', person.greet());
+        }
+
+        function runBuiltInDemo() {
+            clearOutput('builtInDemo');
+            appendToOutput('builtInDemo', `PI value: ${Math.PI}`);
+            appendToOutput('builtInDemo', `Random number: ${Math.random()}`);
+            appendToOutput('builtInDemo', `Current date: ${new Date().toDateString()}`);
+        }
+
+        function runBrowserDemo() {
+            clearOutput('browserDemo');
+            appendToOutput('browserDemo', `Window width: ${window.innerWidth}`);
+            appendToOutput('browserDemo', `Window height: ${window.innerHeight}`);
+            appendToOutput('browserDemo', `Browser: ${navigator.userAgent}`);
+        }
+
+        function runDocumentDemo() {
+            clearOutput('documentDemo');
+            appendToOutput('documentDemo', `Page title: ${document.title}`);
+            appendToOutput('documentDemo', `URL: ${document.URL}`);
+            const demo = document.getElementById('documentDemo');
+            const newElement = document.createElement('p');
+            newElement.textContent = 'This is a new paragraph!';
+            demo.appendChild(newElement);
+        }
+    </script>
+</body>
+</html>

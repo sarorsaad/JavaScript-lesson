@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Functions Quiz</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .options {
+            margin-top: 10px;
+        }
+
+        .option {
+            display: block;
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .selected {
+            background-color: #e3f2fd;
+        }
+
+        .option.correct-answer {
+            background-color: #c8e6c9;
+            border-color: #4caf50;
+        }
+
+        .option.wrong-answer {
+            background-color: #ffcdd2;
+            border-color: #f44336;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background-color: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .feedback.incorrect {
+            background-color: #ffcdd2;
+            color: #c62828;
+        }
+
+        .coding-answer {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background-color: #1976d2;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="../0JScode/0 home.html" class="home-link"><i class="fas fa-home"></i>Back to Home</a>
+    <div class="quiz-container">
+        <h1>JavaScript Functions Quiz</h1>
+        <div id="quiz"></div>
+        <button class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "What keyword is used to define a function in JavaScript?",
+                options: ["function", "func", "Function", "define"],
+                correct: 0,
+                type: "mcq"
+            },
+            {
+                question: "What is the purpose of parentheses () in a function?",
+                options: [
+                    "To define a function name",
+                    "To define the function body",
+                    "To hold parameters or arguments",
+                    "To return a value"
+                ],
+                correct: 2,
+                type: "mcq"
+            },
+            {
+                question: "What is the default return value of a function in JavaScript if no return statement is provided?",
+                options: ["null", "undefined", "false", "0"],
+                correct: 1,
+                type: "mcq"
+            },
+            {
+                question: "Which of the following is an example of a function with parameters?",
+                options: [
+                    "function greet() { console.log('Hello'); }",
+                    "function greet(name) { console.log('Hello, ' + name); }",
+                    "greet();",
+                    "return 'Hello';"
+                ],
+                correct: 1,
+                type: "mcq"
+            },
+            {
+                question: "In the function multiply(a, b) { return a * b; }, what is the expected output when multiply(4, 5) is invoked?",
+                options: ["45", "20", "undefined", "Error"],
+                correct: 1,
+                type: "mcq"
+            },
+            {
+                question: "A function can have no parameters.",
+                options: ["True", "False"],
+                correct: 0,
+                type: "boolean"
+            },
+            {
+                question: "Functions in JavaScript are case-insensitive, so function greet() and Function Greet() are the same.",
+                options: ["True", "False"],
+                correct: 1,
+                type: "boolean"
+            },
+            {
+                question: "Reserved words like while or if can be used as function names.",
+                options: ["True", "False"],
+                correct: 1,
+                type: "boolean"
+            },
+            {
+                question: "The code inside {} in a function is called the ____.",
+                answer: "Function body",
+                type: "fill"
+            },
+            {
+                question: "The ____ statement is used to return a value from the function.",
+                answer: "return",
+                type: "fill"
+            },
+            {
+                question: "Write a function named addNumbers that takes two arguments a and b and returns their sum.",
+                answer: "function addNumbers(a, b) {\n    return a + b;\n}",
+                type: "coding"
+            },
+            {
+                question: "Write a function sayHello that takes one parameter name and logs 'Hello, [name]!' to the console.",
+                answer: "function sayHello(name) {\n    console.log('Hello, ' + name + '!');\n}",
+                type: "coding"
+            },
+            {
+                question: "Correct the error in the following code:\nfunction returnValue {\n    return 'Value';\n}",
+                answer: "function returnValue() {\n    return 'Value';\n}",
+                type: "coding"
+            }
+        ];
+
+        let selectedAnswers = new Array(quizData.length).fill(-1);
+
+        function createQuiz() {
+            const quizContainer = document.getElementById('quiz');
+            quizData.forEach((question, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                
+                let questionContent = `<p><strong>Question ${index + 1}:</strong> ${question.question}</p>`;
+                
+                switch(question.type) {
+                    case 'mcq':
+                    case 'boolean':
+                        questionContent += `
+                            <div class="options">
+                                ${question.options.map((option, optionIndex) => `
+                                    <div class="option" onclick="selectOption(${index}, ${optionIndex})">
+                                        ${option}
+                                    </div>
+                                `).join('')}
+                            </div>`;
+                        break;
+                    case 'fill':
+                        questionContent += `
+                            <input type="text" class="coding-answer" onchange="checkFillAnswer(${index}, this.value)">`;
+                        break;
+                    case 'coding':
+                        questionContent += `
+                            <textarea class="coding-answer" rows="4" onchange="checkCodingAnswer(${index}, this.value)"></textarea>`;
+                        break;
+                }
+                
+                questionContent += `<div class="feedback" id="feedback-${index}"></div>`;
+                questionDiv.innerHTML = questionContent;
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            selectedAnswers[questionIndex] = optionIndex;
+            
+            const questionOptions = document.querySelectorAll(`.question:nth-child(${questionIndex + 1}) .option`);
+            questionOptions.forEach(option => {
+                option.classList.remove('selected', 'correct-answer', 'wrong-answer');
+            });
+            
+            const selectedOption = questionOptions[optionIndex];
+            selectedOption.classList.add('selected');
+            
+            // Immediate feedback
+            const isCorrect = optionIndex === quizData[questionIndex].correct;
+            selectedOption.classList.add(isCorrect ? 'correct-answer' : 'wrong-answer');
+            
+            if (!isCorrect) {
+                questionOptions[quizData[questionIndex].correct].classList.add('correct-answer');
+            }
+            
+            showFeedback(questionIndex, isCorrect);
+        }
+
+        function checkFillAnswer(questionIndex, value) {
+            const isCorrect = value.trim().toLowerCase() === quizData[questionIndex].answer.toLowerCase();
+            showFeedback(questionIndex, isCorrect);
+            if (!isCorrect) {
+                document.getElementById(`feedback-${questionIndex}`).innerHTML += 
+                    `<br>Correct answer: ${quizData[questionIndex].answer}`;
+            }
+        }
+
+        function checkCodingAnswer(questionIndex, value) {
+            // Basic check - remove whitespace and newlines for comparison
+            const normalizedInput = value.replace(/\s+/g, '').toLowerCase();
+            const normalizedAnswer = quizData[questionIndex].answer.replace(/\s+/g, '').toLowerCase();
+            const isCorrect = normalizedInput === normalizedAnswer;
+            showFeedback(questionIndex, isCorrect);
+            if (!isCorrect) {
+                document.getElementById(`feedback-${questionIndex}`).innerHTML += 
+                    `<br>Sample solution:<br><code>${quizData[questionIndex].answer}</code>`;
+            }
+        }
+
+        function showFeedback(questionIndex, isCorrect) {
+            const feedbackDiv = document.getElementById(`feedback-${questionIndex}`);
+            feedbackDiv.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedbackDiv.style.display = 'block';
+            feedbackDiv.innerHTML = isCorrect ? 
+                '✓ Correct!' : 
+                '✗ Incorrect';
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            const questions = document.querySelectorAll('.question');
+            
+            quizData.forEach((question, index) => {
+                if (selectedAnswers[index] === question.correct && (question.type === 'mcq' || question.type === 'boolean')) {
+                    score++;
+                }
+            });
+
+            const resultDiv = document.getElementById('result');
+            const percentage = (score / quizData.length) * 100;
+            resultDiv.innerHTML = `
+                <h2>Quiz Results</h2>
+                <p>You scored ${score} out of ${quizData.length} (${percentage.toFixed(1)}%)</p>
+            `;
+            resultDiv.style.display = 'block';
+        }
+
+        // Initialize the quiz when the page loads
+        createQuiz();
+    </script>
+</body>
+</html>

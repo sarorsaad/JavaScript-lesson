@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Elements Deep Dive</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        .code-example {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+        }
+        .visualization {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            min-height: 300px;
+        }
+        .tree-container {
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+        }
+        .step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .demo-output {
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section full-width">
+            <h1>Understanding React.createElement and Fiber Architecture</h1>
+            <p>This interactive demo shows how React creates and manages elements behind the scenes.</p>
+        </div>
+
+        <div class="section">
+            <h2>1. Creating Elements</h2>
+            <div class="code-example" id="codeDisplay"></div>
+            <div class="demo-output" id="demo"></div>
+        </div>
+
+        <div class="section">
+            <h2>2. Behind the Scenes</h2>
+            <div class="visualization" id="visualization">
+                <div id="fiberTree"></div>
+            </div>
+        </div>
+
+        <div class="section full-width">
+            <h2>3. Step-by-Step Explanation</h2>
+            <div id="explanation"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

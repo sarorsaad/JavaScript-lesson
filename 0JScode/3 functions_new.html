@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Functions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f6fa;
+            padding: 20px;
+        }
+
+        .home-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #1a73e8;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .home-link:hover {
+            background-color: #e8f0fe;
+        }
+
+        .home-link i {
+            margin-right: 8px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 60px auto 20px;
+            padding: 20px;
+        }
+
+        .lesson-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.3em;
+            margin-top: 30px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .demo-section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 2px solid #e8eaed;
+        }
+
+        .demo-output {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #dee2e6;
+        }
+
+        .important-note {
+            background: #e8f0fe;
+            border-left: 4px solid #1a73e8;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .example {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        button {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin: 0 5px 5px 0;
+        }
+
+        button:hover {
+            background: #1557b0;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <a href="0 home.html" class="home-link">
+        <i class="fas fa-arrow-left"></i>Back to Home
+    </a>
+
+    <div class="container">
+        <h1>JavaScript Functions</h1>
+
+        <!-- Function Definition Section -->
+        <section class="lesson-section">
+            <h2>Function Definition</h2>
+            <p>A <strong>function definition</strong> in JavaScript describes the structure of a function, specifying what it does when invoked. Functions allow us to encapsulate reusable blocks of code.</p>
+
+            <h3>Syntax of Function Definition</h3>
+            <pre class="code-block"><code class="language-javascript">function functionName(parameters) {
+    // Function body: the code to execute
+}</code></pre>
+
+            <h3>Components</h3>
+            <ul>
+                <li><strong>function keyword</strong>: Required for defining a function.</li>
+                <li><strong>Function name</strong>: Used to call (invoke) the function.</li>
+                <li><strong>Parameters</strong>: Optional placeholders that accept values when the function is called.</li>
+                <li><strong>Function body</strong>: The block of code that specifies what the function does.</li>
+                <li><strong>Return statement</strong>: (Optional) Used to return a value from the function.</li>
+            </ul>
+
+            <div class="example">
+                <h3>Example of a Function Definition</h3>
+                <pre class="code-block"><code class="language-javascript">function greetUser(name) {
+    console.log("Hello, " + name + "!");
+}</code></pre>
+                
+                <div class="demo-section">
+                    <h4>Try it yourself:</h4>
+                    <button onclick="greetUser('Alice')">Greet Alice</button>
+                    <div id="greetOutput" class="demo-output"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Function Types Section -->
+        <section class="lesson-section">
+            <h2>Types of Functions</h2>
+            
+            <h3>1. Named Functions</h3>
+            <pre class="code-block"><code class="language-javascript">function greet() {
+    console.log("Hello!");
+}</code></pre>
+
+            <h3>2. Anonymous Functions</h3>
+            <pre class="code-block"><code class="language-javascript">let sayHi = function() {
+    console.log("Hi!");
+};</code></pre>
+
+            <h3>3. Arrow Functions</h3>
+            <pre class="code-block"><code class="language-javascript">const multiply = (x, y) => x * y;</code></pre>
+
+            <div class="demo-section">
+                <h4>Try Different Function Types:</h4>
+                <button onclick="testNamedFunction()">Named Function</button>
+                <button onclick="anonymousBtn()">Anonymous Function</button>
+                <button onclick="arrowBtn()">Arrow Function</button>
+                <div id="functionOutput" class="demo-output"></div>
+            </div>
+        </section>
+
+      
+
+        <!-- Parameters and Return Values Section -->
+        <section class="lesson-section">
+            <h2>Parameters and Return Values</h2>
+            
+            <div class="example">
+                <h3>Function with Parameters and Return Value</h3>
+                <pre class="code-block"><code class="language-javascript">function addNumbers(a, b) {
+    return a + b;
+}
+
+let result = addNumbers(5, 3);
+console.log(result); // Output: 8</code></pre>
+
+                <div class="demo-section">
+                    <h4>Calculator Demo:</h4>
+                    <button onclick="calculateSum(5, 3)">Add 5 + 3</button>
+                    <button onclick="calculateProduct(4, 6)">Multiply 4 × 6</button>
+                    <div id="calculatorOutput" class="demo-output"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+  <!-- Predefined Functions Section -->
+  <section class="lesson-section">
+    <h2>Predefined Functions in JavaScript</h2>
+    <p>JavaScript provides many built-in functions that you can use directly without defining them first. These functions are part of the JavaScript standard library and are available across all JavaScript environments.</p>
+
+    <div class="important-note">
+        <p><strong>Note:</strong> Predefined functions are essential tools that help you perform common programming tasks without writing the functionality from scratch.</p>
+    </div>
+
+    <h3>Common Predefined Functions</h3>
+    <ul>
+        <li><strong>alert()</strong> - Displays an alert dialog box</li>
+        <li><strong>console.log()</strong> - Outputs messages to the console</li>
+        <li><strong>Math.pow()</strong> - Calculates exponentiation</li>
+        <li><strong>parseInt()</strong> and <strong>parseFloat()</strong> - Convert strings to numbers</li>
+        <li><strong>document.querySelector()</strong> - Selects DOM elements</li>
+    </ul>
+
+    <div class="example">
+        <h3>Math Functions Examples</h3>
+        <pre class="code-block"><code class="language-javascript">// Square root
+let squareRoot = Math.sqrt(16); // Returns 4
+
+// Power
+let power = Math.pow(2, 3);    // Returns 8
+
+// Random number
+let random = Math.random();     // Returns number between 0 and 1
+
+// Round numbers
+let rounded = Math.round(3.7);  // Returns 4</code></pre>
+
+        <div class="demo-section">
+            <h4>Try Math Functions:</h4>
+            <button onclick="calculateSquareRoot(16)">√16</button>
+            <button onclick="calculatePower(2, 3)">2³</button>
+            <button onclick="generateRandom()">Random</button>
+            <button onclick="roundNumber(3.7)">Round 3.7</button>
+            <div id="mathOutput" class="demo-output"></div>
+        </div>
+    </div>
+
+    <div class="example">
+        <h3>String to Number Conversion</h3>
+        <pre class="code-block"><code class="language-javascript">// parseInt() - converts string to integer
+let intNumber = parseInt("123");    // Returns 123
+
+// parseFloat() - converts string to floating-point
+let floatNumber = parseFloat("3.14"); // Returns 3.14</code></pre>
+
+        <div class="demo-section">
+            <h4>Try Conversion Functions:</h4>
+            <button onclick="convertToInt('123')">Parse Int "123"</button>
+            <button onclick="convertToFloat('3.14')">Parse Float "3.14"</button>
+            <div id="conversionOutput" class="demo-output"></div>
+        </div>
+    </div>
+
+    <div class="example">
+        <h3>DOM Selection Example</h3>
+        <pre class="code-block"><code class="language-javascript">// Select element by ID
+let element = document.querySelector('#myElement');
+
+// Select element by class
+let elements = document.querySelector('.myClass');</code></pre>
+
+        <div class="demo-section">
+            <div id="demoElement" style="padding: 10px; background-color: #e8f0fe; margin-bottom: 10px;">
+                This is a demo element
+            </div>
+            <button onclick="selectAndModify()">Select and Modify Element</button>
+            <div id="domOutput" class="demo-output"></div>
+        </div>
+    </div>
+</section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
+    <script>
+        // Greeting function
+        function greetUser(name) {
+            const output = `Hello, ${name}!`;
+            document.getElementById('greetOutput').textContent = output;
+        }
+
+        // Named function
+        function testNamedFunction() {
+            document.getElementById('functionOutput').textContent = 'Called a named function!';
+        }
+
+        // Anonymous function
+        const anonymousBtn = function() {
+            document.getElementById('functionOutput').textContent = 'Called an anonymous function!';
+        };
+
+        // Arrow function
+        const arrowBtn = () => {
+            document.getElementById('functionOutput').textContent = 'Called an arrow function!';
+        };
+
+        // Calculator functions
+        function calculateSum(a, b) {
+            const result = a + b;
+            document.getElementById('calculatorOutput').textContent = `${a} + ${b} = ${result}`;
+        }
+
+        function calculateProduct(a, b) {
+            const result = a * b;
+            document.getElementById('calculatorOutput').textContent = `${a} × ${b} = ${result}`;
+        }
+
+        // Math Functions
+        function calculateSquareRoot(num) {
+            const result = Math.sqrt(num);
+            document.getElementById('mathOutput').textContent = `Square root of ${num} = ${result}`;
+        }
+
+        function calculatePower(base, exponent) {
+            const result = Math.pow(base, exponent);
+            document.getElementById('mathOutput').textContent = `${base} raised to power ${exponent} = ${result}`;
+        }
+
+        function generateRandom() {
+            const result = Math.random();
+            document.getElementById('mathOutput').textContent = `Random number: ${result}`;
+        }
+
+        function roundNumber(num) {
+            const result = Math.round(num);
+            document.getElementById('mathOutput').textContent = `${num} rounded = ${result}`;
+        }
+
+        // Conversion Functions
+        function convertToInt(str) {
+            const result = parseInt(str);
+            document.getElementById('conversionOutput').textContent = `parseInt("${str}") = ${result} (type: ${typeof result})`;
+        }
+
+        function convertToFloat(str) {
+            const result = parseFloat(str);
+            document.getElementById('conversionOutput').textContent = `parseFloat("${str}") = ${result} (type: ${typeof result})`;
+        }
+
+        // DOM Functions
+        function selectAndModify() {
+            const element = document.querySelector('#demoElement');
+            const currentBg = element.style.backgroundColor;
+            element.style.backgroundColor = currentBg === 'rgb(232, 240, 254)' ? '#fce8e6' : '#e8f0fe';
+            document.getElementById('domOutput').textContent = 'Element background color changed!';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #3b82f6;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --success-color: #22c55e;
+            --error-color: #ef4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .home-link {
+            display: inline-block;
+            text-decoration: none;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .home-link:hover {
+            color: var(--secondary-color);
+        }
+
+        .home-link i {
+            margin-right: 5px;
+        }
+
+        .quiz-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .option {
+            padding: 15px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            background-color: var(--bg-color);
+        }
+
+        .option.selected {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .option.correct {
+            background-color: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+        }
+
+        .option.wrong {
+            background-color: var(--error-color);
+            color: white;
+            border-color: var(--error-color);
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background-color: #dcfce7;
+            color: #166534;
+            display: block;
+        }
+
+        .feedback.wrong {
+            background-color: #fee2e2;
+            color: #991b1b;
+            display: block;
+        }
+
+        .result {
+            text-align: center;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <a href="../../0JScode/0 home.html" class="home-link"><i class="fas fa-arrow-left"></i>Back to Web Development</a>
+    <h1>Web Development Quiz</h1>
+    
+    <div class="quiz-container">
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+
+        <div id="quiz">
+            <!-- Questions will be dynamically inserted here -->
+        </div>
+
+        <div class="result">
+            <h2>Quiz Complete!</h2>
+            <p>Your score: <span id="score">0</span>/<span id="total">0</span></p>
+            <button class="btn" onclick="restartQuiz()">Try Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is HTML?",
+                options: [
+                    "A language for styling web pages",
+                    "A programming language for creating web applications",
+                    "A markup language for creating the structure of web pages",
+                    "A database management system"
+                ],
+                correct: 2
+            },
+            {
+                question: "What does CSS stand for?",
+                options: [
+                    "Colorful Style Sheets",
+                    "Cascading Style Sheets",
+                    "Computer Style Sheets",
+                    "Creative Style Sheets"
+                ],
+                correct: 1
+            },
+            {
+                question: "What is JavaScript primarily used for in web development?",
+                options: [
+                    "Structuring web content",
+                    "Styling web pages",
+                    "Adding interactivity and dynamic behavior to web pages",
+                    "Managing databases"
+                ],
+                correct: 2
+            },
+            {
+                question: "Which of the following is a JavaScript library?",
+                options: [
+                    "React",
+                    "Angular",
+                    "Vue.js",
+                    "SASS"
+                ],
+                correct: 0
+            },
+            {
+                question: "Which of the following best describes the role of HTML in web development?",
+                options: [
+                    "To add styles to web pages",
+                    "To add logic and interactivity to web pages",
+                    "To define the structure and content of web pages",
+                    "To manage server-side operations"
+                ],
+                correct: 2
+            },
+            {
+                question: "What is the primary role of CSS in web development?",
+                options: [
+                    "To structure web pages",
+                    "To add interactivity to web pages",
+                    "To style and layout web pages",
+                    "To manage database connections"
+                ],
+                correct: 2
+            },
+            {
+                question: "Which of the following technologies is primarily used for building user interfaces with reusable components?",
+                options: [
+                    "JavaScript",
+                    "HTML",
+                    "React",
+                    "SQL"
+                ],
+                correct: 2
+            },
+            {
+                question: "What is the main advantage of using a framework like Angular in web development?",
+                options: [
+                    "Simplified styling",
+                    "Structured approach to building large-scale applications",
+                    "Better database management",
+                    "Enhanced server-side scripting"
+                ],
+                correct: 1
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let quizCompleted = false;
+
+        function createQuestionElement(questionData, index) {
+            const div = document.createElement('div');
+            div.className = `question ${index === 0 ? 'active' : ''}`;
+            div.innerHTML = `
+                <h3>Question ${index + 1} of ${questions.length}</h3>
+                <p>${questionData.question}</p>
+                <div class="options">
+                    ${questionData.options.map((option, i) => `
+                        <div class="option" onclick="selectOption(${i})">${option}</div>
+                    `).join('')}
+                </div>
+                <div class="feedback"></div>
+                <button class="btn" onclick="checkAnswer()" disabled>Submit Answer</button>
+            `;
+            return div;
+        }
+
+        function initQuiz() {
+            const quizContainer = document.getElementById('quiz');
+            questions.forEach((question, index) => {
+                quizContainer.appendChild(createQuestionElement(question, index));
+            });
+            updateProgress();
+        }
+
+        function selectOption(optionIndex) {
+            const currentQuestionElement = document.querySelector('.question.active');
+            const options = currentQuestionElement.querySelectorAll('.option');
+            
+            options.forEach(option => option.classList.remove('selected'));
+            options[optionIndex].classList.add('selected');
+            
+            currentQuestionElement.querySelector('.btn').disabled = false;
+        }
+
+        function checkAnswer() {
+            const currentQuestionElement = document.querySelector('.question.active');
+            const selectedOption = currentQuestionElement.querySelector('.option.selected');
+            const options = currentQuestionElement.querySelectorAll('.option');
+            const feedback = currentQuestionElement.querySelector('.feedback');
+            const submitButton = currentQuestionElement.querySelector('.btn');
+            
+            const selectedIndex = Array.from(options).indexOf(selectedOption);
+            const correctIndex = questions[currentQuestion].correct;
+
+            options.forEach(option => option.style.pointerEvents = 'none');
+            submitButton.style.display = 'none';
+
+            if (selectedIndex === correctIndex) {
+                selectedOption.classList.add('correct');
+                feedback.textContent = 'Correct! Well done!';
+                feedback.className = 'feedback correct';
+                score++;
+            } else {
+                selectedOption.classList.add('wrong');
+                options[correctIndex].classList.add('correct');
+                feedback.textContent = 'Wrong answer. The correct answer is highlighted.';
+                feedback.className = 'feedback wrong';
+            }
+
+            setTimeout(() => {
+                nextQuestion();
+            }, 2000);
+        }
+
+        function nextQuestion() {
+            const currentQuestionElement = document.querySelector('.question.active');
+            currentQuestionElement.classList.remove('active');
+
+            currentQuestion++;
+            updateProgress();
+
+            if (currentQuestion < questions.length) {
+                const nextQuestionElement = document.querySelectorAll('.question')[currentQuestion];
+                nextQuestionElement.classList.add('active');
+            } else {
+                showResult();
+            }
+        }
+
+        function updateProgress() {
+            const progress = document.querySelector('.progress');
+            const progressPercentage = (currentQuestion / questions.length) * 100;
+            progress.style.width = `${progressPercentage}%`;
+        }
+
+        function showResult() {
+            document.querySelector('.result').classList.add('show');
+            document.getElementById('score').textContent = score;
+            document.getElementById('total').textContent = questions.length;
+            quizCompleted = true;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            quizCompleted = false;
+            
+            document.querySelector('.result').classList.remove('show');
+            document.getElementById('quiz').innerHTML = '';
+            initQuiz();
+        }
+
+        // Initialize the quiz when the page loads
+        initQuiz();
+    </script>
+</body>
+</html>

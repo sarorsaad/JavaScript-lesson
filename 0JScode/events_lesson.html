@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Events Tutorial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .theory {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .demo {
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .demo-box {
+            width: 200px;
+            height: 100px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        .event-log {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+            min-height: 100px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+        h1 {
+            text-align: center;
+            grid-column: 1 / -1;
+        }
+        code {
+            background-color: #e9ecef;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Understanding JavaScript Events</h1>
+
+        <!-- 1. Basic Event Concepts -->
+        <div class="theory">
+            <h2>1. What is an Event?</h2>
+            <p>Events are actions or occurrences that happen in a web page. They can be:</p>
+            <ul>
+                <li>User actions (clicks, key presses)</li>
+                <li>Browser actions (page load)</li>
+                <li>Program-triggered events</li>
+            </ul>
+            <div class="code-block">
+                element.addEventListener('event', function() {
+                    // Handle event here
+                });
+            </div>
+        </div>
+        <div class="demo">
+            <h2>Event Demo</h2>
+            <p>Click the button to see an event in action:</p>
+            <button id="basicButton">Click Me!</button>
+            <div id="basicOutput" class="event-log"></div>
+        </div>
+
+        <!-- 2. Event Object -->
+        <div class="theory">
+            <h2>2. The Event Object</h2>
+            <p>When an event occurs, the browser creates an event object containing:</p>
+            <ul>
+                <li><code>event.type</code>: The type of event (click, mouseover, etc.)</li>
+                <li><code>event.target</code>: Element that triggered the event</li>
+                <li><code>event.currentTarget</code>: Element handling the event</li>
+                <li><code>event.clientX/Y</code>: Mouse coordinates (for mouse events)</li>
+                <li><code>event.timeStamp</code>: When the event occurred</li>
+                <li><code>event.preventDefault()</code>: Prevents default behavior</li>
+                <li><code>event.stopPropagation()</code>: Stops event bubbling</li>
+            </ul>
+            <div class="code-block">
+                element.addEventListener('click', function(event) {
+                    console.log('Event Type:', event.type);
+                    console.log('Target:', event.target);
+                    event.preventDefault(); // Stop default behavior
+                });
+            </div>
+        </div>
+        <div class="demo">
+            <h2>Event Object Demo</h2>
+            <div id="eventObjectDemo" class="demo-box">
+                Move mouse here or click
+            </div>
+            <div id="eventObjectOutput" class="event-log"></div>
+        </div>
+
+        <!-- 3. Event Handlers and Targets -->
+        <div class="theory">
+            <h2>3. Event Handlers and Targets</h2>
+            <p>Event handlers are functions that respond to events. They can be:</p>
+            <ul>
+                <li>Attached using <code>addEventListener</code></li>
+                <li>Defined inline in HTML (not recommended)</li>
+                <li>Assigned directly to properties</li>
+            </ul>
+            <div class="code-block">
+                // Method 1: addEventListener
+                element.addEventListener('click', function(event) {
+                    console.log('Clicked!');
+                });
+
+                // Method 2: HTML attribute (not recommended)
+                &lt;button onclick="handleClick()"&gt;
+
+                // Method 3: Property assignment
+                element.onclick = function(event) {
+                    console.log('Clicked!');
+                };
+            </div>
+            <p>The <code>target</code> property:</p>
+            <ul>
+                <li>References the element that triggered the event</li>
+                <li>Useful for event delegation</li>
+                <li>Available via <code>event.target</code></li>
+            </ul>
+        </div>
+        <div class="demo">
+            <h2>Event Handler & Target Demo</h2>
+            <div id="targetDemo" style="padding: 20px; background-color: #f0f0f0;">
+                <button class="demo-button">Button 1</button>
+                <button class="demo-button">Button 2</button>
+                <button class="demo-button">Button 3</button>
+            </div>
+            <div id="targetOutput" class="event-log"></div>
+        </div>
+
+        <!-- 4. Different Types of Events -->
+        <div class="theory">
+            <h2>4. Types of Events</h2>
+            <p>Common event types include:</p>
+            <ul>
+                <li>Mouse Events: click, mouseenter, mouseleave</li>
+                <li>Keyboard Events: keydown, keyup, keypress</li>
+                <li>Form Events: submit, change, input</li>
+                <li>Window Events: load, resize, scroll</li>
+            </ul>
+        </div>
+        <div class="demo">
+            <h2>Event Types Demo</h2>
+            <div id="multiEventDemo" class="demo-box">
+                Interactive Box
+            </div>
+            <input type="text" id="keyboardInput" placeholder="Type here...">
+            <div id="eventTypesOutput" class="event-log"></div>
+        </div>
+
+        <!-- 5. Event Flow -->
+        <div class="theory">
+            <h2>5. Event Flow (Bubbling)</h2>
+            <p>Events in the DOM bubble up through the ancestor elements:</p>
+            <ul>
+                <li>Events start at the target element</li>
+                <li>Then move up through parents</li>
+                <li>Can be stopped with <code>event.stopPropagation()</code></li>
+            </ul>
+        </div>
+        <div class="demo">
+            <h2>Event Bubbling Demo</h2>
+            <div id="outer" style="padding: 20px; background-color: #f0f0f0;">
+                Outer
+                <div id="middle" style="padding: 20px; background-color: #e0e0e0;">
+                    Middle
+                    <div id="inner" style="padding: 20px; background-color: #d0d0d0;">
+                        Inner
+                    </div>
+                </div>
+            </div>
+            <div id="flowOutput" class="event-log"></div>
+        </div>
+    </div>
+
+    <script>
+        // Utility function to log events
+        function logEvent(elementId, message) {
+            const output = document.getElementById(elementId);
+            output.innerHTML = message + '<br>' + output.innerHTML;
+        }
+
+        // 1. Basic Event
+        document.getElementById('basicButton').addEventListener('click', function() {
+            logEvent('basicOutput', 'Button clicked at: ' + new Date().toLocaleTimeString());
+        });
+
+        // 2. Event Object Demo
+        const eventObjectDemo = document.getElementById('eventObjectDemo');
+        eventObjectDemo.addEventListener('mousemove', function(event) {
+            logEvent('eventObjectOutput', 
+                `Event Type: ${event.type}, 
+                 Position: (${event.clientX}, ${event.clientY}), 
+                 Target: ${event.target.id}`);
+        });
+
+        // 3. Event Handler & Target Demo
+        const targetDemo = document.getElementById('targetDemo');
+        targetDemo.addEventListener('click', function(event) {
+            if (event.target.classList.contains('demo-button')) {
+                logEvent('targetOutput', 
+                    `Button Text: "${event.target.textContent}"
+                     Target Type: ${event.target.tagName}
+                     Current Target: ${event.currentTarget.id}`);
+            }
+        });
+
+        // 4. Different Types of Events
+        const multiEventDemo = document.getElementById('multiEventDemo');
+        const keyboardInput = document.getElementById('keyboardInput');
+
+        multiEventDemo.addEventListener('mouseenter', function(e) {
+            logEvent('eventTypesOutput', 'Mouse Entered');
+            this.style.backgroundColor = '#e0e0e0';
+        });
+
+        multiEventDemo.addEventListener('mouseleave', function(e) {
+            logEvent('eventTypesOutput', 'Mouse Left');
+            this.style.backgroundColor = '#f0f0f0';
+        });
+
+        keyboardInput.addEventListener('keyup', function(e) {
+            logEvent('eventTypesOutput', `Key Pressed: ${e.key}`);
+        });
+
+        // 5. Event Flow
+        const elements = ['outer', 'middle', 'inner'];
+        elements.forEach(id => {
+            document.getElementById(id).addEventListener('click', function(e) {
+                logEvent('flowOutput', `Clicked ${id} (Event Bubbling Phase)`);
+                this.classList.add('highlight');
+                setTimeout(() => this.classList.remove('highlight'), 500);
+            });
+        });
+    </script>
+</body>
+</html>

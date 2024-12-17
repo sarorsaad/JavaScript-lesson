@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSX Expressions vs Attributes - Interactive Lesson</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e1e1e1;
+            border-radius: 4px;
+        }
+
+        .example {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .output {
+            background-color: #e9ecef;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
+        .code {
+            font-family: monospace;
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .interactive {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e3f2fd;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: #1557b0;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .highlight {
+            color: #e6db74;
+        }
+
+        .error {
+            color: #ff5252;
+            margin-top: 10px;
+        }
+
+        .success {
+            color: #4caf50;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function JSXLesson() {
+            const [name, setName] = React.useState("John");
+            const [color, setColor] = React.useState("blue");
+            const [isActive, setIsActive] = React.useState(true);
+            const [expression, setExpression] = React.useState("2 + 2");
+
+            const evaluateExpression = (expr) => {
+                try {
+                    return eval(expr);
+                } catch (error) {
+                    return "Invalid expression";
+                }
+            };
+
+            return (
+                <div className="container">
+                    <h1>Understanding JSX: Expressions vs Attributes</h1>
+                    
+                    {/* JSX Expressions Section */}
+                    <div className="section">
+                        <h2>JSX Expressions</h2>
+                        <p>JSX expressions use curly braces {} to embed JavaScript expressions within JSX content.</p>
+                        
+                        <div className="example">
+                            <h3>Example 1: Simple Math Expression</h3>
+                            <div className="code">
+                                {'<div>{2 + 2}</div>'}
+                            </div>
+                            <div className="output">
+                                Output: {2 + 2}
+                            </div>
+                        </div>
+
+                        <div className="interactive">
+                            <h3>Try it yourself:</h3>
+                            <input 
+                                type="text" 
+                                value={expression}
+                                onChange={(e) => setExpression(e.target.value)}
+                                placeholder="Enter a JavaScript expression"
+                            />
+                            <div className="output">
+                                Result: {evaluateExpression(expression)}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* JSX Attributes Section */}
+                    <div className="section">
+                        <h2>JSX Attributes</h2>
+                        <p>JSX attributes can use either string literals with quotes or expressions with curly braces.</p>
+
+                        <div className="example">
+                            <h3>Example: Dynamic Styles and Classes</h3>
+                            <div className="code">
+                                {'<div style={{ color: color }} className={isActive ? "active" : "inactive"}>'}
+                            </div>
+                            <div 
+                                style={{ color: color }}
+                                className={isActive ? "active" : "inactive"}
+                            >
+                                This text's color is controlled by an attribute!
+                            </div>
+                        </div>
+
+                        <div className="interactive">
+                            <h3>Try it yourself:</h3>
+                            <input 
+                                type="text" 
+                                value={color}
+                                onChange={(e) => setColor(e.target.value)}
+                                placeholder="Enter a color"
+                            />
+                            <button onClick={() => setIsActive(!isActive)}>
+                                Toggle Active State
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Key Differences Section */}
+                    <div className="section">
+                        <h2>Key Differences</h2>
+                        <ul>
+                            <li>Expressions go inside element content: <code>{'{expression}'}</code></li>
+                            <li>Attributes go in element tags: <code>attribute={'{value}'}</code></li>
+                            <li>String literals use quotes: <code>className="example"</code></li>
+                            <li>Dynamic values use curly braces: <code>style={'{object}'}</code></li>
+                        </ul>
+                    </div>
+
+                    {/* Common Patterns Section */}
+                    <div className="section">
+                        <h2>Common Patterns</h2>
+                        <div className="example">
+                            <h3>Conditional Rendering</h3>
+                            <div className="code">
+                                {'<div>{isActive ? "Active" : "Inactive"}</div>'}
+                            </div>
+                            <div className="output">
+                                Status: {isActive ? "Active" : "Inactive"}
+                            </div>
+                        </div>
+
+                        <div className="example">
+                            <h3>Dynamic Attributes</h3>
+                            <div className="code">
+                                {'<button disabled={!isActive}>Click Me</button>'}
+                            </div>
+                            <button disabled={!isActive}>
+                                Click Me
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<JSXLesson />, document.getElementById('root'));
+    </script>
+</body>
+</html>

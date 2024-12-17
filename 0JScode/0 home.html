@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Hub</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f5f6fa;
+            --text-color: #2c3e50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        nav {
+            background-color: var(--secondary-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .lesson-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .lesson-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .lesson-content {
+            padding: 1.5rem;
+        }
+
+        .lesson-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn-lesson {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-quiz {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .lesson-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>sarorAcademy</h1>
+        <p>Your comprehensive guide to mastering Web Development Fundamentals - Frontend</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#fundamentals">Fundamentals</a></li>
+            <li><a href="#dom">DOM & Events</a></li>
+            <li><a href="#frameworks">Frameworks</a></li>
+            <li><a href="#projects">Projects</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="fundamentals">
+            <h2>Web Development Fundamentals - Frontend</h2>
+            <div class="lesson-grid">
+                <article class="lesson-card">
+                    <img src="../0JSimg/1 web.png" alt="JavaScript Introduction" class="lesson-image">
+                    <div class="lesson-content">
+                        <h3>Introduction to Web Development</h3>
+                        
+                        <div class="lesson-links">
+                            <a href="1 web.html" class="btn btn-lesson">View Lesson</a>
+                            <a href="../0JSquiz/1 web/1 webquiz.html" class="btn btn-quiz">Take Quiz</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="lesson-card">
+                    <img src="../0JSimg/variable.jpg" alt="JS Fundamentals" class="lesson-image">
+                    <div class="lesson-content">
+                        <h3>Variables and Primitive Data Types in JavaScript</h3>
+                        
+                        <div class="lesson-links">
+                            <a href="2 variables_datatypes.html" class="btn btn-lesson">View Lesson</a>
+                            <a href="../0JSquiz/2 var/quiz.html" class="btn btn-quiz">Take Quiz</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="lesson-card">
+                    <img src="../0JSimg/3 function.jpg" alt="JavaScript Functions" class="lesson-image">
+                    <div class="lesson-content">
+                        <h3>JavaScript Functions</h3>
+                        
+                        <div class="lesson-links">
+                            <a href="3 functions_new.html" class="btn btn-lesson">View Lesson</a>
+                            <a href="../0JSquiz/3 function.quiz.html" class="btn btn-quiz">Take Quiz</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="lesson-card">
+                    <img src="../0JSimg/4 object types.png" alt="Arrays and Objects" class="lesson-image">
+                    <div class="lesson-content">
+                        <h3> Objects in JavaScript</h3>
+                        
+                        <div class="lesson-links">
+                            <a href="objects.html" class="btn btn-lesson">View Lesson</a>
+                            <a href="../00xxquiz/4 arrays/quiz.html" class="btn btn-quiz">Take Quiz</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="lesson-card">
+                    <img src="../00xximg/loops.jpg" alt="Loops and Control Flow" class="lesson-image">
+                    <div class="lesson-content">
+                        <h3>Loops and Control Flow</h3>
+                        <p>Understanding loops, conditionals, and program flow.</p>
+                        <div class="lesson-links">
+                            <a href="5 loops_control.html" class="btn btn-lesson">View Lesson</a>
+                            <a href="../00xxquiz/5 loops/quiz.html" class="btn btn-quiz">Take Quiz</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="dom">
+            <h2>DOM Manipulation & Events</h2>
+            <div class="lesson-grid">
+                <article class="lesson-card">
+                    <img src="00xximg/1 Basic DOM Manipulation.png" alt="DOM Basics" class="lesson-image">
+                    <div class="lesson-content">
+                        <h3>Basic DOM Manipulation</h3>
+                        <p>Learn how to interact with HTML elements using JavaScript.</p>
+                        <div class="lesson-links">
+                            <a href="2 Basic DOM Manipulation/index.html" class="btn btn-lesson">View Lesson</a>
+                            <a href="00xxquiz/dom_quiz.html" class="btn btn-quiz">Take Quiz</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="lesson-card">
+                    <img src="00xximg/1 event&eventhandler.png" alt="Events Handling" class="lesson-image">
+                    <div class="lesson-content">
+                        <h3>Events and Event Handlers</h3>
+                        <p>Master event handling and user interactions.</p>
+                        <div class="lesson-links">
+                            <a href="6 Events and Event Handlers/index.html" class="btn btn-lesson">View Lesson</a>
+                            <a href="00xxquiz/quiz.html" class="btn btn-quiz">Take Quiz</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="frameworks">
+            <h2>JavaScript Frameworks</h2>
+            <div class="lesson-grid">
+                <article class="lesson-card">
+                    <img src="00xximg/1 web.png" alt="React Basics" class="lesson-image">
+                    <div class="lesson-content">
+                        <h3>React Fundamentals</h3>
+                        <p>Get started with React.js framework.</p>
+                        <div class="lesson-links">
+                            <a href="7 react_basic_lessons/1 React Fundamentals - Getting Started with React/index.html" class="btn btn-lesson">View Lesson</a>
+                            <a href="00xxquiz/quiz.html" class="btn btn-quiz">Take Quiz</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="lesson-card">
+                    <img src="00xximg/1 web.png" alt="Next.js Basics" class="lesson-image">
+                    <div class="lesson-content">
+                        <h3>Next.js Fundamentals</h3>
+                        <p>Learn the basics of Next.js framework.</p>
+                        <div class="lesson-links">
+                            <a href="8 next js basic lessons/index.html" class="btn btn-lesson">View Lesson</a>
+                            <a href="00xxquiz/quiz.html" class="btn btn-quiz">Take Quiz</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="lesson-card">
+                    <img src="00xximg/1 web.png" alt="Angular Basics" class="lesson-image">
+                    <div class="lesson-content">
+                        <h3>Angular Fundamentals</h3>
+                        <p>Get started with Angular framework.</p>
+                        <div class="lesson-links">
+                            <a href="9 angular basic lessons/index.html" class="btn btn-lesson">View Lesson</a>
+                            <a href="00xxquiz/quiz.html" class="btn btn-quiz">Take Quiz</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 JavaScript Learning Hub. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Add smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const section = document.querySelector(this.getAttribute('href'));
+                section.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Add active state to nav items
+        const sections = document.querySelectorAll('section');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

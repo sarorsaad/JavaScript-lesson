@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Basic Example</title>
+    <!-- React CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script>
+        // Keep track of clicks
+        let clickCount = 0;
+
+        const heading = React.createElement('h1',
+            {
+                id: 'heading',
+                style: {
+                    backgroundColor: 'lightblue',
+                    padding: '20px',
+                    margin: '0',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    userSelect: 'none' // Prevents text selection
+                },
+                // Click event with counter
+                onClick: function(e) {
+                    clickCount++;
+                    e.target.innerText = `Clicked ${clickCount} times! Keep clicking!`;
+                },
+                // Double click event
+                onDoubleClick: function(e) {
+                    e.target.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        e.target.style.transform = 'scale(1)';
+                    }, 200);
+                },
+                // Mouse over event
+                onMouseOver: function(e) {
+                    e.target.style.backgroundColor = 'lightgreen';
+                    e.target.style.boxShadow = '0 0 10px rgba(0,0,0,0.2)';
+                },
+                // Mouse out event
+                onMouseOut: function(e) {
+                    e.target.style.backgroundColor = 'lightblue';
+                    e.target.style.boxShadow = 'none';
+                },
+                // Right click event (context menu)
+                onContextMenu: function(e) {
+                    e.preventDefault();
+                    e.target.style.backgroundColor = 'lightpink';
+                    setTimeout(() => {
+                        e.target.style.backgroundColor = 'lightblue';
+                    }, 500);
+                }
+            },
+            'Hello World welcome to saror acadmy'
+        );
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(heading);
+    </script>
+</body>
+</html>
