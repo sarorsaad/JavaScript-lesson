@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Workflow Demos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .demo-section {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+
+        .demo-container {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .code-example {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            font-family: 'Consolas', monospace;
+        }
+
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0.5rem 0;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        .output {
+            background: #eee;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+
+        /* Data Types Demo Styles */
+        .data-type-example {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .type-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* Array Demo Styles */
+        .array-visual {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .array-item {
+            background: #3498db;
+            color: white;
+            padding: 1rem;
+            border-radius: 4px;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        /* Function Demo Styles */
+        .function-demo {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 6px;
+        }
+
+        /* Loop Demo Styles */
+        .loop-visual {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .loop-item {
+            background: #2ecc71;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        /* Conditional Demo Styles */
+        .conditional-demo {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .condition-box {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .true-condition {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .false-condition {
+            background: #e74c3c;
+            color: white;
+        }
+
+        input {
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Interactive Development Workflow Demos</h1>
+
+        <!-- Applications Demo -->
+        <section class="demo-section">
+            <h2>1. Applications Demo</h2>
+            <div class="demo-container">
+                <p>Simple Counter Application</p>
+                <div id="counter-app">
+                    <h3>Counter: <span id="counter-value">0</span></h3>
+                    <button onclick="incrementCounter()">Increment</button>
+                    <button onclick="decrementCounter()">Decrement</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Types Demo -->
+        <section class="demo-section">
+            <h2>2. Data Types Demo</h2>
+            <div class="demo-container">
+                <div class="data-type-example">
+                    <div class="type-card">
+                        <h3>String</h3>
+                        <input type="text" id="string-input" placeholder="Enter text">
+                        <button onclick="demonstrateString()">Test String</button>
+                        <div id="string-output" class="output"></div>
+                    </div>
+                    <div class="type-card">
+                        <h3>Number</h3>
+                        <input type="number" id="number-input" placeholder="Enter number">
+                        <button onclick="demonstrateNumber()">Test Number</button>
+                        <div id="number-output" class="output"></div>
+                    </div>
+                    <div class="type-card">
+                        <h3>Boolean</h3>
+                        <button onclick="demonstrateBoolean()">Toggle Boolean</button>
+                        <div id="boolean-output" class="output">false</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Arrays Demo -->
+        <section class="demo-section">
+            <h2>3. Arrays Demo</h2>
+            <div class="demo-container">
+                <input type="text" id="array-input" placeholder="Enter an item">
+                <button onclick="addToArray()">Add to Array</button>
+                <button onclick="removeFromArray()">Remove Last Item</button>
+                <div class="array-visual" id="array-visual"></div>
+                <div id="array-output" class="output"></div>
+            </div>
+        </section>
+
+        <!-- Functions Demo -->
+        <section class="demo-section">
+            <h2>4. Functions Demo</h2>
+            <div class="demo-container">
+                <div class="function-demo">
+                    <h3>Data Transformation</h3>
+                    <input type="text" id="transform-input" placeholder="Enter text to transform">
+                    <button onclick="transformData()">Transform</button>
+                    <div id="transform-output" class="output"></div>
+                </div>
+                <div class="function-demo">
+                    <h3>Data Validation</h3>
+                    <input type="text" id="validation-input" placeholder="Enter email">
+                    <button onclick="validateEmail()">Validate Email</button>
+                    <div id="validation-output" class="output"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loops Demo -->
+        <section class="demo-section">
+            <h2>5. Loops Demo</h2>
+            <div class="demo-container">
+                <input type="number" id="loop-count" placeholder="Enter number of iterations" min="1" max="10">
+                <button onclick="demonstrateLoop()">Run Loop</button>
+                <div class="loop-visual" id="loop-visual"></div>
+            </div>
+        </section>
+
+        <!-- Conditionals Demo -->
+        <section class="demo-section">
+            <h2>6. Conditionals Demo</h2>
+            <div class="demo-container">
+                <input type="number" id="number-check" placeholder="Enter a number">
+                <button onclick="checkNumber()">Check Number</button>
+                <div class="conditional-demo" id="conditional-output"></div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Counter Application Demo
+        let counter = 0;
+        function incrementCounter() {
+            counter++;
+            document.getElementById('counter-value').textContent = counter;
+        }
+        function decrementCounter() {
+            counter--;
+            document.getElementById('counter-value').textContent = counter;
+        }
+
+        // Data Types Demo
+        function demonstrateString() {
+            const input = document.getElementById('string-input').value;
+            const output = `Length: ${input.length}, Uppercase: ${input.toUpperCase()}`;
+            document.getElementById('string-output').textContent = output;
+        }
+
+        function demonstrateNumber() {
+            const input = parseFloat(document.getElementById('number-input').value);
+            const output = `Square: ${input * input}, Square Root: ${Math.sqrt(input)}`;
+            document.getElementById('number-output').textContent = output;
+        }
+
+        let booleanValue = false;
+        function demonstrateBoolean() {
+            booleanValue = !booleanValue;
+            document.getElementById('boolean-output').textContent = booleanValue;
+        }
+
+        // Arrays Demo
+        let demoArray = [];
+        function updateArrayVisual() {
+            const visual = document.getElementById('array-visual');
+            visual.innerHTML = '';
+            demoArray.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'array-item';
+                div.textContent = item;
+                visual.appendChild(div);
+            });
+            document.getElementById('array-output').textContent = 
+                `Array length: ${demoArray.length}`;
+        }
+
+        function addToArray() {
+            const input = document.getElementById('array-input').value;
+            if (input) {
+                demoArray.push(input);
+                document.getElementById('array-input').value = '';
+                updateArrayVisual();
+            }
+        }
+
+        function removeFromArray() {
+            if (demoArray.length > 0) {
+                demoArray.pop();
+                updateArrayVisual();
+            }
+        }
+
+        // Functions Demo
+        function transformData() {
+            const input = document.getElementById('transform-input').value;
+            const transformed = {
+                original: input,
+                uppercase: input.toUpperCase(),
+                length: input.length,
+                reversed: input.split('').reverse().join('')
+            };
+            document.getElementById('transform-output').textContent = 
+                JSON.stringify(transformed, null, 2);
+        }
+
+        function validateEmail() {
+            const input = document.getElementById('validation-input').value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const isValid = emailRegex.test(input);
+            document.getElementById('validation-output').textContent = 
+                isValid ? 'Valid email!' : 'Invalid email!';
+            document.getElementById('validation-output').style.color = 
+                isValid ? '#2ecc71' : '#e74c3c';
+        }
+
+        // Loops Demo
+        function demonstrateLoop() {
+            const count = parseInt(document.getElementById('loop-count').value) || 5;
+            const visual = document.getElementById('loop-visual');
+            visual.innerHTML = '';
+            
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const div = document.createElement('div');
+                    div.className = 'loop-item';
+                    div.textContent = i + 1;
+                    visual.appendChild(div);
+                }, i * 500);
+            }
+        }
+
+        // Conditionals Demo
+        function checkNumber() {
+            const num = parseInt(document.getElementById('number-check').value);
+            const output = document.getElementById('conditional-output');
+            output.innerHTML = '';
+
+            // Even/Odd condition
+            const evenOddDiv = document.createElement('div');
+            evenOddDiv.className = `condition-box ${num % 2 === 0 ? 'true-condition' : 'false-condition'}`;
+            evenOddDiv.textContent = num % 2 === 0 ? 'Even' : 'Odd';
+            output.appendChild(evenOddDiv);
+
+            // Positive/Negative condition
+            const posNegDiv = document.createElement('div');
+            posNegDiv.className = `condition-box ${num > 0 ? 'true-condition' : 'false-condition'}`;
+            posNegDiv.textContent = num > 0 ? 'Positive' : (num < 0 ? 'Negative' : 'Zero');
+            output.appendChild(posNegDiv);
+        }
+    </script>
+</body>
+</html>

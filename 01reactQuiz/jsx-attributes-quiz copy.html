@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSX Attributes Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+        .quiz-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+        .options {
+            margin-top: 15px;
+        }
+        .option {
+            display: block;
+            padding: 10px 15px;
+            margin: 8px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        .score-display {
+            font-size: 1.2em;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            text-align: center;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        button {
+            background-color: #0077cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+    
+        /* Navigation styles */
+        .nav-bar {
+            background-color: #20232a;
+            padding: 1rem;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-home {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #61dafb;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .back-home:hover {
+            color: #ffffff;
+        }
+
+        .page-title {
+            color: #ffffff;
+            margin: 0;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <a href="../01reactCode/index.html" class="back-home">
+                <i class="fas fa-chevron-left"></i>
+                Back to Home
+            </a>
+            <h1 class="page-title">React Quiz</h1>
+        </div>
+    </nav>
+    <h1>JSX Attributes Quiz</h1>
+    <div class="score-display">
+        Score: <span id="score">0</span>/20
+    </div>
+    <div class="quiz-container" id="quiz">
+        <form id="quiz-form">
+            <!-- Questions will be dynamically inserted here -->
+        </form>
+        <button onclick="checkAnswers()">Submit Quiz</button>
+        <button onclick="resetQuiz()">Reset Quiz</button>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the correct way to write the class attribute in JSX?",
+                options: ["class", "className", "Class", "cssClass"],
+                correct: 1
+            },
+            {
+                question: "How are boolean attributes typically expressed in JSX?",
+                options: [
+                    'disabled="true"',
+                    "disabled={true}",
+                    'disabled="yes"',
+                    "disabled"
+                ],
+                correct: 1
+            },
+            {
+                question: "What is the correct syntax for inline styles in JSX?",
+                options: [
+                    'style="color: blue"',
+                    "style={{color: 'blue'}}",
+                    'style={color: blue}',
+                    "styles={{color: blue}}"
+                ],
+                correct: 1
+            },
+            {
+                question: "How do you write the click event handler in JSX?",
+                options: ["onclick", "onClick", "OnClick", "ONCLICK"],
+                correct: 1
+            },
+            {
+                question: "What's the purpose of ARIA attributes?",
+                options: [
+                    "To style elements",
+                    "To enhance accessibility",
+                    "To improve performance",
+                    "To add animations"
+                ],
+                correct: 1
+            },
+            {
+                question: "How do you specify pixel units in JSX inline styles?",
+                options: [
+                    "width: 100px",
+                    'width: "100px"',
+                    "width: {100}",
+                    "width: 100"
+                ],
+                correct: 1
+            },
+            {
+                question: "What happens when you set a style property to undefined in JSX?",
+                options: [
+                    "It causes an error",
+                    "The property is removed",
+                    "It sets to null",
+                    "It keeps the previous value"
+                ],
+                correct: 1
+            },
+            {
+                question: "How do you write background-color in JSX inline styles?",
+                options: [
+                    "background-color",
+                    "backgroundColor",
+                    "BackgroundColor",
+                    "background_color"
+                ],
+                correct: 1
+            },
+            {
+                question: "What's the difference between HTML and JSX attribute naming?",
+                options: [
+                    "No difference",
+                    "JSX uses camelCase",
+                    "JSX uses uppercase",
+                    "JSX uses underscores"
+                ],
+                correct: 1
+            },
+            {
+                question: "How do you conditionally apply styles in JSX?",
+                options: [
+                    "Using if-else statements",
+                    "Using ternary operators in curly braces",
+                    "Using switch statements",
+                    "Using CSS classes only"
+                ],
+                correct: 1
+            },
+            {
+                question: "Which is NOT a main type of attribute discussed?",
+                options: [
+                    "Standard Attributes",
+                    "Event Attributes",
+                    "Boolean Attributes",
+                    "Function Attributes"
+                ],
+                correct: 3
+            },
+            {
+                question: "What's a limitation of using inline styles in JSX?",
+                options: [
+                    "Can't use numbers",
+                    "Can't use colors",
+                    "Can't use pseudo-classes",
+                    "Can't use pixels"
+                ],
+                correct: 2
+            },
+            {
+                question: "How do you write multiple style properties in JSX?",
+                options: [
+                    "Separate with semicolons",
+                    "As object properties",
+                    "As an array",
+                    "As multiple style attributes"
+                ],
+                correct: 1
+            },
+            {
+                question: "What's the purpose of data-* attributes?",
+                options: [
+                    "For styling only",
+                    "For storing custom data",
+                    "For event handling",
+                    "For animations"
+                ],
+                correct: 1
+            },
+            {
+                question: "How do you handle dynamic event handlers in JSX?",
+                options: [
+                    "Using string functions",
+                    "Using function references in curly braces",
+                    "Using inline HTML",
+                    "Using CSS classes"
+                ],
+                correct: 1
+            },
+            {
+                question: "What's the correct way to apply multiple classes in JSX?",
+                options: [
+                    'class="btn primary"',
+                    'className="btn primary"',
+                    "className={['btn', 'primary']}",
+                    "classes='btn primary'"
+                ],
+                correct: 1
+            },
+            {
+                question: "How do you handle vendor prefixes in JSX inline styles?",
+                options: [
+                    "Use regular CSS syntax",
+                    "Use camelCase versions",
+                    "Ignore them",
+                    "Use separate attributes"
+                ],
+                correct: 1
+            },
+            {
+                question: "What's recommended for complex styling in React?",
+                options: [
+                    "Always use inline styles",
+                    "Use external CSS or CSS-in-JS",
+                    "Use only className",
+                    "Use style attribute only"
+                ],
+                correct: 1
+            },
+            {
+                question: "How do you remove a style property in JSX?",
+                options: [
+                    "Delete the property",
+                    "Set to undefined",
+                    "Set to null",
+                    "Both A and B"
+                ],
+                correct: 3
+            },
+            {
+                question: "Which is the correct way to write a JSX boolean attribute?",
+                options: [
+                    'disabled="true"',
+                    "disabled={true}",
+                    "disabled",
+                    "Both B and C"
+                ],
+                correct: 3
+            }
+        ];
+
+        let score = 0;
+        const quizForm = document.getElementById('quiz-form');
+
+        // Generate quiz questions
+        function generateQuiz() {
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `
+                    <h3>${index + 1}. ${q.question}</h3>
+                    <div class="options">
+                        ${q.options.map((option, i) => `
+                            <label class="option">
+                                <input type="radio" name="q${index}" value="${i}">
+                                ${option}
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div class="feedback"></div>
+                `;
+                quizForm.appendChild(questionDiv);
+            });
+        }
+
+        // Check answers
+        function checkAnswers() {
+            score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+                const questionDiv = document.querySelectorAll('.question')[index];
+                const options = questionDiv.querySelectorAll('.option');
+                const feedback = questionDiv.querySelector('.feedback');
+
+                options.forEach(opt => {
+                    opt.classList.remove('correct', 'incorrect');
+                });
+
+                if (selectedOption) {
+                    const selectedValue = parseInt(selectedOption.value);
+                    const correctAnswer = q.correct;
+
+                    options[correctAnswer].classList.add('correct');
+                    
+                    if (selectedValue === correctAnswer) {
+                        score++;
+                        feedback.style.display = 'block';
+                        feedback.style.backgroundColor = '#d4edda';
+                        feedback.textContent = 'Correct!';
+                    } else {
+                        options[selectedValue].classList.add('incorrect');
+                        feedback.style.display = 'block';
+                        feedback.style.backgroundColor = '#f8d7da';
+                        feedback.textContent = 'Incorrect. Try again!';
+                    }
+                }
+            });
+
+            document.getElementById('score').textContent = score;
+        }
+
+        // Reset quiz
+        function resetQuiz() {
+            score = 0;
+            document.getElementById('score').textContent = score;
+            const options = document.querySelectorAll('.option');
+            const feedbacks = document.querySelectorAll('.feedback');
+            
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+            });
+
+            feedbacks.forEach(feedback => {
+                feedback.style.display = 'none';
+            });
+
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+            });
+        }
+
+        // Initialize quiz
+        generateQuiz();
+    </script>
+</body>
+</html>

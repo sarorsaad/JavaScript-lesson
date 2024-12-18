@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار الفصل 5 - العلوم</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            direction: rtl;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .quiz-header {
+            text-align: center;
+            color: #1a237e;
+            margin-bottom: 30px;
+        }
+        .question {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .question h3 {
+            color: #303f9f;
+            margin-top: 0;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option {
+            padding: 10px 15px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            background: #e3f2fd;
+        }
+        .option.selected {
+            background: #bbdefb;
+            border-color: #2196f3;
+        }
+        .option.correct {
+            background: #c8e6c9;
+            border-color: #4caf50;
+        }
+        .option.wrong {
+            background: #ffcdd2;
+            border-color: #f44336;
+        }
+        .fill-blank input {
+            border: none;
+            border-bottom: 2px solid #2196f3;
+            padding: 5px;
+            margin: 0 5px;
+            width: 150px;
+            font-size: 16px;
+            text-align: center;
+        }
+        .submit-btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+        .submit-btn:hover {
+            background: #1976d2;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 10px 0;
+        }
+        .math-question {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .performance-task {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .explanation {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+        .feedback-btn {
+            background: #90caf9;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>اختبار مراجعة الفصل 5</h1>
+            <p>أجب عن جميع الأسئلة التالية (24 سؤالاً)</p>
+        </div>
+        
+        <form id="quizForm">
+            <div id="questions"></div>
+            <button type="submit" class="submit-btn">تسليم الإجابات</button>
+        </form>
+        
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        const quizData = {
+            fillBlanks: [
+                { 
+                    question: "......... جسيم متعادل الشحنة في الذرة.", 
+                    answer: "النيوترون",
+                    explanation: "النيوترون هو جسيم متعادل كهربائياً يوجد في نواة الذرة، وهو يساهم في استقرار النواة."
+                },
+                { 
+                    question: "......... مادة مكونة من نوع واحد من الذرات.", 
+                    answer: "العنصر",
+                    explanation: "العنصر هو المادة النقية التي تتكون من نوع واحد من الذرات، ولا يمكن تجزئتها إلى مواد أبسط منها بالطرق الكيميائية العادية."
+                },
+                { 
+                    question: "......... مجموع عدد البروتونات والنيوترونات في نواة الذرة.", 
+                    answer: "العدد الكتلي",
+                    explanation: "العدد الكتلي هو مجموع عدد البروتونات والنيوترونات في نواة الذرة، ويمثل تقريباً كتلة الذرة."
+                },
+                { 
+                    question: "......... جسيمات سالبة الشحنة.", 
+                    answer: "الإلكترونات",
+                    explanation: "الإلكترونات هي جسيمات سالبة الشحنة تدور حول نواة الذرة في مستويات طاقة محددة."
+                },
+                { 
+                    question: "......... عملية تحرير الجسيمات والطاقة من النواة.", 
+                    answer: "التحلل الإشعاعي",
+                    explanation: "التحلل الإشعاعي هو عملية طبيعية تتحول فيها النواة غير المستقرة إلى نواة أكثر استقراراً عن طريق إطلاق إشعاع أو جسيمات."
+                },
+                { 
+                    question: "......... عدد البروتونات في الذرة.", 
+                    answer: "العدد الذري",
+                    explanation: "العدد الذري هو عدد البروتونات في نواة الذرة، وهو يحدد هوية العنصر الكيميائي."
+                }
+            ],
+            multipleChoice: [
+                {
+                    question: "خلال عملية تحلل بيتا، يتحول النيوترون إلى:",
+                    options: ["نظير", "نواة", "جسيم ألفا", "بيتا"],
+                    answer: 3,
+                    explanation: "في عملية تحلل بيتا، يتحول النيوترون إلى بروتون مع إطلاق جسيم بيتا (إلكترون) ونيوترينو مضاد."
+                },
+                {
+                    question: "ما العملية التي يتحول فيها عنصر إلى عنصر آخر؟",
+                    options: ["عمر النصف", "سلسلة التفاعلات", "التفاعل الكيميائي", "التحول"],
+                    answer: 3,
+                    explanation: "التحول هو عملية تحول عنصر إلى عنصر آخر عن طريق التفاعلات النووية."
+                },
+                {
+                    question: "تُسمى ذرات العنصر نفسه التي لها أعداد نيوترونات مختلفة:",
+                    options: ["بروتونات", "نظائر", "أيونات", "إلكترونات"],
+                    answer: 1,
+                    explanation: "النظائر هي ذرات العنصر نفسه التي لها أعداد نيوترونات مختلفة."
+                },
+                {
+                    question: "إذا كان العدد الذري للكربون-11 فإنه يتكون من:",
+                    options: ["11 إلكتروناً", "5 بروتونات و6 نيوترونات", "6 بروتونات و5 نيوترونات", "11 بروتوناً"],
+                    answer: 2,
+                    explanation: "العدد الذري للكربون هو 6، والعدد الكتلي هو 11، لذا يتكون الكربون-11 من 6 بروتونات و5 نيوترونات."
+                },
+                {
+                    question: "العدد الذري للعنصر يساوي عدد:",
+                    options: ["مستويات الطاقة", "البروتونات", "النيوترونات", "جسيمات النواة"],
+                    answer: 1,
+                    explanation: "العدد الذري للعنصر يساوي عدد البروتونات في نواة الذرة."
+                },
+                {
+                    question: "توصل طومسون إلى أن الضوء المنبعث من شاشات CRT صادر عن سيل من الجسيمات المشحونة لأنها:",
+                    options: ["خضراء اللون", "تتكتل تلقائياً بالأيود", "تحركت بواسطة المجال المغناطيسي", "حدثت نقط عند مرور التيار الكهربائي"],
+                    answer: 3,
+                    explanation: "الجسيمات المشحونة تتحرك بواسطة المجال المغناطيسي، مما يؤدي إلى انبعاث الضوء من شاشات CRT."
+                }
+            ],
+            criticalThinking: [
+                {
+                    question: "وضح كيف يمكن لنظيرين من العنصر نفسه أن يكون لهما كتلتان مختلفتان؟",
+                    answer: "النظائر لها نفس العدد الذري (عدد البروتونات) ولكن تختلف في عدد النيوترونات، مما يؤدي إلى اختلاف في الكتلة الكلية للذرة مع الاحتفاظ بنفس الخصائص الكيميائية.",
+                    explanation: "النظائر لها نفس العدد الذري (عدد البروتونات) ولكن تختلف في عدد النيوترونات، مما يؤدي إلى اختلاف في الكتلة الكلية للذرة مع الاحتفاظ بنفس الخصائص الكيميائية."
+                }
+            ],
+            performanceTasks: [
+                {
+                    question: "وضّح: في الفرضيات العامة، المادة لا تفنى ولا تستحدث. ولكن هل من الممكن أن تزداد كمية بعض العناصر في القشرة والأغلفة الأرضية؟",
+                    type: "essay",
+                    modelAnswer: "نعم، يمكن أن تزداد كمية بعض العناصر في القشرة الأرضية من خلال التحلل الإشعاعي للعناصر المشعة. عندما تتحلل العناصر المشعة، تتحول إلى عناصر أخرى مستقرة، مما يؤدي إلى زيادة كمية هذه العناصر المستقرة في القشرة الأرضية.",
+                    explanation: "الفرضيات العامة تنص على أن المادة لا تفنى ولا تستحدث، ولكن يمكن أن تزداد كمية بعض العناصر في القشرة الأرضية من خلال التحلل الإشعاعي للعناصر المشعة."
+                },
+                {
+                    question: "اشرح: لماذا يكون عدد البروتونات والإلكترونات في الذرة متساوياً عادةً؟",
+                    type: "essay",
+                    modelAnswer: "عدد البروتونات والإلكترونات في الذرة متساوي عادةً لأن الذرة تكون محايدة كهربائياً. البروتونات تحمل شحنة موجبة، والإلكترونات تحمل شحنة سالبة، لذا يجب أن يكون عددهما متساوياً لتحقيق التوازن الكهربائي في الذرة.",
+                    explanation: "عدد البروتونات والإلكترونات في الذرة متساوي عادةً لأن الذرة تكون محايدة كهربائياً."
+                },
+                {
+                    question: "قارِن: بين نموذج بوهر ونموذج السحابة الإلكترونية للذرة.",
+                    type: "comparison",
+                    modelAnswer: "نموذج بوهر يصور الذرة كأنها نظام كوكبي، حيث تدور الإلكترونات حول النواة في مدارات محددة. بينما يصور نموذج السحابة الإلكترونية الذرة كأنها سحابة إلكترونية تملأ الفراغ حول النواة.",
+                    explanation: "نموذج بوهر ونموذج السحابة الإلكترونية هما نموذجان مختلفان لوصف بنية الذرة."
+                },
+                {
+                    question: "وضّح: كيف يمكن للتأريخ الكربوني أن يساعد على تحديد عمر الحفريات أو النباتات الميتة؟",
+                    type: "essay",
+                    modelAnswer: "التأريخ الكربوني هو طريقة لتحديد عمر الحفريات أو النباتات الميتة عن طريق قياس نسبة الكربون-14 إلى الكربون-12. الكربون-14 هو نظير مشع يتحلل بمرور الوقت، لذا يمكن استخدام نسبة الكربون-14 إلى الكربون-12 لتحديد عمر العينة.",
+                    explanation: "التأريخ الكربوني هو طريقة لتحديد عمر الحفريات أو النباتات الميتة عن طريق قياس نسبة الكربون-14 إلى الكربون-12."
+                }
+            ],
+            mathProblems: [
+                {
+                    question: "إذا افترضنا أن نظير النيتروجين-222 يتحلل بإصدار جسيمات ألفا، فما العدد الكتلي للنظير المتبقي؟",
+                    type: "calculation",
+                    answer: "218",
+                    explanation: "جسيم ألفا يتكون من بروتونين ونيوترونين (العدد الكتلي = 4)، لذا عند انبعاث جسيم ألفا يقل العدد الكتلي بمقدار 4. إذن: 222 - 4 = 218"
+                },
+                {
+                    question: "توقّع: إذا افترضنا أن العدد الكتلي لنظير الزينون هو 201، فما عدد البروتونات والنيوترونات فيه؟",
+                    type: "calculation",
+                    answer: "81 بروتون و120 نيوترون",
+                    explanation: "الزينون له عدد ذري 54، لذا عدد البروتونات في نظير الزينون-201 هو 54. العدد الكتلي هو 201، لذا عدد النيوترونات هو 201 - 54 = 147."
+                },
+                {
+                    question: "عمر النصف: إذا علمت أن عمر النصف لأحد النظائر المشعة هو سنتان، فكم يتبقى منه بعد مرور 4 سنوات؟",
+                    options: ["النصف", "الربع", "الثمن", "لا شيء"],
+                    answer: 1,
+                    explanation: "عمر النصف هو الزمن اللازم لتحلل نصف كمية النظير المشع. إذا كان عمر النصف هو سنتان، فبعد مرور 4 سنوات سيتبقى ربع كمية النظير المشع."
+                }
+            ],
+            conceptMap: [
+                {
+                    question: "خريطة مفاهيمية: ارسم خريطة مفاهيمية تعبّر عن نظرية الذرة.",
+                    type: "drawing",
+                    modelAnswer: "الذرة تتكون من نواة تحتوي على بروتونات ونيوترونات، والإلكترونات تدور حول النواة في مدارات محددة.",
+                    explanation: "نظرية الذرة تنص على أن الذرة تتكون من نواة تحتوي على بروتونات ونيوترونات، والإلكترونات تدور حول النواة في مدارات محددة."
+                }
+            ]
+        };
+
+        function createQuiz() {
+            const questionsDiv = document.getElementById('questions');
+            
+            // Fill in the blanks section
+            createSection('القسم الأول: املأ الفراغات', quizData.fillBlanks, createFillBlankQuestion);
+            
+            // Multiple choice section
+            createSection('القسم الثاني: اختر الإجابة الصحيحة', quizData.multipleChoice, createMultipleChoiceQuestion);
+            
+            // Critical thinking section
+            createSection('القسم الثالث: التفكير الناقد', quizData.criticalThinking, createEssayQuestion);
+            
+            // Performance tasks section
+            createSection('القسم الرابع: أنشطة تقويم الأداء', quizData.performanceTasks, createPerformanceTask);
+            
+            // Math problems section
+            createSection('القسم الخامس: تطبيق الرياضيات', quizData.mathProblems, createMathProblem);
+            
+            // Concept map section
+            createSection('القسم السادس: الخرائط المفاهيمية', quizData.conceptMap, createConceptMap);
+        }
+
+        function createSection(title, questions, createQuestionFunc) {
+            const section = document.createElement('div');
+            section.innerHTML = `<h2>${title}</h2>`;
+            questions.forEach((q, index) => {
+                section.appendChild(createQuestionFunc(q, index));
+            });
+            document.getElementById('questions').appendChild(section);
+        }
+
+        function createFillBlankQuestion(q, index) {
+            const div = document.createElement('div');
+            div.className = 'question fill-blank';
+            div.innerHTML = `
+                <h3>السؤال ${index + 1}</h3>
+                <p>${q.question.replace('.........',
+                    `<input type="text" name="fill_${index}" required>`)}</p>
+                <button class="feedback-btn" onclick="showExplanation(${index})">إظهار الشرح</button>
+                <div id="explanation_${index}" class="explanation">${q.explanation}</div>
+            `;
+            return div;
+        }
+
+        function createMultipleChoiceQuestion(q, index) {
+            const div = document.createElement('div');
+            div.className = 'question';
+            let imageHtml = '';
+            if (q.image) {
+                imageHtml = `<div class="image-container"><img src="${q.image}" alt="صورة توضيحية"></div>`;
+            }
+            div.innerHTML = `
+                <h3>السؤال ${index + 7}</h3>
+                ${imageHtml}
+                <p>${q.question}</p>
+                <div class="options">
+                    ${q.options.map((option, i) => `
+                        <label class="option">
+                            <input type="radio" name="mc_${index}" value="${i}" required>
+                            ${option}
+                        </label>
+                    `).join('')}
+                </div>
+                <button class="feedback-btn" onclick="showExplanation(${index})">إظهار الشرح</button>
+                <div id="explanation_${index}" class="explanation">${q.explanation}</div>
+            `;
+            return div;
+        }
+
+        function createEssayQuestion(q, index) {
+            const div = document.createElement('div');
+            div.className = 'question';
+            div.innerHTML = `
+                <h3>السؤال ${index + 13}</h3>
+                <p>${q.question}</p>
+                <textarea name="essay_${index}" rows="4" style="width: 100%; padding: 10px;" required></textarea>
+                <button class="feedback-btn" onclick="showExplanation(${index})">إظهار الشرح</button>
+                <div id="explanation_${index}" class="explanation">${q.answer}</div>
+            `;
+            return div;
+        }
+
+        function createPerformanceTask(q, index) {
+            const div = document.createElement('div');
+            div.className = 'question performance-task';
+            let imageHtml = '';
+            if (q.image) {
+                imageHtml = `<div class="image-container"><img src="${q.image}" alt="صورة توضيحية"></div>`;
+            }
+            div.innerHTML = `
+                <h3>السؤال ${index + 14}</h3>
+                ${imageHtml}
+                <p>${q.question}</p>
+                <textarea name="task_${index}" rows="4" style="width: 100%; padding: 10px;" required></textarea>
+                <button class="feedback-btn" onclick="showExplanation(${index})">إظهار الشرح</button>
+                <div id="explanation_${index}" class="explanation">${q.modelAnswer}</div>
+            `;
+            return div;
+        }
+
+        function createMathProblem(q, index) {
+            const div = document.createElement('div');
+            div.className = 'question math-question';
+            if (q.type === 'multipleChoice') {
+                div.innerHTML = `
+                    <h3>السؤال ${index + 18}</h3>
+                    <p>${q.question}</p>
+                    <div class="options">
+                        ${q.options.map((option, i) => `
+                            <label class="option">
+                                <input type="radio" name="math_${index}" value="${i}" required>
+                                ${option}
+                            </label>
+                        `).join('')}
+                    </div>
+                    <button class="feedback-btn" onclick="showExplanation(${index})">إظهار الشرح</button>
+                    <div id="explanation_${index}" class="explanation">${q.explanation}</div>
+                `;
+            } else {
+                div.innerHTML = `
+                    <h3>السؤال ${index + 18}</h3>
+                    <p>${q.question}</p>
+                    <input type="text" name="math_${index}" required>
+                    <button class="feedback-btn" onclick="showExplanation(${index})">إظهار الشرح</button>
+                    <div id="explanation_${index}" class="explanation">${q.answer}<br>${q.explanation}</div>
+                `;
+            }
+            return div;
+        }
+
+        function createConceptMap(q, index) {
+            const div = document.createElement('div');
+            div.className = 'question';
+            div.innerHTML = `
+                <h3>السؤال ${index + 23}</h3>
+                <p>${q.question}</p>
+                <div class="drawing-area" style="border: 1px solid #ccc; min-height: 300px; margin: 10px 0;">
+                    <p style="text-align: center; color: #666;">منطقة الرسم</p>
+                </div>
+                <button class="feedback-btn" onclick="showExplanation(${index})">إظهار الشرح</button>
+                <div id="explanation_${index}" class="explanation">${q.modelAnswer}</div>
+            `;
+            return div;
+        }
+
+        function showExplanation(questionId) {
+            const explanation = document.getElementById(`explanation_${questionId}`);
+            explanation.classList.toggle('show');
+        }
+
+        function checkAnswers(event) {
+            event.preventDefault();
+            let score = 0;
+            let total = 0;
+
+            // Check fill in the blanks
+            quizData.fillBlanks.forEach((q, index) => {
+                const input = document.querySelector(`input[name="fill_${index}"]`);
+                if (input.value.trim().toLowerCase() === q.answer.toLowerCase()) {
+                    score++;
+                }
+                total++;
+            });
+
+            // Check multiple choice
+            quizData.multipleChoice.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="mc_${index}"]:checked`);
+                if (selected && parseInt(selected.value) === q.answer) {
+                    score++;
+                }
+                total++;
+            });
+
+            // Display results
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            const percentage = (score / total) * 100;
+            resultDiv.innerHTML = `
+                <h2>النتيجة</h2>
+                <p>حصلت على ${score} من ${total} (${percentage.toFixed(1)}%)</p>
+                <p>الأسئلة المقالية والأنشطة تحتاج إلى تصحيح من المعلم</p>
+            `;
+            resultDiv.style.backgroundColor = percentage >= 70 ? '#c8e6c9' : '#ffcdd2';
+        }
+
+        // Initialize quiz
+        document.addEventListener('DOMContentLoaded', createQuiz);
+        document.getElementById('quizForm').addEventListener('submit', checkAnswers);
+    </script>
+</body>
+</html>

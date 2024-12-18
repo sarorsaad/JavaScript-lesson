@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل مراجعة الفصل 5</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            direction: rtl;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3, h4 {
+            color: #1a237e;
+            margin: 20px 0;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+        .lesson-content {
+            margin-top: 20px;
+        }
+        .lesson-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .demo-section {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        .atomic-model {
+            width: 100%;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .model-controls {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+            justify-content: center;
+        }
+        .model-btn {
+            padding: 8px 15px;
+            background: #1a237e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .model-btn:hover {
+            background: #0d1657;
+        }
+        .model-btn.active {
+            background: #4caf50;
+        }
+        .model-info {
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .lesson-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding: 20px 0;
+        }
+        .nav-btn {
+            padding: 10px 20px;
+            background-color: #1a237e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+        .nav-btn:hover {
+            background-color: #0d1657;
+        }
+        .home-btn {
+            background-color: #4caf50;
+        }
+        .home-btn:hover {
+            background-color: #388e3c;
+        }
+        ul, ol {
+            padding-right: 20px;
+            margin: 10px 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .concept-map {
+            background-color: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .demo-icon {
+            width: 24px;
+            height: 24px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #e0e0e0;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+        }
+        .interactive-atom-container {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .atom-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .atom-model {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        .component-info {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            min-height: 60px;
+        }
+        .highlight {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        @keyframes orbit {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .electron-cloud {
+            animation: orbit 8s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>دليل مراجعة الفصل 5</h1>
+        
+        <div class="lesson-content">
+            <h3>مراجعة الأفكار الرئيسية</h3>
+            
+            <div class="lesson-section">
+                <h4>الدرس الأول: نماذج الذرة</h4>
+                <ol>
+                    <li>افترض جون دالتون أن الذرة هي كرة صلبة من المادة.</li>
+                    <li>اكتُشِفَت مكونات الذرة باستخدام أشعة الكاثود وأشعة ألفا.</li>
+                    <li>نجد في نموذج الذرة الحديث أن الذرة تحتوي على نواة موجبة الشحنة تحتوي على بروتونات ونيوترونات، ومحاطة بسحابة من الإلكترونات.</li>
+                    <li>تختلف النماذج الذرية بناءً على تجارب العلماء.</li>
+                    <li>عدد العناصر هو مقياس لعمر النواة.</li>
+                </ol>
+
+                <div class="demo-section">
+                    <h4>🔬 العرض التوضيحي التفاعلي: تطور نماذج الذرة</h4>
+                    <div class="model-controls">
+                        <button class="model-btn active" onclick="showModel('dalton')">نموذج دالتون</button>
+                        <button class="model-btn" onclick="showModel('thomson')">نموذج طومسون</button>
+                        <button class="model-btn" onclick="showModel('rutherford')">نموذج رذرفورد</button>
+                        <button class="model-btn" onclick="showModel('bohr')">نموذج بور</button>
+                        <button class="model-btn" onclick="showModel('modern')">النموذج الحديث</button>
+                    </div>
+                    <div class="atomic-model" id="atomicModel"></div>
+                    <div class="model-info" id="modelInfo"></div>
+                </div>
+            </div>
+
+            <div class="lesson-section">
+                <h4>الدرس الثاني: النواة</h4>
+                <ol>
+                    <li>العدد الذري هو عدد البروتونات في نواة الذرة.</li>
+                    <li>النظائر - هي ذرات لنفس العنصر ولكن تختلف في عدد النيوترونات.</li>
+                    <li>تتحلل العناصر المشعة تلقائيًا وتنتج طاقة.</li>
+                    <li>مكونات النواة تمسكها قوى نووية قوية.</li>
+                    <li>تتحلل النظائر المشعة خلال فترة زمنية معينة وتنتج جسيمات مختلفة.</li>
+                </ol>
+
+                <div class="demo-section">
+                    <h4>🔬 العرض التوضيحي التفاعلي: النواة والنظائر</h4>
+                    <div class="model-controls">
+                        <button class="model-btn" onclick="showNuclearDemo('atomic-number')">العدد الذري</button>
+                        <button class="model-btn" onclick="showNuclearDemo('isotopes')">النظائر</button>
+                        <button class="model-btn" onclick="showNuclearDemo('decay')">التحلل الإشعاعي</button>
+                        <button class="model-btn" onclick="showNuclearDemo('forces')">القوى النووية</button>
+                    </div>
+                    <div class="atomic-model" id="nuclearModel"></div>
+                    <div class="model-info" id="nuclearInfo"></div>
+                    <div class="controls">
+                        <div id="isotopeControls" style="display: none; text-align: center; margin-top: 10px;">
+                            <label>عدد النيوترونات:</label>
+                            <input type="range" min="5" max="8" value="6" id="neutronSlider">
+                            <span id="neutronCount">6</span>
+                        </div>
+                        <div id="decayControls" style="display: none; text-align: center; margin-top: 10px;">
+                            <button onclick="startDecayAnimation()" class="model-btn">بدء التحلل</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lesson-section">
+                <h4>تصور الأفكار الرئيسية</h4>
+                <div class="concept-map">
+                    <h4>الخريطة المفاهيمية: مكونات الذرة</h4>
+                    <ul>
+                        <li><strong>الذرة</strong>
+                            <ul>
+                                <li><strong>النواة</strong>
+                                    <ul>
+                                        <li><strong>البروتونات:</strong>
+                                            <ul>
+                                                <li>موجبة</li>
+                                                <li>عددها = العدد الذري</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>النيوترونات:</strong>
+                                            <ul>
+                                                <li>متعادلة</li>
+                                                <li>عددها = عدد البروتونات</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><strong>الإلكترونات:</strong>
+                                    <ul>
+                                        <li>سالبة</li>
+                                        <li>تدور حول النواة في السحابة الإلكترونية</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lesson-section">
+                <h4>تصور الأفكار الرئيسية</h4>
+                <div class="concept-map">
+                    <h4>الخريطة المفاهيمية: مكونات الذرة</h4>
+                    <div class="interactive-atom-container">
+                        <div class="atom-controls">
+                            <button class="model-btn" onclick="highlightComponent('nucleus')">النواة</button>
+                            <button class="model-btn" onclick="highlightComponent('protons')">البروتونات</button>
+                            <button class="model-btn" onclick="highlightComponent('neutrons')">النيوترونات</button>
+                            <button class="model-btn" onclick="highlightComponent('electrons')">الإلكترونات</button>
+                        </div>
+                        <div class="atom-model" id="conceptAtom"></div>
+                        <div class="component-info" id="componentInfo"></div>
+                    </div>
+                </div>
+
+                <script>
+                    const componentInfo = {
+                        nucleus: {
+                            title: "النواة",
+                            description: "مركز الذرة، تحتوي على البروتونات والنيوترونات"
+                        },
+                        protons: {
+                            title: "البروتونات",
+                            description: "جسيمات موجبة الشحنة، عددها يساوي العدد الذري"
+                        },
+                        neutrons: {
+                            title: "النيوترونات",
+                            description: "جسيمات متعادلة الشحنة، عددها يقارب عدد البروتونات"
+                        },
+                        electrons: {
+                            title: "الإلكترونات",
+                            description: "جسيمات سالبة الشحنة، تدور حول النواة في السحابة الإلكترونية"
+                        }
+                    };
+
+                    function createConceptAtom() {
+                        const svg = createSVG();
+                        const container = document.getElementById('conceptAtom');
+                        container.innerHTML = '';
+                        container.appendChild(svg);
+
+                        const centerX = parseFloat(svg.clientWidth) / 2;
+                        const centerY = parseFloat(svg.clientHeight) / 2;
+
+                        // Draw electron clouds (orbits)
+                        for(let i = 0; i < 3; i++) {
+                            const orbit = document.createElementNS(SVG_NS, "ellipse");
+                            orbit.setAttribute("cx", centerX);
+                            orbit.setAttribute("cy", centerY);
+                            orbit.setAttribute("rx", 80 + i * 40);
+                            orbit.setAttribute("ry", (80 + i * 40) * 0.3);
+                            orbit.setAttribute("fill", "none");
+                            orbit.setAttribute("stroke", "#4a90e2");
+                            orbit.setAttribute("stroke-width", "1");
+                            orbit.setAttribute("class", "electron-orbit");
+                            orbit.style.transform = `rotate(${i * 30}deg)`;
+                            svg.appendChild(orbit);
+                        }
+
+                        // Draw nucleus background
+                        const nucleusBackground = document.createElementNS(SVG_NS, "circle");
+                        nucleusBackground.setAttribute("cx", centerX);
+                        nucleusBackground.setAttribute("cy", centerY);
+                        nucleusBackground.setAttribute("r", "40");
+                        nucleusBackground.setAttribute("fill", "#2a2a2a");
+                        nucleusBackground.setAttribute("class", "nucleus-bg");
+                        svg.appendChild(nucleusBackground);
+
+                        // Draw protons and neutrons
+                        const particles = [];
+                        for(let i = 0; i < 6; i++) {
+                            const angle = (i * Math.PI * 2) / 6;
+                            const x = centerX + Math.cos(angle) * 20;
+                            const y = centerY + Math.sin(angle) * 20;
+                            
+                            const particle = document.createElementNS(SVG_NS, "circle");
+                            particle.setAttribute("cx", x);
+                            particle.setAttribute("cy", y);
+                            particle.setAttribute("r", "10");
+                            particle.setAttribute("fill", i % 2 === 0 ? "#ff4444" : "#4444ff");
+                            particle.setAttribute("class", i % 2 === 0 ? "proton" : "neutron");
+                            svg.appendChild(particle);
+                        }
+
+                        // Draw electrons
+                        for(let i = 0; i < 8; i++) {
+                            const electron = document.createElementNS(SVG_NS, "circle");
+                            const angle = (i * Math.PI * 2) / 8;
+                            const x = centerX + Math.cos(angle) * 120;
+                            const y = centerY + Math.sin(angle) * 40;
+                            electron.setAttribute("cx", x);
+                            electron.setAttribute("cy", y);
+                            electron.setAttribute("r", "5");
+                            electron.setAttribute("fill", "#4a90e2");
+                            electron.setAttribute("class", "electron");
+                            svg.appendChild(electron);
+                        }
+                    }
+
+                    function highlightComponent(component) {
+                        // Reset all components
+                        document.querySelectorAll('.proton, .neutron, .electron, .nucleus-bg, .electron-orbit')
+                            .forEach(el => {
+                                el.classList.remove('highlight');
+                                el.style.opacity = '0.3';
+                            });
+
+                        // Highlight selected component
+                        switch(component) {
+                            case 'nucleus':
+                                document.querySelectorAll('.nucleus-bg, .proton, .neutron')
+                                    .forEach(el => {
+                                        el.classList.add('highlight');
+                                        el.style.opacity = '1';
+                                    });
+                                break;
+                            case 'protons':
+                                document.querySelectorAll('.proton')
+                                    .forEach(el => {
+                                        el.classList.add('highlight');
+                                        el.style.opacity = '1';
+                                    });
+                                break;
+                            case 'neutrons':
+                                document.querySelectorAll('.neutron')
+                                    .forEach(el => {
+                                        el.classList.add('highlight');
+                                        el.style.opacity = '1';
+                                    });
+                                break;
+                            case 'electrons':
+                                document.querySelectorAll('.electron, .electron-orbit')
+                                    .forEach(el => {
+                                        el.classList.add('highlight');
+                                        el.style.opacity = '1';
+                                    });
+                                break;
+                        }
+
+                        // Update info text
+                        document.getElementById('componentInfo').innerHTML = 
+                            `<h3>${componentInfo[component].title}</h3>
+                            <p>${componentInfo[component].description}</p>`;
+                    }
+
+                    // Initialize concept atom when DOM is loaded
+                    document.addEventListener('DOMContentLoaded', () => {
+                        createConceptAtom();
+                        highlightComponent('nucleus'); // Start with nucleus highlighted
+                    });
+                </script>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <button class="nav-btn home-btn" onclick="window.location.href='science_prep3_term2.html'">العودة للصفحة الرئيسية</button>
+        </div>
+    </div>
+
+    <script>
+        // SVG namespace
+        const SVG_NS = "http://www.w3.org/2000/svg";
+        
+        // Model descriptions
+        const modelDescriptions = {
+            dalton: "نموذج دالتون (1803): اعتبر الذرة ككرة صلبة مصمتة لا يمكن تجزئتها",
+            thomson: "نموذج طومسون (1897): نموذج كعكة الزبيب، حيث الإلكترونات موزعة في مادة موجبة الشحنة",
+            rutherford: "نموذج رذرفورد (1911): اكتشف النواة المركزية الموجبة والإلكترونات تدور حولها",
+            bohr: "نموذج بور (1913): الإلكترونات تدور في مدارات محددة حول النواة",
+            modern: "النموذج الحديث: سحابة إلكترونية حول النواة تحدد احتمالية وجود الإلكترونات"
+        };
+
+        function createSVG() {
+            const svg = document.createElementNS(SVG_NS, "svg");
+            svg.setAttribute("width", "100%");
+            svg.setAttribute("height", "100%");
+            return svg;
+        }
+
+        function showModel(modelType) {
+            const container = document.getElementById('atomicModel');
+            container.innerHTML = '';
+            const svg = createSVG();
+            container.appendChild(svg);
+
+            // Update button states
+            document.querySelectorAll('.model-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[onclick="showModel('${modelType}')"]`).classList.add('active');
+
+            // Update info text
+            document.getElementById('modelInfo').textContent = modelDescriptions[modelType];
+
+            switch(modelType) {
+                case 'dalton':
+                    drawDaltonModel(svg);
+                    break;
+                case 'thomson':
+                    drawThomsonModel(svg);
+                    break;
+                case 'rutherford':
+                    drawRutherfordModel(svg);
+                    break;
+                case 'bohr':
+                    drawBohrModel(svg);
+                    break;
+                case 'modern':
+                    drawModernModel(svg);
+                    break;
+            }
+        }
+
+        function drawDaltonModel(svg) {
+            const circle = document.createElementNS(SVG_NS, "circle");
+            circle.setAttribute("cx", "50%");
+            circle.setAttribute("cy", "50%");
+            circle.setAttribute("r", "80");
+            circle.setAttribute("fill", "#4a90e2");
+            svg.appendChild(circle);
+        }
+
+        function drawThomsonModel(svg) {
+            const circle = document.createElementNS(SVG_NS, "circle");
+            circle.setAttribute("cx", "50%");
+            circle.setAttribute("cy", "50%");
+            circle.setAttribute("r", "80");
+            circle.setAttribute("fill", "#e6b3b3");
+            svg.appendChild(circle);
+
+            // Add electrons (raisins)
+            for(let i = 0; i < 8; i++) {
+                const electron = document.createElementNS(SVG_NS, "circle");
+                const angle = (i * Math.PI * 2) / 8;
+                const x = parseFloat(svg.clientWidth) / 2 + Math.cos(angle) * 40;
+                const y = parseFloat(svg.clientHeight) / 2 + Math.sin(angle) * 40;
+                electron.setAttribute("cx", x);
+                electron.setAttribute("cy", y);
+                electron.setAttribute("r", "5");
+                electron.setAttribute("fill", "#333");
+                svg.appendChild(electron);
+            }
+        }
+
+        function drawRutherfordModel(svg) {
+            // Nucleus
+            const nucleus = document.createElementNS(SVG_NS, "circle");
+            nucleus.setAttribute("cx", "50%");
+            nucleus.setAttribute("cy", "50%");
+            nucleus.setAttribute("r", "20");
+            nucleus.setAttribute("fill", "#ff4444");
+            svg.appendChild(nucleus);
+
+            // Electron orbits
+            for(let i = 0; i < 3; i++) {
+                const orbit = document.createElementNS(SVG_NS, "circle");
+                orbit.setAttribute("cx", "50%");
+                orbit.setAttribute("cy", "50%");
+                orbit.setAttribute("r", (i + 1) * 40);
+                orbit.setAttribute("fill", "none");
+                orbit.setAttribute("stroke", "#666");
+                orbit.setAttribute("stroke-width", "1");
+                svg.appendChild(orbit);
+            }
+        }
+
+        function drawBohrModel(svg) {
+            // Nucleus
+            const nucleus = document.createElementNS(SVG_NS, "circle");
+            nucleus.setAttribute("cx", "50%");
+            nucleus.setAttribute("cy", "50%");
+            nucleus.setAttribute("r", "20");
+            nucleus.setAttribute("fill", "#ff4444");
+            svg.appendChild(nucleus);
+
+            // Electron orbits with electrons
+            for(let i = 0; i < 3; i++) {
+                const orbit = document.createElementNS(SVG_NS, "circle");
+                orbit.setAttribute("cx", "50%");
+                orbit.setAttribute("cy", "50%");
+                orbit.setAttribute("r", (i + 1) * 40);
+                orbit.setAttribute("fill", "none");
+                orbit.setAttribute("stroke", "#666");
+                orbit.setAttribute("stroke-width", "1");
+                svg.appendChild(orbit);
+
+                // Add electron
+                const electron = document.createElementNS(SVG_NS, "circle");
+                electron.setAttribute("cx", "50%");
+                electron.setAttribute("cy", parseFloat(svg.clientHeight) / 2 - (i + 1) * 40);
+                electron.setAttribute("r", "5");
+                electron.setAttribute("fill", "#4a90e2");
+                
+                // Animation
+                const animateMotion = document.createElementNS(SVG_NS, "animateMotion");
+                animateMotion.setAttribute("dur", `${i + 2}s`);
+                animateMotion.setAttribute("repeatCount", "indefinite");
+                animateMotion.setAttribute("path", `M 0,0 a ${(i + 1) * 40},${(i + 1) * 40} 0 1,1 0,0.1 z`);
+                electron.appendChild(animateMotion);
+                
+                svg.appendChild(electron);
+            }
+        }
+
+        function drawModernModel(svg) {
+            // Nucleus
+            const nucleus = document.createElementNS(SVG_NS, "circle");
+            nucleus.setAttribute("cx", "50%");
+            nucleus.setAttribute("cy", "50%");
+            nucleus.setAttribute("r", "20");
+            nucleus.setAttribute("fill", "#ff4444");
+            svg.appendChild(nucleus);
+
+            // Electron cloud
+            for(let i = 0; i < 50; i++) {
+                const electron = document.createElementNS(SVG_NS, "circle");
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 80;
+                const x = parseFloat(svg.clientWidth) / 2 + Math.cos(angle) * distance;
+                const y = parseFloat(svg.clientHeight) / 2 + Math.sin(angle) * distance;
+                electron.setAttribute("cx", x);
+                electron.setAttribute("cy", y);
+                electron.setAttribute("r", "2");
+                electron.setAttribute("fill", "#4a90e2");
+                electron.setAttribute("opacity", "0.5");
+                svg.appendChild(electron);
+            }
+        }
+
+        // Nuclear demonstration related code
+        const nuclearDescriptions = {
+            'atomic-number': 'العدد الذري يمثل عدد البروتونات في نواة الذرة. في هذا المثال نرى ذرة الليثيوم (Li) مع 3 بروتونات.',
+            'isotopes': 'النظائر هي ذرات لنفس العنصر تختلف في عدد النيوترونات. استخدم شريط التمرير لتغيير عدد النيوترونات.',
+            'decay': 'التحلل الإشعاعي هو عملية تلقائية تنتج عنها طاقة وجسيمات مختلفة.',
+            'forces': 'القوى النووية القوية تربط البروتونات والنيوترونات معاً في النواة.'
+        };
+
+        function showNuclearDemo(type) {
+            const container = document.getElementById('nuclearModel');
+            container.innerHTML = '';
+            const svg = createSVG();
+            container.appendChild(svg);
+
+            // Update button states
+            document.querySelectorAll('.model-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[onclick="showNuclearDemo('${type}')"]`).classList.add('active');
+
+            // Update info text
+            document.getElementById('nuclearInfo').textContent = nuclearDescriptions[type];
+
+            // Show/hide controls
+            document.getElementById('isotopeControls').style.display = type === 'isotopes' ? 'block' : 'none';
+            document.getElementById('decayControls').style.display = type === 'decay' ? 'block' : 'none';
+
+            switch(type) {
+                case 'atomic-number':
+                    drawAtomicNumber(svg);
+                    break;
+                case 'isotopes':
+                    drawIsotopes(svg);
+                    break;
+                case 'decay':
+                    drawDecay(svg);
+                    break;
+                case 'forces':
+                    drawNuclearForces(svg);
+                    break;
+            }
+        }
+
+        function drawAtomicNumber(svg) {
+            // Draw nucleus with 3 protons (Lithium)
+            const centerX = parseFloat(svg.clientWidth) / 2;
+            const centerY = parseFloat(svg.clientHeight) / 2;
+            
+            // Draw protons
+            for(let i = 0; i < 3; i++) {
+                const angle = (i * Math.PI * 2) / 3;
+                const proton = document.createElementNS(SVG_NS, "circle");
+                proton.setAttribute("cx", centerX + Math.cos(angle) * 20);
+                proton.setAttribute("cy", centerY + Math.sin(angle) * 20);
+                proton.setAttribute("r", "15");
+                proton.setAttribute("fill", "#ff4444");
+                proton.setAttribute("stroke", "white");
+                proton.setAttribute("stroke-width", "2");
+                
+                // Add "+" symbol
+                const text = document.createElementNS(SVG_NS, "text");
+                text.setAttribute("x", centerX + Math.cos(angle) * 20);
+                text.setAttribute("y", centerY + Math.sin(angle) * 20);
+                text.setAttribute("text-anchor", "middle");
+                text.setAttribute("dominant-baseline", "middle");
+                text.setAttribute("fill", "white");
+                text.textContent = "+";
+                
+                svg.appendChild(proton);
+                svg.appendChild(text);
+            }
+        }
+
+        function drawIsotopes(svg) {
+            const neutronCount = document.getElementById('neutronSlider').value;
+            const centerX = parseFloat(svg.clientWidth) / 2;
+            const centerY = parseFloat(svg.clientHeight) / 2;
+            
+            // Draw protons and neutrons
+            const particles = [];
+            // 3 protons (Lithium)
+            for(let i = 0; i < 3; i++) {
+                particles.push({type: 'proton'});
+            }
+            // Variable neutrons
+            for(let i = 0; i < neutronCount; i++) {
+                particles.push({type: 'neutron'});
+            }
+            
+            // Arrange particles in a circle
+            particles.forEach((particle, i) => {
+                const angle = (i * Math.PI * 2) / particles.length;
+                const circle = document.createElementNS(SVG_NS, "circle");
+                circle.setAttribute("cx", centerX + Math.cos(angle) * 30);
+                circle.setAttribute("cy", centerY + Math.sin(angle) * 30);
+                circle.setAttribute("r", "15");
+                circle.setAttribute("fill", particle.type === 'proton' ? "#ff4444" : "#4444ff");
+                circle.setAttribute("stroke", "white");
+                circle.setAttribute("stroke-width", "2");
+                svg.appendChild(circle);
+                
+                if(particle.type === 'proton') {
+                    const text = document.createElementNS(SVG_NS, "text");
+                    text.setAttribute("x", centerX + Math.cos(angle) * 30);
+                    text.setAttribute("y", centerY + Math.sin(angle) * 30);
+                    text.setAttribute("text-anchor", "middle");
+                    text.setAttribute("dominant-baseline", "middle");
+                    text.setAttribute("fill", "white");
+                    text.textContent = "+";
+                    svg.appendChild(text);
+                }
+            });
+        }
+
+        function drawDecay(svg) {
+            const centerX = parseFloat(svg.clientWidth) / 2;
+            const centerY = parseFloat(svg.clientHeight) / 2;
+            
+            // Draw unstable nucleus
+            const nucleus = document.createElementNS(SVG_NS, "circle");
+            nucleus.setAttribute("cx", centerX);
+            nucleus.setAttribute("cy", centerY);
+            nucleus.setAttribute("r", "40");
+            nucleus.setAttribute("fill", "#ff8844");
+            nucleus.setAttribute("stroke", "white");
+            nucleus.setAttribute("stroke-width", "2");
+            nucleus.setAttribute("id", "decayingNucleus");
+            svg.appendChild(nucleus);
+            
+            // Add radiation symbols
+            for(let i = 0; i < 8; i++) {
+                const angle = (i * Math.PI * 2) / 8;
+                const ray = document.createElementNS(SVG_NS, "line");
+                ray.setAttribute("x1", centerX + Math.cos(angle) * 50);
+                ray.setAttribute("y1", centerY + Math.sin(angle) * 50);
+                ray.setAttribute("x2", centerX + Math.cos(angle) * 70);
+                ray.setAttribute("y2", centerY + Math.sin(angle) * 70);
+                ray.setAttribute("stroke", "#ffff44");
+                ray.setAttribute("stroke-width", "3");
+                ray.setAttribute("class", "radiation");
+                ray.style.display = "none";
+                svg.appendChild(ray);
+            }
+        }
+
+        function startDecayAnimation() {
+            const rays = document.querySelectorAll('.radiation');
+            const nucleus = document.getElementById('decayingNucleus');
+            
+            rays.forEach(ray => {
+                ray.style.display = "block";
+            });
+            
+            nucleus.setAttribute("fill", "#884444");
+            
+            setTimeout(() => {
+                rays.forEach(ray => {
+                    ray.style.display = "none";
+                });
+                nucleus.setAttribute("fill", "#ff8844");
+            }, 1000);
+        }
+
+        function drawNuclearForces(svg) {
+            const centerX = parseFloat(svg.clientWidth) / 2;
+            const centerY = parseFloat(svg.clientHeight) / 2;
+            
+            // Draw particles
+            const particles = [];
+            for(let i = 0; i < 6; i++) {
+                const angle = (i * Math.PI * 2) / 6;
+                const x = centerX + Math.cos(angle) * 30;
+                const y = centerY + Math.sin(angle) * 30;
+                
+                const particle = document.createElementNS(SVG_NS, "circle");
+                particle.setAttribute("cx", x);
+                particle.setAttribute("cy", y);
+                particle.setAttribute("r", "15");
+                particle.setAttribute("fill", i % 2 === 0 ? "#ff4444" : "#4444ff");
+                particle.setAttribute("stroke", "white");
+                particle.setAttribute("stroke-width", "2");
+                svg.appendChild(particle);
+                
+                particles.push({x, y});
+            }
+            
+            // Draw force lines between particles
+            particles.forEach((p1, i) => {
+                particles.forEach((p2, j) => {
+                    if(i < j) {
+                        const line = document.createElementNS(SVG_NS, "line");
+                        line.setAttribute("x1", p1.x);
+                        line.setAttribute("y1", p1.y);
+                        line.setAttribute("x2", p2.x);
+                        line.setAttribute("y2", p2.y);
+                        line.setAttribute("stroke", "#44ff44");
+                        line.setAttribute("stroke-width", "2");
+                        line.setAttribute("stroke-dasharray", "5,5");
+                        svg.appendChild(line);
+                    }
+                });
+            });
+        }
+
+        // Event listener for isotope slider
+        document.getElementById('neutronSlider')?.addEventListener('input', function() {
+            document.getElementById('neutronCount').textContent = this.value;
+            showNuclearDemo('isotopes');
+        });
+
+        // Initialize with Dalton model
+        document.addEventListener('DOMContentLoaded', () => {
+            showModel('dalton');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Workflow Roadmap</title>
+    <!-- Add Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+
+        h1 i {
+            color: #3498db;
+            margin-right: 10px;
+        }
+
+        .roadmap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .node {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            min-width: 250px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #3498db;
+            position: relative;
+        }
+
+        .node i {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .node h2 {
+            color: #3498db;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .arrow {
+            width: 2px;
+            height: 40px;
+            background: #3498db;
+            position: relative;
+            margin: 0.5rem 0;
+        }
+
+        .arrow::after {
+            content: "▼";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #3498db;
+        }
+
+        .functions-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .function-group {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .function-group h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+
+        .function-group h3 i {
+            color: #3498db;
+            margin-right: 10px;
+        }
+
+        .function-list {
+            list-style: none;
+        }
+
+        .function-list li {
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            background: #f8f9fa;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .function-list li i {
+            margin-right: 10px;
+            width: 20px;
+            color: #3498db;
+        }
+
+        .function-list li:hover {
+            background: #e8f4f8;
+            transform: translateX(5px);
+        }
+
+        .tooltip {
+            position: absolute;
+            background: #2c3e50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 1000;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .node:hover .tooltip {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .node {
+                min-width: 200px;
+            }
+
+            .function-group {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-code"></i> Development Workflow Roadmap</h1>
+        
+        <div class="roadmap">
+            <!-- Main Flow -->
+            <div class="node" data-tooltip="Create and maintain software applications">
+                <i class="fas fa-laptop-code"></i>
+                <h2>Developers</h2>
+                <div class="tooltip">Software engineers who write and maintain code</div>
+            </div>
+            
+            <div class="arrow"></div>
+            
+            <div class="node" data-tooltip="Software solutions for specific purposes">
+                <i class="fas fa-mobile-alt"></i>
+                <h2>Applications</h2>
+                <div class="tooltip">Programs that solve specific problems or provide services</div>
+            </div>
+            
+            <div class="arrow"></div>
+            
+            <div class="node" data-tooltip="Information processed by applications">
+                <i class="fas fa-database"></i>
+                <h2>Data</h2>
+                <div class="tooltip">Information that applications process and store</div>
+            </div>
+            
+            <div class="arrow"></div>
+            
+            <div class="node" data-tooltip="Categories of data (String, Number, Boolean, etc.)">
+                <i class="fas fa-tags"></i>
+                <h2>Data Types</h2>
+                <div class="tooltip">Different categories of data with specific characteristics</div>
+            </div>
+            
+            <div class="arrow"></div>
+            
+            <div class="node" data-tooltip="Storage mechanisms for data">
+                <i class="fas fa-box-archive"></i>
+                <h2>Storage Methods</h2>
+                <p>Variables, Arrays, and Objects</p>
+                <div class="tooltip">Different ways to store and organize data in memory</div>
+            </div>
+            
+            <div class="arrow"></div>
+            
+            <div class="node" data-tooltip="Code blocks that process data">
+                <i class="fas fa-cogs"></i>
+                <h2>Functions</h2>
+                <p>Process and Transform Data</p>
+                <div class="tooltip">Reusable blocks of code that perform specific tasks</div>
+            </div>
+
+            <!-- Function Details -->
+            <div class="functions-container">
+                <div class="function-group">
+                    <h3><i class="fas fa-tasks"></i> Data Operations</h3>
+                    <ul class="function-list">
+                        <li><i class="fas fa-download"></i> Data Retrieval and Storage</li>
+                        <li><i class="fas fa-random"></i> Data Transformation</li>
+                        <li><i class="fas fa-check-circle"></i> Data Validation</li>
+                        <li><i class="fas fa-edit"></i> Data Manipulation</li>
+                        <li><i class="fas fa-chart-bar"></i> Data Analysis</li>
+                    </ul>
+                </div>
+
+                <div class="function-group">
+                    <h3><i class="fas fa-briefcase"></i> Business Logic</h3>
+                    <ul class="function-list">
+                        <li><i class="fas fa-tv"></i> Data Presentation</li>
+                        <li><i class="fas fa-cog"></i> Business Logic Handling</li>
+                        <li><i class="fas fa-plug"></i> Data Integrations</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> Error Handling</li>
+                        <li><i class="fas fa-clipboard-list"></i> Logging</li>
+                    </ul>
+                </div>
+
+                <div class="function-group">
+                    <h3><i class="fas fa-code-branch"></i> Control Structures</h3>
+                    <ul class="function-list">
+                        <li><i class="fas fa-sync"></i> Loops (Iteration)</li>
+                        <li><i class="fas fa-code-branch"></i> Conditionals (Decision-making)</li>
+                        <li><i class="fas fa-bug"></i> Error Handling</li>
+                        <li><i class="fas fa-puzzle-piece"></i> Function Composition</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add hover effects and tooltips
+        document.querySelectorAll('.node').forEach(node => {
+            node.addEventListener('mouseenter', () => {
+                node.style.transform = 'translateY(-5px)';
+            });
+
+            node.addEventListener('mouseleave', () => {
+                node.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add click effects to function list items
+        document.querySelectorAll('.function-list li').forEach(item => {
+            item.addEventListener('click', () => {
+                item.style.backgroundColor = '#e8f4f8';
+                setTimeout(() => {
+                    item.style.backgroundColor = '#f8f9fa';
+                }, 200);
+            });
+        });
+
+        // Optional: Add animation to arrows
+        document.querySelectorAll('.arrow').forEach(arrow => {
+            arrow.addEventListener('mouseenter', () => {
+                arrow.style.height = '50px';
+                setTimeout(() => {
+                    arrow.style.height = '40px';
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>

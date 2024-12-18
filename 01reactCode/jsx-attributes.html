@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSX Attributes in React</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .example {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .code-editor {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 5px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+        .code-editor .tag {
+            color: #569cd6;
+        }
+        .code-editor .attribute {
+            color: #9cdcfe;
+        }
+        .code-editor .value {
+            color: #ce9178;
+        }
+        .code-editor .comment {
+            color: #6a9955;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        .key-differences {
+            font-family: 'Consolas', 'Monaco', monospace;
+            margin: 15px 0;
+            padding: 15px;
+        }
+        .key-differences li {
+            margin: 10px 0;
+            list-style-type: none;
+            color: #333;
+        }
+        .html-attr {
+            color: #0077cc;
+        }
+        .jsx-attr {
+            color: #d63384;
+        }
+        .arrow {
+            color: #569cd6;
+            margin: 0 8px;
+        }
+        .js-expr {
+            color: #28a745;
+        }
+        .example-attr {
+            color: #ce9178;
+            font-style: italic;
+        }
+        .attribute-types {
+            font-family: 'Consolas', 'Monaco', monospace;
+            margin: 15px 0;
+        }
+        .attribute-types li {
+            margin: 10px 0;
+            list-style-type: none;
+        }
+        .attribute-type-name {
+            color: #0077cc;
+            font-weight: bold;
+        }
+        .attr-example {
+            color: #d63384;
+            padding: 0 3px;
+        }
+        .attr-desc {
+            color: #333;
+        }
+        .note-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #0077cc;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .note-title {
+            color: #0077cc;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .aria-attr {
+            color: #d63384;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        .organization {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <h1>Attributes in Web Development</h1>
+
+    <p>
+        Attributes in web development refer to additional information that can be added to HTML or JSX elements 
+        to define their properties, behaviors, or relationships. They modify how an element is displayed or 
+        how it interacts with the user.
+    </p>
+
+    <h2>Key Points about Attributes:</h2>
+
+    <h3>1. Definition</h3>
+    <p>
+        Attributes provide extra details about an element. For example, an attribute can specify an element's 
+        class, ID, style, or event handlers.
+    </p>
+
+    <h3>2. Structure</h3>
+    <p>
+        Attributes can be written in both HTML and JSX. Here's how they compare:
+    </p>
+    <div class="example">
+        <h4>HTML Attributes:</h4>
+        <div class="code-editor">
+            <span class="tag">&lt;button</span> 
+            <span class="attribute">class</span>=<span class="value">"btn"</span> 
+            <span class="attribute">id</span>=<span class="value">"submitButton"</span>
+            <span class="attribute">disabled</span>=<span class="value">"true"</span><span class="tag">&gt;</span>Submit<span class="tag">&lt;/button&gt;</span>
+            <div class="comment">// HTML uses kebab-case and string values</div>
+        </div>
+
+        <h4>JSX Attributes:</h4>
+        <div class="code-editor">
+            <span class="tag">&lt;button</span> 
+            <span class="attribute">className</span>=<span class="value">"btn"</span> 
+            <span class="attribute">id</span>=<span class="value">"submitButton"</span>
+            <span class="attribute">disabled</span>={<span class="value">true</span>}<span class="tag">&gt;</span>Submit<span class="tag">&lt;/button&gt;</span>
+            <div class="comment">// JSX uses camelCase and curly braces for JavaScript expressions</div>
+        </div>
+        <p class="note">Key differences:</p>
+        <ul class="key-differences">
+            <li><span class="html-attr">class</span> <span class="arrow">→</span> <span class="jsx-attr">className</span> in JSX</li>
+            <li>Boolean attributes can use <span class="js-expr">{JavaScript}</span> values in JSX</li>
+            <li>Event handlers use camelCase in JSX (e.g., <span class="html-attr">onclick</span> <span class="arrow">→</span> <span class="jsx-attr">onClick</span>)</li>
+        </ul>
+    </div>
+
+    <h3>3. Types of Attributes</h3>
+    <ul class="attribute-types">
+        <li>
+            <span class="attribute-type-name">Standard Attributes:</span>
+            <span class="attr-desc">Common attributes like</span>
+            <span class="attr-example">class</span>,
+            <span class="attr-example">id</span>,
+            <span class="attr-example">style</span>, and
+            <span class="attr-example">data-*</span>
+        </li>
+        <li>
+            <span class="attribute-type-name">Event Attributes:</span>
+            <span class="attr-desc">Used for handling events, such as</span>
+            <span class="attr-example">onClick</span>,
+            <span class="attr-example">onChange</span>
+        </li>
+        <li>
+            <span class="attribute-type-name">Boolean Attributes:</span>
+            <span class="attr-desc">Attributes that can be true or false, like</span>
+            <span class="attr-example">disabled</span> or
+            <span class="attr-example">checked</span>
+        </li>
+    </ul>
+
+    <h3>4. Behavior</h3>
+    <p>
+        Attributes can control various aspects of an element's behavior. For example, the <code>disabled</code> 
+        attribute on a button makes it unclickable.
+    </p>
+
+    <h3>5. Dynamic Use</h3>
+    <p>
+        In frameworks like React using JSX, attributes can be set dynamically with JavaScript expressions, 
+        allowing for a more interactive user experience:
+    </p>
+    <div class="code-editor">
+        <span class="tag">&lt;input</span> 
+        <span class="attribute">type</span>=<span class="value">"text"</span> 
+        <span class="attribute">value</span>={<span class="jsx-attr">inputValue</span>} 
+        <span class="attribute">onChange</span>={<span class="jsx-attr">handleChange</span>}<span class="tag">/&gt;</span>
+        <div class="comment">// Dynamic values using JavaScript expressions in curly braces</div>
+    </div>
+
+    <h3>6. Semantic Meaning</h3>
+    <p>
+        Some attributes can convey semantic information (e.g., <code>alt</code> for images or <code>aria-*</code> 
+        for accessibility).
+    </p>
+
+    <h2>Style Attribute in JSX</h2>
+    <p>
+        In JSX, the <span class="attr-example">style</span> attribute is used to apply inline styles to React components 
+        in a way that's similar to how you would in regular HTML, but with some key differences. Here's a breakdown:
+    </p>
+
+    <h3>Key Features of the Style Attribute in JSX:</h3>
+
+    <h4>1. JavaScript Object Syntax</h4>
+    <p>
+        The <span class="attr-example">style</span> attribute takes a JavaScript object rather than a string. 
+        The properties of this object are camelCased instead of being in kebab-case 
+        (like <span class="html-attr">background-color</span> becomes <span class="jsx-attr">backgroundColor</span>).
+    </p>
+    <div class="code-editor">
+        <span class="keyword">const</span> <span class="variable">element</span> = (
+        <br>&nbsp;&nbsp;<span class="tag">&lt;div</span> 
+        <span class="attribute">style</span>={{ 
+        <span class="jsx-attr">backgroundColor</span>: <span class="value">'blue'</span>, 
+        <span class="jsx-attr">color</span>: <span class="value">'white'</span>, 
+        <span class="jsx-attr">padding</span>: <span class="value">'10px'</span> 
+        }}<span class="tag">&gt;</span>
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;Hello World
+        <br>&nbsp;&nbsp;<span class="tag">&lt;/div&gt;</span>
+        <br>);
+        <div class="comment">// Note the double curly braces: outer for JSX, inner for object literal</div>
+    </div>
+
+    <h4>2. Dynamic Values</h4>
+    <p>
+        You can use JavaScript expressions within curly braces <span class="attr-example">{}</span> to set style values 
+        dynamically based on state or props.
+    </p>
+    <div class="code-editor">
+        <span class="keyword">const</span> <span class="variable">isActive</span> = <span class="value">true</span>;
+        <br><span class="keyword">const</span> <span class="variable">element</span> = (
+        <br>&nbsp;&nbsp;<span class="tag">&lt;div</span> 
+        <span class="attribute">style</span>={{ 
+        <span class="jsx-attr">backgroundColor</span>: <span class="variable">isActive</span> ? <span class="value">'green'</span> : <span class="value">'red'</span> 
+        }}<span class="tag">&gt;</span>
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;Conditional Styling
+        <br>&nbsp;&nbsp;<span class="tag">&lt;/div&gt;</span>
+        <br>);
+        <div class="comment">// Style changes based on isActive value</div>
+    </div>
+
+    <h4>3. Units</h4>
+    <p>
+        When specifying units (like <span class="attr-example">px</span>, <span class="attr-example">em</span>, etc.), 
+        these must be included in the property value as strings.
+    </p>
+    <div class="code-editor">
+        <span class="keyword">const</span> <span class="variable">element</span> = (
+        <br>&nbsp;&nbsp;<span class="tag">&lt;div</span> 
+        <span class="attribute">style</span>={{ 
+        <span class="jsx-attr">width</span>: <span class="value">'100px'</span>, 
+        <span class="jsx-attr">height</span>: <span class="value">'50px'</span> 
+        }}<span class="tag">&gt;</span>
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;Box
+        <br>&nbsp;&nbsp;<span class="tag">&lt;/div&gt;</span>
+        <br>);
+        <div class="comment">// Units must be specified as strings</div>
+    </div>
+
+    <h4>4. Removing Styles</h4>
+    <p>
+        To remove a style, you can either omit the property from the object or set it to <span class="attr-example">undefined</span>.
+    </p>
+    <div class="code-editor">
+        <span class="keyword">const</span> <span class="variable">element</span> = (
+        <br>&nbsp;&nbsp;<span class="tag">&lt;div</span> 
+        <span class="attribute">style</span>={{ 
+        <span class="jsx-attr">color</span>: <span class="value">'black'</span>, 
+        <span class="jsx-attr">display</span>: <span class="value">undefined</span> 
+        }}<span class="tag">&gt;</span>
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;Conditional Display
+        <br>&nbsp;&nbsp;<span class="tag">&lt;/div&gt;</span>
+        <br>);
+        <div class="comment">// The display property will be removed</div>
+    </div>
+
+    <h4>5. Complete Example</h4>
+    <div class="code-editor">
+        <span class="keyword">import</span> React <span class="keyword">from</span> <span class="value">'react'</span>;
+        <br><br><span class="keyword">const</span> <span class="variable">MyComponent</span> = () => {
+        <br>&nbsp;&nbsp;<span class="keyword">const</span> <span class="variable">isActive</span> = <span class="value">true</span>;
+        <br>&nbsp;&nbsp;<span class="keyword">return</span> (
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;div</span> 
+        <span class="attribute">style</span>={{ 
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="jsx-attr">backgroundColor</span>: <span class="variable">isActive</span> ? <span class="value">'green'</span> : <span class="value">'red'</span>,
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="jsx-attr">color</span>: <span class="value">'white'</span>,
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="jsx-attr">padding</span>: <span class="value">'20px'</span>,
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="jsx-attr">borderRadius</span>: <span class="value">'5px'</span>
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;}}<span class="tag">&gt;</span>
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is a styled component!
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;/div&gt;</span>
+        <br>&nbsp;&nbsp;);
+        <br>};
+        <br><br><span class="keyword">export default</span> MyComponent;
+        <div class="comment">// A complete React component with dynamic styling</div>
+    </div>
+
+    <div class="note-box">
+        <div class="note-title">⚠️ Important Note</div>
+        <p>
+            Inline styles do not support all CSS features, such as pseudo-classes (like <span class="attr-example">:hover</span>) 
+            or media queries. For those, external CSS or CSS-in-JS solutions (like styled-components) are typically used.
+        </p>
+    </div>
+
+    <h2>Summary</h2>
+    <p>
+        Attributes are essential components of HTML and JSX that enhance elements' functionality and clarify 
+        their roles within a web application.
+    </p>
+
+    <div class="note-box">
+        <div class="note-title">📝 Note on ARIA Attributes</div>
+        <p>
+            The <span class="aria-attr">aria-*</span> attributes are named this way to denote their association with the 
+            <span class="organization">Accessible Rich Internet Applications (ARIA)</span> specification, which is a part of the 
+            <span class="organization">Web Accessibility Initiative (WAI)</span> by the 
+            <span class="organization">World Wide Web Consortium (W3C)</span>.
+        </p>
+        <p>
+            The purpose of ARIA attributes is to enhance the accessibility of web content, making it more understandable 
+            and navigable for users with disabilities who rely on assistive technologies such as screen readers.
+        </p>
+    </div>
+    <script src="add-nav.js"></script>
+</body>
+</html>

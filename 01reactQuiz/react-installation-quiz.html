@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Installation Methods - Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif; 
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        /* Navigation styles */
+        .nav-bar {
+            background-color: #20232a;
+            padding: 1rem;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-home {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #61dafb;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .back-home:hover {
+            color: #ffffff;
+        }
+
+        .page-title {
+            color: #ffffff;
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .quiz-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background: #f8f9fa;
+        }
+
+        .options {
+            margin-left: 20px;
+        }
+
+        .options label {
+            display: block;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        button {
+            background-color: #61dafb;
+            color: #20232a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #4fa8c9;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .score-good {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .score-okay {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .score-bad {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <a href="../01reactCode/index.html" class="back-home">
+                <i class="fas fa-chevron-left"></i>
+                Back to Home
+            </a>
+            <h1 class="page-title">React Installation Quiz</h1>
+        </div>
+    </nav>
+
+    <div class="quiz-container">
+        <h1>React Installation Methods Quiz</h1>
+        <form id="quiz-form">
+            <div class="question">
+                <p>1. Which method is best for quickly learning React basics without any build setup?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="a"> a) Create React App</label>
+                    <label><input type="radio" name="q1" value="b"> b) CDN Links</label>
+                    <label><input type="radio" name="q1" value="c"> c) Vite</label>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <p>2. What command is used to create a new React project using Vite?</p>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="a"> a) npm create vite@latest my-app --template react</label>
+                    <label><input type="radio" name="q2" value="b"> b) npx create-react-app my-app</label>
+                    <label><input type="radio" name="q2" value="c"> c) npm init react-app my-app</label>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <p>3. Which of these is NOT a benefit of using Create React App?</p>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="a"> a) Zero configuration needed</label>
+                    <label><input type="radio" name="q3" value="b"> b) Lightning-fast bundling</label>
+                    <label><input type="radio" name="q3" value="c"> c) Built-in testing setup</label>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <p>4. When should you use Vite for your React project?</p>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="a"> a) When creating a simple demo</label>
+                    <label><input type="radio" name="q4" value="b"> b) When performance and build speed are crucial</label>
+                    <label><input type="radio" name="q4" value="c"> c) When you're just learning React basics</label>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <p>5. What is a disadvantage of using React via CDN?</p>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="a"> a) Requires complex setup</label>
+                    <label><input type="radio" name="q5" value="b"> b) Not suitable for production</label>
+                    <label><input type="radio" name="q5" value="c"> c) Requires Node.js installation</label>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <p>6. Which tool offers better Hot Module Replacement (HMR)?</p>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="a"> a) Create React App</label>
+                    <label><input type="radio" name="q6" value="b"> b) Vite</label>
+                    <label><input type="radio" name="q6" value="c"> c) CDN</label>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="question">
+                <p>7. For beginners learning React, which setup is often recommended?</p>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="a"> a) Create React App</label>
+                    <label><input type="radio" name="q7" value="b"> b) Vite with custom configuration</label>
+                    <label><input type="radio" name="q7" value="c"> c) Manual webpack setup</label>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <button type="submit">Submit Quiz</button>
+        </form>
+        <div id="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: { answer: 'b', explanation: 'CDN links are the quickest way to start learning React as they require no build setup or installation.' },
+            q2: { answer: 'a', explanation: 'The command "npm create vite@latest my-app --template react" is used to create a new React project with Vite.' },
+            q3: { answer: 'b', explanation: 'Lightning-fast bundling is a feature of Vite, not Create React App. CRA is known for slower bundling times.' },
+            q4: { answer: 'b', explanation: 'Vite is best used when performance and build speed are crucial, especially for larger applications.' },
+            q5: { answer: 'b', explanation: 'While CDN links are great for learning, they are not suitable for production due to performance and security concerns.' },
+            q6: { answer: 'b', explanation: 'Vite offers superior Hot Module Replacement compared to Create React App and CDN setups.' },
+            q7: { answer: 'a', explanation: 'Create React App is often recommended for beginners due to its simple setup and conventional structure.' }
+        };
+
+        function checkAnswer(questionNum, selectedValue) {
+            const question = document.querySelector(`input[name="q${questionNum}"]`).closest('.question');
+            const feedback = question.querySelector('.feedback');
+            const correct = correctAnswers[`q${questionNum}`].answer;
+            
+            feedback.style.display = 'block';
+            if (selectedValue === correct) {
+                feedback.className = 'feedback correct';
+                feedback.textContent = '✓ Correct! ' + correctAnswers[`q${questionNum}`].explanation;
+                return 1;
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.textContent = '✗ Incorrect. ' + correctAnswers[`q${questionNum}`].explanation;
+                return 0;
+            }
+        }
+
+        document.getElementById('quiz-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let score = 0;
+            let totalQuestions = Object.keys(correctAnswers).length;
+
+            // Check each answer
+            for (let i = 1; i <= totalQuestions; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected) {
+                    score += checkAnswer(i, selected.value);
+                }
+            }
+
+            // Display result
+            const result = document.getElementById('result');
+            const percentage = (score / totalQuestions) * 100;
+            let message = `You scored ${score} out of ${totalQuestions} (${percentage}%)\\n`;
+            
+            if (percentage >= 80) {
+                result.className = 'score-good';
+                message += 'Great job! You have a solid understanding of React installation methods!';
+            } else if (percentage >= 60) {
+                result.className = 'score-okay';
+                message += 'Good effort! Review the topics you missed to strengthen your knowledge.';
+            } else {
+                result.className = 'score-bad';
+                message += 'Keep practicing! Review the React installation methods lesson and try again.';
+            }
+            
+            result.style.display = 'block';
+            result.textContent = message;
+        });
+
+        // Add instant feedback when selecting answers
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const questionNum = e.target.name.substring(1);
+                checkAnswer(questionNum, e.target.value);
+            });
+        });
+    </script>
+</body>
+</html>
