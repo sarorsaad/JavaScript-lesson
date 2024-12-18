@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Function Syntax Differences</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .demo-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        #functionDemo {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 5px;
+        }
+        h2 {
+            color: #2c3e50;
+        }
+        h3 {
+            color: #34495e;
+            margin-top: 25px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-section">
+        <h2>Understanding Function Syntax Differences</h2>
+        
+        <!-- Function Declaration -->
+        <h3>1. Function Declaration</h3>
+        <pre><code>
+// Function Declaration
+function greet(name) {
+    return `Hello, ${name}!`;
+}
+        </code></pre>
+        <p>Key points:</p>
+        <ul>
+            <li>Starts with <code>function</code> keyword</li>
+            <li>Has a function name (<code>greet</code>)</li>
+            <li>Can be used before it's defined (hoisted)</li>
+        </ul>
+
+        <!-- Function Expression -->
+        <h3>2. Function Expression</h3>
+        <pre><code>
+// Function Expression
+const greet = function(name) {
+    return `Hello, ${name}!`;
+};
+        </code></pre>
+        <p>Key points:</p>
+        <ul>
+            <li>Assigned to a variable</li>
+            <li>Function itself doesn't have a name (anonymous)</li>
+            <li>Must be defined before using it (not hoisted)</li>
+        </ul>
+
+        <!-- Arrow Function -->
+        <h3>3. Arrow Function</h3>
+        <pre><code>
+// Arrow Function
+const greet = (name) => {
+    return `Hello, ${name}!`;
+};
+
+// Arrow Function (shorter version)
+const greetShort = name => `Hello, ${name}!`;
+        </code></pre>
+        <p>Key points:</p>
+        <ul>
+            <li>Uses arrow (<code>=></code>) syntax</li>
+            <li>No <code>function</code> keyword needed</li>
+            <li>Shorter syntax for single parameters and single expressions</li>
+            <li>Different behavior with <code>this</code> keyword</li>
+        </ul>
+
+        <!-- Live Demo -->
+        <h3>Live Demo</h3>
+        <div id="functionDemo"></div>
+    </div>
+
+    <script>
+        // Function Declaration Demo
+        function sayHelloDeclaration(name) {
+            return `Hello, ${name}! (from Function Declaration)`;
+        }
+
+        // Function Expression Demo
+        const sayHelloExpression = function(name) {
+            return `Hello, ${name}! (from Function Expression)`;
+        };
+
+        // Arrow Function Demo
+        const sayHelloArrow = name => `Hello, ${name}! (from Arrow Function)`;
+
+        // Display results
+        const demoDiv = document.getElementById('functionDemo');
+        demoDiv.innerHTML = `
+            <p>${sayHelloDeclaration('John')}</p>
+            <p>${sayHelloExpression('Jane')}</p>
+            <p>${sayHelloArrow('Alex')}</p>
+        `;
+    </script>
+</body>
+</html>
