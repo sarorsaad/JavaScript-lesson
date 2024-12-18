@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node.js Tutorial</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #2e7d32;
+            color: white;
+            border-radius: 8px;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #1b5e20;
+        }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            margin: 10px 0;
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .copy-btn:hover {
+            background: #45a049;
+        }
+        .interactive-demo {
+            border: 2px solid #4CAF50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .run-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .run-btn:hover {
+            background: #45a049;
+        }
+        .output {
+            background: #f8f9fa;
+            padding: 10px;
+            border-left: 4px solid #4CAF50;
+            margin: 10px 0;
+        }
+        .key-points {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .note {
+            background: #fff3e0;
+            padding: 15px;
+            border-left: 4px solid #ff9800;
+            margin: 10px 0;
+        }
+        .subsection {
+            margin: 20px 0;
+            padding: 15px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .event-loop-step {
+            padding: 10px;
+            margin: 5px;
+            background: #2e7d32;
+            color: white;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .active-step {
+            background: #ff5722;
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+        .explanation-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .explanation-steps {
+            margin: 15px 0;
+            padding: 15px;
+            background: #fff;
+            border-left: 4px solid #4CAF50;
+        }
+        .setup-guide {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .note {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #ff9800;
+        }
+        code {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .definition {
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Node.js Tutorial</h1>
+        <p>A Beginner's Guide to Server-Side JavaScript</p>
+    </div>
+
+    <div class="section">
+        <h2>What is Node.js?</h2>
+        <p class="definition">
+            <strong>Node.js is a runtime environment that allows you to run JavaScript code outside of a web browser. It's built on Chrome's V8 JavaScript engine and enables you to build server-side applications using JavaScript.</strong>
+        </p>
+        
+        <div class="key-points">
+            <h3>Key Features:</h3>
+            <ul>
+                <li>Single-threaded & Event-driven</li>
+                <li>Non-blocking I/O</li>
+                <li>Asynchronous programming</li>
+                <li>Rich ecosystem (npm)</li>
+                <li>Cross-platform compatibility</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>How Node.js Works</h2>
+        
+        <div class="subsection">
+            <h3>1. Single-Threaded Event Loop</h3>
+            <div class="key-points">
+                <p>Node.js runs on a single thread, but handles multiple operations through:</p>
+                <ul>
+                    <li>Event Loop - Manages asynchronous operations</li>
+                    <li>Thread Pool - Handles heavy computations</li>
+                    <li>Callback Queue - Stores completed operations</li>
+                </ul>
+            </div>
+            <div class="interactive-demo">
+                <h4>Event Loop Visualization:</h4>
+                <div id="eventLoopVisualization" class="code-block">
+                    <div class="event-loop-step" id="step1">1. Call Stack</div>
+                    <div class="event-loop-step" id="step2">2. Node APIs</div>
+                    <div class="event-loop-step" id="step3">3. Callback Queue</div>
+                    <div class="event-loop-step" id="step4">4. Event Loop</div>
+                </div>
+                <button class="run-btn" onclick="demonstrateEventLoop()">Demonstrate Event Loop</button>
+                <div class="output" id="eventLoopVisOutput"></div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>2. Non-Blocking I/O</h3>
+            <div class="key-points">
+                <p>Node.js handles I/O operations (file, network, etc.) asynchronously:</p>
+                <ul>
+                    <li>Operations don't block the main thread</li>
+                    <li>Callbacks handle operation completion</li>
+                    <li>Perfect for high-concurrency applications</li>
+                </ul>
+            </div>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre>
+// Non-blocking file read example
+const fs = require('fs');
+
+console.log('Starting file read...');
+fs.readFile('example.txt', 'utf8', (err, data) => {
+    if (err) throw err;
+    console.log('File contents:', data);
+});
+console.log('Continuing with other tasks...');</pre>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>3. Module System</h3>
+            <div class="key-points">
+                <p>Node.js uses CommonJS module system:</p>
+                <ul>
+                    <li>Each file is a module</li>
+                    <li>Modules are cached after first load</li>
+                    <li>Modules can export functionality</li>
+                </ul>
+            </div>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre>
+// math.js
+module.exports = {
+    add: (a, b) => a + b,
+    subtract: (a, b) => a - b
+};
+
+// main.js
+const math = require('./math');
+console.log(math.add(5, 3));  // Output: 8</pre>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>4. Event-Driven Architecture</h3>
+            <div class="key-points">
+                <p>Node.js uses events to handle asynchronous operations:</p>
+                <ul>
+                    <li>EventEmitter class for event handling</li>
+                    <li>Custom events can be created</li>
+                    <li>Multiple listeners per event</li>
+                </ul>
+            </div>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre>
+const EventEmitter = require('events');
+const myEmitter = new EventEmitter();
+
+// Event listener
+myEmitter.on('userLoggedIn', (userId) => {
+    console.log(`User ${userId} logged in`);
+});
+
+// Emit event
+myEmitter.emit('userLoggedIn', 123);</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Getting Started</h2>
+        <ol>
+            <li>Install Node.js from <a href="https://nodejs.org" target="_blank">nodejs.org</a></li>
+            <li>Verify installation:
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre>node --version
+npm --version</pre>
+                </div>
+            </li>
+            <li>Create a new project:
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre>mkdir my-project
+cd my-project
+npm init</pre>
+                </div>
+            </li>
+        </ol>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const textArea = document.createElement('textarea');
+            textArea.value = codeBlock.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            button.textContent = 'Copied!';
+            setTimeout(() => {
+                button.textContent = 'Copy';
+            }, 2000);
+        }
+
+        function demonstrateEventLoop() {
+            const steps = ['step1', 'step2', 'step3', 'step4'];
+            const output = document.getElementById('eventLoopVisOutput');
+            output.innerHTML = '';
+            
+            let currentStep = 0;
+            
+            function activateStep() {
+                steps.forEach(step => {
+                    document.getElementById(step).classList.remove('active-step');
+                });
+                
+                document.getElementById(steps[currentStep]).classList.add('active-step');
+                
+                const stepMessages = [
+                    'JavaScript code executes in Call Stack',
+                    'Async operations are delegated to Node APIs',
+                    'Completed operations move to Callback Queue',
+                    'Event Loop checks if Call Stack is empty and processes next callback'
+                ];
+                
+                output.innerHTML += `<p>${stepMessages[currentStep]}</p>`;
+                
+                currentStep = (currentStep + 1) % steps.length;
+                
+                if (currentStep !== 0) {
+                    setTimeout(activateStep, 1500);
+                }
+            }
+            
+            activateStep();
+        }
+    </script>
+</body>
+</html>
