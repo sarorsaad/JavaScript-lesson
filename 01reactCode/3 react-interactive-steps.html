@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Interactive Steps</title>
+    <style>
+        /* Header Styles */
+        .course-header {
+            background: linear-gradient(135deg, #61dafb 0%, #2188ff 100%);
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-link {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            z-index: 100;
+        }
+
+        .back-link:hover {
+            opacity: 0.8;
+        }
+
+        .react-logo {
+            width: 80px;
+            animation: spin 20s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Rest of your existing styles */
+        body {
+            font-family: monospace;
+            background: #f5f5f5;
+            padding: 10px;
+            line-height: 1.2;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            padding: 15px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .line {
+            display: flex;
+            padding: 4px 0;
+            flex: 1;
+            margin-bottom: 5px;
+        }
+        .comment {
+            width: 200px;
+            color: #666;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .separator {
+            color: #999;
+            padding: 0 12px;
+            font-size: 15px;
+        }
+        .code {
+            flex: 1;
+            color: #d4d4d4;
+            background: #1e1e1e;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        .step-buttons {
+            margin: 10px 0;
+            display: flex;
+            gap: 5px;
+        }
+        .step-btn {
+            padding: 6px 12px;
+            font-size: 13px;
+            cursor: pointer;
+            background: #e9ecef;
+            border: 1px solid #dee2e6;
+            border-radius: 3px;
+        }
+        .step-btn:hover {
+            background: #dee2e6;
+        }
+        .step-btn.active {
+            background: #007bff;
+            color: white;
+            border-color: #0056b3;
+        }
+        .dynamic-step {
+            display: none;
+        }
+        .dynamic-step.active {
+            display: block;
+        }
+        .step-group {
+            border: 1px solid #e0e0e0;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            background: #fff;
+            position: relative;
+        }
+        .step-group:hover {
+            border: 3px solid #28a745;
+            box-shadow: 0 0 10px rgba(40, 167, 69, 0.1);
+            transform: translateX(5px);
+            padding: 8px;  
+        }
+        .step-group:hover .comment {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .step-label {
+            color: #666;
+            font-size: 14px;
+            padding: 4px 8px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            background: #f0f0f0;
+        }
+        .step-group:hover .step-label {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        /* New Styles for Limitations and Benefits */
+        .limitations-box, .benefits-box {
+            margin-left: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            width: 220px;
+            font-size: 13px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .limitations-box {
+            background: #fff5f5;
+            border-left: 4px solid #dc3545;
+        }
+
+        .benefits-box {
+            background: #f1f9f1;
+            border-left: 4px solid #28a745;
+        }
+
+        .limitations-title, .benefits-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .limitations-title {
+            color: #dc3545;
+        }
+
+        .benefits-title {
+            color: #28a745;
+        }
+
+        .limitations-list, .benefits-list {
+            margin: 0;
+            padding-left: 20px;
+            line-height: 1.4;
+        }
+
+        .limitations-list li {
+            color: #666;
+            margin-bottom: 6px;
+        }
+
+        .benefits-list li {
+            color: #2c5a2c;
+            margin-bottom: 6px;
+        }
+
+        .step-with-info {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .icon {
+            font-size: 16px;
+        }
+
+        /* New styles for the Step 3 comment */
+        .not-good-practice {
+            margin-left: 20px;
+            padding: 10px;
+            background: #fff4f4;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #dc3545;
+            line-height: 1.4;
+        }
+
+        /* Component Diagram Styles */
+        .component-diagram {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            width: 300px;
+        }
+        .component-box {
+            border: 2px solid #007bff;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 6px;
+            background: white;
+            position: relative;
+        }
+        .component-parent {
+            border-color: #28a745;
+        }
+        .component-child {
+            margin-left: 30px;
+            border-color: #17a2b8;
+        }
+        .component-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .component-arrow {
+            position: absolute;
+            left: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+        .component-legend {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 12px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+        .parent-color {
+            background: #28a745;
+        }
+        .child-color {
+            background: #17a2b8;
+        }
+
+        /* File Organization Styles */
+        .file-organization {
+            display: flex;
+            gap: 20px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            align-items: flex-start;
+        }
+        .file-box {
+            flex: 1;
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .file-header {
+            background: #e9ecef;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .file-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        .file-name {
+            font-weight: 500;
+            color: #495057;
+        }
+        .file-content {
+            padding: 15px;
+            font-family: monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #212529;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .file-content pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        .html-icon { color: #e34c26; }
+        .js-icon { color: #f7df1e; }
+        .react-icon { color: #61dafb; }
+
+        /* Summary Section Styles */
+        .summary-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .summary-title {
+            font-size: 18px;
+            color: #212529;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .summary-box {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .summary-box-title {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .file-summary {
+            margin-bottom: 20px;
+        }
+        .file-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .file-item-icon {
+            font-size: 20px;
+            min-width: 24px;
+            text-align: center;
+        }
+        .file-item-content {
+            flex: 1;
+        }
+        .file-item-name {
+            font-weight: 500;
+            color: #212529;
+            margin-bottom: 5px;
+        }
+        .file-item-desc {
+            color: #6c757d;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .flow-diagram {
+            padding: 20px;
+            background: white;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+        .flow-title {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 15px;
+        }
+        .flow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+        .flow-step {
+            text-align: center;
+            position: relative;
+        }
+        .flow-step:not(:last-child)::after {
+            content: "→";
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+        .flow-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .flow-text {
+            font-size: 14px;
+            color: #495057;
+            max-width: 120px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Course Header -->
+        <header class="course-header">
+            <a href="0 index.html" class="back-link">← Back to Home</a>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" 
+                 alt="React Logo" 
+                 class="react-logo">
+            <h1>React Interactive Steps</h1>
+            
+        </header>
+
+        <!-- Steps 0-2 remain the same -->
+        <div class="step-group step-group-0">
+           
+            <div class="line">
+                <span class="comment">Step 0:</span>
+                <span class="separator">|</span>
+                <span class="code">&lt;!DOCTYPE html&gt;</span>
+            </div>
+            <div class="line">
+                <span class="comment">- Import React Libraries</span>
+                <span class="separator">|</span>
+                <span class="code">&lt;script src="react.development.js"&gt;&lt;/script&gt;</span>
+            </div>
+            <div class="line">
+                <span class="comment">- Setup React DOM</span>
+                <span class="separator">|</span>
+                <span class="code">&lt;script src="react-dom.development.js"&gt;&lt;/script&gt;</span>
+            </div>
+        </div>
+
+        <div class="step-group step-group-1">
+           
+            <div class="line">
+                <span class="comment">Step 1:</span>
+                <span class="separator">|</span>
+                <span class="code">&lt;div id="root"&gt;&lt;/div&gt;</span>
+            </div>
+            <div class="line">
+                <span class="comment">- Create root container</span>
+                <span class="separator">|</span>
+                <span class="code">// This is where React will render our app</span>
+            </div>
+        </div>
+
+        <div class="step-group step-group-2">
+           
+            <div class="line">
+                <span class="comment">Step 2:</span>
+                <span class="separator">|</span>
+                <span class="code">const root = ReactDOM.createRoot(document.getElementById('root'));</span>
+            </div>
+            <div class="line">
+                <span class="comment">- Initialize React root</span>
+                <span class="separator">|</span>
+                <span class="code">// Creates a React root for displaying content</span>
+            </div>
+        </div>
+
+        <div class="step-buttons">
+            <button class="step-btn" onclick="showStep(3)">Step 3: Single Element</button>
+            <button class="step-btn" onclick="showStep(4)">Step 4: Multiple Elements</button>
+            <button class="step-btn" onclick="showStep(5)">Step 5: Function Component</button>
+            <button class="step-btn" onclick="showStep(6)">Step 6: Multiple Components</button>
+            <button class="step-btn" onclick="showStep(7)">Step 7: File Organization</button>
+            <button class="step-btn" onclick="showStep(8)">Step 8: Project Summary</button>
+        </div>
+
+        <!-- Step 3 with Not Good Practice Comment -->
+        <div id="step3" class="dynamic-step">
+            <div class="step-with-info">
+                <div class="line">
+                    <span class="comment">Step 3: Single Element</span>
+                    <span class="separator">|</span>
+                    <span class="code">
+                        root.render(<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Hello, World!&lt;/h1&gt;<br>
+                        );
+                    </span>
+                </div>
+                <div class="not-good-practice">
+                    <strong>⚠️ Not Good Practice:</strong>
+                    <ul>
+                        <li>Single element</li>
+                        <li>Basic rendering</li>
+                        <li>No reusability</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4 with Limitations -->
+        <div id="step4" class="dynamic-step">
+            <div class="step-with-info">
+                <div class="line">
+                    <span class="comment">Step 4: Multiple Elements</span>
+                    <span class="separator">|</span>
+                    <span class="code">
+                        root.render(<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Hello, React!&lt;/h1&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ol&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;First Item&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Second Item&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Third Item&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ol&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+                        );
+                    </span>
+                </div>
+                <div class="limitations-box">
+                    <div class="limitations-title">
+                        <span class="icon">⚠️</span> Limitations:
+                    </div>
+                    <ul class="limitations-list">
+                        <li>Direct JSX rendering</li>
+                        <li>No code reusability</li>
+                        <li>Difficult maintenance</li>
+                        <li>Can't handle dynamic data</li>
+                        <li>No state/props management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5 with Benefits -->
+        <div id="step5" class="dynamic-step">
+            <div class="step-with-info">
+                <div class="line">
+                    <span class="comment">Step 5: Function Component</span>
+                    <span class="separator">|</span>
+                    <span class="code">
+                        function App() {<br>
+                        &nbsp;return (<br>
+                        &nbsp;&nbsp;&lt;div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&lt;h1&gt;Hello, Component!&lt;/h1&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&lt;ol&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Component Item 1&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Component Item 2&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Component Item 3&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&lt;/ol&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;);<br>
+                        }<br>
+                        root.render(&lt;App /&gt;);
+                    </span>
+                </div>
+                <div class="benefits-box">
+                    <div class="benefits-title">
+                        <span class="icon">✅</span> Benefits:
+                    </div>
+                    <ul class="benefits-list">
+                        <li>Reusable components</li>
+                        <li>Multiple usage capability</li>
+                        <li>Props support</li>
+                        <li>State management</li>
+                        <li>Easy maintenance</li>
+                        <li>Better updateability</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 6 with Benefits -->
+        <div id="step6" class="dynamic-step">
+            <div class="step-with-info">
+                <div class="line">
+                    <span class="comment">Step 6: Multiple Components</span>
+                    <span class="separator">|</span>
+                    <span class="code">
+                        function Header() {<br>
+                        &nbsp;&nbsp;return (<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;header&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;My App Header&lt;/h1&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/header&gt;<br>
+                        &nbsp;&nbsp;);<br>
+                        }<br>
+                        function MainContent() {<br>
+                        &nbsp;&nbsp;return (<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;main&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Main Content&lt;/h2&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/main&gt;<br>
+                        &nbsp;&nbsp;);<br>
+                        }<br>
+                        function Footer() {<br>
+                        &nbsp;&nbsp;return (<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;footer&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h3&gt;My Footer &amp;copy; 2024&lt;/h3&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/footer&gt;<br>
+                        &nbsp;&nbsp;);<br>
+                        }<br>
+                        function App() {<br>
+                        &nbsp;&nbsp;return (<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Header /&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;MainContent /&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Footer /&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;);<br>
+                        }<br>
+                        const root = ReactDOM.createRoot(document.getElementById('root'));<br>
+                        root.render(&lt;App /&gt;);
+                    </span>
+                </div>
+                <div class="component-diagram">
+                    <div class="component-box component-parent">
+                        <div class="component-name">App</div>
+                        <div class="component-box component-child">
+                            <span class="component-arrow">→</span>
+                            <div class="component-name">Header</div>
+                            <div class="code-preview">&lt;h1&gt;My App Header&lt;/h1&gt;</div>
+                        </div>
+                        <div class="component-box component-child">
+                            <span class="component-arrow">→</span>
+                            <div class="component-name">MainContent</div>
+                            <div class="code-preview">&lt;h2&gt;Main Content&lt;/h2&gt;</div>
+                        </div>
+                        <div class="component-box component-child">
+                            <span class="component-arrow">→</span>
+                            <div class="component-name">Footer</div>
+                            <div class="code-preview">&lt;h3&gt;My Footer&lt;/h3&gt;</div>
+                        </div>
+                    </div>
+                    <div class="component-legend">
+                        <div class="legend-item">
+                            <div class="legend-color parent-color"></div>
+                            <span>Parent Component</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color child-color"></div>
+                            <span>Child Component</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="benefits-box">
+                    <div class="benefits-title">
+                        <span class="icon">✅</span> Benefits:
+                    </div>
+                    <ul class="benefits-list">
+                        <li>Component-based architecture</li>
+                        <li>Modular and organized code</li>
+                        <li>Reusable components</li>
+                        <li>Flexible layout structure</li>
+                        <li>Easy to maintain and update</li>
+                        <li>Clear separation of concerns</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 7 with File Organization -->
+        <div id="step7" class="dynamic-step">
+            <div class="step-with-info">
+                <div class="file-organization">
+                    <div class="file-box">
+                        <div class="file-header">
+                            <div class="file-icon react-icon">⚛️</div>
+                            <div class="file-name">app.js</div>
+                        </div>
+                        <div class="file-content">
+                            <pre>
+function Header() {
+    return (
+        &lt;header&gt;
+            &lt;h1&gt;My App Header&lt;/h1&gt;
+        &lt;/header&gt;
+    );
+}
+
+function MainContent() {
+    return (
+        &lt;main&gt;
+            &lt;h2&gt;Main Content&lt;/h2&gt;
+            &lt;ChildComponent /&gt;
+        &lt;/main&gt;
+    );
+}
+
+function Footer() {
+    return (
+        &lt;footer&gt;
+            &lt;p&gt;My Footer &amp;copy; 2024&lt;/p&gt;
+        &lt;/footer&gt;
+    );
+}
+
+function ChildComponent() {
+    return (
+        &lt;div&gt;
+            &lt;p&gt;This is a child component!&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+function App() {
+    return (
+        &lt;div&gt;
+            &lt;Header /&gt;
+            &lt;MainContent /&gt;
+            &lt;Footer /&gt;
+        &lt;/div&gt;
+    );
+}
+
+export default App;</pre>
+                        </div>
+                    </div>
+                    <div class="file-box">
+                        <div class="file-header">
+                            <div class="file-icon js-icon">📄</div>
+                            <div class="file-name">index.js</div>
+                        </div>
+                        <div class="file-content">
+                            <pre>
+import App from './app.js';
+
+ReactDOM.render(&lt;App /&gt;, document.getElementById('root'));</pre>
+                        </div>
+                    </div>
+                    <div class="file-box">
+                        <div class="file-header">
+                            <div class="file-icon html-icon">🌐</div>
+                            <div class="file-name">index.html</div>
+                        </div>
+                        <div class="file-content">
+                            <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;React Lesson&lt;/title&gt;
+    &lt;script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin&gt;&lt;/script&gt;
+    &lt;script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin&gt;&lt;/script&gt;
+    &lt;script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"&gt;&lt;/script&gt;
+    &lt;script src="index.js" type="text/babel"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id="root"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="benefits-box">
+                    <div class="benefits-title">
+                        <span class="icon">✅</span> Benefits of File Organization:
+                    </div>
+                    <ul class="benefits-list">
+                        <li>Separation of concerns</li>
+                        <li>Better code organization</li>
+                        <li>Easier maintenance</li>
+                        <li>Improved reusability</li>
+                        <li>Clear component structure</li>
+                        <li>Modular development</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 8 with Project Summary -->
+        <div id="step8" class="dynamic-step">
+            <div class="summary-section">
+                <h2 class="summary-title">📚 React Project Structure Summary</h2>
+                
+                <div class="file-summary">
+                    <h3>Key Files Overview</h3>
+                    <div class="file-item">
+                        <div class="file-item-icon">⚛️</div>
+                        <div class="file-item-content">
+                            <div class="file-item-name">app.js</div>
+                            <div class="file-item-desc">Contains all React components including Header, MainContent, Footer, and any child components. This is where the main application structure and component logic lives.</div>
+                        </div>
+                    </div>
+                    <div class="file-item">
+                        <div class="file-item-icon">📄</div>
+                        <div class="file-item-content">
+                            <div class="file-item-name">index.js</div>
+                            <div class="file-item-desc">Main entry point for the React application. Imports the App component and renders it to the DOM using ReactDOM.</div>
+                        </div>
+                    </div>
+                    <div class="file-item">
+                        <div class="file-item-icon">🌐</div>
+                        <div class="file-item-content">
+                            <div class="file-item-name">index.html</div>
+                            <div class="file-item-desc">HTML template that loads React, ReactDOM, and Babel. Contains the root div where the React application will be mounted.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-diagram">
+                    <div class="flow-title">Application Flow</div>
+                    <div class="flow-steps">
+                        <div class="flow-step">
+                            <div class="flow-icon">🌐</div>
+                            <div class="flow-text">index.html loads React and scripts</div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="flow-icon">📄</div>
+                            <div class="flow-text">index.js imports and renders App</div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="flow-icon">⚛️</div>
+                            <div class="flow-text">app.js provides components</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-grid">
+                    <div class="summary-box">
+                        <div class="summary-box-title">
+                            <span class="icon">🔍</span> Key Concepts
+                        </div>
+                        <ul>
+                            <li>Component-based architecture</li>
+                            <li>Separation of concerns</li>
+                            <li>Modular file structure</li>
+                            <li>Clear dependency management</li>
+                        </ul>
+                    </div>
+                    <div class="summary-box">
+                        <div class="summary-box-title">
+                            <span class="icon">💡</span> Best Practices
+                        </div>
+                        <ul>
+                            <li>One component per function</li>
+                            <li>Export main components</li>
+                            <li>Proper file organization</li>
+                            <li>Clear import/export structure</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showStep(stepNumber) {
+            document.querySelectorAll('.dynamic-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.querySelectorAll('.step-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const selectedStep = document.getElementById('step' + stepNumber);
+            selectedStep.classList.add('active');
+            event.target.classList.add('active');
+        }
+        // Show Step 3 by default
+        showStep(3);
+    </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Function vs React Component</title>
+    <link rel="stylesheet" href="function-vs-component.css">
+</head>
+<body>
+    <div class="container">
+        <h1>JavaScript Function vs React Component</h1>
+        
+        <div class="comparison-container">
+            <div class="js-side">
+                <h2>JavaScript Function</h2>
+                <div class="code-example">
+                    <pre>
+function greeting(name) {
+    return "Hello, " + name;
+}
+
+// Usage
+greeting("John");
+                    </pre>
+                    <button onclick="runJsExample()">Run JS Example</button>
+                    <div id="js-output" class="output"></div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h3>Try JavaScript Function:</h3>
+                    <input type="text" id="js-input" placeholder="Enter your name">
+                    <button onclick="updateJsGreeting()">Update Greeting</button>
+                </div>
+            </div>
+
+            <div class="react-side">
+                <h2>React Component</h2>
+                <div class="code-example">
+                    <pre>
+function Greeting({ name }) {
+    return <h3>Hello, {name}</h3>;
+}
+
+// Usage
+<Greeting name="John" />
+                    </pre>
+                    <button onclick="simulateReactExample()">Simulate React</button>
+                    <div id="react-output" class="output"></div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h3>Try React-like Component:</h3>
+                    <input type="text" id="react-input" placeholder="Enter your name">
+                    <button onclick="updateReactGreeting()">Update Component</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="key-differences">
+            <h2>Key Differences</h2>
+            <table>
+                <tr>
+                    <th>Aspect</th>
+                    <th>JavaScript Function</th>
+                    <th>React Component</th>
+                </tr>
+                <tr>
+                    <td>Naming</td>
+                    <td>camelCase</td>
+                    <td>PascalCase</td>
+                </tr>
+                <tr>
+                    <td>Calling</td>
+                    <td>functionName()</td>
+                    <td>&lt;ComponentName /&gt;</td>
+                </tr>
+                <tr>
+                    <td>Return Value</td>
+                    <td>Any data type</td>
+                    <td>Must return JSX or null</td>
+                </tr>
+                <tr>
+                    <td>State Handling</td>
+                    <td>Not built-in</td>
+                    <td>Built-in with useState</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script src="function-vs-component.js"></script>
+</body>
+</html>

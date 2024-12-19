@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React App</title>
+
+    <!-- React CDN Links -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+   
+    <!-- Babel CDN (for JSX support) -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function Header() {
+            const headerStyle = {
+                backgroundColor: '#333',
+                padding: '1rem',
+                color: 'white',
+                boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
+            };
+
+            const navStyle = {
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                maxWidth: '1200px',
+                margin: '0 auto'
+            };
+
+            const logoStyle = {
+                fontSize: '24px',
+                fontWeight: 'bold',
+                textDecoration: 'none',
+                color: 'white'
+            };
+
+            const menuStyle = {
+                display: 'flex',
+                gap: '20px',
+                listStyle: 'none'
+            };
+
+            const linkStyle = {
+                color: 'white',
+                textDecoration: 'none',
+                padding: '5px 10px',
+                borderRadius: '4px',
+                transition: 'background-color 0.3s'
+            };
+
+            return (
+                <header style={headerStyle}>
+                    <nav style={navStyle}>
+                        <a href="#" style={logoStyle}>Logo</a>
+                        <ul style={menuStyle}>
+                            <li><a href="#" style={linkStyle}>Home</a></li>
+                            <li><a href="#" style={linkStyle}>About</a></li>
+                            <li><a href="#" style={linkStyle}>Services</a></li>
+                            <li><a href="#" style={linkStyle}>Contact</a></li>
+                        </ul>
+                    </nav>
+                </header>
+            );
+        }
+
+        function App() {
+            return (
+                <div>
+                    <Header />
+                </div>
+            );
+        }
+
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<App />);
+    </script>
+</body>
+</html>
