@@ -1,0 +1,77 @@
+/* Arabic Font */
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url('/fonts/NotoKufiArabic-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url('/fonts/NotoKufiArabic-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* English Font */
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-arabic: 'Noto Kufi Arabic', system-ui, -apple-system, sans-serif;
+  --font-english: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* RTL Support */
+[dir='rtl'] {
+  text-align: right;
+}
+
+[dir='rtl'] .space-x-4 > * + * {
+  margin-right: 1rem;
+  margin-left: 0;
+}
+
+[dir='rtl'] .mr-10 {
+  margin-right: 0;
+  margin-left: 2.5rem;
+}
+
+[dir='rtl'] .ml-10 {
+  margin-left: 0;
+  margin-right: 2.5rem;
+}
+
+/* RTL Typography Adjustments */
+[dir='rtl'] .prose {
+  direction: rtl;
+}
+
+
+[dir='rtl'] .prose ul,
+[dir='rtl'] .prose ol {
+  padding-right: 1.625em;
+  padding-left: 0;
+}
+
+[dir='rtl'] .prose blockquote {
+  border-left: none;
+  border-right: 0.25em solid #e5e7eb;
+  padding-left: 0;
+  padding-right: 1em;
+}
