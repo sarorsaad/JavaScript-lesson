@@ -20,7 +20,7 @@ export default function LessonPage({ params }: LessonPageProps) {
 
   // Import the lesson component dynamically
   const LessonComponent = React.lazy(() => 
-    import(`@/app/(lang)/lessons/${category}/${slug}/page${lang === 'ar' ? '.ar' : ''}`).catch(() => {
+    import(`@/app/[lang]/lessons/${category}/${slug}/page${lang === 'ar' ? '.ar' : ''}`).catch(() => {
       notFound();
     })
   );

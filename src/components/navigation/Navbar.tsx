@@ -1,3 +1,5 @@
+"use client";
+
 import React, { FC } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -33,7 +35,10 @@ export const Navbar: FC<NavbarProps> = ({ lang }) => {
   const otherLang = lang === 'en' ? 'ar' : 'en';
 
   const switchLanguage = () => {
-    const newPath = window.location.pathname.replace(`/${lang}/`, `/${otherLang}/`);
+    const currentPath = window.location.pathname;
+    const newPath = currentPath === `/${lang}` 
+      ? `/${otherLang}`
+      : currentPath.replace(`/${lang}/`, `/${otherLang}/`);
     router.push(newPath);
   };
 

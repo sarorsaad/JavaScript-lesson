@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import VideoUploader from '@/components/video/VideoUploader';
 import VideoPlayer from '@/components/video/VideoPlayer';
