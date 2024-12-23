@@ -1,13 +1,14 @@
 import { Navbar } from '@/components/navigation/Navbar'
 import { ReactNode } from 'react'
 
-export default function LangLayout({
-  children,
-  params,
-}: {
+type Props = {
   children: ReactNode;
-  params: { lang: string };
-}) {
+  params: {
+    lang: string;
+  };
+}
+
+async function LangLayout({ children, params }: Props) {
   const currentLang = params.lang as 'en' | 'ar';
   
   return (
@@ -20,3 +21,5 @@ export default function LangLayout({
     </div>
   )
 }
+
+export default LangLayout
