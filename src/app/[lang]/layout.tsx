@@ -1,20 +1,14 @@
 import { Navbar } from '@/components/navigation/Navbar'
-
 import { ReactNode } from 'react'
-
-interface LayoutProps {
-  children: ReactNode;
-  params: {
-    lang: 'en' | 'ar';
-  };
-}
 
 export default function LangLayout({
   children,
-  params: { lang },
-}: LayoutProps) {
-  // Cast lang parameter to union type expected by Navbar
-  const currentLang = lang as 'en' | 'ar';
+  params,
+}: {
+  children: ReactNode;
+  params: { lang: string };
+}) {
+  const currentLang = params.lang as 'en' | 'ar';
   
   return (
     <div dir={currentLang === 'ar' ? 'rtl' : 'ltr'} 
