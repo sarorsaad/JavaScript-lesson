@@ -10,11 +10,6 @@ const nextConfig = {
   },
   images: {
     domains: ['localhost'],
-  },
-  i18n: {
-    locales: ['en', 'ar'],
-    defaultLocale: 'en',
-    localeDetection: false
   }
 }
 

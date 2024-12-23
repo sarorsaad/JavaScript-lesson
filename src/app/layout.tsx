@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning>
+    <html suppressHydrationWarning>
       <body className={`${inter.className} ${notoSansArabic.variable}`}>
         {children}
       </body>
