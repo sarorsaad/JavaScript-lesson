@@ -1,12 +1,20 @@
 import { Navbar } from '@/components/navigation/Navbar'
+import type { Metadata } from 'next'
 
-export default async function RootLayout({
-  children,
-  params,
-}: {
+export const metadata: Metadata = {
+  title: 'Saror Academy',
+  description: 'Learn programming with bilingual content',
+}
+
+interface LayoutProps {
   children: React.ReactNode
-  params: { lang: string }
-}) {
+  params: {
+    lang: string
+  }
+}
+
+export default function RootLayout(props: LayoutProps) {
+  const { children, params } = props
   const currentLang = params.lang as 'en' | 'ar'
   
   return (
