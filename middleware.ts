@@ -4,15 +4,12 @@ const locales = ['en', 'ar']
 const defaultLocale = 'en'
 
 export function middleware(request: NextRequest) {
-  // Get the pathname from the URL
   const pathname = request.nextUrl.pathname
-  console.log('Current pathname:', pathname)
-
-  // Check if the pathname is missing a locale
-  const pathnameIsMissingLocale = locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-  )
-  console.log('Missing locale:', pathnameIsMissingLocale)
+  
+  // Handle root path explicitly
+  if (pathname === '/') {
+    return NextResponse.redirect(new URL('/en', request.url))
+  }
 
   // Skip internal Next.js paths and API routes
   if (
@@ -20,19 +17,19 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/api') ||
     pathname.includes('.')
   ) {
-    console.log('Skipping internal path:', pathname)
-    return
+    return NextResponse.next()
   }
+
+  // Check if the pathname is missing a locale
+  const pathnameIsMissingLocale = locales.every(
+    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+  )
 
   // Redirect if locale is missing
   if (pathnameIsMissingLocale) {
-    const locale = defaultLocale
-    const newUrl = new URL(`/${locale}${pathname === '/' ? '' : pathname}`, request.url)
-    console.log('Redirecting to:', newUrl.toString())
-    return NextResponse.redirect(newUrl)
+    return NextResponse.redirect(new URL(`/en${pathname}`, request.url))
   }
 
-  console.log('Allowing through:', pathname)
   return NextResponse.next()
 }
 

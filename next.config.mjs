@@ -10,6 +10,16 @@ const nextConfig = {
   },
   images: {
     domains: ['localhost'],
+  },
+  // Ensure proper handling of dynamic routes
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/en',
+        permanent: true,
+      },
+    ]
   }
 }
 
