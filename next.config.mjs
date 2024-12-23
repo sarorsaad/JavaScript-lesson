@@ -11,16 +11,6 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
-  },
-  // Ensure proper handling of dynamic routes
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/en',
-        permanent: true,
-      },
-    ]
   }
 }
 
