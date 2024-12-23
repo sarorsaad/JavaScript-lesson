@@ -1,22 +1,16 @@
-'use client'
+import { LayoutContent } from '@/components/layout/LayoutContent'
+import type { Metadata } from 'next'
 
-import { Navbar } from '@/components/navigation/Navbar'
+export const metadata: Metadata = {
+  title: 'Saror Academy',
+  description: 'Learn programming with bilingual content',
+}
 
-type Props = {
-  children: React.ReactNode,
+type RootLayoutProps = {
+  children: React.ReactNode
   params: { lang: 'en' | 'ar' }
 }
 
-export default function Layout({ children, params }: Props) {
-  const currentLang = params.lang
-  
-  return (
-    <div dir={currentLang === 'ar' ? 'rtl' : 'ltr'} 
-         className="min-h-screen" lang={currentLang}>
-      <Navbar lang={currentLang} />
-      <main className="container mx-auto px-4 py-8">
-        {children}
-      </main>
-    </div>
-  )
+export default function RootLayout({ children, params }: RootLayoutProps) {
+  return <LayoutContent lang={params.lang}>{children}</LayoutContent>
 }
