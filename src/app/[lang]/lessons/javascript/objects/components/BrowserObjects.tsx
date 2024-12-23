@@ -60,7 +60,7 @@ console.log('Browser:', navigator.userAgent);`}
             onClick={runBrowserDemo}
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
           >
-            {t.tryIt}
+            {t.examples.tryIt}
           </button>
           {output.length > 0 && (
             <div className="mt-4 p-4 bg-white rounded">
