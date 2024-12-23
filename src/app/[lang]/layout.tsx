@@ -1,21 +1,14 @@
+'use client'
+
 import { Navbar } from '@/components/navigation/Navbar'
-import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'Saror Academy',
-  description: 'Learn programming with bilingual content',
+type Props = {
+  children: React.ReactNode,
+  params: { lang: 'en' | 'ar' }
 }
 
-interface LayoutProps {
-  children: React.ReactNode
-  params: {
-    lang: string
-  }
-}
-
-export default function RootLayout(props: LayoutProps) {
-  const { children, params } = props
-  const currentLang = params.lang as 'en' | 'ar'
+export default function Layout({ children, params }: Props) {
+  const currentLang = params.lang
   
   return (
     <div dir={currentLang === 'ar' ? 'rtl' : 'ltr'} 
