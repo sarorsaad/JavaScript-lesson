@@ -6,11 +6,18 @@ export const metadata: Metadata = {
   description: 'Learn programming with bilingual content',
 }
 
-type RootLayoutProps = {
+export default function Layout({
+  children,
+  params,
+}: {
   children: React.ReactNode
   params: { lang: 'en' | 'ar' }
-}
-
-export default function RootLayout({ children, params }: RootLayoutProps) {
-  return <LayoutContent lang={params.lang}>{children}</LayoutContent>
+}) {
+  return (
+    <html lang={params.lang}>
+      <body>
+        <LayoutContent lang={params.lang}>{children}</LayoutContent>
+      </body>
+    </html>
+  )
 }
