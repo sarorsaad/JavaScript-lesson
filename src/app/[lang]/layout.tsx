@@ -6,18 +6,22 @@ export const metadata: Metadata = {
   description: 'Learn programming with bilingual content',
 }
 
-export default function Layout({
-  children,
-  params,
-}: {
-  children: React.ReactNode
-  params: { lang: 'en' | 'ar' }
-}) {
+type Props = {
+  children: React.ReactNode;
+  params: { lang: string };
+}
+
+export default function Layout({ children, params }: Props) {
+  // Validate lang parameter
+  if (params.lang !== 'en' && params.lang !== 'ar') {
+    throw new Error(`Invalid language: ${params.lang}`);
+  }
+  
   return (
-    <html lang={params.lang}>
-      <body>
-        <LayoutContent lang={params.lang}>{children}</LayoutContent>
-      </body>
-    </html>
+    <div className="min-h-screen">
+      <LayoutContent lang={params.lang as 'en' | 'ar'}>
+        {children}
+      </LayoutContent>
+    </div>
   )
 }
