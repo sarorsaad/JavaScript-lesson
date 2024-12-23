@@ -20,8 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning>
-      <body className={`${inter.className} ${notoSansArabic.variable}`}>
-        {children}
+      <body className={`${inter.className} ${notoSansArabic.variable} min-h-screen`}>
+        <div className="flex flex-col min-h-screen">
+          {children}
+        </div>
       </body>
     </html>
   )
