@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Classes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button.active {
+            background-color: #45a049;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        code {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Consolas', monospace;
+            display: block;
+            margin: 10px 0;
+            white-space: pre;
+            line-height: 1.5;
+        }
+        .comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+        .code-block {
+            margin: 20px 0;
+            border-left: 4px solid #4CAF50;
+            padding-left: 15px;
+        }
+        .example-title {
+            color: #4CAF50;
+            font-weight: bold;
+            margin: 25px 0 10px 0;
+        }
+        .output {
+            background-color: #e9ffe9;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .tag {
+            background-color: #e0e0e0;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            color: #333;
+        }
+        .concept-image {
+            max-width: 600px;
+            width: 90%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .image-caption {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .home-nav {
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+        .home-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .home-link:hover {
+            background-color: #45a049;
+        }
+        .home-link i {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="home-nav">
+            <a href="0 home.html" class="home-link">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+        </div>
+        <h1>Classes in JavaScript</h1>
+        
+      
+
+        <div class="navigation">
+            <button onclick="showSection(1)" id="btn1">Introduction</button>
+            <button onclick="showSection(2)" id="btn2">Class Basics</button>
+            <button onclick="showSection(3)" id="btn3">Class Methods</button>
+            <button onclick="showSection(4)" id="btn4">Getters & Setters</button>
+            <button onclick="showSection(5)" id="btn5">Static Methods</button>
+            <button onclick="showSection(6)" id="btn6">Inheritance</button>
+        </div>
+
+        <div id="section1" class="section active">
+            <h2>1. Introduction to Classes</h2>
+            <p>Classes in JavaScript are a fundamental component of Object-Oriented Programming (OOP), introduced in ECMAScript 2015. They serve as a 'blueprint' for creating objects, determining their properties and behaviors. Classes are primarily syntactic sugar over JavaScript's existing prototype-based inheritance.</p>
+
+            <p>When ES6 introduced Classes, it wasn't exactly a new object-oriented inheritance model. Instead, it's a syntactical sugar over the existing prototype-based inheritance. Let's compare the old and new ways:</p>
+
+            <div class="code-block">
+                <img src="../0JSimg/class/img2.png" alt="JavaScript Classes Comparison" class="concept-image">
+                <p class="image-caption">Comparison between old prototype-based and new class-based syntax</p>
+
+                <h4>Old Way (Pre-ES6)</h4>
+                <code>var Meal = function(food) {
+    this.food = food;
+};
+
+Meal.prototype.eat = function() {
+    return '😋';
+};</code>
+
+                <h4>New Way (ES6 Classes)</h4>
+                <code>class Meal {
+    constructor(food) {
+        this.food = food;
+    }
+
+    eat() {
+        return '😋';
+    }
+}</code>
+            </div>
+        </div>
+
+        <div id="section2" class="section">
+            <h2>2. Class Basics</h2>
+            <p>A class in JavaScript has several key components:</p>
+
+            <div class="code-block">
+                <code>class Meal {
+    constructor(food) {
+        this.food = food;
+    }
+
+    // Prototype Method
+    eat() {
+        return '😋';
+    }
+
+    // Static Method
+    static utensil() {
+        return '🥢';
+    }
+}</code>
+
+                <h4>Key Components:</h4>
+                <ul>
+                    <li><strong>Constructor:</strong> Special method for initializing class instances</li>
+                    <li><strong>Prototype Methods:</strong> Methods accessible by class instances</li>
+                    <li><strong>Static Methods:</strong> Methods called on the class itself</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="section3" class="section">
+            <h2>3. Class Methods</h2>
+            
+            <div class="code-block">
+                <h4>Strict Mode and Class Body</h4>
+                <p>Class bodies are automatically executed in strict mode. This means:</p>
+                <ul>
+                    <li>Undeclared variables are not automatically global</li>
+                    <li>Assignments that would silently fail throw errors</li>
+                    <li>Attempts to delete undeletable properties throw errors</li>
+                </ul>
+                <code>class Shape {
+    constructor() {
+        // This is automatically in strict mode
+        this.type = "circle";
+    }
+}</code>
+            </div>
+
+            <div class="code-block">
+                <h4>Hoisting</h4>
+                <p>Unlike functions, classes are not hoisted. You must declare a class before you can use it:</p>
+                <code>// ❌ This will throw a ReferenceError
+const shape = new Shape();
+
+// Class declaration
+class Shape {
+    constructor() {
+        this.type = "circle";
+    }
+}</code>
+            </div>
+        </div>
+
+        <div id="section4" class="section">
+            <h2>4. Getters and Setters</h2>
+            
+            <div class="code-block">
+                <h4>Using Getters and Setters</h4>
+                <p>Getters and setters allow you to define object accessors (computed properties):</p>
+                <code>class Circle {
+    constructor(radius) {
+        this.radius = radius;
+    }
+    
+    // Getter
+    get area() {
+        return Math.PI * Math.pow(this.radius, 2);
+    }
+    
+    // Setter
+    set area(area) {
+        this.radius = Math.sqrt(area / Math.PI);
+    }
+}
+
+const circle = new Circle(5);
+console.log(circle.area);      // Returns the area
+circle.area = 78.54;          // Sets new radius based on area</code>
+            </div>
+        </div>
+
+        <div id="section5" class="section">
+            <h2>5. Static Methods</h2>
+            
+            <div class="code-block">
+                <h4>Static Methods</h4>
+                <p>Static methods are called on the class itself, not on instances of the class:</p>
+                <code>class Course {
+    constructor() {
+        this.course = "JavaScript";
+    }
+
+    normalMsg() {
+        return "Learning " + this.course;
+    }
+
+    static staticMsg() {
+        return "Welcome to the course!";
+    }
+}
+
+console.log(Course.staticMsg());     // Works
+const course = new Course();
+console.log(course.normalMsg());     // Works
+// course.staticMsg();              // Would throw error</code>
+            </div>
+        </div>
+
+        <div id="section6" class="section">
+            <h2>6. Inheritance</h2>
+            
+            <div class="code-block">
+                <h4>Class Inheritance</h4>
+                <p>Classes can extend other classes using the <code>extends</code> keyword. The <code>super()</code> method must be called in the constructor:</p>
+                <code>class Shape {
+    constructor(color) {
+        this.color = color;
+    }
+
+    describe() {
+        return `A ${this.color} shape`;
+    }
+}
+
+class Circle extends Shape {
+    constructor(color, radius) {
+        super(color);  // Call parent constructor
+        this.radius = radius;
+    }
+
+    describe() {
+        return `${super.describe()} with radius ${this.radius}`;
+    }
+}
+
+const circle = new Circle("blue", 5);
+console.log(circle.describe());  // "A blue shape with radius 5"</code>
+            </div>
+        </div>
+
+        <button onclick="runExample()" class="try-button">Try These Examples</button>
+        <div id="output" class="output"></div>
+    </div>
+
+    <script>
+        function showSection(sectionNumber) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(`section${sectionNumber}`).classList.add('active');
+            
+            // Update button states
+            document.querySelectorAll('.navigation button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.getElementById(`btn${sectionNumber}`).classList.add('active');
+        }
+
+        function runExample() {
+            const output = document.getElementById('output');
+            
+            // Example code execution
+            class Shape {
+                constructor(color) {
+                    this.color = color;
+                }
+
+                describe() {
+                    return `A ${this.color} shape`;
+                }
+            }
+
+            class Circle extends Shape {
+                constructor(color, radius) {
+                    super(color);
+                    this.radius = radius;
+                }
+
+                get area() {
+                    return Math.PI * Math.pow(this.radius, 2);
+                }
+
+                describe() {
+                    return `${super.describe()} with radius ${this.radius} and area ${this.area.toFixed(2)}`;
+                }
+            }
+
+            const circle = new Circle("blue", 5);
+            output.innerHTML = `
+                Circle Description: ${circle.describe()}<br>
+                Circle Area: ${circle.area.toFixed(2)}<br>
+                Circle Color: ${circle.color}<br>
+                Circle Radius: ${circle.radius}
+            `;
+        }
+
+        // Set initial active button
+        document.getElementById('btn1').classList.add('active');
+    </script>
+</body>
+</html>

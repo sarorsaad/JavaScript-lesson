@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Arrays Guide</title>
+    <style>
+        /* Base Styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1400px;  
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background-color: #fff;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            color: #2c3e50;
+        }
+
+        /* Navigation Styles */
+        .step-navigation {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+
+        .step-btn {
+            padding: 10px 20px;
+            background: #ffffff;
+            border: 2px solid #d1d5da;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .step-btn:hover {
+            background: #f6f8fa;
+            border-color: #959da5;
+        }
+
+        .step-btn.active {
+            background: #0366d6;
+            color: white;
+            border-color: #0366d6;
+        }
+
+        /* Content Section Styles */
+        .content-section {
+            background: #fff;
+            padding: 40px;  
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .step-section {
+            display: none;
+        }
+
+        .step-section.active {
+            display: block;
+        }
+
+        /* Flex Layout Styles */
+        .content-flex {
+            display: flex;
+            gap: 50px;  
+            align-items: flex-start;
+            margin: 30px 0;  
+            min-height: 500px;  
+        }
+
+        .content-text {
+            flex: 1.2;  
+            font-size: 1.1em;  
+        }
+
+        .content-image {
+            flex: 0.8;  
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100%;
+        }
+
+        .content-image img {
+            width: 100%;  
+            max-height: 600px;  
+            object-fit: contain;  
+            border-radius: 12px;  
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);  
+        }
+
+        /* Code Block Styles */
+        .code-block {
+            background: #f6f8fa;
+            border-radius: 8px;
+            padding: 20px;  
+            margin: 20px 0;  
+            font-size: 1.1em;  
+        }
+
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+            font-size: 1.1em;  
+        }
+
+        code {
+            font-family: 'Consolas', monospace;
+            color: #24292e;
+            line-height: 1.8;  
+        }
+
+        /* Headings */
+        h2 {
+            font-size: 2.2em;  
+            margin-bottom: 30px;  
+            color: #2c3e50;
+        }
+
+        h4 {
+            font-size: 1.4em;  
+            margin: 0 0 15px 0;
+            color: #0366d6;
+        }
+
+        /* Method Box Styles */
+        .method-box {
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            background: #f8f9fa;
+        }
+
+        .method-box h4 {
+            margin-top: 0;
+            color: #0366d6;
+        }
+
+        /* Utility Classes */
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Home Link Style */
+        .home-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #0366d6;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .home-link:hover {
+            background-color: #024dab;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .home-link i {
+            margin-right: 8px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 95%;
+                padding: 15px;
+            }
+            
+            .content-flex {
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-flex {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .content-image {
+                order: -1;
+                width: 100%;
+            }
+            .content-image img {
+                max-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Home Navigation Link -->
+    <a href="0 home.html" class="home-link">
+        <i>🏠</i> Home
+    </a>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>JavaScript Arrays Guide</h1>
+            <p>A Comprehensive Guide to JavaScript Arrays and Array Methods</p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="content-section">
+            <!-- Step Navigation -->
+            <div class="step-navigation">
+                <button class="step-btn active" onclick="showSection('basics')">Array Basics</button>
+                <button class="step-btn" onclick="showSection('basic-methods')">Basic Methods</button>
+                <button class="step-btn" onclick="showSection('transform')">Transformation</button>
+                <button class="step-btn" onclick="showSection('search-sort')">Search & Sort</button>
+                <button class="step-btn" onclick="showSection('other')">Other Methods</button>
+                <button class="step-btn" onclick="showSection('es6')">ES6+ Methods</button>
+                <button class="step-btn" onclick="showSection('loop')">Loop Methods</button>
+            </div>
+
+            <!-- Content Sections -->
+            <div class="step-content">
+                <!-- Array Basics -->
+                <div id="basics" class="step-section active">
+                    <h2>Array Basics</h2>
+                    
+                    <div class="content-flex">
+                        <div class="content-text">
+                            <p>An array is a special variable that can hold more than one value at a time. It's an ordered collection of data (elements) of any type.</p>
+                            
+                            <div class="code-block">
+                                <h4>Array Creation:</h4>
+                                <pre><code class="language-jsx">// Array literal syntax
+let fruits = ['apple', 'banana', 'orange'];
+
+// Array constructor syntax
+let numbers = new Array(1, 2, 3, 4, 5);</code></pre>
+                            </div>
+
+                            <div class="code-block">
+                                <h4>Accessing Elements:</h4>
+                                <pre><code class="language-jsx">let fruits = ['apple', 'banana', 'orange'];
+
+// Access by index
+console.log(fruits[0]);     // 'apple'
+console.log(fruits[1]);     // 'banana'
+
+// Get array length
+console.log(fruits.length); // 3</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="content-image">
+                            <img src="../0JSimg/array/img2.jpg" 
+                                 alt="JavaScript Array Visualization" 
+                                 title="Array Index and Elements">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Basic Methods -->
+                <div id="basic-methods" class="step-section">
+                    <h2>Basic Array Methods</h2>
+                    
+                    <div class="method-box">
+                        <h4>push() & pop()</h4>
+                        <p>Add/remove elements at the end of array</p>
+                        <div class="code-block">
+                            <pre><code>let arr = [1, 2];
+arr.push(3);     // Returns 3 (new length)
+console.log(arr); // [1, 2, 3]
+
+arr.pop();       // Returns 3 (removed element)
+console.log(arr); // [1, 2]</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="method-box">
+                        <h4>unshift() & shift()</h4>
+                        <p>Add/remove elements at the beginning of array</p>
+                        <div class="code-block">
+                            <pre><code>let arr = [1, 2];
+arr.unshift(0);  // Returns 3 (new length)
+console.log(arr); // [0, 1, 2]
+
+arr.shift();     // Returns 0 (removed element)
+console.log(arr); // [1, 2]</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transformation Methods -->
+                <div id="transform" class="step-section">
+                    <h2>Transformation Methods</h2>
+                    
+                    <div class="method-box">
+                        <h4>map()</h4>
+                        <p>Creates new array with results of calling function for every array element</p>
+                        <div class="code-block">
+                            <pre><code>let numbers = [1, 2, 3];
+let doubled = numbers.map(num => num * 2);
+console.log(doubled); // [2, 4, 6]</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="method-box">
+                        <h4>filter()</h4>
+                        <p>Creates new array with elements that pass test</p>
+                        <div class="code-block">
+                            <pre><code>let numbers = [1, 2, 3, 4, 5];
+let evenNumbers = numbers.filter(num => num % 2 === 0);
+console.log(evenNumbers); // [2, 4]</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="method-box">
+                        <h4>reduce()</h4>
+                        <p>Reduces array to single value</p>
+                        <div class="code-block">
+                            <pre><code>let numbers = [1, 2, 3, 4];
+let sum = numbers.reduce((acc, curr) => acc + curr, 0);
+console.log(sum); // 10</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search and Sort -->
+                <div id="search-sort" class="step-section">
+                    <h2>Search and Sort Methods</h2>
+                    
+                    <div class="method-box">
+                        <h4>find() & findIndex()</h4>
+                        <div class="code-block">
+                            <pre><code>let numbers = [1, 2, 3, 4];
+let found = numbers.find(num => num > 2);
+console.log(found); // 3
+
+let index = numbers.findIndex(num => num > 2);
+console.log(index); // 2</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="method-box">
+                        <h4>sort()</h4>
+                        <div class="code-block">
+                            <pre><code>// String sort
+let fruits = ['banana', 'apple', 'orange'];
+fruits.sort();
+console.log(fruits); // ['apple', 'banana', 'orange']
+
+// Numeric sort
+let numbers = [4, 2, 1, 3];
+numbers.sort((a, b) => a - b);
+console.log(numbers); // [1, 2, 3, 4]</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Methods -->
+                <div id="other" class="step-section">
+                    <h2>Other Useful Methods</h2>
+                    
+                    <div class="method-box">
+                        <h4>slice() & splice()</h4>
+                        <div class="code-block">
+                            <pre><code>// slice()
+let fruits = ['apple', 'banana', 'orange'];
+let sliced = fruits.slice(1, 2);
+console.log(sliced); // ['banana']
+
+// splice()
+fruits.splice(1, 1, 'grape');
+console.log(fruits); // ['apple', 'grape', 'orange']</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="method-box">
+                        <h4>concat() & join()</h4>
+                        <div class="code-block">
+                            <pre><code>// concat()
+let arr1 = [1, 2];
+let arr2 = [3, 4];
+let combined = arr1.concat(arr2);
+console.log(combined); // [1, 2, 3, 4]
+
+// join()
+let fruits = ['apple', 'banana'];
+let str = fruits.join(', ');
+console.log(str); // 'apple, banana'</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ES6+ Methods -->
+                <div id="es6" class="step-section">
+                    <h2>ES6+ Methods</h2>
+                    
+                    <div class="method-box">
+                        <h4>Array.from() & Array.isArray()</h4>
+                        <div class="code-block">
+                            <pre><code>// Array.from()
+let arrayFromString = Array.from('hello');
+console.log(arrayFromString); // ['h', 'e', 'l', 'l', 'o']
+
+// Array.isArray()
+console.log(Array.isArray([1, 2, 3])); // true
+console.log(Array.isArray('hello'));   // false</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loop Methods -->
+                <div id="loop" class="step-section">
+                    <h2>Loop Methods</h2>
+                    
+                    <div class="method-box">
+                        <h4>forEach()</h4>
+                        <div class="code-block">
+                            <pre><code>let numbers = [1, 2, 3];
+numbers.forEach(num => console.log(num));
+// Output:
+// 1
+// 2
+// 3</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="method-box">
+                        <h4>every() & some()</h4>
+                        <div class="code-block">
+                            <pre><code>// every()
+let numbers = [2, 4, 6];
+console.log(numbers.every(num => num % 2 === 0)); // true
+
+// some()
+let nums = [1, 2, 3];
+console.log(nums.some(num => num > 2)); // true</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.step-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update button states
+            document.querySelectorAll('.step-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`button[onclick="showSection('${sectionId}')"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

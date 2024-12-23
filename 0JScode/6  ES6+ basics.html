@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6+ JavaScript Features</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button.active {
+            background-color: #45a049;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        code {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Consolas', monospace;
+            display: block;
+            margin: 10px 0;
+            white-space: pre;
+            line-height: 1.5;
+        }
+        .comment {
+            color: #6a9955;
+            font-style: italic;
+        }
+        .code-block {
+            margin: 20px 0;
+            border-left: 4px solid #4CAF50;
+            padding-left: 15px;
+        }
+        .example-title {
+            color: #4CAF50;
+            font-weight: bold;
+            margin: 25px 0 10px 0;
+        }
+        .concept-image {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: block;
+        }
+        .output {
+            background-color: #e9ffe9;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .section-nav {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .section-nav button {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .section-nav button.active {
+            background-color: #4CAF50;
+        }
+        .subsection {
+            display: none;
+        }
+        .subsection.active {
+            display: block;
+        }
+        .learning-goals {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        .learning-goals h4 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .learning-goals ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ES6+ JavaScript Features</h1>
+        
+        <div class="navigation">
+            <button onclick="showSection(1)" id="btn1">Destructuring</button>
+            <button onclick="showSection(2)" id="btn2">Spread/Rest</button>
+            <button onclick="showSection(3)" id="btn3">Template Literals</button>
+            <button onclick="showSection(4)" id="btn4">Async/Await</button>
+        </div>
+
+        <div id="section1" class="section active">
+            <h2>1. Destructuring in JavaScript</h2>
+            
+            <div class="section-nav">
+                <button onclick="showDestructuringSection('intro')" class="active">Intro to Destructuring</button>
+                <button onclick="showDestructuringSection('object')">Object Destructuring</button>
+                <button onclick="showDestructuringSection('array')">Array Destructuring</button>
+            </div>
+
+            <div id="destructuring-intro" class="subsection active">
+                <div class="learning-goals">
+                    <h4>Learning Goals</h4>
+                    <ul>
+                        <li>Understand the concept of destructuring in JavaScript</li>
+                        <li>Implement destructuring on arrays and objects</li>
+                        <li>Learn when and why to use destructuring</li>
+                    </ul>
+                </div>
+
+                <h3>What is Destructuring?</h3>
+                <p>Destructuring is a feature introduced with ES6 that enables you to break down a structure (like an array or object) and store its components in variables.</p>
+
+                <div class="code-block">
+                    <h4>Array Destructuring</h4>
+                    <p>A JavaScript expression that reduces arrays to smaller atoms where the contents can be easily accessed and referenced by variables.</p>
+                </div>
+
+                <div class="code-block">
+                    <h4>Object Destructuring</h4>
+                    <p>A feature that allows you to extract values from objects and assign them to variables in a more concise way. It can:</p>
+                    <ul>
+                        <li>Extract multiple properties in a single statement</li>
+                        <li>Access properties from nested objects</li>
+                        <li>Set default values if properties don't exist</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <h4>Why Use Destructuring?</h4>
+                    <p>Destructuring assignment allows you to assign properties of arrays or objects to variables using syntax that looks similar to array or object literals. This provides:</p>
+                    <ul>
+                        <li>Cleaner and more readable code</li>
+                        <li>More convenient way to extract data</li>
+                        <li>Reduced boilerplate when working with arrays and objects</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="destructuring-object" class="subsection">
+                <h3>Object Destructuring</h3>
+                <p>Object destructuring is a bit more complicated than array destructuring, but keep reading to the end and you'll become a Javascript destructuring ninja in no-time!! 😄</p>
+
+                <div class="code-block">
+                    <h4>Basics</h4>
+                    <p>When declaring an object, for example:</p>
+                    <code>const employee = {
+    firstName: 'Bruce',
+    lastName: 'Lee',
+    role: 'Teacher',
+};</code>
+                    <p>We can say we packed the key-value pairs of data which we can retrieve at any point later by using the so-called "dot-syntax" and store the values of specific keys into variables, e.g.:</p>
+                    <code>const firstName = employee.firstName;
+const lastName = employee.lastName;
+const role = employee.role;</code>
+                    <p>We immediately see that this can get quite repetitive as the number of values we want to retrieve gets larger. Instead, we can utilize object destructuring to unpack the data we want and avoid repeating ourselves:</p>
+                    <code>const { firstName, lastName, role } = employee;
+
+console.log(firstName); // Bruce
+console.log(lastName); // Lee
+console.log(role); // Teacher</code>
+                </div>
+
+                <div class="code-block">
+                    <h4>Missing Elements</h4>
+                    <p>If we try to destructure an element which doesn't exist in the object, the variable gets assigned the value of undefined:</p>
+                    <code>const employee = {
+    firstName: 'Bruce',
+    lastName: 'Lee',
+    role: 'Teacher',
+};
+
+let { firstName, middleName } = employee;
+console.log(firstName); // Bruce
+console.log(middleName); // undefined</code>
+                </div>
+
+                <div class="code-block">
+                    <h4>Renaming</h4>
+                    <p>We can use the colon : operator to rename the variable we are extracting the data into:</p>
+                    <code>const employee = {
+    first_name: 'Bruce',
+    last_name: 'Lee',
+    role: 'Teacher',
+};
+
+let { 
+    first_name: firstName, // rename
+    last_name: lastName, // rename
+    role
+} = employee;
+
+console.log(firstName); // Bruce
+console.log(lastName); // Lee
+console.log(role); // Teacher</code>
+                </div>
+
+                <div class="code-block">
+                    <h4>Default Values</h4>
+                    <p>We can define default values which will be assigned instead of undefined:</p>
+                    <code>let { firstName, middleName = 'The Dragon' } = employee;
+console.log(middleName); // The Dragon</code>
+                </div>
+
+                <div class="code-block">
+                    <h4>Nested Object Destructuring</h4>
+                    <p>We can destructure complex nested objects which can contain arrays as well:</p>
+                    <code>const employee = {
+    firstName: 'Bruce',
+    lastName: 'Lee',
+    role: 'Teacher',
+    addresses: [
+        {
+            street: 'Main street 9',
+            city: 'San Francisco',
+            country: 'USA',
+        },
+        {
+            street: 'Not main street 122',
+            city: 'Hong Kong',
+            country: 'China',
+        },
+    ],
+};
+
+let {
+    lastName,
+    role: occupation,
+    addresses: [
+        {city: recentCity}, {city: oldCity}
+    ]
+} = employee;
+
+console.log(lastName); // Lee
+console.log(occupation); // Teacher
+console.log(recentCity); // San Francisco
+console.log(oldCity); // Hong Kong</code>
+                </div>
+
+                <div class="section-nav">
+                    <button onclick="showDestructuringSection('intro')">Previous: Intro</button>
+                    <button onclick="showDestructuringSection('array')">Next: Array Destructuring</button>
+                </div>
+            </div>
+
+            <div id="destructuring-array" class="subsection">
+                <h3>Array Destructuring</h3>
+                
+                <div class="code-block">
+                    <h4>Basics</h4>
+                    <p>When we declare and initialize a variable, essentially we pack the data into it. For example, let's suppose we create an array:</p>
+                    <code>const numbers = [10, 20, 30, 40];</code>
+                    <p>We can say we have packed the numbers 10, ..., 40 into the numbers variable.</p>
+                    
+                    <p>Now, instead of doing the following to store individual elements of this array into variables and repeating ourselves too much:</p>
+                    <code>const a = numbers[0];
+const b = numbers[1];
+/// ...</code>
+                    
+                    <p>We can use destructuring to unpack this data:</p>
+                    <code>const [a, b, c, d] = numbers;
+console.log(a); // 10
+console.log(d); // 40</code>
+                </div>
+
+                <div class="code-block">
+                    <h4>Default Values for Undefined Elements</h4>
+                    <p>When trying to destructure variables that don't exist in the array, we can set default values:</p>
+                    <code>const [a, b, c, d, e = 0, f = 0] = numbers;
+console.log(e); // 0
+console.log(f); // 0</code>
+                </div>
+
+                <div class="code-block">
+                    <h4>Ignoring Elements</h4>
+                    <p>We can ignore some elements in sequence, if we don't want to destructure them:</p>
+                    <code>const [a, , c, d, e, f] = numbers;
+console.log(a); // 10
+console.log(c); // 30</code>
+                </div>
+
+                <div class="code-block">
+                    <h4>Iterables</h4>
+                    <p>Since destructuring is just syntax sugar for iteration, it can be performed on any iterable, not just arrays:</p>
+                    <code>const [a, b, c, d] = "cool";
+console.log(a, b, c, d); // c o o l</code>
+                </div>
+
+                <div class="code-block">
+                    <h4>Nested Array Destructuring</h4>
+                    <p>We can also destructure nested arrays, i.e. arrays within arrays:</p>
+                    <code>const destination = ['Paris', [48.8566, 2.3522]];
+
+const [city, [latitude, longitude]] = destination;
+console.log(latitude, longitude); // 48.8566 2.3522</code>
+                </div>
+
+                <div class="code-block">
+                    <h4>Tricks Using Array Destructuring</h4>
+                    
+                    <h5>Swapping Variables</h5>
+                    <code>const a = 1;
+const b = 2;
+[b, a] = [a, b];
+
+console.log(a); // 2
+console.log(b); // 1</code>
+
+                    <h5>Multiple Function Return Values</h5>
+                    <code>function getPerson() {
+    const name = "Johnny Knoxville";
+    const age = 30;
+    const phone = "123456"
+
+    return [name, age, phone];
+}
+
+// ... somewhere else we call getPerson()
+const [personName, personAge, personPhone] = getPerson();
+
+console.log(personName); // "Johnny Knoxville"
+console.log(personAge); // 30
+console.log(personPhone); // 123456</code>
+
+                    <h5>Capturing the Rest of an Array</h5>
+                    <code>const numbers = [1, 2, 3, 4, 5, 6, 7];
+const [a, b, ...rest] = numbers;
+console.log(rest); // [3, 4, 5, 6, 7];</code>
+
+                    <h5>Array Cloning</h5>
+                    <code>const numbers = [1, 2, 3, 4, 5, 6, 7];
+const [...numbersCopy] = numbers;
+console.log(numbersCopy); // [1, 2, 3, 4, 5, 6, 7]
+
+numbersCopy[0] = 999;
+
+// The original array stays the same
+console.log(numbers); // [1, 2, 3, 4, 5, 6, 7]</code>
+                </div>
+
+                <div class="section-nav">
+                    <button onclick="showDestructuringSection('object')">Previous: Object Destructuring</button>
+                    <button onclick="showDestructuringSection('intro')">Back to Intro</button>
+                </div>
+            </div>
+
+            <button onclick="runDestructuring()">Try These Examples</button>
+            <div id="destructuringOutput" class="output"></div>
+        </div>
+
+        <div id="section2" class="section">
+            <h2>2. Spread/Rest Operators</h2>
+            <p>The spread operator (...) expands elements, while the rest operator collects elements into an array.</p>
+            <code>// Spread Operator
+const numbers = [1, 2, 3];
+const newNumbers = [...numbers, 4, 5];
+console.log(newNumbers); // [1, 2, 3, 4, 5]
+
+// Rest Operator
+function sum(...numbers) {
+    return numbers.reduce((total, num) => total + num, 0);
+}
+console.log(sum(1, 2, 3, 4)); // 10</code>
+            <button onclick="runSpreadRest()">Try it</button>
+            <div id="spreadRestOutput" class="output"></div>
+        </div>
+
+        <div id="section3" class="section">
+            <h2>3. Template Literals vs JSX</h2>
+
+            <div class="code-block">
+                <h4>Template Literals</h4>
+                <p><strong>Definition:</strong> Template literals are string literals allowing embedded expressions. They are enclosed by backticks (` `) instead of single or double quotes.</p>
+                
+                <h5>Syntax:</h5>
+                <code>const name = 'John';
+const message = `Hello, ${name}!`;</code>
+
+                <h5>Key Features:</h5>
+                <ul>
+                    <li>Embedded expressions using ${expression}</li>
+                    <li>Multi-line strings</li>
+                    <li>String interpolation</li>
+                </ul>
+
+                <h5>Example:</h5>
+                <code>const user = { name: 'Alice', age: 25 };
+const greeting = `Hello, ${user.name}! You are ${user.age} years old.`;
+console.log(greeting); // "Hello, Alice! You are 25 years old."</code>
+            </div>
+
+            <div class="code-block">
+                <h4>JSX</h4>
+                <p><strong>Definition:</strong> JSX is a syntax extension for JavaScript that looks similar to HTML. It is used with React to describe what the UI should look like.</p>
+
+                <h5>Syntax:</h5>
+                <code>const element = <h1>Hello, {name}</h1>;</code>
+
+                <h5>Key Features:</h5>
+                <ul>
+                    <li>Embedded expressions using curly braces {}</li>
+                    <li>Describing UI components</li>
+                    <li>Integration with React for rendering</li>
+                </ul>
+
+                <h5>Example:</h5>
+                <code>const name = 'Alice';
+const element = <h1>Hello, {name}!</h1>;</code>
+            </div>
+
+            <div class="code-block">
+                <h4>Expressions in Template Literals</h4>
+                <p>An expression in JavaScript is any valid code that resolves to a value. Here are different types:</p>
+
+                <h5>1. Basic Expressions:</h5>
+                <code>// Mathematical expressions
+const sum = 5 + 3         // resolves to 8
+const multiply = 4 * 2    // resolves to 8
+
+// String expressions
+const firstName = "John"   // resolves to "John"
+const greeting = "Hello"   // resolves to "Hello"
+
+// Boolean expressions
+const isTrue = 5 > 3      // resolves to true
+const isFalse = 10 < 5    // resolves to false</code>
+
+                <h5>2. Complex Expressions:</h5>
+                <code>// Object method expression
+const user = {
+    firstName: "John",
+    lastName: "Doe",
+    getFullName: function() {
+        return `${this.firstName} ${this.lastName}`;
+    }
+};
+
+// In template literal
+console.log(`Name: ${user.getFullName()}`);  // "Name: John Doe"
+
+// Conditional expression
+const isLoggedIn = true;
+const userType = "admin";
+console.log(`Access: ${isLoggedIn && userType === "admin" ? "Granted" : "Denied"}`);</code>
+            </div>
+
+            <div class="code-block">
+                <h4>Understanding String Interpolation</h4>
+                <p>Template literals are primarily used for string interpolation, which means:</p>
+                <ul>
+                    <li>Creating strings with dynamic content</li>
+                    <li>Embedding expressions within strings</li>
+                    <li>Supporting multi-line strings without special characters</li>
+                </ul>
+
+                <h5>Example:</h5>
+                <code>const x = 10;
+const y = 20;
+const result = `The sum of ${x} and ${y} is ${x + y}`; // "The sum of 10 and 20 is 30"
+
+// Multi-line string
+const multiLine = `
+  First line
+  Second line
+  Third line
+`;</code>
+            </div>
+
+            <button onclick="runTemplateLiterals()">Try These Examples</button>
+            <div id="templateLiteralsOutput" class="output"></div>
+        </div>
+
+        <div id="section4" class="section">
+            <h2>4. Async/await and Promises</h2>
+            <p>Async/await provides a cleaner syntax for working with Promises and asynchronous code.</p>
+            <code>// Promise example
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Async/await usage
+async function example() {
+    console.log('Starting...');
+    await delay(1000);
+    console.log('After 1 second');
+    await delay(1000);
+    console.log('After 2 seconds');
+    return 'Completed!';
+}
+
+// Error handling
+async function fetchData() {
+    try {
+        const result = await example();
+        console.log(result);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}</code>
+            <button onclick="runAsync()">Try it</button>
+            <div id="asyncOutput" class="output"></div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionNumber) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(`section${sectionNumber}`).classList.add('active');
+            
+            // Update active button state
+            document.querySelectorAll('.navigation button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`btn${sectionNumber}`).classList.add('active');
+        }
+
+        // Set initial active button
+        document.getElementById('btn1').classList.add('active');
+
+        function showDestructuringSection(section) {
+            // Hide all subsections
+            document.querySelectorAll('.subsection').forEach(el => {
+                el.classList.remove('active');
+            });
+            // Show selected subsection
+            document.getElementById(`destructuring-${section}`).classList.add('active');
+            
+            // Update button states
+            document.querySelectorAll('.section-nav button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function runDestructuring() {
+            const output = document.getElementById('destructuringOutput');
+            let results = [];
+
+            // Object destructuring examples
+            const user = { name: 'John', age: 30, city: 'New York' };
+            const { name, age } = user;
+            results.push(`Basic object destructuring: name = ${name}, age = ${age}`);
+
+            // Advanced object destructuring
+            const person = {
+                fullName: 'Alice Johnson',
+                details: {
+                    age: 25,
+                    location: 'London'
+                },
+                languages: ['English', 'Spanish']
+            };
+            const { fullName: personName, details: { location } } = person;
+            results.push(`Renamed & nested destructuring: personName = ${personName}, location = ${location}`);
+
+            // Array destructuring examples
+            const numbers = [1, 2, 3, 4, 5];
+            const [first, second, ...rest] = numbers;
+            results.push(`Array destructuring with rest: first = ${first}, second = ${second}, rest = [${rest}]`);
+
+            // Variable swap
+            let a = 1, b = 2;
+            [a, b] = [b, a];
+            results.push(`Swapped variables: a = ${a}, b = ${b}`);
+
+            output.innerHTML = results.join('<br><br>');
+        }
+
+        function runSpreadRest() {
+            const output = document.getElementById('spreadRestOutput');
+            
+            const numbers = [1, 2, 3];
+            const newNumbers = [...numbers, 4, 5];
+            
+            function sum(...nums) {
+                return nums.reduce((total, num) => total + num, 0);
+            }
+            
+            output.innerHTML = `Spread Operator: ${JSON.stringify(newNumbers)}<br>
+                              Rest Operator (sum): ${sum(1, 2, 3, 4)}`;
+        }
+
+        function runTemplateLiterals() {
+            const output = document.getElementById('templateLiteralsOutput');
+            
+            const name = 'Alice';
+            const age = 25;
+            
+            const greeting = `Hello, ${name}!
+You are ${age} years old.`;
+            
+            output.innerHTML = greeting.replace(/\n/g, '<br>');
+        }
+
+        async function runAsync() {
+            const output = document.getElementById('asyncOutput');
+            output.innerHTML = 'Starting...';
+            
+            function delay(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+            
+            try {
+                await delay(1000);
+                output.innerHTML += '<br>After 1 second';
+                await delay(1000);
+                output.innerHTML += '<br>After 2 seconds';
+                output.innerHTML += '<br>Completed!';
+            } catch (error) {
+                output.innerHTML += `<br>Error: ${error}`;
+            }
+        }
+    </script>
+</body>
+</html>

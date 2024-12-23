@@ -296,12 +296,13 @@
             overflow: hidden;
         }
         .file-header {
-            background: #e9ecef;
-            padding: 10px;
+            padding: 8px;
+            border-bottom: 1px solid #e0e0e0;
             display: flex;
             align-items: center;
             gap: 8px;
-            border-bottom: 1px solid #dee2e6;
+            background: #f8f9fa;
+            border-radius: 4px 4px 0 0;
         }
         .file-icon {
             width: 20px;
@@ -313,7 +314,11 @@
         }
         .file-name {
             font-weight: 500;
-            color: #495057;
+            color: #212529;
+            margin-bottom: 5px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: #e9ecef;
         }
         .file-content {
             padding: 15px;
@@ -328,9 +333,24 @@
             margin: 0;
             white-space: pre-wrap;
         }
-        .html-icon { color: #e34c26; }
-        .js-icon { color: #f7df1e; }
-        .react-icon { color: #61dafb; }
+        .html-icon {
+            background: #e34c26;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .js-icon {
+            background: #f7df1e;
+            color: black;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .react-icon {
+            background: #61dafb;
+            color: black;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
 
         /* Summary Section Styles */
         .summary-section {
@@ -433,6 +453,182 @@
             font-size: 14px;
             color: #495057;
             max-width: 120px;
+        }
+
+        /* New Styles for File Descriptions */
+        .file-description-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .file-description-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: white;
+            border-radius: 6px;
+            border-left: 4px solid #dee2e6;
+            transition: transform 0.2s;
+        }
+
+        .file-description-item:hover {
+            transform: translateX(5px);
+        }
+
+        .file-description-item.react {
+            border-left-color: #61dafb;
+        }
+
+        .file-description-item.js {
+            border-left-color: #f7df1e;
+        }
+
+        .file-description-item.html {
+            border-left-color: #e34c26;
+        }
+
+        .file-description-icon {
+            padding: 8px;
+            border-radius: 4px;
+            margin-right: 12px;
+            font-size: 1.2em;
+        }
+
+        .file-description-content {
+            flex: 1;
+        }
+
+        .file-description-name {
+            font-weight: bold;
+            color: #212529;
+            margin-bottom: 4px;
+            font-size: 1.1em;
+        }
+
+        .file-description-text {
+            color: #6c757d;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .react .file-description-icon {
+            background: #61dafb;
+            color: black;
+        }
+
+        .js .file-description-icon {
+            background: #f7df1e;
+            color: black;
+        }
+
+        .html .file-description-icon {
+            background: #e34c26;
+            color: white;
+        }
+
+        .flow-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .flow-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #212529;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .flow-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .flow-item {
+            flex: 1;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+            text-align: center;
+            position: relative;
+            border: 1px solid #dee2e6;
+            margin: 0 25px;
+        }
+
+        .flow-icon {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .flow-name {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #212529;
+        }
+
+        .flow-description {
+            color: #6c757d;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .flow-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+            color: #6c757d;
+            width: 50px;
+            text-align: center;
+        }
+
+        .flow-arrow.right-1 {
+            right: calc(66.66% - 25px);
+        }
+
+        .flow-arrow.right-2 {
+            right: calc(33.33% - 25px);
+        }
+
+        .flow-item.react {
+            border-left: 4px solid #61dafb;
+        }
+
+        .flow-item.js {
+            border-left: 4px solid #f7df1e;
+        }
+
+        .flow-item.html {
+            border-left: 4px solid #e34c26;
+        }
+
+        .react .flow-icon {
+            background: #61dafb;
+            color: black;
+        }
+
+        .js .flow-icon {
+            background: #f7df1e;
+            color: black;
+        }
+
+        .html .flow-icon {
+            background: #e34c26;
+            color: white;
         }
     </style>
 </head>
@@ -693,8 +889,46 @@
                 <div class="file-organization">
                     <div class="file-box">
                         <div class="file-header">
+                            <div class="file-icon html-icon">🌐</div>
+                            <div class="file-name">index.html / code in step 1</div>
+                        </div>
+                        <div class="file-content">
+                            <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;React Lesson&lt;/title&gt;
+    &lt;script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin&gt;&lt;/script&gt;
+    &lt;script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin&gt;&lt;/script&gt;
+    &lt;script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"&gt;&lt;/script&gt;
+    &lt;script src="index.js" type="text/babel"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id="root"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+                        </div>
+                    </div>
+                    <div class="file-box">
+                        <div class="file-header">
+                            <div class="file-icon js-icon">📄</div>
+                            <div class="file-name">index.js / code in step 2</div>
+                        </div>
+                        <div class="file-content">
+                            <pre>
+import App from './app.js';
+
+ReactDOM.render(&lt;App /&gt;, document.getElementById('root'));
+</pre>
+                        </div>
+                    </div>
+                    <div class="file-box">
+                        <div class="file-header">
                             <div class="file-icon react-icon">⚛️</div>
-                            <div class="file-name">app.js</div>
+                            <div class="file-name">app.js / code in step 6</div>
                         </div>
                         <div class="file-content">
                             <pre>
@@ -741,43 +975,31 @@ function App() {
     );
 }
 
-export default App;</pre>
+export default App;
+</pre>
                         </div>
                     </div>
-                    <div class="file-box">
-                        <div class="file-header">
-                            <div class="file-icon js-icon">📄</div>
-                            <div class="file-name">index.js</div>
-                        </div>
-                        <div class="file-content">
-                            <pre>
-import App from './app.js';
-
-ReactDOM.render(&lt;App /&gt;, document.getElementById('root'));</pre>
+                </div>
+                <div class="file-description-section">
+                    <div class="file-description-item react">
+                        <div class="file-description-icon">⚛️</div>
+                        <div class="file-description-content">
+                            <div class="file-description-name">app.js</div>
+                            <p class="file-description-text">Contains all React components including Header, MainContent, Footer, and any child components. This is where the main application structure and component logic lives.</p>
                         </div>
                     </div>
-                    <div class="file-box">
-                        <div class="file-header">
-                            <div class="file-icon html-icon">🌐</div>
-                            <div class="file-name">index.html</div>
+                    <div class="file-description-item js">
+                        <div class="file-description-icon">📄</div>
+                        <div class="file-description-content">
+                            <div class="file-description-name">index.js</div>
+                            <p class="file-description-text">Main entry point for the React application. Imports the App component and renders it to the DOM using ReactDOM.</p>
                         </div>
-                        <div class="file-content">
-                            <pre>
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;React Lesson&lt;/title&gt;
-    &lt;script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin&gt;&lt;/script&gt;
-    &lt;script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin&gt;&lt;/script&gt;
-    &lt;script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"&gt;&lt;/script&gt;
-    &lt;script src="index.js" type="text/babel"&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;div id="root"&gt;&lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;</pre>
+                    </div>
+                    <div class="file-description-item html">
+                        <div class="file-description-icon">🌐</div>
+                        <div class="file-description-content">
+                            <div class="file-description-name">index.html</div>
+                            <p class="file-description-text">HTML template that loads React, ReactDOM, and Babel. Contains the root div where the React application will be mounted.</p>
                         </div>
                     </div>
                 </div>
@@ -827,20 +1049,25 @@ ReactDOM.render(&lt;App /&gt;, document.getElementById('root'));</pre>
                     </div>
                 </div>
 
-                <div class="flow-diagram">
+                <div class="flow-section">
                     <div class="flow-title">Application Flow</div>
-                    <div class="flow-steps">
-                        <div class="flow-step">
-                            <div class="flow-icon">🌐</div>
-                            <div class="flow-text">index.html loads React and scripts</div>
-                        </div>
-                        <div class="flow-step">
-                            <div class="flow-icon">📄</div>
-                            <div class="flow-text">index.js imports and renders App</div>
-                        </div>
-                        <div class="flow-step">
+                    <div class="flow-container">
+                        <div class="flow-item react">
                             <div class="flow-icon">⚛️</div>
-                            <div class="flow-text">app.js provides components</div>
+                            <div class="flow-name">app.js</div>
+                            <div class="flow-description">Provides components</div>
+                        </div>
+                        <div class="flow-arrow right-1">→</div>
+                        <div class="flow-item js">
+                            <div class="flow-icon">📄</div>
+                            <div class="flow-name">index.js</div>
+                            <div class="flow-description">Imports and renders App (VDOM)</div>
+                        </div>
+                        <div class="flow-arrow right-2">→</div>
+                        <div class="flow-item html">
+                            <div class="flow-icon">🌐</div>
+                            <div class="flow-name">index.html</div>
+                            <div class="flow-description">Loads React and scripts (browser DOM)</div>
                         </div>
                     </div>
                 </div>
@@ -871,22 +1098,22 @@ ReactDOM.render(&lt;App /&gt;, document.getElementById('root'));</pre>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        function showStep(stepNumber) {
-            document.querySelectorAll('.dynamic-step').forEach(step => {
-                step.classList.remove('active');
-            });
-            document.querySelectorAll('.step-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            const selectedStep = document.getElementById('step' + stepNumber);
-            selectedStep.classList.add('active');
-            event.target.classList.add('active');
-        }
-        // Show Step 3 by default
-        showStep(3);
-    </script>
+        <script>
+            function showStep(stepNumber) {
+                document.querySelectorAll('.dynamic-step').forEach(step => {
+                    step.classList.remove('active');
+                });
+                document.querySelectorAll('.step-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                const selectedStep = document.getElementById('step' + stepNumber);
+                selectedStep.classList.add('active');
+                event.target.classList.add('active');
+            }
+            // Show Step 3 by default
+            showStep(3);
+        </script>
+    </div>
 </body>
 </html>

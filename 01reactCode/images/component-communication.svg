@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+    <!-- Title -->
+    <text x="400" y="50" text-anchor="middle" font-family="Arial" font-size="24" fill="#333">Component Communication</text>
+    
+    <!-- index.js -->
+    <rect x="50" y="100" width="200" height="200" rx="10" fill="#282c34"/>
+    <text x="150" y="140" text-anchor="middle" font-family="Arial" font-size="20" fill="#61dafb">index.js</text>
+    <rect x="70" y="160" width="160" height="40" rx="5" fill="#ff4757"/>
+    <text x="150" y="185" text-anchor="middle" font-family="Arial" font-size="14" fill="#fff">import ContentA</text>
+    <rect x="70" y="210" width="160" height="40" rx="5" fill="#2196f3"/>
+    <text x="150" y="235" text-anchor="middle" font-family="Arial" font-size="14" fill="#fff">import Container</text>
+    
+    <!-- Container.js -->
+    <rect x="300" y="100" width="200" height="200" rx="10" fill="#282c34"/>
+    <text x="400" y="140" text-anchor="middle" font-family="Arial" font-size="20" fill="#61dafb">Container.js</text>
+    <rect x="320" y="160" width="160" height="100" rx="5" fill="#2196f3"/>
+    <text x="400" y="210" text-anchor="middle" font-family="Arial" font-size="14" fill="#fff">component</text>
+    <rect x="320" y="270" width="160" height="20" rx="5" fill="#2196f3"/>
+    <text x="400" y="285" text-anchor="middle" font-family="Arial" font-size="14" fill="#fff">export</text>
+    
+    <!-- ContentA.js -->
+    <rect x="550" y="100" width="200" height="200" rx="10" fill="#282c34"/>
+    <text x="650" y="140" text-anchor="middle" font-family="Arial" font-size="20" fill="#61dafb">ContentA.js</text>
+    <rect x="570" y="160" width="160" height="100" rx="5" fill="#ff4757"/>
+    <text x="650" y="210" text-anchor="middle" font-family="Arial" font-size="14" fill="#fff">component</text>
+    <rect x="570" y="270" width="160" height="20" rx="5" fill="#ff4757"/>
+    <text x="650" y="285" text-anchor="middle" font-family="Arial" font-size="14" fill="#fff">export</text>
+    
+    <!-- Arrows -->
+    <line x1="230" y1="180" x2="320" y2="180" stroke="#fff" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="230" y1="230" x2="570" y2="230" stroke="#fff" stroke-width="2" marker-end="url(#arrowhead)"/>
+    
+    <!-- Arrow Marker -->
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#fff"/>
+        </marker>
+    </defs>
+</svg>
