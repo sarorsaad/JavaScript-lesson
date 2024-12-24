@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import '../styles/fonts.css';
+ 
+@layer base {
+  :root {
+    /* Updated color system using brand colors */
+    --background: 195 100% 98%;  /* Light blue background */
+    --foreground: 201 100% 19%;  /* Dark blue text */
+    --muted: 195 53% 94%;
+    --muted-foreground: 201 20% 45%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 201 100% 19%;
+    --card: 0 0% 100%;
+    --card-foreground: 201 100% 19%;
+    --border: 195 32% 90%;
+    --input: 195 32% 90%;
+    --primary: 201 100% 35%;     /* Brand primary blue */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 190 100% 42%;   /* Brand secondary blue */
+    --secondary-foreground: 0 0% 100%;
+    --accent: 190 100% 42%;      /* Brand accent */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --ring: 201 100% 35%;
+    --radius: 0.5rem;
+  }
+
+  /* Dark mode - to be implemented later */
+  .dark {
+    --background: 201 100% 7%;
+    --foreground: 195 100% 98%;
+    /* ... other dark mode variables ... */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

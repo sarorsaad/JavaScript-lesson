@@ -1,0 +1,48 @@
+/* Font imports */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
+
+:root {
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-poppins: 'Poppins', system-ui, sans-serif;
+  --font-noto-sans-arabic: 'Noto Sans Arabic', system-ui, sans-serif;
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  font-family: var(--font-noto-sans-arabic);
+}
+
+[dir="ltr"] {
+  font-family: var(--font-inter);
+}
+
+/* Typography Scale */
+.heading-1 {
+  @apply text-heading-1 font-heading;
+}
+
+.heading-2 {
+  @apply text-heading-2 font-heading;
+}
+
+.heading-3 {
+  @apply text-heading-3 font-heading;
+}
+
+.heading-4 {
+  @apply text-heading-4 font-heading;
+}
+
+.body-large {
+  @apply text-body-large;
+}
+
+.body-base {
+  @apply text-body-base;
+}
+
+.body-small {
+  @apply text-body-small;
+}

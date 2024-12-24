@@ -1,0 +1,34 @@
+.prereq-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin: 20px;
+}
+
+.prereq-card {
+    flex: 1;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.prereq-header h3 {
+    font-size: 28px;
+    color: #2188ff;
+    margin-bottom: 20px;
+}
+
+.prereq-card ul li {
+    font-size: 20px;
+    margin: 15px 0;
+    color: #333;
+    padding-left: 25px;
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .prereq-grid {
+        flex-direction: column;
+    }
+}
