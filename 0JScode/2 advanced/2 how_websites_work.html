@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Websites Work - Interactive Guide</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .step-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .step-button {
+            padding: 10px 20px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #333;
+            font-weight: 500;
+        }
+        .step-button:hover {
+            background-color: #e0e0e0;
+        }
+        .step-button.active {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #45a049;
+        }
+        .step-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .step-content.active {
+            display: block;
+        }
+        .visualization {
+            width: 100%;
+            height: 300px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .animation-element {
+            position: absolute;
+            transition: all 0.5s ease;
+        }
+        .device {
+            width: 100px;
+            height: 60px;
+            background-color: #fff;
+            border: 2px solid #333;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            text-align: center;
+        }
+        .server {
+            width: 80px;
+            height: 120px;
+            background-color: #2196F3;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .packet {
+            width: 20px;
+            height: 20px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+        }
+        .explanation {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            line-height: 1.6;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            background-color: #eee;
+            margin: 20px 0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .progress {
+            width: 0%;
+            height: 100%;
+            background-color: #4CAF50;
+            transition: width 0.3s ease;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        .control-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .control-button.reset {
+            background-color: #f44336;
+        }
+        .control-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .control-button:hover:not(:disabled) {
+            background-color: #45a049;
+        }
+        .control-button.reset:hover:not(:disabled) {
+            background-color: #d32f2f;
+        }
+        .url-bar {
+            width: 200px;
+            height: 25px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            font-size: 12px;
+            color: #666;
+        }
+        .server-content {
+            position: absolute;
+            width: 150px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 5px;
+            font-size: 12px;
+            display: none;
+        }
+        .browser-content {
+            position: absolute;
+            width: 200px;
+            height: 150px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 5px;
+            font-size: 12px;
+            display: none;
+            overflow: hidden;
+        }
+        .google-logo {
+            width: 120px;
+            height: 40px;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNzIiIGhlaWdodD0iOTIiPjxwYXRoIGZpbGw9IiM0Mjg1RjQiIGQ9Ik0xMTUuNzUgNDcuMThjMCAxMi43Ny05Ljk5IDIyLjE4LTIyLjI1IDIyLjE4cy0yMi4yNS05LjQxLTIyLjI1LTIyLjE4QzcxLjI1IDM0LjMyIDgxLjI0IDI1IDkzLjUgMjVzMjIuMjUgOS4zMiAyMi4yNSAyMi4xOHptLTkuNzQgMGMwLTcuOTgtNS43OS0xMy40NC0xMi41MS0xMy40NFM4MC45OSAzOS4yIDgwLjk5IDQ3LjE4YzAgNy45IDUuNzkgMTMuNDQgMTIuNTEgMTMuNDRzMTIuNTEtNS41NSAxMi41MS0xMy40NHoiLz48cGF0aCBmaWxsPSIjRUE0MzM1IiBkPSJNMTYzLjc1IDQ3LjE4YzAgMTIuNzctOS45OSAyMi4xOC0yMi4yNSAyMi4xOHMtMjIuMjUtOS40MS0yMi4yNS0yMi4xOGMwLTEyLjg1IDkuOTgtMjIuMTggMjIuMjUtMjIuMThzMjIuMjUgOS4zMiAyMi4yNSAyMi4xOHptLTkuNzQgMGMwLTcuOTgtNS43OS0xMy40NC0xMi41MS0xMy40NHMtMTIuNTEgNS40Ni0xMi41MSAxMy40NGMwIDcuOSA1Ljc5IDEzLjQ0IDEyLjUxIDEzLjQ0czEyLjUxLTUuNTUgMTIuNTEtMTMuNDR6Ii8+PHBhdGggZmlsbD0iI0ZCQkMwNSIgZD0iTTIwOS43NSAyNi4zNHYzOS44MmMwIDE2LjM4LTkuNjYgMjMuMDctMjEuMDggMjMuMDctMTAuNzUgMC0xNy4yMi03LjE5LTE5LjY2LTEzLjA3bDguNDgtMy41M2MxLjUxIDMuNjEgNS4yMSA3Ljg3IDExLjE3IDcuODcgNy4zMSAwIDExLjg0LTQuNTEgMTEuODQtMTN2LTMuMTloLS4zNGMtMi4xOCAyLjY5LTYuMzggNS4wNC0xMS42OCA1LjA0LTExLjA5IDAtMjEuMjUtOS42Ni0yMS4yNS0yMi4wOSAwLTEyLjUyIDEwLjE2LTIyLjI2IDIxLjI1LTIyLjI2IDUuMjkgMCA5LjQ5IDIuMzUgMTEuNjggNC45NmguMzR2LTMuNjFoOS4yNXptLTguNTYgMjAuOTJjMC03LjgxLTUuMjEtMTMuNTItMTEuODQtMTMuNTItNi43MiAwLTEyLjM1IDUuNzEtMTIuMzUgMTMuNTIgMCA3LjczIDUuNjMgMTMuMzYgMTIuMzUgMTMuMzYgNi42MyAwIDExLjg0LTUuNjMgMTEuODQtMTMuMzZ6Ii8+PHBhdGggZmlsbD0iIzQyODVGNCIgZD0iTTIyNSAzdjY1aC05LjVWM0gyMjV6Ii8+PHBhdGggZmlsbD0iIzM0QTg1MyIgZD0iTTI2Mi4wMiA1NC40OGw3LjU2IDUuMDRjLTIuNDQgMy42MS04LjMyIDkuODMtMTguNDggOS44My0xMi42IDAtMjIuMDEtOS43NC0yMi4wMS0yMi4xOCAwLTEzLjE5IDkuNDktMjIuMTggMjAuOTItMjIuMTggMTEuNTEgMCAxNy4xNCA5LjE2IDE4Ljk4IDE0LjExbDEuMDEgMi41Mi0yOS42NSAxMi4yOGMyLjI3IDQuNDUgNS44IDYuNzIgMTAuNzUgNi43MiA0Ljk2IDAgOC40LTIuNDQgMTAuOTItNi4xNHptLTIzLjI3LTcuOThsMTkuODItOC4yM2MtMS4wOS0yLjc3LTQuMzctNC43LTguMjMtNC43LTQuOTYgMC0xMS44NCA0LjM3LTExLjU5IDEyLjkzeiIvPjxwYXRoIGZpbGw9IiNFQTQzMzUiIGQ9Ik0zNS4yOSA0MS40MVYzMkg6NXYxLjkyQzY1IDQ1LjgyIDU2LjkyIDU1IDQ0LjMzIDU1IDMyLjU4IDU1IDIzIDQ1LjgyIDIzIDM0LjIzUzMyLjU4IDEzIDQ0LjMzIDEzYzYuMDEgMCAxMC40MSAyLjQxIDEzLjg3IDUuNjBsLTYuODQgNi44NGMtMS45Ni0xLjg1LTQuNjItMy4yNi03LjAyLTMuMjYtNS43NyAwLTEwLjI5IDQuNzYtMTAuMjkgMTIuMDJzNC41MiAxMi4wMiAxMC4yOSAxMi4wMmM2Ljk5IDAgOS42My00LjkyIDEwLjEyLTcuNWgtOS44M3YtNi4zNWg5LjY2eiIvPjwvc3ZnPg==');
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin: 20px auto;
+        }
+        .search-box {
+            width: 80%;
+            height: 30px;
+            margin: 10px auto;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>How Websites Work - Interactive Guide</h1>
+        
+        <div class="progress-bar">
+            <div class="progress" id="progressBar"></div>
+        </div>
+
+        <div class="step-navigation">
+            <button class="step-button active" onclick="showStep(1)">User Input</button>
+            <button class="step-button" onclick="showStep(2)">DNS Lookup</button>
+            <button class="step-button" onclick="showStep(3)">HTTP Request</button>
+            <button class="step-button" onclick="showStep(4)">Server Processing</button>
+            <button class="step-button" onclick="showStep(5)">Response</button>
+            <button class="step-button" onclick="showStep(6)">Browser Rendering</button>
+        </div>
+
+        <div class="visualization" id="visualization">
+            <!-- Elements will be added dynamically via JavaScript -->
+        </div>
+
+        <div class="step-content active" id="step1">
+            <h2>Step 1: Initial Setup</h2>
+            <p>This is the basic setup of web communication:</p>
+            <ul>
+                <li>Your browser: The client that sends requests</li>
+                <li>Google's server: Processes requests and sends responses</li>
+                <li>Click the URL bar to start the process</li>
+            </ul>
+        </div>
+
+        <div class="step-content" id="step2">
+            <h2>Step 2: DNS Lookup</h2>
+            <p>Domain Name System (DNS) resolution process:</p>
+            <ul>
+                <li>Browser checks local DNS cache</li>
+                <li>If not found, queries DNS resolver</li>
+                <li>DNS resolver contacts root servers</li>
+                <li>Receives IP address for the domain</li>
+            </ul>
+        </div>
+
+        <div class="step-content" id="step3">
+            <h2>Step 3: HTTP Request</h2>
+            <p>Browser initiates communication with the server:</p>
+            <ul>
+                <li>Creates HTTP request with headers</li>
+                <li>Establishes TCP connection</li>
+                <li>May use HTTPS for secure connection</li>
+                <li>Sends request to server's IP address</li>
+            </ul>
+        </div>
+
+        <div class="step-content" id="step4">
+            <h2>Step 4: Server Processing</h2>
+            <p>Google's server processes the request:</p>
+            <ul>
+                <li>Load balancer distributes the request</li>
+                <li>Server checks user location and preferences</li>
+                <li>Generates personalized search page</li>
+                <li>Prepares response with HTML, CSS, and JavaScript</li>
+            </ul>
+            <div class="code-block">
+                <pre>{
+    "page": "google_homepage",
+    "region": "user_location",
+    "components": {
+        "logo": "google_logo.svg",
+        "searchBox": true,
+        "buttons": [
+            "Google Search",
+            "I'm Feeling Lucky"
+        ]
+    },
+    "preferences": {
+        "language": "en",
+        "safeSearch": "moderate"
+    }
+}</pre>
+            </div>
+        </div>
+
+        <div class="step-content" id="step5">
+            <h2>Step 5: Response</h2>
+            <p>Server sends back the response:</p>
+            <ul>
+                <li>Creates HTTP response</li>
+                <li>Includes status code</li>
+                <li>Adds response headers</li>
+                <li>Sends HTML, CSS, JavaScript</li>
+            </ul>
+        </div>
+
+        <div class="step-content" id="step6">
+            <h2>Step 6: Browser Rendering</h2>
+            <p>Browser renders Google's homepage:</p>
+            <ul>
+                <li>Constructs DOM from HTML</li>
+                <li>Applies Google's styling (CSS)</li>
+                <li>Executes JavaScript for interactivity</li>
+                <li>Displays the familiar Google search interface</li>
+            </ul>
+        </div>
+
+        <div class="controls">
+            <button class="control-button" id="prevBtn" onclick="prevStep()" disabled>Previous</button>
+            <button class="control-button reset" id="resetBtn" onclick="resetVisualization()">Reset</button>
+            <button class="control-button" id="nextBtn" onclick="nextStep()">Next</button>
+        </div>
+    </div>
+    <script src="how_websites_work.js"></script>
+</body>
+</html>

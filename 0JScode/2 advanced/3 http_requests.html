@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP Requests Visualization</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            font-size: 18px;
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: #1976D2;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .method-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 0 20px;
+        }
+        .method-tab {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            min-width: 100px;
+            text-align: center;
+        }
+        .method-tab.get { background-color: #4CAF50; color: white; }
+        .method-tab.post { background-color: #2196F3; color: white; }
+        .method-tab.put { background-color: #FF9800; color: white; }
+        .method-tab.delete { background-color: #f44336; color: white; }
+        .method-tab.patch { background-color: #9C27B0; color: white; }
+        
+        .method-tab:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .method-tab.active {
+            transform: scale(1.05);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .status-display {
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            font-weight: 600;
+            font-size: 14px;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            margin: 0 15px;
+            min-width: 200px;
+            text-align: center;
+        }
+        .visualization {
+            height: 450px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            margin: 20px 0;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .client, .server {
+            position: absolute;
+            width: 150px;
+            height: 180px;
+            background-color: white;
+            border: 2px solid #333;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            top: 200px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .client {
+            left: 100px;
+        }
+        .server {
+            right: 100px;
+        }
+        .client h3, .server h3 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+        }
+        .client p, .server p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 100px;
+            margin: 50px auto;
+            padding: 0 80px;
+            position: relative;
+            width: calc(100% - 200px);
+            box-sizing: border-box;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .step-indicator::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 80px;
+            right: 80px;
+            height: 3px;
+            background-color: #e0e0e0;
+            z-index: 1;
+        }
+        .step-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 3px solid #ddd;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            flex-shrink: 0;
+        }
+        .step-dot::after {
+            content: attr(title);
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 12px;
+            font-weight: 500;
+            color: #666;
+            background-color: white;
+            padding: 6px 12px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            width: max-content;
+            min-width: 80px;
+        }
+        .step-dot.active {
+            background-color: #2196F3;
+            border-color: #2196F3;
+            box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.2);
+        }
+        .step-dot.active::after {
+            color: #2196F3;
+            font-weight: 600;
+        }
+        .request-packet {
+            position: absolute;
+            width: 200px;
+            height: auto;
+            background-color: white;
+            border: 2px solid #2196F3;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 13px;
+            display: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 3;
+            top: 250px;
+        }
+        .step-description {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            padding: 10px 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            font-weight: 500;
+            color: #333;
+            font-size: 14px;
+            width: max-content;
+            z-index: 4;
+        }
+        .response-code {
+            position: absolute;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 14px;
+            display: none;
+        }
+        .success { background-color: #4CAF50; color: white; }
+        .error { background-color: #f44336; color: white; }
+        .headers-list {
+            margin: 10px 0;
+            padding: 0;
+            list-style: none;
+            font-size: 12px;
+        }
+        .headers-list li {
+            margin: 5px 0;
+            padding: 3px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .request-body {
+            margin-top: 10px;
+            padding: 5px;
+            background-color: #f8f9fa;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .control-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: #2196F3;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .control-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .control-button:hover:not(:disabled) {
+            opacity: 0.9;
+        }
+        .explanation {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            line-height: 1.6;
+        }
+        .code-block {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Consolas', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        /* Updated styles for section navigation */
+        .section-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .section-button {
+            padding: 20px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #2196F3;
+            color: white;
+            transition: all 0.3s ease;
+            text-align: left;
+            min-width: 180px;
+            flex: 0 1 calc(33.333% - 20px);
+            font-size: 18px;
+        }
+        .section-button .title {
+            font-weight: bold;
+            font-size: 20px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .section-button .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            display: block;
+            font-weight: normal;
+        }
+        .section-button.active {
+            background-color: #1976D2;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .section-button:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+        }
+        .intro-content {
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            font-size: 20px;
+            line-height: 1.6;
+        }
+        .intro-content h2 {
+            color: #1976D2;
+            margin-bottom: 25px;
+            font-size: 32px;
+        }
+        .intro-content h3 {
+            color: #2196F3;
+            margin: 30px 0 20px;
+            font-size: 26px;
+        }
+        .intro-content p {
+            font-size: 20px;
+            margin: 20px 0;
+        }
+        .intro-content strong {
+            font-size: 22px;
+            color: #1976D2;
+        }
+        .intro-content ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .intro-content li {
+            margin: 15px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 20px;
+        }
+        .intro-content li strong {
+            font-size: 22px;
+            color: #1976D2;
+        }
+        .intro-content li:before {
+            content: "•";
+            color: #2196F3;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 24px;
+            top: -2px;
+        }
+        .intro-content li ul {
+            margin-top: 15px;
+            padding-left: 25px;
+        }
+        .intro-content li ul li {
+            font-size: 19px;
+            margin: 12px 0;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HTTP Requests Interactive Guide</h1>
+        
+        <div class="section-nav">
+            <button class="section-button" onclick="showSection('overview')">
+                <span class="title">Overview</span>
+                <span class="subtitle">Introduction to HTTP</span>
+            </button>
+            <button class="section-button" onclick="showSection('communication')">
+                <span class="title">Communication Standard</span>
+                <span class="subtitle">How clients and servers talk</span>
+            </button>
+            <button class="section-button" onclick="showSection('data')">
+                <span class="title">Data Transfer</span>
+                <span class="subtitle">Types of data transmitted</span>
+            </button>
+            <button class="section-button" onclick="showSection('architecture')">
+                <span class="title">Client-Server</span>
+                <span class="subtitle">Request-response cycle</span>
+            </button>
+            <button class="section-button" onclick="showSection('stateless')">
+                <span class="title">Stateless Protocol</span>
+                <span class="subtitle">Independent requests</span>
+            </button>
+            <button class="section-button" onclick="showSection('analogy')">
+                <span class="title">Real-World Analogy</span>
+                <span class="subtitle">HTTP as postal service</span>
+            </button>
+            <button class="section-button" onclick="showSection('benefits')">
+                <span class="title">Benefits</span>
+                <span class="subtitle">Advantages of HTTP</span>
+            </button>
+            <button class="section-button" onclick="showSection('interactive')">
+                <span class="title">Interactive Demo</span>
+                <span class="subtitle">See HTTP in action</span>
+            </button>
+        </div>
+
+        <div id="overviewSection" class="section active">
+            <div class="intro-content">
+                <h2>Understanding HTTP</h2>
+                <p>HTTP stands for <strong>Hypertext Transfer Protocol</strong>. It is the foundation of data communication on the World Wide Web.</p>
+            </div>
+        </div>
+
+        <div id="communicationSection" class="section">
+            <div class="intro-content">
+                <h2>Communication Standard</h2>
+                <ul>
+                    <li>Acts as a standardized way for web browsers (clients) and servers to communicate</li>
+                    <li>Without it, there would be no common language for web communications</li>
+                    <li>Enables seamless interaction between different systems and platforms</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="dataSection" class="section">
+            <div class="intro-content">
+                <h2>Data Transfer</h2>
+                <ul>
+                    <li><strong>Supported Data Types:</strong>
+                        <ul>
+                            <li>Text and HTML documents</li>
+                            <li>Images and media files</li>
+                            <li>Video streams</li>
+                            <li>Documents and files</li>
+                            <li>API data and JSON</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="architectureSection" class="section">
+            <div class="intro-content">
+                <h2>Client-Server Architecture</h2>
+                <ul>
+                    <li>Creates a clear request-response cycle</li>
+                    <li>Client requests resources through HTTP methods</li>
+                    <li>Server processes requests and sends appropriate responses</li>
+                    <li>Enables distributed computing and scalable web applications</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="statelessSection" class="section">
+            <div class="intro-content">
+                <h2>Stateless Protocol</h2>
+                <ul>
+                    <li>Each request is completely independent</li>
+                    <li>No client context is stored between requests</li>
+                    <li>Reduces server memory usage and improves scalability</li>
+                    <li>Enables better load distribution across servers</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="analogySection" class="section">
+            <div class="intro-content">
+                <h2>Real-World Analogy</h2>
+                <p>Think of HTTP as a postal service:</p>
+                <ul>
+                    <li><strong>Client = Sender</strong> (like someone mailing a letter)</li>
+                    <li><strong>Server = Receiver</strong> (like the destination address)</li>
+                    <li><strong>HTTP Request = Letter/Package</strong> (the content being sent)</li>
+                    <li><strong>HTTP Response = Return package/reply</strong> (the response sent back)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="benefitsSection" class="section">
+            <div class="intro-content">
+                <h2>Benefits of HTTP</h2>
+                <ul>
+                    <li><strong>Universal Compatibility</strong> - Works across different platforms</li>
+                    <li><strong>Platform Independence</strong> - Not tied to any specific technology</li>
+                    <li><strong>Firewall Friendly</strong> - Standard port 80/443 widely accepted</li>
+                    <li><strong>Connectionless</strong> - Saves server resources</li>
+                    <li><strong>Simple to Implement</strong> - Well-documented and straightforward</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="interactiveSection" class="section">
+            <div class="method-tabs">
+                <button class="method-tab get active" onclick="showMethod('GET')">GET</button>
+                <button class="method-tab post" onclick="showMethod('POST')">POST</button>
+                <button class="method-tab put" onclick="showMethod('PUT')">PUT</button>
+                <button class="method-tab delete" onclick="showMethod('DELETE')">DELETE</button>
+                <button class="method-tab patch" onclick="showMethod('PATCH')">PATCH</button>
+                <div class="status-display">Select a request method</div>
+            </div>
+
+            <div class="visualization">
+                <div class="step-indicator">
+                    <div class="step-dot" title="Prepare Request"></div>
+                    <div class="step-dot" title="Send Request"></div>
+                    <div class="step-dot" title="Server Processing"></div>
+                    <div class="step-dot" title="Send Response"></div>
+                    <div class="step-dot" title="Complete"></div>
+                </div>
+                <div class="client">
+                    <h3>Client</h3>
+                    <p>Browser/App</p>
+                </div>
+                <div class="server">
+                    <h3>Server</h3>
+                    <p>api.example.com</p>
+                </div>
+                <div class="request-packet"></div>
+                <div class="response-code"></div>
+                <div class="step-description"></div>
+            </div>
+
+            <div class="controls">
+                <button class="control-button" id="prevBtn" onclick="prevStep()" disabled>Previous</button>
+                <button class="control-button" id="nextBtn" onclick="nextStep()">Next Step</button>
+                <button class="control-button" id="resetBtn" onclick="resetAnimation()">Reset</button>
+            </div>
+
+            <div class="explanation">
+                <h2>Request Details</h2>
+                <div id="methodExplanation"></div>
+                <div class="code-block" id="requestExample"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.section-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName + 'Section').classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.closest('.section-button').classList.add('active');
+        }
+
+        // Show overview section by default
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('overview');
+        });
+    </script>
+    <script src="http_requests.js"></script>
+</body>
+</html>

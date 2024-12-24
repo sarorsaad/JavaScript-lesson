@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synchronous vs Asynchronous Operations</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .lesson-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .code-block {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        .section-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        .section-button {
+            padding: 10px 15px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #333;
+            font-weight: 500;
+        }
+        .section-button:hover {
+            background-color: #e0e0e0;
+        }
+        .section-button.active {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #45a049;
+        }
+        .arabic {
+            color: #666;
+            font-size: 0.9em;
+            margin-right: 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .main-tabs {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 20px;
+        }
+        .main-tab {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #333;
+            font-weight: 500;
+        }
+        .main-tab:hover {
+            background-color: #e0e0e0;
+        }
+        .main-tab.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .main-content {
+            display: none;
+        }
+        .main-content.active {
+            display: block;
+        }
+        .subsection {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .sync-section {
+            display: none;
+        }
+        .sync-section.active {
+            display: block;
+        }
+        .async-section {
+            display: none;
+        }
+        .async-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <h1>"Synchronous" <span class="arabic">(التوالي)</span> vs "Asynchronous" <span class="arabic">(التوازي)</span> Operations in Web Development</h1>
+        
+        <div class="main-tabs">
+            <button class="main-tab active" onclick="switchMainTab('sync')">Synchronous Operations</button>
+            <button class="main-tab" onclick="switchMainTab('async')">Asynchronous Operations</button>
+        </div>
+
+        <!-- Synchronous Content -->
+        <div id="sync-content" class="main-content active">
+            <div class="section-buttons">
+                <button class="section-button active" onclick="showSyncSection(1)">Variables & Basic Ops</button>
+                <button class="section-button" onclick="showSyncSection(2)">Arrays & Objects</button>
+                <button class="section-button" onclick="showSyncSection(3)">Strings</button>
+                <button class="section-button" onclick="showSyncSection(4)">Control Flow</button>
+                <button class="section-button" onclick="showSyncSection(5)">Loops</button>
+                <button class="section-button" onclick="showSyncSection(6)">Functions</button>
+                <button class="section-button" onclick="showSyncSection(7)">DOM</button>
+            </div>
+
+            <div id="sync-section-1" class="sync-section active">
+                <div class="subsection">
+                    <h2>1. Variable Declarations and Basic Operations</h2>
+                    <div class="code-block" id="syncBasicOps"></div>
+                </div>
+            </div>
+
+            <div id="sync-section-2" class="sync-section">
+                <div class="subsection">
+                    <h2>2. Array and Object Manipulations</h2>
+                    <div class="code-block" id="syncArrayObject"></div>
+                </div>
+            </div>
+
+            <div id="sync-section-3" class="sync-section">
+                <div class="subsection">
+                    <h2>3. String Operations</h2>
+                    <div class="code-block" id="syncString"></div>
+                </div>
+            </div>
+
+            <div id="sync-section-4" class="sync-section">
+                <div class="subsection">
+                    <h2>4. Control Flow Operations</h2>
+                    <div class="code-block" id="syncControl"></div>
+                </div>
+            </div>
+
+            <div id="sync-section-5" class="sync-section">
+                <div class="subsection">
+                    <h2>5. Loop Operations</h2>
+                    <div class="code-block" id="syncLoop"></div>
+                </div>
+            </div>
+
+            <div id="sync-section-6" class="sync-section">
+                <div class="subsection">
+                    <h2>6. Function Definitions and Calls</h2>
+                    <div class="code-block" id="syncFunction"></div>
+                </div>
+            </div>
+
+            <div id="sync-section-7" class="sync-section">
+                <div class="subsection">
+                    <h2>7. DOM Manipulations</h2>
+                    <div class="code-block" id="syncDOM"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Asynchronous Content -->
+        <div id="async-content" class="main-content">
+            <div class="section-buttons">
+                <button class="section-button active" onclick="showAsyncSection(1)">API Calls</button>
+                <button class="section-button" onclick="showAsyncSection(2)">File Operations</button>
+                <button class="section-button" onclick="showAsyncSection(3)">Database</button>
+                <button class="section-button" onclick="showAsyncSection(4)">Timers</button>
+                <button class="section-button" onclick="showAsyncSection(5)">WebSocket</button>
+                <button class="section-button" onclick="showAsyncSection(6)">Best Practices</button>
+            </div>
+
+            <div id="async-section-1" class="async-section active">
+                <div class="subsection">
+                    <h2>1. API Calls (HTTP Requests)</h2>
+                    <div class="code-block" id="asyncAPI"></div>
+                </div>
+            </div>
+
+            <div id="async-section-2" class="async-section">
+                <div class="subsection">
+                    <h2>2. File Operations</h2>
+                    <div class="code-block" id="asyncFile"></div>
+                </div>
+            </div>
+
+            <div id="async-section-3" class="async-section">
+                <div class="subsection">
+                    <h2>3. Database Operations</h2>
+                    <div class="code-block" id="asyncDB"></div>
+                </div>
+            </div>
+
+            <div id="async-section-4" class="async-section">
+                <div class="subsection">
+                    <h2>4. Timer Operations</h2>
+                    <div class="code-block" id="asyncTimer"></div>
+                </div>
+            </div>
+
+            <div id="async-section-5" class="async-section">
+                <div class="subsection">
+                    <h2>5. WebSocket Operations</h2>
+                    <div class="code-block" id="asyncWebSocket"></div>
+                </div>
+            </div>
+
+            <div id="async-section-6" class="async-section">
+                <div class="subsection">
+                    <h2>6. Best Practices</h2>
+                    <div class="code-block" id="asyncBestPractices"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="sync_vs_async.js"></script>
+</body>
+</html>
