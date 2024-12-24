@@ -1,0 +1,41 @@
+.nav-bar {
+    background-color: #20232a;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.back-home {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #61dafb;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.back-home:hover {
+    color: #ffffff;
+}
+
+.back-home i {
+    font-size: 1.2rem;
+}
+
+.page-title {
+    color: #ffffff;
+    margin: 0;
+    font-size: 1.2rem;
+}
