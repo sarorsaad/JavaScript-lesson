@@ -102,7 +102,7 @@ Contains quiz files for each topic:
 ## Quick Start Guide
 
 1. **New Topic**:
-   ```
+   ```markdown
    1. Create image files in 00xximg/
    2. Create lesson file in 00xxcode/
    3. Create quiz in 00xxquiz/
@@ -110,7 +110,7 @@ Contains quiz files for each topic:
    ```
 
 2. **Update Existing**:
-   ```
+   ```markdown
    1. Check related files in all directories
    2. Update content consistently
    3. Test all examples
@@ -118,7 +118,7 @@ Contains quiz files for each topic:
    ```
 
 3. **Presentation**:
-   ```
+   ```markdown
    1. Open relevant images
    2. Load code examples
    3. Prepare quiz

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript & React Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../quiz.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../0JScode/1 basic/8 fundamentals_module/fundamentals_module.html" class="home-link">
+            <i class="fas fa-arrow-left"></i> Back to Lesson
+        </a>
+        <h1>JavaScript & React Quiz</h1>
+        
+        <div id="quiz">
+            <h2>Question <span id="question-number">1</span></h2>
+            <p id="question-text"></p>
+            <div id="options"></div>
+            <button id="submit-btn" disabled>Submit Answer</button>
+            <button id="next-btn" style="display: none;">Next Question</button>
+        </div>
+        
+        <div id="results" style="display: none;">
+            <h2>Quiz Complete!</h2>
+            <p>Your score: <span id="score">0</span> out of 10</p>
+            <button id="restart-btn">Try Again</button>
+        </div>
+    </div>
+
+    <script src="../quiz.js"></script>
+    <script>
+        const quizData = [
+            {
+                question: "Which keyword is used to declare a constant variable in JavaScript?",
+                options: ["var", "let", "const", "static"],
+                correct: 2
+            },
+            {
+                question: "What is the output of: console.log(typeof []);",
+                options: ["array", "object", "undefined", "null"],
+                correct: 1
+            },
+            {
+                question: "Which method is used to add elements to the end of an array?",
+                options: ["push()", "append()", "add()", "insert()"],
+                correct: 0
+            },
+            {
+                question: "What is the correct way to create a function in React?",
+                options: [
+                    "function MyComponent() { return <div>Hello</div>; }",
+                    "class MyComponent { render() { return <div>Hello</div>; } }",
+                    "const MyComponent = <div>Hello</div>;",
+                    "var MyComponent = function() { <div>Hello</div> }"
+                ],
+                correct: 0
+            },
+            {
+                question: "What hook is used to manage state in React functional components?",
+                options: ["useEffect", "useState", "useContext", "useReducer"],
+                correct: 1
+            },
+            {
+                question: "What is the purpose of props in React?",
+                options: [
+                    "To manage component state",
+                    "To handle side effects",
+                    "To pass data between components",
+                    "To create routing"
+                ],
+                correct: 2
+            },
+            {
+                question: "Which operator is used for object destructuring in JavaScript?",
+                options: ["=>", "...", "{}", "[]"],
+                correct: 2
+            },
+            {
+                question: "What is the purpose of the useEffect hook in React?",
+                options: [
+                    "To handle form submissions",
+                    "To manage side effects in components",
+                    "To create new components",
+                    "To style components"
+                ],
+                correct: 1
+            },
+            {
+                question: "What is the spread operator (...) used for?",
+                options: [
+                    "To create functions",
+                    "To spread elements of arrays/objects",
+                    "To declare variables",
+                    "To create loops"
+                ],
+                correct: 1
+            },
+            {
+                question: "How do you prevent default form submission in React?",
+                options: [
+                    "event.preventDefault()",
+                    "return false",
+                    "event.stopPropagation()",
+                    "event.stop()"
+                ],
+                correct: 0
+            }
+        ];
+        
+        // Initialize the quiz
+        loadQuestion();
+    </script>
+</body>
+</html>
