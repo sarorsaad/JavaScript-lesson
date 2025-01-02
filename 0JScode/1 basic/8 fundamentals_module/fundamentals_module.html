@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript & React Fundamentals</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f5f6fa;
+            --text-color: #2c3e50;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 2.5rem;
+        }
+
+        .home-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .home-link:hover {
+            background-color: #2980b9;
+        }
+
+        .home-link i {
+            margin-right: 8px;
+        }
+
+        .section {
+            display: none;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .code-block {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            font-family: 'Consolas', monospace;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .demo-section {
+            background: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+
+        .demo-container {
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .demo-output {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            min-height: 100px;
+            font-family: 'Consolas', monospace;
+        }
+
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 0 5px 5px 0;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .navigation button {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .navigation button.active {
+            background-color: #2980b9;
+        }
+
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        code {
+            font-family: 'Consolas', monospace;
+        }
+
+        .learning-goals {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .exercise-section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .quiz-link {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .btn-quiz {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-quiz:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../0 home.html" class="home-link">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+        
+        <h1>JavaScript & React Fundamentals</h1>
+
+        <div class="navigation">
+            <button onclick="showSection(1)" id="btn1">Introduction</button>
+            <button onclick="showSection(2)" id="btn2">JavaScript Basics</button>
+            <button onclick="showSection(3)" id="btn3">React Fundamentals</button>
+            <button onclick="showSection(4)" id="btn4">Interactive Examples</button>
+            <button onclick="showSection(5)" id="btn5">Practice Exercises</button>
+        </div>
+
+        <div id="section1" class="section active">
+            <h2>Introduction</h2>
+            <p>Welcome to the JavaScript and React Fundamentals module! This interactive lesson will guide you through the basics of JavaScript programming and React development.</p>
+            
+            <div class="learning-goals">
+                <h3>Learning Objectives</h3>
+                <ul>
+                    <li>Understand core JavaScript concepts and syntax</li>
+                    <li>Learn React fundamentals and component-based architecture</li>
+                    <li>Practice with interactive code examples</li>
+                    <li>Build confidence through hands-on exercises</li>
+                </ul>
+            </div>
+
+            <div class="code-block">
+                <h3>What You'll Learn</h3>
+                <pre><code class="language-javascript">// JavaScript Fundamentals
+const jsTopics = [
+    'Variables & Data Types',
+    'Functions & Scope',
+    'Objects & Arrays',
+    'Modern ES6+ Features'
+];
+
+// React Basics
+const reactTopics = {
+    components: 'Building blocks of React apps',
+    state: 'Managing component data',
+    props: 'Passing data between components',
+    hooks: 'Adding functionality to components'
+};</code></pre>
+            </div>
+        </div>
+
+        <div id="section2" class="section">
+            <h2>JavaScript Basics</h2>
+            
+            <div class="demo-section">
+                <h3>1. Variables and Data Types</h3>
+                <p>JavaScript uses <code>let</code>, <code>const</code>, and <code>var</code> for declaring variables. Each has its own scope and use cases.</p>
+                
+                <div class="code-block">
+                    <button onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-javascript">// Variable declarations
+const name = "John";  // Cannot be reassigned
+let age = 25;        // Can be reassigned
+var hobby = "coding"; // Function-scoped (avoid using)
+
+// Data types
+const string = "Hello";
+const number = 42;
+const boolean = true;
+const array = [1, 2, 3];
+const object = { key: "value" };</code></pre>
+                </div>
+
+                <div class="demo-container">
+                    <h4>Try it yourself:</h4>
+                    <button onclick="runVariablesDemo()">Run Demo</button>
+                    <div id="variablesOutput" class="demo-output"></div>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h3>2. Functions</h3>
+                <p>Functions are reusable blocks of code that can accept parameters and return values.</p>
+
+                <div class="code-block">
+                    <button onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-javascript">// Function declaration
+function greet(name) {
+    return `Hello, ${name}!`;
+}
+
+// Arrow function
+const multiply = (a, b) => a * b;
+
+// Function with default parameter
+const welcome = (name = "Guest") => `Welcome, ${name}!`;</code></pre>
+                </div>
+
+                <div class="demo-container">
+                    <h4>Try it yourself:</h4>
+                    <button onclick="runFunctionsDemo()">Run Demo</button>
+                    <div id="functionsOutput" class="demo-output"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="section3" class="section">
+            <h2>React Fundamentals</h2>
+            
+            <div class="demo-section">
+                <h3>1. Components</h3>
+                <p>React applications are built using components - reusable pieces of UI that manage their own content, presentation, and behavior.</p>
+
+                <div class="code-block">
+                    <pre><code class="language-javascript">// Function Component
+function Greeting({ name }) {
+    return <h1>Hello, {name}!</h1>;
+}
+
+// Component with State
+function Counter() {
+    const [count, setCount] = React.useState(0);
+    
+    return (
+        <div>
+            <p>Count: {count}</p>
+            <button onClick={() => setCount(count + 1)}>
+                Increment
+            </button>
+        </div>
+    );
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h3>2. Props and State</h3>
+                <p>Props are used to pass data between components, while state manages data within a component.</p>
+
+                <div class="code-block">
+                    <pre><code class="language-javascript">// Props Example
+function UserCard({ name, email }) {
+    return (
+        <div className="card">
+            <h3>{name}</h3>
+            <p>{email}</p>
+        </div>
+    );
+}
+
+// State Example
+function ToggleButton() {
+    const [isOn, setIsOn] = React.useState(false);
+    
+    return (
+        <button onClick={() => setIsOn(!isOn)}>
+            {isOn ? 'ON' : 'OFF'}
+        </button>
+    );
+}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div id="section4" class="section">
+            <h2>Interactive Examples</h2>
+            
+            <div class="demo-section">
+                <h3>JavaScript Playground</h3>
+                <p>Try out different JavaScript concepts:</p>
+                
+                <div class="code-block">
+                    <button onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-javascript">// Example 1: Array Methods
+const numbers = [1, 2, 3, 4, 5];
+const doubled = numbers.map(n => n * 2);
+const sum = numbers.reduce((a, b) => a + b, 0);
+
+// Example 2: Object Manipulation
+const user = {
+    name: 'Alice',
+    age: 25
+};
+const { name, age } = user; // Destructuring</code></pre>
+                </div>
+
+                <div class="demo-container">
+                    <button onclick="runJavaScriptDemo()">Run JavaScript Demo</button>
+                    <div id="jsOutput" class="demo-output"></div>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h3>React Component Demo</h3>
+                <p>See how React components work:</p>
+                
+                <div class="code-block">
+                    <button onclick="copyCode(this)">Copy</button>
+                    <pre><code class="language-javascript">function App() {
+    const [message, setMessage] = React.useState('');
+    
+    return (
+        <div>
+            <input 
+                value={message}
+                onChange={e => setMessage(e.target.value)}
+            />
+            <p>You typed: {message}</p>
+        </div>
+    );
+}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div id="section5" class="section">
+            <h2>Practice Exercises</h2>
+            
+            <div class="exercise-section">
+                <h3>Exercise 1: JavaScript Basics</h3>
+                <p>Create a function that takes an array of numbers and returns the sum of all even numbers.</p>
+                
+                <div class="code-block">
+                    <pre><code class="language-javascript">function sumEvenNumbers(numbers) {
+    // Your code here
+}</code></pre>
+                </div>
+
+                <div class="demo-container">
+                    <button onclick="checkExercise1()">Test Your Solution</button>
+                    <div id="exercise1Output" class="demo-output"></div>
+                </div>
+            </div>
+
+            <div class="exercise-section">
+                <h3>Exercise 2: React Components</h3>
+                <p>Create a TodoList component that allows adding and removing items.</p>
+                
+                <div class="code-block">
+                    <pre><code class="language-javascript">function TodoList() {
+    // Your code here
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="quiz-link">
+                <h3>Ready to Test Your Knowledge?</h3>
+                <p>Take the quiz to check your understanding:</p>
+                <a href="../../../00xxquiz/js_fundamentals_react_quiz.html" class="btn btn-quiz">Take Quiz</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
+    <script>
+        // Navigation
+        function showSection(sectionNumber) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(`section${sectionNumber}`).classList.add('active');
+            
+            document.querySelectorAll('.navigation button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.getElementById(`btn${sectionNumber}`).classList.add('active');
+        }
+
+        // Code block copy functionality
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const textArea = document.createElement('textarea');
+            textArea.value = codeBlock.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 2000);
+        }
+
+        // Interactive demos
+        function runVariablesDemo() {
+            const output = document.getElementById('variablesOutput');
+            output.innerHTML = '';
+
+            try {
+                // Demonstrate variable declarations and data types
+                const name = "John";
+                let age = 25;
+                const numbers = [1, 2, 3];
+                const person = { name: "Alice", age: 30 };
+
+                output.innerHTML += `<strong>Variable Declarations:</strong><br>`;
+                output.innerHTML += `const name = "${name}"<br>`;
+                output.innerHTML += `let age = ${age}<br>`;
+                output.innerHTML += `const numbers = [${numbers}]<br>`;
+                output.innerHTML += `const person = ${JSON.stringify(person, null, 2)}<br>`;
+
+                // Demonstrate variable reassignment
+                age = 26;
+                output.innerHTML += `<br><strong>After reassignment:</strong><br>`;
+                output.innerHTML += `age = ${age}<br>`;
+                output.innerHTML += `name = "${name}" (const cannot be reassigned)`;
+            } catch (error) {
+                output.innerHTML = `<span style="color: red">Error: ${error.message}</span>`;
+            }
+        }
+
+        function runFunctionsDemo() {
+            const output = document.getElementById('functionsOutput');
+            output.innerHTML = '';
+
+            try {
+                // Regular function
+                function greet(name) {
+                    return `Hello, ${name}!`;
+                }
+
+                // Arrow function
+                const multiply = (a, b) => a * b;
+
+                // Function with default parameter
+                const welcome = (name = "Guest") => `Welcome, ${name}!`;
+
+                output.innerHTML += `<strong>Regular Function:</strong><br>`;
+                output.innerHTML += `greet("John") → ${greet("John")}<br><br>`;
+                
+                output.innerHTML += `<strong>Arrow Function:</strong><br>`;
+                output.innerHTML += `multiply(5, 3) → ${multiply(5, 3)}<br><br>`;
+                
+                output.innerHTML += `<strong>Default Parameter:</strong><br>`;
+                output.innerHTML += `welcome() → ${welcome()}<br>`;
+                output.innerHTML += `welcome("Alice") → ${welcome("Alice")}`;
+            } catch (error) {
+                output.innerHTML = `<span style="color: red">Error: ${error.message}</span>`;
+            }
+        }
+
+        function runJavaScriptDemo() {
+            const output = document.getElementById('jsOutput');
+            output.innerHTML = '';
+
+            try {
+                // Array methods demo
+                const numbers = [1, 2, 3, 4, 5];
+                const doubled = numbers.map(n => n * 2);
+                const sum = numbers.reduce((a, b) => a + b, 0);
+                const evenNumbers = numbers.filter(n => n % 2 === 0);
+
+                output.innerHTML += `<strong>Array Methods:</strong><br>`;
+                output.innerHTML += `Original array: [${numbers}]<br>`;
+                output.innerHTML += `map(n => n * 2): [${doubled}]<br>`;
+                output.innerHTML += `reduce((a, b) => a + b, 0): ${sum}<br>`;
+                output.innerHTML += `filter(n => n % 2 === 0): [${evenNumbers}]<br><br>`;
+
+                // Object manipulation demo
+                const user = {
+                    name: 'Alice',
+                    age: 25,
+                    role: 'Developer'
+                };
+                const { name, age, role } = user;
+
+                output.innerHTML += `<strong>Object Destructuring:</strong><br>`;
+                output.innerHTML += `const { name, age, role } = user;<br>`;
+                output.innerHTML += `name: ${name}<br>`;
+                output.innerHTML += `age: ${age}<br>`;
+                output.innerHTML += `role: ${role}`;
+            } catch (error) {
+                output.innerHTML = `<span style="color: red">Error: ${error.message}</span>`;
+            }
+        }
+
+        function checkExercise1() {
+            const output = document.getElementById('exercise1Output');
+            output.innerHTML = '';
+
+            try {
+                // Implementation of sumEvenNumbers for testing
+                function sumEvenNumbers(numbers) {
+                    return numbers
+                        .filter(num => num % 2 === 0)
+                        .reduce((sum, num) => sum + num, 0);
+                }
+
+                const numbers = [1, 2, 3, 4, 5, 6];
+                const result = sumEvenNumbers(numbers);
+                
+                output.innerHTML = `<strong>Test Case:</strong> [${numbers}]<br><br>`;
+                if (result === 12) {
+                    output.innerHTML += `✅ Correct!<br>`;
+                    output.innerHTML += `Sum of even numbers (2 + 4 + 6) = ${result}`;
+                } else {
+                    output.innerHTML += `❌ Try again.<br>`;
+                    output.innerHTML += `Expected: 12, got: ${result}`;
+                }
+            } catch (error) {
+                output.innerHTML = `<span style="color: red">Error: ${error.message}</span>`;
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('btn1').classList.add('active');
+            Prism.highlightAll();
+        });
+    </script>
+</body>
+</html>
