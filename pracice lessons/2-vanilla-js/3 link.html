@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanilla JS Link</title>
+    <style>
+        .link-container {
+            max-width: 300px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        .title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .link {
+            display: block;
+            background-color: #e6f3ff;
+            padding: 10px;
+            text-decoration: none;
+            color: #0066cc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .link:hover {
+            background-color: #cce6ff;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        const linkData = {
+            title: 'Do you like it?',
+            linkText: 'yes, take me there ?'
+        };
+
+        function createLink() {
+            const container = document.createElement('div');
+            container.className = 'link-container';
+
+            const title = document.createElement('h1');
+            title.className = 'title';
+            title.textContent = linkData.title;
+
+            const link = document.createElement('a');
+            link.href = '#';
+            link.className = 'link';
+            link.textContent = linkData.linkText;
+            
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('Link clicked!');
+            });
+
+            container.appendChild(title);
+            container.appendChild(link);
+            
+            return container;
+        }
+
+        document.getElementById('app').appendChild(createLink());
+    </script>
+</body>
+</html>

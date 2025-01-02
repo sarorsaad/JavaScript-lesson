@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Request Flow Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .visualization {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+            position: relative;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .client-side, .server-side {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: white;
+            margin: 0 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .system-image {
+            width: 150px;
+            height: 150px;
+            margin: 10px auto;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .client-image {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23007bff" d="M20,18c1.1,0,2-0.9,2-2V6c0-1.1-0.9-2-2-2H4C2.9,4,2,4.9,2,6v10c0,1.1,0.9,2,2,2H0v2h24v-2H20z M4,6h16v10H4V6z"/></svg>');
+        }
+        .server-image {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23007bff" d="M20,2H4C2.9,2,2,2.9,2,4v16c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V4C22,2.9,21.1,2,20,2z M20,20H4V4h16V20z M6,6h12v2H6V6z M6,11h12v2H6V11z M6,16h12v2H6V16z"/></svg>');
+        }
+        .step {
+            cursor: pointer;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            opacity: 0.5;
+        }
+        .step.available {
+            opacity: 1;
+            border: 2px solid #ccc;
+        }
+        .step.active {
+            border-color: #28a745;
+            background-color: #f8f9fa;
+            opacity: 1;
+        }
+        .step:not(.available) {
+            cursor: not-allowed;
+        }
+        .step.completed {
+            border-color: #28a745;
+            background-color: #e8f5e9;
+            opacity: 1;
+        }
+        .code-section {
+            display: none;
+            margin-top: 10px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            text-align: left;
+        }
+        .code-section.active {
+            display: block;
+        }
+        .arrow-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 0.2;
+        }
+        .arrow-right, .arrow-left {
+            width: 100%;
+            height: 2px;
+            background-color: #007bff;
+            position: relative;
+            margin: 10px 0;
+        }
+        .arrow-right::after, .arrow-left::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+        }
+        .arrow-right::after {
+            right: -6px;
+            border-left: 6px solid #007bff;
+        }
+        .arrow-left::after {
+            left: -6px;
+            border-right: 6px solid #007bff;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        #response-display {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>API Request Flow Visualization</h1>
+        
+        <div class="visualization">
+            <div class="client-side">
+                <div class="system-image client-image"></div>
+                <h3>Client</h3>
+                <div class="step available" data-step="1">
+                    <div class="step-number">1</div>
+                    <div>Create Request</div>
+                    <div class="code-section" id="code-1">
+                        let request = new XMLHttpRequest();
+                    </div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div>Configure Request</div>
+                    <div class="code-section" id="code-2">
+                        request.open("GET", "https://jsonplaceholder.typicode.com/posts");
+                        request.responseType = "json";
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow-container">
+                <div class="arrow-right"></div>
+                <div>Request →</div>
+                <div class="arrow-left"></div>
+                <div>← Response</div>
+            </div>
+
+            <div class="server-side">
+                <div class="system-image server-image"></div>
+                <h3>Server</h3>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div>Process Request</div>
+                    <div class="code-section" id="code-3">
+                        // Server processes the request
+                        // Returns JSON data
+                    </div>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div>Send Response</div>
+                    <div class="code-section" id="code-4">
+                        request.onload = function() {
+                            let posts = request.response;
+                            console.log(posts);
+                        };
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn" id="resetDemo">Reset Demo</button>
+        <div id="response-display"></div>
+    </div>
+
+    <script>
+        const steps = document.querySelectorAll('.step');
+        const responseDisplay = document.querySelector('#response-display');
+        let currentStep = 1;
+        let request;
+
+        // Initialize the first step
+        document.querySelector(`[data-step="1"]`).classList.add('available');
+
+        function showCodeSection(step) {
+            // Hide all code sections
+            document.querySelectorAll('.code-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show clicked step's code section
+            const codeSection = step.querySelector('.code-section');
+            codeSection.classList.add('active');
+        }
+
+        async function processStep(stepNumber) {
+            const step = document.querySelector(`[data-step="${stepNumber}"]`);
+            
+            if (!step.classList.contains('available')) {
+                return;
+            }
+
+            // Mark current step as active and show its code
+            step.classList.add('active');
+            showCodeSection(step);
+
+            // Execute step-specific actions
+            switch(stepNumber) {
+                case 1:
+                    request = new XMLHttpRequest();
+                    break;
+                case 2:
+                    request.open("GET", "https://jsonplaceholder.typicode.com/posts");
+                    request.responseType = "json";
+                    break;
+                case 3:
+                    request.send();
+                    break;
+                case 4:
+                    request.onload = function() {
+                        let posts = request.response;
+                        responseDisplay.innerHTML = `<strong>Response received!</strong><br>
+                        First post:<br>
+                        <pre>${JSON.stringify(posts[0], null, 2)}</pre>`;
+                    };
+                    break;
+            }
+
+            // Wait a moment for visual effect
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            // Mark step as completed and make next step available
+            step.classList.remove('active');
+            step.classList.add('completed');
+            
+            if (stepNumber < 4) {
+                const nextStep = document.querySelector(`[data-step="${stepNumber + 1}"]`);
+                nextStep.classList.add('available');
+                currentStep = stepNumber + 1;
+            }
+        }
+
+        // Add click handlers to steps
+        steps.forEach(step => {
+            step.addEventListener('click', () => {
+                const stepNumber = parseInt(step.dataset.step);
+                if (stepNumber === currentStep) {
+                    processStep(stepNumber);
+                }
+            });
+        });
+
+        // Reset functionality
+        document.getElementById('resetDemo').addEventListener('click', () => {
+            // Reset all steps
+            steps.forEach(step => {
+                step.classList.remove('active', 'completed', 'available');
+                step.querySelector('.code-section').classList.remove('active');
+            });
+            
+            // Reset first step
+            document.querySelector('[data-step="1"]').classList.add('available');
+            currentStep = 1;
+            
+            // Clear response display
+            responseDisplay.innerHTML = '';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding REST APIs</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #3b82f6;
+            --text-color: #1f2937;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            scroll-margin-top: 100px; /* Adds margin for smooth scrolling */
+        }
+
+        .example-box {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .interactive-demo {
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: var(--secondary-color);
+        }
+
+        .response-display {
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            min-height: 100px;
+        }
+
+        .method-tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .get { background: #22c55e; color: white; }
+        .post { background: #3b82f6; color: white; }
+        .put { background: #f59e0b; color: white; }
+        .delete { background: #ef4444; color: white; }
+
+        .api-diagram {
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+            display: block;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tab {
+            padding: 0.5rem 1rem;
+            background: #e2e8f0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Navigation Styles */
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 1rem;
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .nav-button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-button.active {
+            background: var(--secondary-color);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            transform: translateY(1px);
+        }
+
+        .external-link-button {
+            background: #10b981; /* Different color to distinguish external links */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-align: center;
+            min-width: 200px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .external-link-button:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .external-link-button::after {
+            content: "↗";
+            font-size: 1.2em;
+        }
+
+        .key-concepts {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .concept-card {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-box {
+            margin-top: 1rem;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .concept-item {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Understanding REST APIs</h1>
+        
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons">
+            <button class="nav-button" onclick="scrollToSection('what-is-rest')">What is a REST API?</button>
+            <button class="nav-button" onclick="scrollToSection('rest-methods')">REST API Methods</button>
+            <button class="nav-button" onclick="scrollToSection('try-it')">Try It Yourself</button>
+            <button class="nav-button" onclick="scrollToSection('best-practices')">Best Practices</button>
+            <a href="https://www.altexsoft.com/blog/rest-api-design/" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="external-link-button">
+                REST API Design Guide
+            </a>
+            <a href="https://www.testmanagement.com/blog/2020/06/what-is-a-rest-api" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="external-link-button">
+                REST API Testing Guide
+            </a>
+        </div>
+
+        <div id="what-is-rest" class="section">
+            <h2>What is a REST API?</h2>
+            <p>REST (REpresentational State Transfer) is fundamentally about two key concepts:</p>
+            
+            <div class="key-concepts">
+                <div class="concept-card">
+                    <h3>1. REpresentational</h3>
+                    <div class="info-box">
+                        <p>Resources should be available in different formats (representations) based on client needs:</p>
+                        <ul>
+                            <li>Same resource can be represented in different formats (XML, JSON, HTML)</li>
+                            <li>Client specifies desired format using Accept header</li>
+                            <li>Flexibility to serve different client needs</li>
+                        </ul>
+                        <div class="example-box">
+                            <h4>Example:</h4>
+                            <pre class="code-block">
+GET /api/users/1
+Accept: application/json
+
+// Or request the same resource in XML
+GET /api/users/1
+Accept: application/xml</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>2. State Transfer</h3>
+                    <div class="info-box">
+                        <p>Client is responsible for maintaining application state:</p>
+                        <ul>
+                            <li>Server remains stateless</li>
+                            <li>Client sends state information with each request</li>
+                            <li>Improves scalability (server doesn't store session state)</li>
+                        </ul>
+                        <div class="example-box">
+                            <h4>Example:</h4>
+                            <pre class="code-block">
+GET /api/orders
+Authorization: Bearer {jwt_token}
+User-Preferences: currency=USD,timezone=UTC</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="basic-concepts">
+                <h3>Basic HTTP Concepts</h3>
+                <div class="concept-grid">
+                    <div class="concept-item">
+                        <h4>1. URL (Universal Resource Locator)</h4>
+                        <p>Identifies the location of a resource on the server</p>
+                        <div class="example-box">
+                            <code>https://api.example.com/users/123</code>
+                            <p>The 'R' in URL stands for 'Resource' - what you want to access</p>
+                        </div>
+                    </div>
+
+                    <div class="concept-item">
+                        <h4>2. Headers</h4>
+                        <p>Key-value pairs carrying metadata about the request/response</p>
+                        <div class="example-box">
+                            <pre>
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer token123</pre>
+                        </div>
+                    </div>
+
+                    <div class="concept-item">
+                        <h4>3. Method</h4>
+                        <p>Specifies the operation to perform on the resource</p>
+                        <div class="example-box">
+                            <ul>
+                                <li>GET - Retrieve a resource</li>
+                                <li>POST - Create a new resource</li>
+                                <li>PUT - Update an existing resource</li>
+                                <li>DELETE - Remove a resource</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="concept-item">
+                        <h4>4. Body</h4>
+                        <p>Optional data sent with the request (typically for POST/PUT)</p>
+                        <div class="example-box">
+                            <pre class="code-block">
+{
+    "name": "John Doe",
+    "email": "john@example.com"
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="rest-methods" class="section">
+            <h2>REST API Methods (CRUD Operations)</h2>
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('get')">GET</button>
+                <button class="tab" onclick="showTab('post')">POST</button>
+                <button class="tab" onclick="showTab('put')">PUT</button>
+                <button class="tab" onclick="showTab('delete')">DELETE</button>
+            </div>
+
+            <div id="get" class="tab-content active">
+                <span class="method-tag get">GET</span>
+                <p>Retrieves data from the server</p>
+                <div class="code-block">
+                    fetch('https://api.example.com/users/1')
+                        .then(response => response.json())
+                        .then(data => console.log(data));
+                </div>
+            </div>
+
+            <div id="post" class="tab-content">
+                <span class="method-tag post">POST</span>
+                <p>Creates new data on the server</p>
+                <div class="code-block">
+                    fetch('https://api.example.com/users', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: 'John Doe',
+                            email: 'john@example.com'
+                        })
+                    });
+                </div>
+            </div>
+
+            <div id="put" class="tab-content">
+                <span class="method-tag put">PUT</span>
+                <p>Updates existing data on the server</p>
+                <div class="code-block">
+                    fetch('https://api.example.com/users/1', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: 'John Updated',
+                            email: 'john.updated@example.com'
+                        })
+                    });
+                </div>
+            </div>
+
+            <div id="delete" class="tab-content">
+                <span class="method-tag delete">DELETE</span>
+                <p>Removes data from the server</p>
+                <div class="code-block">
+                    fetch('https://api.example.com/users/1', {
+                        method: 'DELETE'
+                    });
+                </div>
+            </div>
+        </div>
+
+        <div id="try-it" class="section">
+            <h2>Try It Yourself: JSONPlaceholder API Demo</h2>
+            <div class="interactive-demo">
+                <button onclick="fetchPosts()">Fetch Posts</button>
+                <button onclick="createPost()">Create Post</button>
+                <button onclick="updatePost()">Update Post</button>
+                <button onclick="deletePost()">Delete Post</button>
+                <div id="response" class="response-display">
+                    Response will appear here...
+                </div>
+            </div>
+        </div>
+
+        <div id="best-practices" class="section">
+            <h2>REST API Best Practices</h2>
+            <ul>
+                <li>Use nouns for endpoints (e.g., /users instead of /getUsers)</li>
+                <li>Use proper HTTP status codes (200 for success, 404 for not found, etc.)</li>
+                <li>Version your API (e.g., /api/v1/users)</li>
+                <li>Use pagination for large datasets</li>
+                <li>Implement proper error handling</li>
+                <li>Use HTTPS for security</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        function showTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Add active class to clicked tab
+            document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+        }
+
+        // Navigation function
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const navButtons = document.querySelectorAll('.nav-button');
+            
+            // Remove active class from all buttons
+            navButtons.forEach(button => button.classList.remove('active'));
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Smooth scroll to section
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Update active button on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.section');
+            const navButtons = document.querySelectorAll('.nav-button');
+            
+            sections.forEach((section, index) => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top <= 200) {
+                    navButtons.forEach(button => button.classList.remove('active'));
+                    navButtons[index].classList.add('active');
+                }
+            });
+        });
+
+        // API Demo Functions
+        const baseUrl = 'https://jsonplaceholder.typicode.com';
+        const responseDiv = document.getElementById('response');
+
+        async function fetchPosts() {
+            try {
+                const response = await fetch(`${baseUrl}/posts/1`);
+                const data = await response.json();
+                responseDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                responseDiv.innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        async function createPost() {
+            try {
+                const response = await fetch(`${baseUrl}/posts`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        title: 'New Post',
+                        body: 'This is a new post.',
+                        userId: 1
+                    })
+                });
+                const data = await response.json();
+                responseDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                responseDiv.innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        async function updatePost() {
+            try {
+                const response = await fetch(`${baseUrl}/posts/1`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        title: 'Updated Post',
+                        body: 'This post has been updated.',
+                        userId: 1
+                    })
+                });
+                const data = await response.json();
+                responseDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                responseDiv.innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        async function deletePost() {
+            try {
+                const response = await fetch(`${baseUrl}/posts/1`, {
+                    method: 'DELETE'
+                });
+                responseDiv.innerHTML = 'Post deleted successfully';
+            } catch (error) {
+                responseDiv.innerHTML = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>

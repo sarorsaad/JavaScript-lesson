@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درس JavaScript للمبتدئين</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .lesson-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
+        .navigation {
+            width: 300px;
+            background-color: #252526;
+            padding: 20px;
+            border-radius: 8px;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        .content {
+            flex: 1;
+            background-color: #252526;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .nav-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #2d2d2d;
+            border: 1px solid #3e3e3e;
+            color: #fff;
+            text-align: right;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: #3e3e3e;
+        }
+        .nav-button.active {
+            background-color: #0e639c;
+        }
+        .code-section {
+            background-color: #1e1e1e;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .code-title {
+            background-color: #2d2d2d;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-bottom: 1px solid #3e3e3e;
+        }
+        .code-content {
+            padding: 20px;
+            color: #d4d4d4;
+            font-family: 'Consolas', monospace;
+            line-height: 1.5;
+            direction: ltr;
+            white-space: pre;
+        }
+        .code-explanation {
+            background-color: #2d2d2d;
+            color: #9cdcfe;
+            padding: 15px 20px;
+            line-height: 1.6;
+            direction: rtl;
+        }
+        .code-explanation ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .code-explanation li {
+            margin: 8px 0;
+            position: relative;
+            padding-right: 20px;
+        }
+        .code-explanation li:before {
+            content: "•";
+            color: #569cd6;
+            position: absolute;
+            right: 0;
+        }
+        .keyword { color: #569cd6; }
+        .tag { color: #4ec9b0; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .bracket { color: #ffd700; }
+        .explanation {
+            background-color: #2d2d2d;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        .explanation ul {
+            margin: 0;
+            padding-right: 20px;
+        }
+        .explanation li {
+            margin: 5px 0;
+            color: #9cdcfe;
+        }
+        h1, h2 {
+            color: #fff;
+            border-bottom: 1px solid #3e3e3e;
+            padding-bottom: 10px;
+        }
+        .note {
+            background-color: #004d00;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            direction: rtl;
+        }
+        .note-title {
+            color: #fff;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            font-weight: bold;
+            border-bottom: 2px solid #006600;
+            padding-bottom: 8px;
+        }
+        .note-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .note-list li {
+            color: #fff;
+            margin: 12px 0;
+            padding-right: 25px;
+            position: relative;
+            line-height: 1.6;
+            font-size: 1.1em;
+        }
+        .note-list li:before {
+            content: "•";
+            color: #00ff00;
+            position: absolute;
+            right: 0;
+            font-size: 1.4em;
+            line-height: 1;
+        }
+        .note-list .method {
+            color: #00ff00;
+            font-family: 'Consolas', monospace;
+            padding: 2px 6px;
+            background-color: rgba(0, 255, 0, 0.1);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <nav class="navigation">
+            <button class="nav-button" onclick="showSection('intro')">مقدمة JavaScript</button>
+            <button class="nav-button" onclick="showSection('structure')">١. الهيكل الأساسي</button>
+            <button class="nav-button" onclick="showSection('general-notes')">٢. إنشاء العناصر</button>
+            <button class="nav-button" onclick="showSection('create-header')">٣. إنشاء العناصر (Create Header Elements)</button>
+            <button class="nav-button" onclick="showSection('elements')">٤. أمثلة العناصر</button>
+            <button class="nav-button" onclick="showSection('arrays')">٥. المصفوفات</button>
+            <button class="nav-button" onclick="showSection('events')">٦. معالجة الأحداث</button>
+        </nav>
+        
+        <main class="content">
+            <section id="intro">
+                <h1>شرح JavaScript مع HTML - البرمجة الديناميكية</h1>
+                <div class="explanation">
+                    سنتعلم في هذا الدرس كيفية استخدام JavaScript لإنشاء صفحات ويب تفاعلية
+                </div>
+            </section>
+
+            <section id="structure" style="display: none;">
+                <h2>١. الهيكل الأساسي للصفحة</h2>
+                <div class="code-section">
+                    <div class="code-title">١. الهيكل الأساسي للصفحة</div>
+                    <div class="code-content">
+<span class="tag">&lt;!DOCTYPE</span> <span class="keyword">html</span><span class="tag">&gt;</span>
+<span class="tag">&lt;html</span> <span class="keyword">lang</span>=<span class="string">"en"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;head&gt;</span>
+        <span class="tag">&lt;meta</span> <span class="keyword">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;meta</span> <span class="keyword">name</span>=<span class="string">"viewport"</span> 
+              <span class="keyword">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;title&gt;</span>Vanilla JS Example<span class="tag">&lt;/title&gt;</span>
+    <span class="tag">&lt;/head&gt;</span>
+    <span class="tag">&lt;body&gt;</span>
+        <span class="tag">&lt;div</span> <span class="keyword">id</span>=<span class="string">"app"</span><span class="tag">&gt;&lt;/div&gt;</span>
+        <span class="tag">&lt;script</span> <span class="keyword">src</span>=<span class="string">"script.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+    <span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></div>
+                    <div class="code-explanation">
+                        <ul>
+                            <li>نضع div مع id="app" ليكون نقطة البداية لتطبيقنا</li>
+                            <li>نربط ملف JavaScript الخارجي باستخدام وسم script</li>
+                            <li>نضع script في نهاية body لضمان تحميل كل العناصر</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="general-notes" style="display: none;">
+                <h2>٢. الخطوات الأساسية لإنشاء العناصر</h2>
+                <div class="note">
+                    <div class="note-title">الخطوات الأساسية لإنشاء وإضافة العناصر:</div>
+                    <ul class="note-list">
+                        <li>إنشاء العنصر باستخدام <span class="method">createElement</span></li>
+                        <li>تعيين الخصائص <span class="method">(class, id, etc)</span></li>
+                        <li>إضافة المحتوى <span class="method">(textContent)</span></li>
+                        <li>إضافة العنصر للصفحة <span class="method">(appendChild)</span></li>
+                    </ul>
+                </div>
+                <div class="code-section">
+                    <div class="code-title">مثال على إنشاء عنصر كامل</div>
+                    <div class="code-content">
+<span class="comment">// إنشاء العنصر</span>
+const div = document.createElement(<span class="string">'div'</span>);
+
+<span class="comment">// تعيين الخصائص</span>
+div.className = <span class="string">'container'</span>;
+div.id = <span class="string">'main-container'</span>;
+
+<span class="comment">// إضافة المحتوى</span>
+div.textContent = <span class="string">'مرحباً بكم'</span>;
+
+<span class="comment">// إضافة العنصر للصفحة</span>
+document.body.appendChild(div);</div>
+                    <div class="code-explanation">
+                        <ul>
+                            <li>مثال عملي يوضح كيفية إنشاء عنصر div جديد</li>
+                            <li>إضافة class و id للعنصر</li>
+                            <li>إضافة نص داخل العنصر</li>
+                            <li>إضافة العنصر إلى body الصفحة</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="create-header" style="display: none;">
+                <h2>٣. إنشاء العناصر (Create Header Elements)</h2>
+                <div class="code-section">
+                    <div class="code-title">إنشاء عناصر HTML</div>
+                    <div class="code-content">
+<span class="keyword">const</span> root = document.getElementById(<span class="string">"root"</span>);
+<span class="keyword">const</span> heading = document.createElement(<span class="string">"h1"</span>);
+heading.textContent = <span class="string">"hello world"</span>;
+root.appendChild(heading);
+
+<span class="keyword">const</span> para = document.createElement(<span class="string">"p"</span>);
+para.textContent = <span class="string">"this is create website with vanilla JS"</span>;
+root.appendChild(para);</div>
+                    <div class="code-explanation">
+                        <ul>
+                            <li>document.getElementById: الحصول على العنصر الرئيسي من HTML</li>
+                            <li>document.createElement: إنشاء عنصر HTML جديد</li>
+                            <li>textContent: تعيين النص داخل العنصر</li>
+                            <li>appendChild: إضافة العنصر الجديد إلى العنصر الرئيسي</li>
+                            <li>يمكن إنشاء أي عنصر HTML مثل h1, p, div, span</li>
+                            <li>يمكن تعديل خصائص العنصر مثل className, style</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="elements" style="display: none;">
+                <h2>٤. إنشاء عناصر HTML ديناميكياً</h2>
+                <div class="code-section">
+                    <div class="code-title">٤. إنشاء عناصر HTML ديناميكياً</div>
+                    <div class="code-content">const header = document.createElement(<span class="string">'header'</span>);
+header.className = <span class="string">'header'</span>;
+
+const title = document.createElement(<span class="string">'h1'</span>);
+title.textContent = this.title;
+
+header.appendChild(title);</div>
+                    <div class="code-explanation">
+                        <ul>
+                            <li>createElement: ينشئ عنصر HTML جديد</li>
+                            <li>className: يضيف class للتنسيق</li>
+                            <li>textContent: يضيف النص داخل العنصر</li>
+                            <li>appendChild: يضيف عنصر داخل عنصر آخر</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="arrays" style="display: none;">
+                <h2>٥. التعامل مع المصفوفات (Arrays)</h2>
+                <div class="code-section">
+                    <div class="code-title">٥. التعامل مع المصفوفات (Arrays)</div>
+                    <div class="code-content">const sections = [
+    { title: <span class="string">'القسم الأول'</span>, content: <span class="string">'المحتوى'</span> },
+    { title: <span class="string">'القسم الثاني'</span>, content: <span class="string">'المحتوى'</span> }
+];
+
+<span class="keyword">for</span> (<span class="keyword">const</span> section <span class="keyword">of</span> sections) {
+    const sectionDiv = document.createElement(<span class="string">'div'</span>);
+    <span class="comment">// ... إنشاء العناصر</span>
+}</div>
+                    <div class="code-explanation">
+                        <ul>
+                            <li>نعرّف مصفوفة تحتوي على كائنات (objects)</li>
+                            <li>نستخدم for...of للمرور على كل عنصر</li>
+                            <li>ننشئ العناصر ديناميكياً لكل قسم</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="events" style="display: none;">
+                <h2>٦. معالجة الأحداث (Events)</h2>
+                <div class="code-section">
+                    <div class="code-title">٦. معالجة الأحداث (Events)</div>
+                    <div class="code-content">link.addEventListener(<span class="string">'click'</span>, (e) => {
+    e.preventDefault();
+    console.log(<span class="string">'تم النقر على الرابط!'</span>);
+});</div>
+                    <div class="code-explanation">
+                        <ul>
+                            <li>addEventListener: يضيف مستمع للحدث</li>
+                            <li>e.preventDefault(): يمنع السلوك الافتراضي للرابط</li>
+                            <li>استخدام السهم => للدوال المجهولة</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('main section').forEach(section => {
+                section.style.display = 'none';
+            });
+            // Show selected section
+            document.getElementById(sectionId).style.display = 'block';
+            // Update active button
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`[onclick="showSection('${sectionId}')"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Attribute Binding Examples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .example {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .enabled {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .disabled {
+            background-color: #cccccc;
+            color: #666666;
+            cursor: not-allowed;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Understanding Attribute Binding</h1>
+    
+    <div class="example">
+        <h2>1. Basic Vanilla JavaScript Example</h2>
+        <button id="vanillaButton" class="button enabled">Click Me</button>
+        <p>Click the button to toggle its state</p>
+        <script>
+            const button = document.getElementById('vanillaButton');
+            let isEnabled = true;
+
+            button.addEventListener('click', function() {
+                isEnabled = !isEnabled;
+                
+                // Change the class attribute
+                button.className = `button ${isEnabled ? 'enabled' : 'disabled'}`;
+                
+                // Change the disabled attribute
+                button.disabled = !isEnabled;
+                
+                // Change the text content
+                button.textContent = isEnabled ? 'Click Me' : 'Disabled';
+            });
+        </script>
+    </div>
+
+    <div class="example">
+        <h2>2. Simple React-Style Example</h2>
+        <pre>
+// React example (for demonstration)
+function Button() {
+    const [isEnabled, setIsEnabled] = useState(true);
+
+    return (
+        &lt;button 
+            className={`button ${isEnabled ? 'enabled' : 'disabled'}`}
+            disabled={!isEnabled}
+            onClick={() => setIsEnabled(!isEnabled)}
+        &gt;
+            {isEnabled ? 'Click Me' : 'Disabled'}
+        &lt;/button&gt;
+    );
+}
+        </pre>
+    </div>
+
+    <div class="example">
+        <h3>What is Attribute Binding?</h3>
+        <ul>
+            <li>Attribute binding means connecting HTML attributes to your JavaScript variables</li>
+            <li>When the variable changes, the attribute automatically updates</li>
+            <li>Common attributes to bind:
+                <ul>
+                    <li><code>class</code> - for styling</li>
+                    <li><code>disabled</code> - for form controls</li>
+                    <li><code>src</code> - for images</li>
+                    <li><code>href</code> - for links</li>
+                    <li><code>value</code> - for input fields</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="example">
+        <h3>Key Differences Between Frameworks:</h3>
+        <table border="1" style="width: 100%; border-collapse: collapse;">
+            <tr>
+                <th>Framework</th>
+                <th>How to Bind</th>
+                <th>Example</th>
+            </tr>
+            <tr>
+                <td>Vanilla JS</td>
+                <td>Direct DOM manipulation</td>
+                <td><code>element.setAttribute('class', value)</code></td>
+            </tr>
+            <tr>
+                <td>React</td>
+                <td>JSX attributes</td>
+                <td><code>className={value}</code></td>
+            </tr>
+            <tr>
+                <td>Vue</td>
+                <td>v-bind directive</td>
+                <td><code>:class="value"</code></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

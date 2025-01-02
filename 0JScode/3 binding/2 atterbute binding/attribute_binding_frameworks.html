@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attribute Binding in Frameworks</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --warning-color: #e74c3c;
+            --background-color: #f0f2f5;
+            --text-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3 {
+            color: var(--text-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+
+        .framework-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+
+        .code-block {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-family: 'Consolas', monospace;
+            position: relative;
+        }
+
+        .code-header {
+            background: #21252b;
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 5px 5px 0 0;
+            font-size: 0.9em;
+        }
+
+        .example {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .note {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 16px;
+            color: #666;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .tab.active {
+            color: white;
+            background: var(--primary-color);
+        }
+
+        .tab:hover:not(.active) {
+            background: #e0e0e0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .feature-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+
+        .btn-disabled {
+            background-color: gray;
+        }
+        
+        .btn-active {
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Attribute Binding in Modern Web Frameworks</h1>
+
+        <div class="framework-section">
+            <h2>Vanilla JavaScript</h2>
+            <p>In vanilla JavaScript, attribute binding is done through direct DOM manipulation using methods like <code>setAttribute</code>, <code>getAttribute</code>, and <code>removeAttribute</code>.</p>
+            
+            <div class="example">
+                <div class="code-header">Basic Attribute Manipulation</div>
+                <div class="code-block">
+                    <pre>// Setting attributes
+const element = document.getElementById('myElement');
+element.setAttribute('data-value', '123');
+element.className = 'my-class';
+
+// Getting attributes
+const value = element.getAttribute('data-value');
+const classes = element.className;
+
+// Removing attributes
+element.removeAttribute('data-value');</pre>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Note:</strong> Vanilla JavaScript requires manual DOM updates and doesn't provide automatic data binding.
+            </div>
+        </div>
+
+        <div class="framework-section">
+            <h2>React</h2>
+            <p>React uses a declarative approach to attribute binding, where attributes are bound directly in JSX using curly braces <code>{}</code>.</p>
+
+            <div class="example">
+                <div class="code-header">React Component with Attribute Binding</div>
+                <div class="code-block">
+                    <pre>function MyComponent() {
+  const [isDisabled, setIsDisabled] = useState(false);
+  const buttonClass = isDisabled ? 'btn-disabled' : 'btn-active';
+
+  return (
+    <button 
+      disabled={isDisabled}
+      className={buttonClass}
+      data-testid="my-button"
+    >
+      Click Me
+    </button>
+  );
+}</pre>
+                </div>
+            </div>
+
+            <ul class="feature-list">
+                <li>Uses camelCase for attribute names (e.g., className instead of class)</li>
+                <li>Style objects use camelCase properties</li>
+                <li>Boolean attributes can be directly bound to variables</li>
+            </ul>
+        </div>
+
+        <div class="framework-section">
+            <h2>Next.js</h2>
+            <p>Next.js extends React's attribute binding with additional features for server-side rendering and optimization.</p>
+
+            <div class="example">
+                <div class="code-header">Next.js Component with Image Optimization</div>
+                <div class="code-block">
+                    <pre>import Image from 'next/image';
+import Link from 'next/link';
+
+export default function MyComponent() {
+  return (
+    <>
+      <Image
+        src="/my-image.jpg"
+        alt="Optimized Image"
+        width={500}
+        height={300}
+        priority={true}
+        loading="eager"
+      />
+      
+      <Link
+        href="/about"
+        className={styles.link}
+        prefetch={false}
+      >
+        About Page
+      </Link>
+    </>
+  );
+}</pre>
+                </div>
+            </div>
+
+            <ul class="feature-list">
+                <li>Automatic image optimization with the Image component</li>
+                <li>Built-in link prefetching control</li>
+                <li>Server-side rendering considerations for attributes</li>
+            </ul>
+        </div>
+
+        <div class="framework-section">
+            <h2>Vue.js</h2>
+            <p>Vue.js uses directives for attribute binding, with <code>v-bind</code> or its shorthand <code>:</code> syntax.</p>
+
+            <div class="example">
+                <div class="code-header">Vue.js Component with Various Bindings</div>
+                <div class="code-block">
+                    <pre>&lt;template&gt;
+  &lt;div&gt;
+    &lt;!-- Basic attribute binding --&gt;
+    &lt;img :src="imageUrl" :alt="imageAlt"&gt;
+
+    &lt;!-- Class binding --&gt;
+    &lt;div :class="{ active: isActive, 'text-danger': hasError }"&gt;
+      Content
+    &lt;/div&gt;
+
+    &lt;!-- Style binding --&gt;
+    &lt;div :style="{ color: activeColor, fontSize: fontSize + 'px' }"&gt;
+      Styled Content
+    &lt;/div&gt;
+
+    &lt;!-- Dynamic attribute name --&gt;
+    &lt;div :[attributeName]="attributeValue"&gt;
+      Dynamic Attribute
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  data() {
+    return {
+      imageUrl: '/path/to/image.jpg',
+      imageAlt: 'My Image',
+      isActive: true,
+      hasError: false,
+      activeColor: 'red',
+      fontSize: 16,
+      attributeName: 'data-custom',
+      attributeValue: 'value'
+    }
+  }
+}
+&lt;/script&gt;</pre>
+                </div>
+            </div>
+
+            <ul class="feature-list">
+                <li>Shorthand syntax with <code>:</code> instead of <code>v-bind:</code></li>
+                <li>Object syntax for class and style bindings</li>
+                <li>Dynamic attribute names with <code>:[attributeName]</code></li>
+            </ul>
+        </div>
+
+        <div class="framework-section">
+            <h2>Framework Comparison</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Vanilla JS</th>
+                        <th>React</th>
+                        <th>Next.js</th>
+                        <th>Vue.js</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Syntax</td>
+                        <td>setAttribute()</td>
+                        <td>property={value}</td>
+                        <td>property={value}</td>
+                        <td>:property="value"</td>
+                    </tr>
+                    <tr>
+                        <td>Class Binding</td>
+                        <td>className =</td>
+                        <td>className={}</td>
+                        <td>className={}</td>
+                        <td>:class={}</td>
+                    </tr>
+                    <tr>
+                        <td>Style Binding</td>
+                        <td>style.property =</td>
+                        <td>style={{}}</td>
+                        <td>style={{}}</td>
+                        <td>:style={}</td>
+                    </tr>
+                    <tr>
+                        <td>Dynamic Props</td>
+                        <td>Manual</td>
+                        <td>Spread operator</td>
+                        <td>Spread operator</td>
+                        <td>v-bind object</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -116,6 +116,426 @@
         .async-section.active {
             display: block;
         }
+        .api-definition {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #0066cc;
+        }
+        .info-card {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 15px;
+        }
+        .key-points, .example-box, .benefits {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 6px;
+            background: #f8f9fa;
+        }
+        .key-points {
+            border-left: 3px solid #28a745;
+        }
+        .example-box {
+            border-left: 3px solid #fd7e14;
+        }
+        .benefits {
+            border-left: 3px solid #6610f2;
+        }
+        .api-definition h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+        }
+        .api-definition h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .api-definition ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .api-definition ul li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .api-definition ul li:before {
+            content: "•";
+            color: #0066cc;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        .info-card p {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* API Styles Section Specific Styles */
+        .api-styles {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #6610f2;
+        }
+
+        .styles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .style-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .style-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .style-card h4 {
+            color: #6610f2;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+
+        .style-card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .style-card ul li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .style-card ul li:before {
+            content: "→";
+            color: #6610f2;
+            position: absolute;
+            left: 0;
+        }
+
+        .comparison-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 3px solid #6610f2;
+        }
+
+        .comparison-box h4 {
+            color: #6610f2;
+            margin-bottom: 15px;
+        }
+
+        .comparison-box ul li {
+            margin: 10px 0;
+        }
+
+        .comparison-box ul li strong {
+            color: #6610f2;
+        }
+
+        /* How APIs Work Section Styles */
+        .api-workflow {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .step-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-card h4 {
+            color: #28a745;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+
+        .step-card h5 {
+            color: #28a745;
+            margin: 10px 0;
+        }
+
+        .step-content ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .step-content ul li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .step-content ul li:before {
+            content: "→";
+            color: #28a745;
+            position: absolute;
+            left: 0;
+        }
+
+        .workflow-example {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 3px solid #28a745;
+        }
+
+        .workflow-diagram ol {
+            padding-left: 20px;
+        }
+
+        .workflow-diagram ol li {
+            margin: 10px 0;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        .workflow-diagram ol li:not(:last-child):after {
+            content: "↓";
+            color: #28a745;
+            position: absolute;
+            left: -15px;
+            bottom: -12px;
+        }
+
+        .components-list strong {
+            color: #28a745;
+        }
+
+        .api-types {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #6610f2;
+        }
+
+        .api-history {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #6610f2;
+        }
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .timeline-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .timeline-item h4 {
+            color: #6610f2;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+
+        .timeline-content ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .timeline-content ul li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .timeline-content ul li:before {
+            content: "→";
+            color: #6610f2;
+            position: absolute;
+            left: 0;
+        }
+
+        .api-use-cases {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #6610f2;
+        }
+
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .use-case-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .use-case-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .use-case-card h4 {
+            color: #6610f2;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+
+        .use-case-content ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .use-case-content ul li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .use-case-content ul li:before {
+            content: "→";
+            color: #6610f2;
+            position: absolute;
+            left: 0;
+        }
+
+        .examples-section {
+            margin: 20px 0;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .example-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .example-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .example-card h5 {
+            color: #6610f2;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+
+        .example-card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .example-card ul li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .example-card ul li:before {
+            content: "→";
+            color: #6610f2;
+            position: absolute;
+            left: 0;
+        }
+
+        .api-nav-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            justify-content: center;
+        }
+
+        .api-nav-button {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #6610f2;
+            border-radius: 25px;
+            color: #6610f2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .api-nav-button:hover, .api-nav-button.active {
+            background: #6610f2;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(102, 16, 242, 0.2);
+        }
+
+        .api-section {
+            display: none;
+        }
+
+        .api-section.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -203,46 +623,548 @@
             <div id="async-section-1" class="async-section active">
                 <div class="subsection">
                     <h2>1. API Calls (HTTP Requests)</h2>
-                    <div class="code-block" id="asyncAPI"></div>
-                </div>
-            </div>
+                    
+                    <!-- API Navigation Steps -->
+                    <div class="api-nav-steps">
+                        <button class="api-nav-button active" onclick="showApiSection('api-intro')">What is an API?</button>
+                        <button class="api-nav-button" onclick="showApiSection('api-styles')">API Styles</button>
+                        <button class="api-nav-button" onclick="showApiSection('api-workflow')">How APIs Work</button>
+                        <button class="api-nav-button" onclick="showApiSection('api-history')">History of APIs</button>
+                        <button class="api-nav-button" onclick="showApiSection('api-types')">Types of APIs</button>
+                        <button class="api-nav-button" onclick="showApiSection('api-use-cases')">Use Cases & Examples</button>
+                    </div>
 
-            <div id="async-section-2" class="async-section">
-                <div class="subsection">
-                    <h2>2. File Operations</h2>
-                    <div class="code-block" id="asyncFile"></div>
-                </div>
-            </div>
+                    <!-- API Definition Section -->
+                    <div id="api-intro" class="api-section active">
+                        <div class="api-definition">
+                            <h3>What is an API?</h3>
+                            <div class="info-card">
+                                <p><strong>API (Application Programming Interface)</strong> is a set of rules and protocols that enables software applications to communicate with each other.</p>
+                                
+                                <div class="key-points">
+                                    <h4>Key Concepts:</h4>
+                                    <ul>
+                                        <li><strong>Application:</strong> Any software with a distinct function</li>
+                                        <li><strong>Interface:</strong> A contract of service between two applications</li>
+                                        <li><strong>Protocol:</strong> Rules defining how applications communicate</li>
+                                    </ul>
+                                </div>
 
-            <div id="async-section-3" class="async-section">
-                <div class="subsection">
-                    <h2>3. Database Operations</h2>
-                    <div class="code-block" id="asyncDB"></div>
-                </div>
-            </div>
+                                <div class="example-box">
+                                    <h4>Real-World Example:</h4>
+                                    <p>Weather App Scenario:</p>
+                                    <ul>
+                                        <li>Weather bureau's system contains weather data</li>
+                                        <li>Your phone's weather app communicates with this system via APIs</li>
+                                        <li>The API delivers daily weather updates to your phone</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-            <div id="async-section-4" class="async-section">
-                <div class="subsection">
-                    <h2>4. Timer Operations</h2>
-                    <div class="code-block" id="asyncTimer"></div>
-                </div>
-            </div>
+                    <!-- API Styles Section -->
+                    <div id="api-styles" class="api-section">
+                        <div class="api-styles">
+                            <h3>API Styles and Architectures</h3>
+                            <div class="info-card">
+                                <p>APIs can be structured in various styles, each with unique characteristics and use cases. Choosing the right API style is crucial for system efficiency and user experience.</p>
 
-            <div id="async-section-5" class="async-section">
-                <div class="subsection">
-                    <h2>5. WebSocket Operations</h2>
-                    <div class="code-block" id="asyncWebSocket"></div>
-                </div>
-            </div>
+                                <div class="styles-grid">
+                                    <div class="style-card">
+                                        <h4>1. REST (Representational State Transfer)</h4>
+                                        <ul>
+                                            <li>Most popular for web APIs</li>
+                                            <li>Uses HTTP methods (GET, POST, PUT, DELETE)</li>
+                                            <li>Resources accessible via endpoints</li>
+                                            <li>Stateless architecture</li>
+                                        </ul>
+                                    </div>
 
-            <div id="async-section-6" class="async-section">
-                <div class="subsection">
-                    <h2>6. Best Practices</h2>
-                    <div class="code-block" id="asyncBestPractices"></div>
+                                    <div class="style-card">
+                                        <h4>2. SOAP (Simple Object Access Protocol)</h4>
+                                        <ul>
+                                            <li>XML-based messaging protocol</li>
+                                            <li>Strong security features</li>
+                                            <li>Used in enterprise environments</li>
+                                            <li>More structured but slower</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="style-card">
+                                        <h4>3. GraphQL</h4>
+                                        <ul>
+                                            <li>Query language for APIs</li>
+                                            <li>Single endpoint for all requests</li>
+                                            <li>Client specifies exact data needed</li>
+                                            <li>Reduces network requests</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="style-card">
+                                        <h4>4. gRPC</h4>
+                                        <ul>
+                                            <li>High-performance RPC framework</li>
+                                            <li>Uses HTTP/2 protocol</li>
+                                            <li>Ideal for microservices</li>
+                                            <li>Strong typing with Protocol Buffers</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="style-card">
+                                        <h4>5. WebSocket</h4>
+                                        <ul>
+                                            <li>Bidirectional communication</li>
+                                            <li>Real-time data exchange</li>
+                                            <li>Persistent connection</li>
+                                            <li>Ideal for live updates</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="comparison-box">
+                                    <h4>Choosing the Right Style</h4>
+                                    <ul>
+                                        <li><strong>REST:</strong> Best for public APIs and standard web services</li>
+                                        <li><strong>SOAP:</strong> Ideal for enterprise and high-security requirements</li>
+                                        <li><strong>GraphQL:</strong> Perfect for flexible data requirements and mobile apps</li>
+                                        <li><strong>gRPC:</strong> Great for microservices and high-performance systems</li>
+                                        <li><strong>WebSocket:</strong> Best for real-time applications and live data</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- API Workflow Section -->
+                    <div id="api-workflow" class="api-section">
+                        <div class="api-workflow">
+                            <h3>How APIs Work</h3>
+                            <div class="info-card">
+                                <p>APIs enable data sharing between applications through a request-response cycle. This process involves several key components working together seamlessly.</p>
+
+                                <div class="workflow-steps">
+                                    <div class="step-card">
+                                        <h4>1. API Client</h4>
+                                        <div class="step-content">
+                                            <ul>
+                                                <li>Initiates the communication</li>
+                                                <li>Sends requests to API server</li>
+                                                <li>Triggered by user actions or events</li>
+                                                <li>Handles response processing</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="step-card">
+                                        <h4>2. API Request</h4>
+                                        <div class="step-content">
+                                            <div class="components-list">
+                                                <h5>Key Components:</h5>
+                                                <ul>
+                                                    <li><strong>Endpoint:</strong> Dedicated URL for resource access</li>
+                                                    <li><strong>Method:</strong> Type of operation (GET, POST, etc.)</li>
+                                                    <li><strong>Parameters:</strong> Variables for specific instructions</li>
+                                                    <li><strong>Headers:</strong> Additional request information</li>
+                                                    <li><strong>Body:</strong> Main data payload</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="step-card">
+                                        <h4>3. API Server</h4>
+                                        <div class="step-content">
+                                            <ul>
+                                                <li>Processes incoming requests</li>
+                                                <li>Handles authentication</li>
+                                                <li>Validates input data</li>
+                                                <li>Performs requested operations</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="step-card">
+                                        <h4>4. API Response</h4>
+                                        <div class="step-content">
+                                            <div class="components-list">
+                                                <h5>Response Components:</h5>
+                                                <ul>
+                                                    <li><strong>Status Code:</strong> Result indicator (200 OK, 404 Not Found, etc.)</li>
+                                                    <li><strong>Headers:</strong> Additional response information</li>
+                                                    <li><strong>Body:</strong> Requested data or error message</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="example-box workflow-example">
+                                    <h4>Real-World Example: Payment Processing</h4>
+                                    <div class="workflow-diagram">
+                                        <ol>
+                                            <li>User clicks "Pay with PayPal" on an e-commerce site</li>
+                                            <li>Website sends API request to PayPal</li>
+                                            <li>PayPal processes the payment</li>
+                                            <li>PayPal sends response back to website</li>
+                                            <li>Website shows payment confirmation to user</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- API History Section -->
+                    <div id="api-history" class="api-section">
+                        <div class="api-history">
+                            <h3>History of APIs</h3>
+                            <div class="info-card">
+                                <p>The evolution of APIs has shaped modern software development. Here's a timeline of key developments:</p>
+                                
+                                <div class="timeline">
+                                    <div class="timeline-item">
+                                        <h4>Phase 1: Commercial APIs (Early 2000s)</h4>
+                                        <div class="timeline-content">
+                                            <p>The era of web APIs began with pioneering companies:</p>
+                                            <ul>
+                                                <li>Salesforce launched web API for enterprise integration</li>
+                                                <li>eBay introduced API for e-commerce integration</li>
+                                                <li>Amazon released API for product data access</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <h4>Phase 2: Social Media APIs (Mid-2000s)</h4>
+                                        <div class="timeline-content">
+                                            <p>Social platforms revolutionized information sharing:</p>
+                                            <ul>
+                                                <li>Flickr enabled photo sharing integration</li>
+                                                <li>Facebook API v1.0 launched in 2006</li>
+                                                <li>Twitter API enabled social media integration</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <h4>Phase 3: Cloud APIs (2006)</h4>
+                                        <div class="timeline-content">
+                                            <p>Cloud computing transformed infrastructure:</p>
+                                            <ul>
+                                                <li>Amazon S3 introduced cloud storage APIs</li>
+                                                <li>Amazon EC2 enabled cloud computing via APIs</li>
+                                                <li>Pay-as-you-go model revolutionized hosting</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <h4>Phase 4: Mobile APIs (2007-2010)</h4>
+                                        <div class="timeline-content">
+                                            <p>Mobile revolution drove API innovation:</p>
+                                            <ul>
+                                                <li>iPhone & Android launch sparked mobile API growth</li>
+                                                <li>Twilio pioneered API-as-a-product model</li>
+                                                <li>Instagram's API supported rapid platform growth</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="timeline-item">
+                                        <h4>Phase 5: IoT APIs (2010 onwards)</h4>
+                                        <div class="timeline-content">
+                                            <p>Connected devices expanded API usage:</p>
+                                            <ul>
+                                                <li>Fitbit, Nest, and Alexa APIs emerged</li>
+                                                <li>IoT devices connected via cloud APIs</li>
+                                                <li>APIs enabled smart home automation</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- API Types Section -->
+                    <div id="api-types" class="api-section">
+                        <div class="api-types">
+                            <h3>Types of APIs</h3>
+                            <div class="info-card">
+                                <p>APIs can be categorized in several ways. Here are the main types of APIs you'll encounter in web development:</p>
+                                
+                                <div class="style-card">
+                                    <h4>Based on Access Level</h4>
+                                    <ul>
+                                        <li><strong>Private APIs (Internal):</strong> Used within an organization, not accessible to external users.</li>
+                                        <li><strong>Public APIs:</strong> Available for public use, often with documentation and developer portals.</li>
+                                        <li><strong>Partner APIs:</strong> Restricted to specific business partners with proper authentication.</li>
+                                    </ul>
+                                </div>
+
+                                <div class="style-card">
+                                    <h4>Based on Use Case</h4>
+                                    <ul>
+                                        <li><strong>Data APIs:</strong> Connect applications with database management systems.</li>
+                                        <li><strong>Operating System APIs:</strong> Interface with OS services and resources.</li>
+                                        <li><strong>Remote APIs:</strong> Enable communication between different devices.</li>
+                                        <li><strong>Web APIs:</strong> Transfer data and functionality over HTTP protocol.</li>
+                                    </ul>
+                                </div>
+
+                                <div class="style-card">
+                                    <h4>Types of Web APIs</h4>
+                                    <ul>
+                                        <li><strong>Open APIs:</strong> Publicly available APIs using HTTP protocol.</li>
+                                        <li><strong>Partner APIs:</strong> APIs for strategic business partnerships.</li>
+                                        <li><strong>Internal APIs:</strong> Private APIs for internal company use.</li>
+                                        <li><strong>Composite APIs:</strong> Combine multiple APIs into a single interface.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- API Use Cases Section -->
+                    <div id="api-use-cases" class="api-section">
+                        <div class="api-use-cases">
+                            <h3>API Use Cases & Examples</h3>
+                            <div class="info-card">
+                                <p>APIs power a wide range of modern applications and services. Here are key use cases and real-world examples:</p>
+                                
+                                <div class="use-cases-grid">
+                                    <div class="use-case-card">
+                                        <h4>1. System Integration</h4>
+                                        <div class="use-case-content">
+                                            <p>Connecting different software systems:</p>
+                                            <ul>
+                                                <li>CRM integration with marketing automation</li>
+                                                <li>E-commerce platform integration with inventory systems</li>
+                                                <li>Payment gateway integration with banking systems</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="use-case-card">
+                                        <h4>2. Enhanced Functionality</h4>
+                                        <div class="use-case-content">
+                                            <p>Adding features to applications:</p>
+                                            <ul>
+                                                <li>Maps integration in delivery apps</li>
+                                                <li>Weather data in travel applications</li>
+                                                <li>Payment processing in e-commerce</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="use-case-card">
+                                        <h4>3. IoT Connectivity</h4>
+                                        <div class="use-case-content">
+                                            <p>Connecting smart devices:</p>
+                                            <ul>
+                                                <li>Smart home device control</li>
+                                                <li>Fitness tracker data synchronization</li>
+                                                <li>Smart appliance monitoring</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="use-case-card">
+                                        <h4>4. Scalable Systems</h4>
+                                        <div class="use-case-content">
+                                            <p>Building microservices architecture:</p>
+                                            <ul>
+                                                <li>Independent service deployment</li>
+                                                <li>Distributed system communication</li>
+                                                <li>Load balancing and scaling</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="examples-section">
+                                    <h4>Real-World API Examples</h4>
+                                    <div class="examples-grid">
+                                        <div class="example-card">
+                                            <h5>Universal Login</h5>
+                                            <p>Social media login integration:</p>
+                                            <ul>
+                                                <li>Facebook OAuth API</li>
+                                                <li>Google Sign-In API</li>
+                                                <li>Twitter Authentication API</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="example-card">
+                                            <h5>Travel Applications</h5>
+                                            <p>Travel service integration:</p>
+                                            <ul>
+                                                <li>Flight booking APIs</li>
+                                                <li>Hotel reservation systems</li>
+                                                <li>Car rental services</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="example-card">
+                                            <h5>Navigation Services</h5>
+                                            <p>Location-based services:</p>
+                                            <ul>
+                                                <li>Google Maps API</li>
+                                                <li>Real-time traffic data</li>
+                                                <li>Route optimization</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="example-card">
+                                            <h5>Social Media Integration</h5>
+                                            <p>Content sharing and embedding:</p>
+                                            <ul>
+                                                <li>Instagram embedding</li>
+                                                <li>Twitter feed integration</li>
+                                                <li>Social sharing buttons</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- How APIs Work Section -->
+                    <div class="api-workflow">
+                        <h3>How APIs Work</h3>
+                        <div class="info-card">
+                            <p>APIs enable data sharing between applications through a request-response cycle. This process involves several key components working together seamlessly.</p>
+
+                            <div class="workflow-steps">
+                                <div class="step-card">
+                                    <h4>1. API Client</h4>
+                                    <div class="step-content">
+                                        <ul>
+                                            <li>Initiates the communication</li>
+                                            <li>Sends requests to API server</li>
+                                            <li>Triggered by user actions or events</li>
+                                            <li>Handles response processing</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="step-card">
+                                    <h4>2. API Request</h4>
+                                    <div class="step-content">
+                                        <div class="components-list">
+                                            <h5>Key Components:</h5>
+                                            <ul>
+                                                <li><strong>Endpoint:</strong> Dedicated URL for resource access</li>
+                                                <li><strong>Method:</strong> Type of operation (GET, POST, etc.)</li>
+                                                <li><strong>Parameters:</strong> Variables for specific instructions</li>
+                                                <li><strong>Headers:</strong> Additional request information</li>
+                                                <li><strong>Body:</strong> Main data payload</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="step-card">
+                                    <h4>3. API Server</h4>
+                                    <div class="step-content">
+                                        <ul>
+                                            <li>Processes incoming requests</li>
+                                            <li>Handles authentication</li>
+                                            <li>Validates input data</li>
+                                            <li>Performs requested operations</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="step-card">
+                                    <h4>4. API Response</h4>
+                                    <div class="step-content">
+                                        <div class="components-list">
+                                            <h5>Response Components:</h5>
+                                            <ul>
+                                                <li><strong>Status Code:</strong> Result indicator (200 OK, 404 Not Found, etc.)</li>
+                                                <li><strong>Headers:</strong> Additional response information</li>
+                                                <li><strong>Body:</strong> Requested data or error message</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="example-box workflow-example">
+                                <h4>Real-World Example: Payment Processing</h4>
+                                <div class="workflow-diagram">
+                                    <ol>
+                                        <li>User clicks "Pay with PayPal" on an e-commerce site</li>
+                                        <li>Website sends API request to PayPal</li>
+                                        <li>PayPal processes the payment</li>
+                                        <li>PayPal sends response back to website</li>
+                                        <li>Website shows payment confirmation to user</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="async-section-2" class="async-section">
+                        <div class="subsection">
+                            <h2>2. File Operations</h2>
+                            <div class="code-block" id="asyncFile"></div>
+                        </div>
+                    </div>
+
+                    <div id="async-section-3" class="async-section">
+                        <div class="subsection">
+                            <h2>3. Database Operations</h2>
+                            <div class="code-block" id="asyncDB"></div>
+                        </div>
+                    </div>
+
+                    <div id="async-section-4" class="async-section">
+                        <div class="subsection">
+                            <h2>4. Timer Operations</h2>
+                            <div class="code-block" id="asyncTimer"></div>
+                        </div>
+                    </div>
+
+                    <div id="async-section-5" class="async-section">
+                        <div class="subsection">
+                            <h2>5. WebSocket Operations</h2>
+                            <div class="code-block" id="asyncWebSocket"></div>
+                        </div>
+                    </div>
+
+                    <div id="async-section-6" class="async-section">
+                        <div class="subsection">
+                            <h2>6. Best Practices</h2>
+                            <div class="code-block" id="asyncBestPractices"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <script src="sync_vs_async.js"></script>
+    <script>
+        function showApiSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.api-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.api-nav-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked button
+            document.querySelector(`[onclick="showApiSection('${sectionId}')"]`).classList.add('active');
+        }
+    </script>
 </body>
 </html>

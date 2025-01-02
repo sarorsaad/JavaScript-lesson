@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Fundamentals Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+        .section {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        .visualization {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+        }
+        .code-example {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .output {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Fundamentals: Data & Control Structures</h1>
+    
+    <div class="container">
+        <div class="section">
+            <h2>Data Storage (Image 1)</h2>
+            <div class="code-example">
+                <h3>Variables</h3>
+                <div id="variableDemo">
+                    <button onclick="demoVariables()">Demo Variables</button>
+                    <div class="output" id="variableOutput"></div>
+                </div>
+
+                <h3>Arrays</h3>
+                <div id="arrayDemo">
+                    <button onclick="demoArrays()">Demo Arrays</button>
+                    <div class="output" id="arrayOutput"></div>
+                </div>
+
+                <h3>Objects</h3>
+                <div id="objectDemo">
+                    <button onclick="demoObjects()">Demo Objects</button>
+                    <div class="output" id="objectOutput"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Control Structures (Image 2)</h2>
+            <div class="code-example">
+                <h3>Functions</h3>
+                <div id="functionDemo">
+                    <button onclick="demoFunctions()">Demo Functions</button>
+                    <div class="output" id="functionOutput"></div>
+                </div>
+
+                <h3>Conditions</h3>
+                <div id="conditionDemo">
+                    <button onclick="demoConditions()">Demo Conditions</button>
+                    <div class="output" id="conditionOutput"></div>
+                </div>
+
+                <h3>Loops</h3>
+                <div id="loopDemo">
+                    <button onclick="demoLoops()">Demo Loops</button>
+                    <div class="output" id="loopOutput"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables Demo
+        function demoVariables() {
+            let name = "John";
+            let age = 25;
+            let isStudent = true;
+            
+            document.getElementById('variableOutput').innerHTML = 
+                `Variables store single values:<br>
+                name (string): ${name}<br>
+                age (number): ${age}<br>
+                isStudent (boolean): ${isStudent}`;
+        }
+
+        // Arrays Demo
+        function demoArrays() {
+            let fruits = ['apple', 'banana', 'orange'];
+            let numbers = [1, 2, 3, 4, 5];
+            
+            document.getElementById('arrayOutput').innerHTML = 
+                `Arrays store ordered collections:<br>
+                fruits: [${fruits.join(', ')}]<br>
+                numbers: [${numbers.join(', ')}]`;
+        }
+
+        // Objects Demo
+        function demoObjects() {
+            let person = {
+                name: "Jane",
+                age: 30,
+                hobbies: ['reading', 'swimming']
+            };
+            
+            document.getElementById('objectOutput').innerHTML = 
+                `Objects store key-value pairs:<br>
+                person: {<br>
+                &nbsp;&nbsp;name: "${person.name}",<br>
+                &nbsp;&nbsp;age: ${person.age},<br>
+                &nbsp;&nbsp;hobbies: [${person.hobbies.join(', ')}]<br>
+                }`;
+        }
+
+        // Functions Demo
+        function demoFunctions() {
+            function calculateSum(a, b) {
+                return a + b;
+            }
+            
+            let result = calculateSum(5, 3);
+            document.getElementById('functionOutput').innerHTML = 
+                `Functions perform operations:<br>
+                calculateSum(5, 3) = ${result}`;
+        }
+
+        // Conditions Demo
+        function demoConditions() {
+            let number = 7;
+            let message = "";
+            
+            if (number > 5) {
+                message = "Number is greater than 5";
+            } else {
+                message = "Number is less than or equal to 5";
+            }
+            
+            document.getElementById('conditionOutput').innerHTML = 
+                `Conditions make decisions:<br>
+                number = ${number}<br>
+                result: ${message}`;
+        }
+
+        // Loops Demo
+        function demoLoops() {
+            let numbers = [1, 2, 3, 4, 5];
+            let sum = 0;
+            
+            for (let num of numbers) {
+                sum += num;
+            }
+            
+            document.getElementById('loopOutput').innerHTML = 
+                `Loops iterate over data:<br>
+                numbers: [${numbers.join(', ')}]<br>
+                sum of all numbers: ${sum}`;
+        }
+    </script>
+</body>
+</html>

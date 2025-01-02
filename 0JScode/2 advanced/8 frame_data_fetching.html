@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Data Fetching in React & Next.js</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+        }
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .function { color: #dcdcaa; }
+        .comment { color: #6a9955; }
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .tab {
+            padding: 10px 20px;
+            background: #e0e0e0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tab.active {
+            background: #007acc;
+            color: white;
+        }
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: #fff;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #007acc;
+        }
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .pros, .cons {
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .pros {
+            background: #e6ffe6;
+        }
+        .cons {
+            background: #ffe6e6;
+        }
+        /* New styles for pattern navigation */
+        .pattern-nav {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .pattern-button {
+            padding: 10px 20px;
+            background: #4a9eff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .pattern-button:hover {
+            background: #3178c6;
+            transform: translateY(-2px);
+        }
+        .pattern-button.active {
+            background: #3178c6;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .pattern-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .pattern-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pattern-icon {
+            font-size: 18px;
+        }
+        /* Next.js method navigation styles */
+        .nextjs-nav {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .nextjs-button {
+            padding: 12px 24px;
+            background: #0070f3;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .nextjs-button:hover {
+            background: #0051b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .nextjs-button.active {
+            background: #0051b3;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nextjs-content {
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        .nextjs-content.active {
+            display: block;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .method-description {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid #0070f3;
+        }
+        .use-cases {
+            background: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        /* Library section styles */
+        .library-nav {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .library-button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
+        }
+        .library-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+        }
+        .library-button.active {
+            background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .library-content {
+            display: none;
+            animation: fadeInUp 0.4s ease;
+        }
+        .library-content.active {
+            display: block;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .library-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #4f46e5;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid #4f46e5;
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .comparison-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .comparison-card h4 {
+            color: #4f46e5;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Modern Data Fetching in React & Next.js</h1>
+
+    <div class="tab-container">
+        <button class="tab active" onclick="showSection('react')">React</button>
+        <button class="tab" onclick="showSection('nextjs')">Next.js</button>
+        <button class="tab" onclick="showSection('libraries')">Libraries</button>
+    </div>
+
+    <!-- React Section -->
+    <div id="react-section" class="section">
+        <h2>React Data Fetching Patterns</h2>
+
+        <!-- Pattern Navigation -->
+        <div class="pattern-nav">
+            <button class="pattern-button active" onclick="showPattern('useEffect')">
+                <span class="pattern-icon">⚡</span>
+                useState + useEffect
+            </button>
+            <button class="pattern-button" onclick="showPattern('customHook')">
+                <span class="pattern-icon">🔄</span>
+                Custom Hook Pattern
+            </button>
+        </div>
+
+        <!-- useState + useEffect Pattern -->
+        <div id="useEffect-pattern" class="pattern-content active">
+            <h3>1. useState + useEffect</h3>
+            <div class="explanation">
+                The most basic and common pattern for data fetching in React components.
+                Suitable for simple data fetching scenarios.
+            </div>
+            <div class="code-block">
+                <pre>
+<span class="keyword">const</span> <span class="function">DataFetching</span> = () => {
+    <span class="keyword">const</span> [data, setData] = useState(null);
+    <span class="keyword">const</span> [loading, setLoading] = useState(true);
+    <span class="keyword">const</span> [error, setError] = useState(null);
+
+    useEffect(() => {
+        <span class="keyword">const</span> <span class="function">fetchData</span> = <span class="keyword">async</span> () => {
+            try {
+                <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(<span class="string">'https://api.example.com/data'</span>);
+                <span class="keyword">const</span> json = <span class="keyword">await</span> response.json();
+                setData(json);
+                setLoading(false);
+            } catch (err) {
+                setError(err);
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) return <span class="string">'Loading...'</span>;
+    if (error) return <span class="string">'Error: '</span> + error.message;
+    return <span class="string">'Data: '</span> + JSON.stringify(data);
+};</pre>
+            </div>
+            <div class="feature-card">
+                <h4>Key Points:</h4>
+                <ul>
+                    <li>Uses React's built-in hooks</li>
+                    <li>Handles loading and error states</li>
+                    <li>Cleanup is important for unmounted components</li>
+                    <li>Good for simple use cases</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Custom Hook Pattern -->
+        <div id="customHook-pattern" class="pattern-content">
+            <h3>2. Custom Hook Pattern</h3>
+            <div class="explanation">
+                A reusable approach that encapsulates data fetching logic.
+                Perfect for repeated data fetching patterns across components.
+            </div>
+            <div class="code-block">
+                <pre>
+<span class="keyword">const</span> <span class="function">useData</span> = (url) => {
+    <span class="keyword">const</span> [state, setState] = useState({
+        data: null,
+        loading: true,
+        error: null
+    });
+
+    useEffect(() => {
+        <span class="keyword">const</span> <span class="function">fetchData</span> = <span class="keyword">async</span> () => {
+            try {
+                <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(url);
+                <span class="keyword">const</span> data = <span class="keyword">await</span> response.json();
+                setState({ data, loading: false, error: null });
+            } catch (error) {
+                setState({ data: null, loading: false, error });
+            }
+        };
+
+        fetchData();
+    }, [url]);
+
+    return state;
+};</pre>
+            </div>
+            <div class="feature-card">
+                <h4>Benefits:</h4>
+                <ul>
+                    <li>Reusable across components</li>
+                    <li>Encapsulated fetch logic</li>
+                    <li>Easier testing and maintenance</li>
+                    <li>Consistent error handling</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Next.js Section -->
+    <div id="nextjs-section" class="section" style="display: none;">
+        <h2>Next.js Data Fetching Methods</h2>
+
+        <!-- Next.js Navigation -->
+        <div class="nextjs-nav">
+            <button class="nextjs-button active" onclick="showNextjsMethod('static')">
+                <span class="pattern-icon">📥</span>
+                getStaticProps (SSG)
+            </button>
+            <button class="nextjs-button" onclick="showNextjsMethod('server')">
+                <span class="pattern-icon">🔄</span>
+                getServerSideProps (SSR)
+            </button>
+            <button class="nextjs-button" onclick="showNextjsMethod('api')">
+                <span class="pattern-icon">⚡</span>
+                API Routes
+            </button>
+        </div>
+
+        <!-- getStaticProps Section -->
+        <div id="static-method" class="nextjs-content active">
+            <h3>1. getStaticProps (Static Site Generation)</h3>
+            <div class="method-description">
+                <p>Static Site Generation (SSG) pre-renders pages at build time. Perfect for content that doesn't change often.</p>
+                <p>Use this when:</p>
+                <ul>
+                    <li>The data is available at build time</li>
+                    <li>The page needs to be very fast</li>
+                    <li>The content is the same for all users</li>
+                </ul>
+            </div>
+            <div class="code-block">
+                <pre>
+<span class="comment">// pages/index.js</span>
+export <span class="keyword">async function</span> <span class="function">getStaticProps</span>() {
+    <span class="keyword">const</span> res = <span class="keyword">await</span> fetch(<span class="string">'https://api.example.com/data'</span>);
+    <span class="keyword">const</span> data = <span class="keyword">await</span> res.json();
+
+    return {
+        props: {
+            data,
+        },
+        revalidate: 60, <span class="comment">// Optional: revalidate every 60 seconds</span>
+    };
+}</pre>
+            </div>
+            <div class="use-cases">
+                <h4>Best Use Cases:</h4>
+                <ul>
+                    <li>Blog posts</li>
+                    <li>Documentation pages</li>
+                    <li>Marketing pages</li>
+                    <li>Product listings</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- getServerSideProps Section -->
+        <div id="server-method" class="nextjs-content">
+            <h3>2. getServerSideProps (Server-Side Rendering)</h3>
+            <div class="method-description">
+                <p>Server-Side Rendering (SSR) generates pages on each request. Ideal for dynamic content.</p>
+                <p>Use this when:</p>
+                <ul>
+                    <li>You need access to request data</li>
+                    <li>Data changes frequently</li>
+                    <li>Content needs to be personalized</li>
+                </ul>
+            </div>
+            <div class="code-block">
+                <pre>
+export <span class="keyword">async function</span> <span class="function">getServerSideProps</span>(context) {
+    <span class="keyword">const</span> res = <span class="keyword">await</span> fetch(<span class="string">'https://api.example.com/data'</span>);
+    <span class="keyword">const</span> data = <span class="keyword">await</span> res.json();
+
+    return {
+        props: {
+            data,
+        },
+    };
+}</pre>
+            </div>
+            <div class="use-cases">
+                <h4>Best Use Cases:</h4>
+                <ul>
+                    <li>User dashboards</li>
+                    <li>Analytics pages</li>
+                    <li>Real-time data</li>
+                    <li>Personalized content</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- API Routes Section -->
+        <div id="api-method" class="nextjs-content">
+            <h3>3. API Routes</h3>
+            <div class="method-description">
+                <p>Create API endpoints within your Next.js application. Perfect for handling dynamic requests.</p>
+                <p>Features:</p>
+                <ul>
+                    <li>Built-in API routing</li>
+                    <li>Serverless functions</li>
+                    <li>Easy backend integration</li>
+                </ul>
+            </div>
+            <div class="code-block">
+                <pre>
+<span class="comment">// pages/api/data.js</span>
+export <span class="keyword">default async function</span> <span class="function">handler</span>(req, res) {
+    <span class="keyword">if</span> (req.method === <span class="string">'GET'</span>) {
+        <span class="keyword">const</span> data = <span class="keyword">await</span> fetchDataFromDatabase();
+        res.status(200).json(data);
+    } <span class="keyword">else</span> {
+        res.status(405).json({ message: <span class="string">'Method not allowed'</span> });
+    }
+}</pre>
+            </div>
+            <div class="use-cases">
+                <h4>Best Use Cases:</h4>
+                <ul>
+                    <li>Form submissions</li>
+                    <li>Database operations</li>
+                    <li>Authentication</li>
+                    <li>External API proxying</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Libraries Section -->
+    <div id="libraries-section" class="section" style="display: none;">
+        <h2>Popular Data Fetching Libraries</h2>
+
+        <div class="library-nav">
+            <button class="library-button active" onclick="showLibrary('react-query')">
+                <span class="pattern-icon">🔄</span>
+                React Query
+            </button>
+            <button class="library-button" onclick="showLibrary('swr')">
+                <span class="pattern-icon">⚡</span>
+                SWR
+            </button>
+            <button class="library-button" onclick="showLibrary('axios')">
+                <span class="pattern-icon">📡</span>
+                Axios
+            </button>
+            <button class="library-button" onclick="showLibrary('comparison')">
+                <span class="pattern-icon">📊</span>
+                Comparison
+            </button>
+            <button class="library-button" onclick="showLibrary('pros-cons')">
+                <span class="pattern-icon">⚖️</span>
+                Pros & Cons
+            </button>
+        </div>
+
+        <!-- React Query Section -->
+        <div id="react-query-lib" class="library-content active">
+            <h3>1. React Query</h3>
+            <div class="library-card">
+                <p>Powerful asynchronous state management for React applications.</p>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h4>Key Features</h4>
+                        <ul>
+                            <li>Automatic background updates</li>
+                            <li>Cache invalidation</li>
+                            <li>Optimistic updates</li>
+                            <li>Infinite queries</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="code-block">
+                <pre>
+<span class="keyword">import</span> { useQuery } from <span class="string">'@tanstack/react-query'</span>;
+
+<span class="keyword">function</span> <span class="function">TodoList</span>() {
+    <span class="keyword">const</span> { data, isLoading, error } = useQuery({
+        queryKey: [<span class="string">'todos'</span>],
+        queryFn: <span class="keyword">async</span> () => {
+            <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(<span class="string">'/api/todos'</span>);
+            return response.json();
+        },
+    });
+
+    if (isLoading) return <span class="string">'Loading...'</span>;
+    if (error) return <span class="string">'An error has occurred: '</span> + error.message;
+    return <span class="string">'Data: '</span> + JSON.stringify(data);
+}</pre>
+            </div>
+        </div>
+
+        <!-- SWR Section -->
+        <div id="swr-lib" class="library-content">
+            <h3>2. SWR (Stale-While-Revalidate)</h3>
+            <div class="library-card">
+                <p>React Hooks library for data fetching by Vercel.</p>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h4>Key Features</h4>
+                        <ul>
+                            <li>Auto revalidation</li>
+                            <li>Fast page navigation</li>
+                            <li>Local mutation</li>
+                            <li>Pagination support</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="code-block">
+                <pre>
+<span class="keyword">import</span> useSWR from <span class="string">'swr'</span>;
+
+<span class="keyword">function</span> <span class="function">Profile</span>() {
+    <span class="keyword">const</span> { data, error, isLoading } = useSWR(<span class="string">'/api/user'</span>, fetcher);
+
+    if (isLoading) return <span class="string">'Loading...'</span>;
+    if (error) return <span class="string">'An error has occurred'</span>;
+    return <span class="string">'Hello '</span> + data.name;
+}</pre>
+            </div>
+        </div>
+
+        <!-- Axios Section -->
+        <div id="axios-lib" class="library-content">
+            <h3>3. Axios</h3>
+            <div class="library-card">
+                <p>Promise-based HTTP client for browser and Node.js.</p>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h4>Key Features</h4>
+                        <ul>
+                            <li>Interceptors</li>
+                            <li>Request/Response transformation</li>
+                            <li>Automatic JSON parsing</li>
+                            <li>Client-side XSRF protection</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="code-block">
+                <pre>
+<span class="keyword">import</span> axios from <span class="string">'axios'</span>;
+
+<span class="keyword">const</span> api = axios.create({
+    baseURL: <span class="string">'https://api.example.com'</span>,
+    timeout: 5000,
+    headers: {
+        <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>
+    }
+});
+
+<span class="keyword">async function</span> <span class="function">fetchData</span>() {
+    try {
+        <span class="keyword">const</span> response = <span class="keyword">await</span> api.get(<span class="string">'/data'</span>);
+        return response.data;
+    } catch (error) {
+        console.error(<span class="string">'Error:'</span>, error);
+        throw error;
+    }
+}</pre>
+            </div>
+        </div>
+
+        <!-- Comparison Section -->
+        <div id="comparison-lib" class="library-content">
+            <h3>Library Comparison</h3>
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h4>React Query</h4>
+                    <ul>
+                        <li>Best for complex state management</li>
+                        <li>Rich feature set</li>
+                        <li>Great dev tools</li>
+                        <li>Larger bundle size</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <h4>SWR</h4>
+                    <ul>
+                        <li>Lightweight alternative</li>
+                        <li>Simple API</li>
+                        <li>Next.js integration</li>
+                        <li>Focused on data fetching</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <h4>Axios</h4>
+                    <ul>
+                        <li>Universal HTTP client</li>
+                        <li>Wide browser support</li>
+                        <li>Extensive features</li>
+                        <li>No state management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pros & Cons Section -->
+        <div id="pros-cons-lib" class="library-content">
+            <h3>Advantages & Considerations</h3>
+            <div class="pros-cons">
+                <div class="pros">
+                    <h4>Advantages of Using Libraries</h4>
+                    <ul>
+                        <li>Built-in caching mechanisms</li>
+                        <li>Automatic error handling</li>
+                        <li>Request deduplication</li>
+                        <li>Better developer experience</li>
+                        <li>Optimized performance</li>
+                        <li>Consistent API across project</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h4>Considerations</h4>
+                    <ul>
+                        <li>Additional bundle size</li>
+                        <li>Learning curve for team</li>
+                        <li>Potential over-engineering for simple apps</li>
+                        <li>Version management</li>
+                        <li>Migration complexity</li>
+                        <li>Framework lock-in</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(section) {
+            // Update tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[onclick="showSection('${section}')"]`).classList.add('active');
+
+            // Update sections
+            ['react', 'nextjs', 'libraries'].forEach(s => {
+                document.getElementById(`${s}-section`).style.display = 
+                    s === section ? 'block' : 'none';
+            });
+        }
+
+        // New function for pattern navigation
+        function showPattern(pattern) {
+            // Update buttons
+            document.querySelectorAll('.pattern-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[onclick="showPattern('${pattern}')"]`).classList.add('active');
+
+            // Update content
+            document.querySelectorAll('.pattern-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${pattern}-pattern`).classList.add('active');
+        }
+
+        // Next.js method navigation
+        function showNextjsMethod(method) {
+            // Update buttons
+            document.querySelectorAll('.nextjs-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[onclick="showNextjsMethod('${method}')"]`).classList.add('active');
+
+            // Update content
+            document.querySelectorAll('.nextjs-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${method}-method`).classList.add('active');
+        }
+
+        // Library navigation
+        function showLibrary(library) {
+            // Update buttons
+            document.querySelectorAll('.library-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[onclick="showLibrary('${library}')"]`).classList.add('active');
+
+            // Update content
+            document.querySelectorAll('.library-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${library}-lib`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

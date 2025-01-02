@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding HTML Attributes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .example {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .highlight {
+            background-color: yellow;
+            padding: 2px 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .red-text {
+            color: red;
+        }
+
+        .blue-text {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Understanding HTML Attributes</h1>
+
+    <div class="example">
+        <h2>What is an HTML Attribute?</h2>
+        <p>An attribute is extra information we give to HTML elements. Think of attributes as special properties that tell elements how to look or behave.</p>
+        
+        <h3>Basic Structure:</h3>
+        <pre>
+&lt;element attribute="value"&gt;content&lt;/element&gt;
+        </pre>
+    </div>
+
+    <div class="example">
+        <h2>Common HTML Attributes Examples</h2>
+        
+        <!-- Class Attribute -->
+        <h3>1. class attribute</h3>
+        <p class="red-text">This text is red because of its class attribute</p>
+        <p class="blue-text">This text is blue because of its class attribute</p>
+        <code>&lt;p class="red-text"&gt;This text is red&lt;/p&gt;</code>
+
+        <!-- ID Attribute -->
+        <h3>2. id attribute</h3>
+        <p id="unique-paragraph">Every id must be unique in the page</p>
+        <code>&lt;p id="unique-paragraph"&gt;Content&lt;/p&gt;</code>
+
+        <!-- Src Attribute -->
+        <h3>3. src attribute</h3>
+        <img src="https://via.placeholder.com/150" alt="Example image">
+        <br>
+        <code>&lt;img src="image-path.jpg" alt="Description"&gt;</code>
+
+        <!-- Href Attribute -->
+        <h3>4. href attribute</h3>
+        <a href="https://www.example.com">Click me</a>
+        <br>
+        <code>&lt;a href="https://www.example.com"&gt;Click me&lt;/a&gt;</code>
+
+        <!-- Disabled Attribute -->
+        <h3>5. disabled attribute</h3>
+        <button disabled>Can't click me</button>
+        <button>Can click me</button>
+        <br>
+        <code>&lt;button disabled&gt;Can't click me&lt;/button&gt;</code>
+    </div>
+
+    <div class="example">
+        <h2>Common HTML Attributes Table</h2>
+        <table>
+            <tr>
+                <th>Attribute</th>
+                <th>Used On</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td>class</td>
+                <td>Any element</td>
+                <td>Add styles or identify elements</td>
+            </tr>
+            <tr>
+                <td>id</td>
+                <td>Any element</td>
+                <td>Uniquely identify an element</td>
+            </tr>
+            <tr>
+                <td>src</td>
+                <td>img, script</td>
+                <td>Specify source file/URL</td>
+            </tr>
+            <tr>
+                <td>href</td>
+                <td>a, link</td>
+                <td>Specify link destination</td>
+            </tr>
+            <tr>
+                <td>disabled</td>
+                <td>input, button</td>
+                <td>Disable user interaction</td>
+            </tr>
+            <tr>
+                <td>style</td>
+                <td>Any element</td>
+                <td>Add inline CSS styles</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="example">
+        <h2>Key Points About Attributes:</h2>
+        <ul>
+            <li>Attributes always go in the opening tag</li>
+            <li>Most attributes need values (like class="value")</li>
+            <li>Some attributes don't need values (like disabled)</li>
+            <li>Attribute values should be in quotes</li>
+            <li>One element can have multiple attributes</li>
+        </ul>
+
+        <h3>Example with Multiple Attributes:</h3>
+        <button id="special-btn" class="big-button" disabled>
+            Multiple Attributes
+        </button>
+        <br>
+        <code>&lt;button id="special-btn" class="big-button" disabled&gt;Multiple Attributes&lt;/button&gt;</code>
+    </div>
+</body>
+</html>

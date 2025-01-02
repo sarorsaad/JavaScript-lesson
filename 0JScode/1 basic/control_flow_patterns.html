@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Control Flow Patterns</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .keyword {
+            color: #0066cc;
+            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .example {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 4px;
+            display: block;
+        }
+        .special-symbol {
+            color: #e83e8c;
+            font-weight: bold;
+        }
+        .note {
+            background-color: #fff3e0;
+            padding: 15px;
+            margin: 30px 0;
+            border-left: 4px solid #ff9800;
+        }
+        .demo-container {
+            margin: 40px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 20px 0;
+            padding: 20px;
+            position: relative;
+        }
+        .flow-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            min-width: 150px;
+            transition: all 0.3s ease;
+        }
+        .flow-box.active {
+            background: #e3f2fd;
+            transform: scale(1.05);
+        }
+        .arrow {
+            flex: 1;
+            height: 2px;
+            background: #666;
+            margin: 0 15px;
+            position: relative;
+        }
+        .arrow::after {
+            content: '►';
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            color: #666;
+        }
+        .function-box {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .control-panel {
+            margin: 20px 0;
+        }
+        .control-panel input {
+            padding: 8px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .control-panel button {
+            padding: 8px 16px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .control-panel button:hover {
+            background: #0052a3;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .processing {
+            animation: pulse 1s infinite;
+        }
+
+        .juice-demo,
+        .demo-container,
+        .loop-demo,
+        .eating-demo,
+        .condition-demo,
+        .sleepy-demo {
+            margin-bottom: 60px;
+        }
+
+        .juice-demo {
+            background: #f1f8e9;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 40px 0;
+        }
+        .ingredients {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .ingredient-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            min-width: 120px;
+        }
+        .ingredient-select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .blender {
+            background: #e8eaf6;
+            padding: 20px;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .blender.active {
+            animation: shake 0.5s infinite;
+        }
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .result-box {
+            text-align: center;
+            padding: 20px;
+        }
+        .juice-glass {
+            width: 100px;
+            height: 120px;
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 0 0 20px 20px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .juice-liquid {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            transition: height 1s ease;
+        }
+        .emoji {
+            font-size: 24px;
+        }
+
+        .loop-demo, .condition-demo {
+            background: #e3f2fd;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 40px 0;
+        }
+        .condition-demo {
+            background: #f3e5f5;
+        }
+        .boxes-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+            min-height: 100px;
+        }
+        .box {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border: 2px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+        .box.active {
+            background: #4CAF50;
+            color: white;
+            transform: scale(1.1);
+        }
+        .path-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .path {
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            text-align: center;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+        .path.active {
+            opacity: 1;
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .number-input {
+            padding: 8px;
+            font-size: 16px;
+            width: 100px;
+            margin: 0 10px;
+        }
+
+        .eating-demo {
+            background: #1a237e;
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 40px 0;
+            position: relative;
+            min-height: 400px;
+        }
+        .eating-circle {
+            width: 300px;
+            height: 300px;
+            border: 3px solid #64b5f6;
+            border-radius: 50%;
+            position: relative;
+            margin: 50px auto;
+        }
+        .cycle-marker {
+            width: 20px;
+            height: 20px;
+            background: #ff4081;
+            border-radius: 50%;
+            position: absolute;
+            top: -10px;
+            left: calc(50% - 10px);
+            transform-origin: center calc(150px + 10px);
+            transition: transform 0.5s linear;
+            box-shadow: 0 0 10px rgba(255,64,129,0.5);
+            z-index: 10;
+        }
+        .cycle-path {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px dashed rgba(100,181,246,0.5);
+            border-radius: 50%;
+            top: -20px;
+            left: calc(50% - 20px);
+            animation: rotate 2s linear infinite;
+        }
+        @keyframes moveMarker {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(90deg); }
+            50% { transform: rotate(180deg); }
+            75% { transform: rotate(270deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .moving {
+            animation: moveMarker 4s linear infinite;
+        }
+        .arrow-path {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        .arrow-segment {
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: #64b5f6;
+            transform-origin: center;
+        }
+        .arrow-segment::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: -8px;
+            border: 10px solid transparent;
+            border-left-color: #64b5f6;
+        }
+        .plate {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        .emoji {
+            font-size: 40px;
+            position: absolute;
+        }
+        .hungry {
+            left: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .question {
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .thumbs-up {
+            right: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .label {
+            position: absolute;
+            background: #00bcd4;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .start-label {
+            left: 20px;
+            top: 20px;
+        }
+        .loop-label {
+            left: 50%;
+            bottom: 20px;
+            transform: translateX(-50%);
+        }
+        .stop-label {
+            right: 20px;
+            top: 20px;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .rotating {
+            animation: rotate 4s linear infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .pulsing {
+            animation: pulse 1s ease-in-out infinite;
+        }
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .sleepy-demo {
+            background: #1a237e;
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .sleepiness-control {
+            margin: 20px 0;
+        }
+        .sleepiness-control input {
+            padding: 8px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .sleepiness-control button {
+            padding: 8px 16px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .sleepiness-control button:hover {
+            background: #0052a3;
+        }
+        .condition-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .emoji-container {
+            font-size: 60px;
+            margin: 20px;
+            transition: all 0.3s ease;
+        }
+        .result-container {
+            width: 250px;
+            height: 250px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+        }
+        .result-image {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 10px;
+            transition: all 0.5s ease;
+        }
+        .prayer-image {
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+        }
+        .prayer-state {
+            background: radial-gradient(circle, #1a237e 0%, #0d47a1 100%);
+        }
+        .prayer-state .result-image {
+            transform: scale(1.1);
+        }
+        .sleep-state {
+            background: radial-gradient(circle, #37474f 0%, #263238 100%);
+        }
+        @keyframes prayerLight {
+            0% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+            100% { opacity: 0.4; transform: scale(1); }
+        }
+        .prayer-light {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            animation: prayerLight 3s infinite;
+            pointer-events: none;
+        }
+        .arrow {
+            color: #64b5f6;
+            font-size: 40px;
+            margin: 0 20px;
+        }
+        .sleepiness-slider {
+            -webkit-appearance: none;
+            width: 200px;
+            height: 10px;
+            border-radius: 5px;
+            background: #64b5f6;
+            outline: none;
+        }
+        .sleepiness-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ff4081;
+            cursor: pointer;
+        }
+        .code-display {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: left;
+            font-family: monospace;
+        }
+        .highlight {
+            color: #ff4081;
+            font-weight: bold;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .bounce {
+            animation: bounce 1s ease infinite;
+        }
+
+        /* Add celebration animations */
+        @keyframes celebrate {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.2) rotate(-15deg); }
+            50% { transform: scale(1) rotate(0deg); }
+            75% { transform: scale(1.2) rotate(15deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100px) rotate(360deg); opacity: 0; }
+        }
+
+        .celebrating {
+            animation: celebrate 1s ease-in-out infinite;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: confetti 1s ease-out forwards;
+        }
+
+        .path.active {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0,255,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        #passPath.celebrating {
+            background: linear-gradient(45deg, #4CAF50, #8BC34A);
+        }
+
+        .celebration-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Control Flow Patterns</h1>
+
+ 
+
+
+
+    <div class="juice-demo">
+        <h2>Juice Maker Function Demo</h2>
+        <p>Select ingredients to make your juice!</p>
+
+        <div class="ingredients">
+            <div class="ingredient-box">
+                <h3>Select Fruit 🍎</h3>
+                <select id="fruitSelect" class="ingredient-select">
+                    <option value="">Choose fruit...</option>
+                    <option value="apple">Apple</option>
+                    <option value="orange">Orange</option>
+                    <option value="strawberry">Strawberry</option>
+                    <option value="banana">Banana</option>
+                </select>
+            </div>
+
+            <div class="ingredient-box">
+                <h3>Water Amount 💧</h3>
+                <select id="waterSelect" class="ingredient-select">
+                    <option value="">Choose amount...</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+        </div>
+
+        <button onclick="makeJuice()" class="control-panel button">Make Juice!</button>
+
+        <div class="flow-diagram">
+            <div class="flow-box" id="ingredientsBox">
+                <h3>Ingredients</h3>
+                <div id="ingredientsValue">Select ingredients...</div>
+            </div>
+            
+            <div class="arrow"></div>
+            
+            <div class="flow-box" id="blenderBox">
+                <h3>Blender Function</h3>
+                <div class="blender" id="blender">
+                    <span class="emoji">🔄</span>
+                </div>
+                <div class="function-box">
+                    <code>
+                        function makeJuice(fruit, water) {<br>
+                        &nbsp;&nbsp;// Mix ingredients<br>
+                        &nbsp;&nbsp;return fruit + water;<br>
+                        }
+                    </code>
+                </div>
+            </div>
+            
+            <div class="arrow"></div>
+            
+            <div class="flow-box" id="juiceBox">
+                <h3>Result</h3>
+                <div class="juice-glass">
+                    <div id="juiceLiquid" class="juice-liquid"></div>
+                </div>
+                <div id="juiceResult">Waiting for juice...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-container">
+        <h2>Interactive Function Flow Demo</h2>
+        <p>See how data transforms through a function</p>
+        
+        <div class="control-panel">
+            <input type="text" id="inputText" placeholder="Enter some text">
+            <button onclick="processInput()">Transform Text</button>
+        </div>
+
+        <div class="flow-diagram">
+            <div class="flow-box" id="inputBox">
+                <h3>Input</h3>
+                <div id="inputValue">Waiting for input...</div>
+            </div>
+            
+            <div class="arrow"></div>
+            
+            <div class="flow-box" id="functionBox">
+                <h3>Function</h3>
+                <div class="function-box">
+                    <code>
+                        function transformText(text) {<br>
+                        &nbsp;&nbsp;// Reverse and capitalize<br>
+                        &nbsp;&nbsp;return text.split('').reverse().join('').toUpperCase();<br>
+                        }
+                    </code>
+                </div>
+            </div>
+            
+            <div class="arrow"></div>
+            
+            <div class="flow-box" id="outputBox">
+                <h3>Output</h3>
+                <div id="outputValue">Waiting for result...</div>
+            </div>
+        </div>
+    </div>
+    <div class="loop-demo">
+        <h2>Loop Visualization Demo</h2>
+        <p>See how a loop iterates through elements</p>
+
+        <div class="control-panel">
+            <label>Number of iterations: </label>
+            <input type="number" id="iterationCount" class="number-input" value="5" min="1" max="10">
+            <button onclick="startLoop()">Start Loop</button>
+        </div>
+
+        <div class="flow-diagram">
+            <div class="flow-box" id="loopInputBox">
+                <h3>Loop Setup</h3>
+                <div class="function-box">
+                    <code>
+                        for (let i = 1; i <= count; i++) {<br>
+                        &nbsp;&nbsp;// Process each iteration<br>
+                        &nbsp;&nbsp;processBox(i);<br>
+                        }
+                    </code>
+                </div>
+            </div>
+
+            <div class="arrow"></div>
+
+            <div class="flow-box" id="loopProcessBox">
+                <h3>Iteration Process</h3>
+                <div class="boxes-container" id="boxesContainer">
+                    <!-- Boxes will be added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="eating-demo">
+        <h2 style="text-align: center; color: white;">Eating Loop Process</h2>
+        
+        <div class="eating-circle" id="eatingProcess">
+            <!-- Cycle marker -->
+            <div class="cycle-marker" id="cycleMarker"></div>
+            
+            <!-- Labels -->
+            <div class="label start-label">start point</div>
+            <div class="label loop-label">loop</div>
+            <div class="label stop-label">stop condition</div>
+
+            <!-- Emojis -->
+            <div class="emoji hungry">😕</div>
+            <div class="emoji question">🤔</div>
+            <div class="emoji thumbs-up">👍</div>
+
+            <!-- Plate -->
+            <div class="plate">🍽️</div>
+
+            <!-- Arrow paths -->
+            <div class="arrow-path">
+                <div class="arrow-segment" style="transform: rotate(0deg); left: 50px; top: 50%;"></div>
+                <div class="arrow-segment" style="transform: rotate(90deg); top: 50px; left: 50%;"></div>
+                <div class="arrow-segment" style="transform: rotate(180deg); right: 50px; top: 50%;"></div>
+                <div class="arrow-segment" style="transform: rotate(270deg); bottom: 50px; left: 50%;"></div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button onclick="startEatingLoop()" class="control-panel button">Start Eating Loop</button>
+            <button onclick="resetEatingLoop()" class="control-panel button">Reset</button>
+        </div>
+    </div>
+    <div class="condition-demo">
+        <h2>Condition (if-else) Demo</h2>
+        <p>Enter a number to see which path it takes</p>
+
+        <div class="control-panel">
+            <label>Enter a number: </label>
+            <input type="number" id="testNumber" class="number-input" value="75">
+            <button onclick="checkCondition()">Check Condition</button>
+        </div>
+
+        <div class="flow-diagram">
+            <div class="flow-box" id="conditionInputBox">
+                <h3>Condition Check</h3>
+                <div class="function-box">
+                    <code>
+                        if (number >= 70) {<br>
+                        &nbsp;&nbsp;// Pass path<br>
+                        } else {<br>
+                        &nbsp;&nbsp;// Fail path<br>
+                        }
+                    </code>
+                </div>
+            </div>
+
+            <div class="arrow"></div>
+
+            <div class="flow-box" id="conditionResultBox">
+                <h3>Result Paths</h3>
+                <div class="path-container">
+                    <div class="path" id="passPath">
+                        <h4>Pass Path (≥ 70)</h4>
+                        <div class="emoji">🎉</div>
+                        <p>Congratulations!</p>
+                    </div>
+                    <div class="path" id="failPath">
+                        <h4>Fail Path (< 70)</h4>
+                        <div class="emoji">📚</div>
+                        <p>Keep studying!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sleepy-demo">
+        <h2>Sleepy Condition Demo</h2>
+        
+        <div class="sleepiness-control">
+            <span>Not Sleepy</span>
+            <input type="range" min="0" max="100" value="50" class="sleepiness-slider" id="sleepinessLevel">
+            <span>Very Sleepy</span>
+        </div>
+
+        <div class="code-display">
+            <pre>
+if (sleepinessLevel > 70) {
+    // Time to sleep!
+    goToSleep();
+} else {
+    // Start the day with prayer!
+    startPrayer();
+}</pre>
+        </div>
+
+        <div class="condition-container">
+            <div class="emoji-container" id="currentMood">
+                😊
+            </div>
+            <div class="arrow">➡️</div>
+            <div class="result-container" id="resultAction">
+                <img src="https://em-content.zobj.net/source/microsoft-teams/363/person-in-lotus-position_1f9d8.png" class="result-image" id="actionImage">
+                <p id="actionText">Start your day</p>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button onclick="checkSleepiness()" class="control-panel button">Check Condition</button>
+        </div>
+    </div>
+
+    <!-- Add audio elements for sleepy demo -->
+    <audio id="snoringSound" preload="auto" loop>
+        <source src="https://www.soundjay.com/human/snoring-1.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="adhanSound" preload="auto">
+        <source src="https://www.islamcan.com/audio/adhan/adhan2.mp3" type="audio/mpeg">
+    </audio>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Keyword</th>
+                <th>Structure Elements</th>
+                <th>Special Symbols</th>
+                <th>Example</th>
+                <th>Purpose</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Functions -->
+            <tr>
+                <td>Functions</td>
+                <td>
+                    <span class="keyword">function</span>
+                </td>
+                <td>
+                    1. Function name<br>
+                    2. Parameters (optional)<br>
+                    3. Code block
+                </td>
+                <td>
+                    - Parentheses <span class="special-symbol">()</span> for parameters<br>
+                    - Curly braces <span class="special-symbol">{}</span> for code block
+                </td>
+                <td>
+                    <span class="example">function greet() {
+    console.log("Hello!");
+}</span>
+                </td>
+                <td>
+                    Defines reusable blocks of code that can be called multiple times
+                </td>
+            </tr>
+            <!-- Conditions -->
+            <tr>
+                <td>Conditions</td>
+                <td>
+                    <span class="keyword">if</span><br>
+                    <span class="keyword">else if</span><br>
+                    <span class="keyword">else</span>
+                </td>
+                <td>
+                    1. Condition expression<br>
+                    2. True code block<br>
+                    3. False code block (optional)
+                </td>
+                <td>
+                    - Parentheses <span class="special-symbol">()</span> for condition<br>
+                    - Curly braces <span class="special-symbol">{}</span> for code blocks<br>
+                    - Comparison operators <span class="special-symbol">===, >, <, etc.</span>
+                </td>
+                <td>
+                    <span class="example">if (score >= 60) {
+    console.log("Passed!");
+} else {
+    console.log("Failed!");
+}</span>
+                </td>
+                <td>
+                    Controls code execution based on conditions
+                </td>
+            </tr>
+            <!-- Loops -->
+            <tr>
+                <td>Loops</td>
+                <td>
+                    <span class="keyword">for</span>
+                </td>
+                <td>
+                    1. Initialization<br>
+                    2. Condition<br>
+                    3. Increment/Decrement<br>
+                    4. Code block
+                </td>
+                <td>
+                    - Parentheses <span class="special-symbol">()</span> for loop definition<br>
+                    - Semicolons <span class="special-symbol">;</span> between parts<br>
+                    - Curly braces <span class="special-symbol">{}</span> for code block
+                </td>
+                <td>
+                    <span class="example">for (let i = 1; i <= 5; i++) {
+    console.log(i);
+}</span>
+                </td>
+                <td>
+                    Repeats code block for a specified number of times
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="note">
+        <h3>Key Differences from Variables:</h3>
+        <ul>
+            <li><strong>Functions</strong> use () to define parameters and {} to contain code, not = for assignment</li>
+            <li><strong>Conditions</strong> use () for logical expressions and {} for code blocks, evaluating true/false</li>
+            <li><strong>Loops</strong> use () to define their pattern and {} for repeated code, focusing on iteration not assignment</li>
+        </ul>
+    </div>
+    
+    <div class="note">
+        <h3>Why No Assignment (=) Operator?</h3>
+        <p>Unlike variables, control flow structures don't use the = operator because:</p>
+        <ul>
+            <li>They define behavior and logic flow rather than storing values</li>
+            <li>They use special symbols like () and {} to define their structure</li>
+            <li>They execute code blocks rather than assign values</li>
+        </ul>
+    </div>
+    
+    
+    
+    <audio id="applauseSound" preload="auto">
+        <source src="https://www.soundjay.com/human/applause-01.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Live examples
+        // Function example
+        function greet() {
+            console.log("Hello!");
+        }
+
+        // Condition example
+        let score = 75;
+        if (score >= 60) {
+            console.log("Passed!");
+        }
+
+        // Loop example
+        for (let i = 1; i <= 3; i++) {
+            console.log(`Iteration ${i}`);
+        }
+
+        function processInput() {
+            // Get input
+            const input = document.getElementById('inputText').value;
+            if (!input) {
+                alert('Please enter some text first!');
+                return;
+            }
+
+            // Update input box
+            const inputBox = document.getElementById('inputBox');
+            const inputValue = document.getElementById('inputValue');
+            inputValue.textContent = input;
+            inputBox.classList.add('active');
+
+            // Show processing in function box
+            const functionBox = document.getElementById('functionBox');
+            functionBox.classList.add('active');
+
+            // Simulate processing time
+            setTimeout(() => {
+                // Process the input
+                const output = transformText(input);
+
+                // Update output box
+                const outputBox = document.getElementById('outputBox');
+                const outputValue = document.getElementById('outputValue');
+                outputValue.textContent = output;
+                outputBox.classList.add('active');
+
+                // Reset active states after a delay
+                setTimeout(() => {
+                    inputBox.classList.remove('active');
+                    functionBox.classList.remove('active');
+                    outputBox.classList.remove('active');
+                }, 1500);
+            }, 1000);
+        }
+
+        function transformText(text) {
+            return text.split('').reverse().join('').toUpperCase();
+        }
+
+        function makeJuice() {
+            const fruit = document.getElementById('fruitSelect').value;
+            const water = document.getElementById('waterSelect').value;
+            
+            if (!fruit || !water) {
+                alert('Please select both fruit and water amount!');
+                return;
+            }
+
+            // Update ingredients display
+            const ingredientsBox = document.getElementById('ingredientsBox');
+            const ingredientsValue = document.getElementById('ingredientsValue');
+            ingredientsValue.innerHTML = `🍎 ${fruit}<br>💧 ${water}`;
+            ingredientsBox.classList.add('active');
+
+            // Activate blender
+            const blender = document.getElementById('blender');
+            blender.classList.add('active');
+
+            // Process juice
+            setTimeout(() => {
+                const juiceLiquid = document.getElementById('juiceLiquid');
+                const juiceResult = document.getElementById('juiceResult');
+                
+                // Set juice color based on fruit
+                let color;
+                switch(fruit) {
+                    case 'apple': color = '#ffcdd2'; break;
+                    case 'orange': color = '#ffe0b2'; break;
+                    case 'strawberry': color = '#f8bbd0'; break;
+                    case 'banana': color = '#fff9c4'; break;
+                }
+
+                // Set juice height based on water amount
+                let height;
+                switch(water) {
+                    case 'low': height = '30%'; break;
+                    case 'medium': height = '60%'; break;
+                    case 'high': height = '90%'; break;
+                }
+
+                juiceLiquid.style.backgroundColor = color;
+                juiceLiquid.style.height = height;
+                juiceResult.textContent = `Fresh ${fruit} juice!`;
+
+                // Reset states
+                setTimeout(() => {
+                    blender.classList.remove('active');
+                    ingredientsBox.classList.remove('active');
+                }, 1500);
+            }, 2000);
+        }
+
+        function startLoop() {
+            const count = parseInt(document.getElementById('iterationCount').value) || 5;
+            const container = document.getElementById('boxesContainer');
+            
+            // Clear previous boxes
+            container.innerHTML = '';
+            
+            // Create boxes
+            for (let i = 1; i <= count; i++) {
+                const box = document.createElement('div');
+                box.className = 'box';
+                box.textContent = i;
+                container.appendChild(box);
+            }
+
+            // Animate boxes sequentially
+            const boxes = container.getElementsByClassName('box');
+            let currentBox = 0;
+
+            function animateNext() {
+                if (currentBox > 0) {
+                    boxes[currentBox - 1].classList.remove('active');
+                }
+                if (currentBox < boxes.length) {
+                    boxes[currentBox].classList.add('active');
+                    currentBox++;
+                    setTimeout(animateNext, 1000);
+                }
+            }
+
+            animateNext();
+        }
+
+        function checkCondition() {
+            const number = parseInt(document.getElementById('testNumber').value);
+            const passPath = document.getElementById('passPath');
+            const failPath = document.getElementById('failPath');
+            const applauseSound = document.getElementById('applauseSound');
+
+            // Reset previous state
+            passPath.classList.remove('active', 'celebrating');
+            failPath.classList.remove('active');
+            removeConfetti();
+
+            if (number >= 70) {
+                passPath.classList.add('active', 'celebrating');
+                createConfetti(passPath);
+                // Play applause sound
+                applauseSound.currentTime = 0;
+                applauseSound.play().catch(e => console.log('Audio playback failed:', e));
+            } else {
+                failPath.classList.add('active');
+            }
+        }
+
+        function createConfetti(element) {
+            const container = document.createElement('div');
+            container.className = 'celebration-container';
+            element.appendChild(container);
+
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                container.appendChild(confetti);
+            }
+
+            // Remove confetti after animation
+            setTimeout(() => removeConfetti(), 2000);
+        }
+
+        function removeConfetti() {
+            const containers = document.querySelectorAll('.celebration-container');
+            containers.forEach(container => container.remove());
+        }
+
+        let isEating = false;
+        let bites = 0;
+        let eatingInterval;
+
+        function startEatingLoop() {
+            if (isEating) return;
+            isEating = true;
+            bites = 0;
+
+            const marker = document.getElementById('cycleMarker');
+            const plate = document.querySelector('.plate');
+            const question = document.querySelector('.question');
+            const thumbsUp = document.querySelector('.thumbs-up');
+            
+            // Start marker movement
+            marker.classList.add('moving');
+            
+            eatingInterval = setInterval(() => {
+                bites++;
+                
+                // Animate plate
+                plate.style.transform = 'translateX(-50%) scale(1.2)';
+                setTimeout(() => {
+                    plate.style.transform = 'translateX(-50%) scale(1)';
+                }, 500);
+
+                // Check if full after 5 bites
+                if (bites >= 5) {
+                    clearInterval(eatingInterval);
+                    question.textContent = '😊';
+                    thumbsUp.classList.add('pulsing');
+                    marker.classList.remove('moving');
+                    isEating = false;
+                } else {
+                    question.textContent = '🤔';
+                    thumbsUp.classList.remove('pulsing');
+                }
+            }, 1000);
+        }
+
+        function resetEatingLoop() {
+            clearInterval(eatingInterval);
+            isEating = false;
+            bites = 0;
+            
+            const marker = document.getElementById('cycleMarker');
+            const question = document.querySelector('.question');
+            const thumbsUp = document.querySelector('.thumbs-up');
+            
+            marker.classList.remove('moving');
+            question.textContent = '🤔';
+            thumbsUp.classList.remove('pulsing');
+            
+            // Reset marker position
+            marker.style.transform = 'rotate(0deg)';
+        }
+
+        function checkSleepiness() {
+            const sleepinessLevel = document.getElementById('sleepinessLevel').value;
+            const currentMood = document.getElementById('currentMood');
+            const resultAction = document.getElementById('resultAction');
+            const actionImage = document.getElementById('actionImage');
+            const actionText = document.getElementById('actionText');
+            const snoringSound = document.getElementById('snoringSound');
+            const adhanSound = document.getElementById('adhanSound');
+
+            // Stop both sounds first
+            snoringSound.pause();
+            snoringSound.currentTime = 0;
+            adhanSound.pause();
+            adhanSound.currentTime = 0;
+
+            // Remove previous animations and classes
+            currentMood.classList.remove('bounce');
+            resultAction.classList.remove('fade-in', 'prayer-state', 'sleep-state');
+            actionImage.classList.remove('prayer-image');
+            
+            // Remove existing prayer light
+            const existingLight = resultAction.querySelector('.prayer-light');
+            if (existingLight) existingLight.remove();
+            
+            // Add animation classes
+            void resultAction.offsetWidth; // Trigger reflow
+            resultAction.classList.add('fade-in');
+            
+            if (sleepinessLevel > 70) {
+                // Sleepy condition
+                currentMood.textContent = '😴';
+                currentMood.classList.add('bounce');
+                actionImage.src = 'https://em-content.zobj.net/source/microsoft-teams/363/bed_1f6cf.png';
+                actionText.textContent = 'Sleep in';
+                resultAction.classList.add('sleep-state');
+                
+                // Play snoring sound
+                snoringSound.play().catch(e => console.log('Audio playback failed:', e));
+                
+                // Highlight the if branch in code
+                document.querySelector('.code-display pre').innerHTML = `
+<span class="highlight">if (sleepinessLevel > 70) {
+    // Time to sleep!
+    goToSleep();</span>
+} else {
+    // Start the day with prayer!
+    startPrayer();
+}`;
+            } else {
+                // Prayer condition
+                currentMood.textContent = '🤲';
+                currentMood.classList.add('bounce');
+                // Direct prayer image URL
+                actionImage.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAF0WlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNy4yLWMwMDAgNzkuMWI2NWE3OWI0LCAyMDIyLzA2LzEzLTIyOjAxOjAxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjQuMCAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIzLTEyLTMwVDA0OjA2OjI1KzAzOjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDIzLTEyLTMwVDA0OjA2OjI1KzAzOjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMy0xMi0zMFQwNDowNjoyNSswMzowMCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowMWE1ZDZlNi1iYjM2LTQ5NDUtOTIwNy1lNmI5ZjIwZjA3YTQiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDowMWE1ZDZlNi1iYjM2LTQ5NDUtOTIw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';
+                actionImage.classList.add('prayer-image');
+                actionText.textContent = 'Start with Prayer';
+                resultAction.classList.add('prayer-state');
+                
+                // Add prayer light effect
+                const prayerLight = document.createElement('div');
+                prayerLight.className = 'prayer-light';
+                resultAction.appendChild(prayerLight);
+                
+                // Play Adhan sound
+                adhanSound.play().catch(e => console.log('Audio playback failed:', e));
+            }
+        }
+    </script>
+</body>
+</html>

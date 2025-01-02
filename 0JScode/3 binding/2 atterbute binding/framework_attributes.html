@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attributes in React, Next.js, and Vue</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .framework-section {
+            border: 1px solid #ddd;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .code-block {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>HTML Attributes in Modern Frameworks</h1>
+
+    <div class="framework-section">
+        <h2>1. React Attributes</h2>
+        <p>React uses camelCase for most attributes and has some special names.</p>
+
+        <div class="code-block">
+            <pre>
+// Basic React Component with Attributes
+function Button() {
+    const [isActive, setIsActive] = useState(false);
+
+    return (
+        &lt;button
+            className="my-button"           // Instead of 'class'
+            onClick={() => setIsActive(!isActive)}
+            disabled={!isActive}
+            style={{ backgroundColor: 'blue' }}
+            data-testid="test-button"      // Data attributes stay kebab-case
+        &gt;
+            Click Me
+        &lt;/button&gt;
+    );
+}</pre>
+        </div>
+
+        <h3>Common React Attribute Changes:</h3>
+        <table>
+            <tr>
+                <th>HTML</th>
+                <th>React</th>
+                <th>Example</th>
+            </tr>
+            <tr>
+                <td>class</td>
+                <td>className</td>
+                <td>className="button"</td>
+            </tr>
+            <tr>
+                <td>for</td>
+                <td>htmlFor</td>
+                <td>htmlFor="input-field"</td>
+            </tr>
+            <tr>
+                <td>onclick</td>
+                <td>onClick</td>
+                <td>onClick={handleClick}</td>
+            </tr>
+            <tr>
+                <td>style="color: red;"</td>
+                <td>style={{}}</td>
+                <td>style={{ color: 'red' }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="framework-section">
+        <h2>2. Next.js Attributes</h2>
+        <p>Next.js uses React's attribute system but adds some special attributes for optimization.</p>
+
+        <div class="code-block">
+            <pre>
+// Next.js Component with Special Attributes
+import Image from 'next/image'
+import Link from 'next/link'
+
+function NextPage() {
+    return (
+        &lt;div&gt;
+            {/* Optimized Image */}
+            &lt;Image
+                src="/profile.jpg"
+                alt="Profile"
+                width={500}
+                height={300}
+                priority        // Load image with priority
+                quality={75}    // Image quality
+            /&gt;
+
+            {/* Optimized Link */}
+            &lt;Link
+                href="/about"
+                prefetch={false}    // Control prefetching
+                scroll={false}      // Disable scroll to top
+            &gt;
+                About Page
+            &lt;/Link&gt;
+        &lt;/div&gt;
+    );
+}</pre>
+        </div>
+
+        <div class="note">
+            <strong>Note:</strong> Next.js adds special attributes for:
+            <ul>
+                <li>Image optimization (width, height, priority, quality)</li>
+                <li>Link behavior (prefetch, scroll)</li>
+                <li>Script loading (strategy, onLoad)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="framework-section">
+        <h2>3. Vue.js Attributes</h2>
+        <p>Vue uses v-bind or : shorthand for dynamic attributes.</p>
+
+        <div class="code-block">
+            <pre>
+&lt;template&gt;
+    &lt;div&gt;
+        &lt;!-- Static Attributes --&gt;
+        &lt;button class="static-button"&gt;Static&lt;/button&gt;
+
+        &lt;!-- Dynamic Attributes --&gt;
+        &lt;button
+            :class="buttonClass"
+            :disabled="isDisabled"
+            v-bind:id="buttonId"
+            @click="handleClick"
+            :style="{ backgroundColor: color }"
+        &gt;
+            Dynamic
+        &lt;/button&gt;
+
+        &lt;!-- v-bind shorthand (:) --&gt;
+        &lt;img :src="imagePath" :alt="imageDesc"&gt;
+
+        &lt;!-- v-on shorthand (@) --&gt;
+        &lt;button @click="handleClick"&gt;Click&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+    data() {
+        return {
+            buttonClass: 'active-button',
+            isDisabled: false,
+            buttonId: 'main-button',
+            color: 'blue',
+            imagePath: '/image.jpg',
+            imageDesc: 'Description'
+        }
+    }
+}
+&lt;/script&gt;</pre>
+        </div>
+
+        <h3>Vue.js Special Directives:</h3>
+        <table>
+            <tr>
+                <th>Syntax</th>
+                <th>Purpose</th>
+                <th>Example</th>
+            </tr>
+            <tr>
+                <td>v-bind: or :</td>
+                <td>Bind attributes</td>
+                <td>:class="className"</td>
+            </tr>
+            <tr>
+                <td>v-on: or @</td>
+                <td>Event handling</td>
+                <td>@click="handleClick"</td>
+            </tr>
+            <tr>
+                <td>v-model</td>
+                <td>Two-way binding</td>
+                <td>v-model="message"</td>
+            </tr>
+            <tr>
+                <td>v-if</td>
+                <td>Conditional rendering</td>
+                <td>v-if="isVisible"</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="framework-section">
+        <h2>Key Differences Summary</h2>
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>React/Next.js</th>
+                <th>Vue.js</th>
+            </tr>
+            <tr>
+                <td>Class Binding</td>
+                <td>className="class-name"</td>
+                <td>:class="className"</td>
+            </tr>
+            <tr>
+                <td>Style Binding</td>
+                <td>style={{ color: 'red' }}</td>
+                <td>:style="{ color: 'red' }"</td>
+            </tr>
+            <tr>
+                <td>Event Handling</td>
+                <td>onClick={handleClick}</td>
+                <td>@click="handleClick"</td>
+            </tr>
+            <tr>
+                <td>Conditional Attributes</td>
+                <td>disabled={isDisabled}</td>
+                <td>:disabled="isDisabled"</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

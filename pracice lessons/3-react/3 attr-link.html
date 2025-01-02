@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Link</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        .link-container {
+            max-width: 300px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        .title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .link {
+            display: block;
+            background-color: #e6f3ff;
+            padding: 10px;
+            text-decoration: none;
+            color: #0066cc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .link:hover {
+            background-color: #cce6ff;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const LinkComponent = ({ title, linkText }) => {
+            const handleClick = (e) => {
+                e.preventDefault();
+                console.log('Link clicked!');
+            };
+
+            return (
+                <div className="link-container">
+                    <h1 className="title">{title}</h1>
+                    <a href="#" className="link" onClick={handleClick}>
+                        {linkText}
+                    </a>
+                </div>
+            );
+        };
+
+        const App = () => {
+            return (
+                <LinkComponent 
+                    title="Do you like it?"
+                    linkText="yes, take me there ?"
+                />
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

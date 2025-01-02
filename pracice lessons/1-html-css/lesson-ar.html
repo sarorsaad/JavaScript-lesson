@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درس HTML للمبتدئين</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .lesson-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
+        .navigation {
+            width: 300px;
+            background-color: #252526;
+            padding: 20px;
+            border-radius: 8px;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        .content {
+            flex: 1;
+            background-color: #252526;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .nav-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #2d2d2d;
+            border: 1px solid #3e3e3e;
+            color: #fff;
+            text-align: right;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: #3e3e3e;
+        }
+        .nav-button.active {
+            background-color: #0e639c;
+        }
+        .code-section {
+            background-color: #1e1e1e;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .code-title {
+            background-color: #2d2d2d;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-bottom: 1px solid #3e3e3e;
+        }
+        .code-content {
+            padding: 20px;
+            color: #d4d4d4;
+            font-family: 'Consolas', monospace;
+            line-height: 1.5;
+            direction: ltr;
+            white-space: pre;
+        }
+        .code-explanation {
+            background-color: #2d2d2d;
+            color: #9cdcfe;
+            padding: 15px 20px;
+            line-height: 1.6;
+            direction: rtl;
+        }
+        .code-explanation ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .code-explanation li {
+            margin: 8px 0;
+            position: relative;
+            padding-right: 20px;
+        }
+        .code-explanation li:before {
+            content: "•";
+            color: #569cd6;
+            position: absolute;
+            right: 0;
+        }
+        .tag { color: #4ec9b0; }
+        .attr { color: #9cdcfe; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        h1, h2 {
+            color: #fff;
+            border-bottom: 1px solid #3e3e3e;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <nav class="navigation">
+            <button class="nav-button" onclick="showSection('intro')">مقدمة HTML</button>
+            <button class="nav-button" onclick="showSection('doctype')">١. DOCTYPE</button>
+            <button class="nav-button" onclick="showSection('html')">٢. عنصر HTML</button>
+            <button class="nav-button" onclick="showSection('head')">٣. قسم head</button>
+            <button class="nav-button" onclick="showSection('body')">٤. قسم body</button>
+            <button class="nav-button" onclick="showSection('sections')">٥. الأقسام</button>
+            <button class="nav-button" onclick="showSection('links')">٦. الروابط</button>
+        </nav>
+        
+        <main class="content">
+            <section id="intro">
+                <h1>شرح هيكل HTML الأساسي خطوة بخطوة</h1>
+                <div class="code-explanation">
+                    سنتعلم في هذا الدرس كيفية بناء صفحة HTML بشكل صحيح وفهم كل عنصر من عناصرها
+                </div>
+            </section>
+
+            <section id="doctype" style="display: none;">
+                <h2>١. إعلان نوع المستند (DOCTYPE)</h2>
+                <div class="code-section">
+                    <div class="code-title">DOCTYPE Declaration</div>
+                    <div class="code-content">
+<span class="tag">&lt;!DOCTYPE</span> <span class="attr">html</span><span class="tag">&gt;</span></div>
+                    <div class="code-explanation">
+                        <ul>
+                            <li>هذا السطر يخبر المتصفح أننا نستخدم HTML5</li>
+                            <li>ضروري في بداية كل ملف HTML</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="html" style="display: none;">
+                <h2>٢. عنصر HTML الرئيسي</h2>
+                <div class="code-section">
+                    <div class="code-title">HTML Root Element</div>
+                    <div class="code-content">
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="string">"ar"</span> <span class="attr">dir</span>=<span class="string">"rtl"</span><span class="tag">&gt;</span>
+    <span class="comment">&lt;!-- محتوى الصفحة --&gt;</span>
+<span class="tag">&lt;/html&gt;</span></div>
+                    <div class="code-explanation">
+                        <ul>
+                            <li>العنصر الجذر الذي يحتوي على كل محتوى الصفحة</li>
+                            <li>lang="ar" لتحديد اللغة العربية</li>
+                            <li>dir="rtl" لجعل اتجاه النص من اليمين لليسار</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="head" style="display: none;">
+                <h2>٣. قسم head</h2>
+                <div class="code-section">
+                    <div class="code-title">Head Section</div>
+                    <div class="code-content">
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> 
+          <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span>عنوان الصفحة<span class="tag">&lt;/title&gt;</span>
+    <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> 
+          <span class="attr">href</span>=<span class="string">"styles.css"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/head&gt;</span></div>
+                    <div class="code-explanation">
+                        <ul>
+                            <li>meta charset: يحدد ترميز الأحرف للصفحة</li>
+                            <li>meta viewport: يضبط عرض الصفحة للأجهزة المحمولة</li>
+                            <li>title: عنوان الصفحة في تبويب المتصفح</li>
+                            <li>link: يربط ملف CSS الخارجي</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="body" style="display: none;">
+                <h2>٤. قسم body</h2>
+                <div class="code-section">
+                    <div class="code-title">Body Section</div>
+                    <div class="code-content">
+<span class="tag">&lt;body&gt;</span>
+    <span class="comment">&lt;!-- محتوى الصفحة --&gt;</span>
+<span class="tag">&lt;/body&gt;</span></div>
+                    <div class="code-explanation">
+                        <ul>
+                            <li>يحتوي على كل المحتوى المرئي في الصفحة</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sections" style="display: none;">
+                <h2>٥. الأقسام</h2>
+                <div class="code-section">
+                    <div class="code-title">Sections</div>
+                    <div class="code-content">
+<span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="string">"section"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;h2&gt;</span>عنوان القسم<span class="tag">&lt;/h2&gt;</span>
+    <span class="tag">&lt;p&gt;</span>محتوى القسم<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/div&gt;</span></div>
+                    <div class="code-explanation">
+                        <ul>
+                            <li>كل قسم يحتوي على:</li>
+                            <li>عنوان h2 للقسم</li>
+                            <li>فقرة p للمحتوى</li>
+                            <li>class للتنسيق</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="links" style="display: none;">
+                <h2>٦. الروابط</h2>
+                <div class="code-section">
+                    <div class="code-title">Links</div>
+                    <div class="code-content">
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"link"</span><span class="tag">&gt;</span>النص<span class="tag">&lt;/a&gt;</span></div>
+                    <div class="code-explanation">
+                        <ul>
+                            <li>a: عنصر الرابط</li>
+                            <li>href="#": وجهة الرابط (# تعني أنه لا يوجد وجهة محددة حالياً)</li>
+                            <li>class: للتنسيق وإضافة التأثيرات مثل hover</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('main section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`[onclick="showSection('${sectionId}')"]`).classList.add('active');
+        }
+
+        // Show intro section by default
+        document.getElementById('intro').style.display = 'block';
+        document.querySelector('[onclick="showSection(\'intro\')"]').classList.add('active');
+    </script>
+</body>
+</html>

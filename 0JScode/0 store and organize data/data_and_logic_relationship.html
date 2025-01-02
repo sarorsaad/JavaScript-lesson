@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structures & Control Flow Relationship</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+        .concept-map {
+            display: flex;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        .column {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .item {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        .arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #666;
+        }
+        .example {
+            background: #e7f5ff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        .relationship {
+            margin: 20px 0;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 8px;
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .demo-button {
+            padding: 8px 16px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px 0;
+        }
+        .output {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Understanding Data Structures & Control Flow</h1>
+
+    <div class="concept-map">
+        <div class="column">
+            <h2>Image 1: Data Storage</h2>
+            
+            <div class="item">
+                <h3>Variables</h3>
+                <p>Store single values of different types</p>
+                <div class="example">
+                    let name = "John";<br>
+                    let age = 25;<br>
+                    let isActive = true;
+                </div>
+                <button class="demo-button" onclick="demoVariables()">Try Variables</button>
+                <div class="output" id="variableOutput"></div>
+            </div>
+
+            <div class="item">
+                <h3>Arrays</h3>
+                <p>Store ordered collections of values</p>
+                <div class="example">
+                    let colors = ['red', 'green', 'blue'];<br>
+                    let numbers = [1, 2, 3, 4, 5];
+                </div>
+                <button class="demo-button" onclick="demoArrays()">Try Arrays</button>
+                <div class="output" id="arrayOutput"></div>
+            </div>
+
+            <div class="item">
+                <h3>Objects</h3>
+                <p>Store structured data with key-value pairs</p>
+                <div class="example">
+                    let user = {<br>
+                    &nbsp;&nbsp;name: "John",<br>
+                    &nbsp;&nbsp;age: 25<br>
+                    };
+                </div>
+                <button class="demo-button" onclick="demoObjects()">Try Objects</button>
+                <div class="output" id="objectOutput"></div>
+            </div>
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="column">
+            <h2>Image 2: Control Flow</h2>
+            
+            <div class="item">
+                <h3>Functions</h3>
+                <p>Process and transform data</p>
+                <div class="example">
+                    function greet(name) {<br>
+                    &nbsp;&nbsp;return `Hello, ${name}!`;<br>
+                    }
+                </div>
+                <button class="demo-button" onclick="demoFunctions()">Try Functions</button>
+                <div class="output" id="functionOutput"></div>
+            </div>
+
+            <div class="item">
+                <h3>Conditions</h3>
+                <p>Make decisions based on data</p>
+                <div class="example">
+                    if (age >= 18) {<br>
+                    &nbsp;&nbsp;return "Adult";<br>
+                    } else {<br>
+                    &nbsp;&nbsp;return "Minor";<br>
+                    }
+                </div>
+                <button class="demo-button" onclick="demoConditions()">Try Conditions</button>
+                <div class="output" id="conditionOutput"></div>
+            </div>
+
+            <div class="item">
+                <h3>Loops</h3>
+                <p>Process collections of data</p>
+                <div class="example">
+                    for (let num of numbers) {<br>
+                    &nbsp;&nbsp;console.log(num * 2);<br>
+                    }
+                </div>
+                <button class="demo-button" onclick="demoLoops()">Try Loops</button>
+                <div class="output" id="loopOutput"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="relationship">
+        <h2>How They Work Together</h2>
+        <p>• Functions operate on data stored in Variables, Arrays, and Objects</p>
+        <p>• Conditions make decisions based on stored data values</p>
+        <p>• Loops iterate over Arrays and Object properties</p>
+        <button class="demo-button" onclick="demoRelationship()">See Complete Example</button>
+        <div class="output" id="relationshipOutput"></div>
+    </div>
+
+    <script>
+        function demoVariables() {
+            let name = "John";
+            let age = 25;
+            let isActive = true;
+            
+            document.getElementById('variableOutput').innerHTML = 
+                `Current values:<br>
+                name: "${name}"<br>
+                age: ${age}<br>
+                isActive: ${isActive}`;
+        }
+
+        function demoArrays() {
+            let colors = ['red', 'green', 'blue'];
+            let numbers = [1, 2, 3, 4, 5];
+            
+            document.getElementById('arrayOutput').innerHTML = 
+                `Array contents:<br>
+                colors: [${colors.join(', ')}]<br>
+                numbers: [${numbers.join(', ')}]`;
+        }
+
+        function demoObjects() {
+            let user = {
+                name: "John",
+                age: 25,
+                hobbies: ['reading', 'gaming']
+            };
+            
+            document.getElementById('objectOutput').innerHTML = 
+                `Object properties:<br>
+                name: ${user.name}<br>
+                age: ${user.age}<br>
+                hobbies: [${user.hobbies.join(', ')}]`;
+        }
+
+        function demoFunctions() {
+            function greet(name) {
+                return `Hello, ${name}!`;
+            }
+            
+            document.getElementById('functionOutput').innerHTML = 
+                `Function output:<br>
+                ${greet("John")}<br>
+                ${greet("Jane")}`;
+        }
+
+        function demoConditions() {
+            let age = 20;
+            let status = age >= 18 ? "Adult" : "Minor";
+            
+            document.getElementById('conditionOutput').innerHTML = 
+                `Condition check:<br>
+                Age: ${age}<br>
+                Status: ${status}`;
+        }
+
+        function demoLoops() {
+            let numbers = [1, 2, 3, 4, 5];
+            let doubled = numbers.map(n => n * 2);
+            
+            document.getElementById('loopOutput').innerHTML = 
+                `Loop result:<br>
+                Original: [${numbers.join(', ')}]<br>
+                Doubled: [${doubled.join(', ')}]`;
+        }
+
+        function demoRelationship() {
+            // Combining all concepts
+            let users = [
+                { name: "John", age: 25 },
+                { name: "Jane", age: 17 },
+                { name: "Bob", age: 30 }
+            ];
+
+            function processUsers(userList) {
+                let result = [];
+                for (let user of userList) {
+                    if (user.age >= 18) {
+                        result.push(`${user.name} (Adult)`);
+                    } else {
+                        result.push(`${user.name} (Minor)`);
+                    }
+                }
+                return result;
+            }
+
+            let processed = processUsers(users);
+            
+            document.getElementById('relationshipOutput').innerHTML = 
+                `Complete example:<br>
+                Input: ${JSON.stringify(users)}<br><br>
+                Output after processing:<br>
+                ${processed.join('<br>')}`;
+        }
+    </script>
+</body>
+</html>

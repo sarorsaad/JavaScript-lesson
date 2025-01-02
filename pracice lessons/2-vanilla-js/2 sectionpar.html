@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanilla JS Sections</title>
+    <style>
+        .section {
+            margin: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .section h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .section p {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        const sections = [
+            { title: 'this is section 1', content: 'Ipsum eos accusamus possimus commodi amet, sunt?' },
+            { title: 'this is section 2', content: 'Ipsum eos accusamus possimus commodi amet, sunt?' },
+            { title: 'this is section 3', content: 'Ipsum eos accusamus possimus commodi amet, sunt?' }
+        ];
+
+        const app = document.getElementById('app');
+
+        for (const section of sections) {
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'section';
+            
+            const title = document.createElement('h2');
+            title.textContent = section.title;
+            
+            const content = document.createElement('p');
+            content.textContent = section.content;
+            
+            sectionDiv.appendChild(title);
+            sectionDiv.appendChild(content);
+            app.appendChild(sectionDiv);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Variable Syntax Patterns</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .keyword {
+            color: #0066cc;
+            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .example {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 4px;
+            display: block;
+        }
+        .note {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .special-symbol {
+            color: #e83e8c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Variable Syntax Patterns</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Keyword</th>
+                <th>Name Rules</th>
+                <th>Assignment</th>
+                <th>Value & Special Symbols</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Regular Variables -->
+            <tr>
+                <td>Regular Variables</td>
+                <td>
+                    <span class="keyword">let</span><br>
+                    <span class="keyword">const</span><br>
+                    <span class="keyword">var</span>
+                </td>
+                <td>
+                    - Start with letter, $ or _<br>
+                    - Can contain numbers<br>
+                    - Case sensitive
+                </td>
+                <td>
+                    <span class="special-symbol">=</span>
+                </td>
+                <td>
+                    - Strings: <span class="special-symbol">" "</span> or <span class="special-symbol">' '</span><br>
+                    - Numbers: no quotes<br>
+                    - Boolean: true/false
+                </td>
+                <td>
+                    <span class="example">let age = 30;</span>
+                    <span class="example">const name = "Alice";</span>
+                </td>
+            </tr>
+            <!-- Arrays -->
+            <tr>
+                <td>Arrays</td>
+                <td>
+                    <span class="keyword">let</span><br>
+                    <span class="keyword">const</span>
+                </td>
+                <td>
+                    - Plural names preferred<br>
+                    - Descriptive of content
+                </td>
+                <td>
+                    <span class="special-symbol">=</span>
+                </td>
+                <td>
+                    - Square brackets <span class="special-symbol">[ ]</span><br>
+                    - Comma-separated values<br>
+                    - Any data type
+                </td>
+                <td>
+                    <span class="example">let colors = ["red", "green"];</span>
+                    <span class="example">const nums = [1, 2, 3];</span>
+                </td>
+            </tr>
+            <!-- Objects -->
+            <tr>
+                <td>Objects</td>
+                <td>
+                    <span class="keyword">let</span><br>
+                    <span class="keyword">const</span>
+                </td>
+                <td>
+                    - Singular names preferred<br>
+                    - Describes object type
+                </td>
+                <td>
+                    <span class="special-symbol">=</span>
+                </td>
+                <td>
+                    - Curly braces <span class="special-symbol">{ }</span><br>
+                    - Key-value pairs<br>
+                    - Colon <span class="special-symbol">:</span> separator<br>
+                    - Comma between pairs
+                </td>
+                <td>
+                    <span class="example">let person = {
+    name: "Alice",
+    age: 30
+};</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="note">
+        <h3>Important Notes:</h3>
+        <ul>
+            <li>The <span class="special-symbol">=</span> operator is for assignment, not comparison (use == or === for comparison)</li>
+            <li>Use <span class="keyword">const</span> by default, <span class="keyword">let</span> when the value needs to change</li>
+            <li>Avoid using <span class="keyword">var</span> in modern JavaScript</li>
+        </ul>
+    </div>
+
+    <script>
+        // Live examples
+        // Regular Variables
+        let age = 30;
+        const name = "Alice";
+        
+        // Arrays
+        let colors = ["red", "green", "blue"];
+        const numbers = [1, 2, 3];
+        
+        // Objects
+        let person = {
+            name: "Alice",
+            age: 30
+        };
+        
+        // Log examples to console
+        console.log({ age, name, colors, numbers, person });
+    </script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Data Binding Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const DataBindingDemo = () => {
+            /* ====== Logic Layer (Business Logic) ====== */
+            // Navigation State
+            const [activeSection, setActiveSection] = React.useState(1);
+
+            // 1. Text Binding - State & Handlers
+            const [name, setName] = React.useState('زائر');
+            const handleNameChange = (e) => setName(e.target.value);
+
+            // 2. Image Binding - State & Handlers
+            const [imageUrl, setImageUrl] = React.useState('https://via.placeholder.com/150');
+            const handleImageChange = (e) => setImageUrl(e.target.value || 'https://via.placeholder.com/150');
+
+            // 3. List Binding - State & Handlers
+            const [items, setItems] = React.useState(['عنصر 1', 'عنصر 2', 'عنصر 3']);
+            const [newItem, setNewItem] = React.useState('');
+            
+            const handleNewItemChange = (e) => setNewItem(e.target.value);
+            const handleAddItem = () => {
+                if (newItem.trim()) {
+                    setItems([...items, newItem]);
+                    setNewItem('');
+                }
+            };
+            const handleDeleteItem = (index) => {
+                setItems(items.filter((_, i) => i !== index));
+            };
+
+            /* ====== View Layer (Presentation) ====== */
+            return (
+                <div className="container">
+                    <h1>ربط البيانات في React (Data Binding)</h1>
+
+                    {/* Navigation Buttons */}
+                    <nav className="nav-buttons" dir="rtl">
+                        <button 
+                            className={`nav-button ${activeSection === 1 ? 'active' : ''}`}
+                            onClick={() => setActiveSection(1)}
+                        >
+                            ١. ربط النصوص البسيط
+                        </button>
+                        <button 
+                            className={`nav-button ${activeSection === 2 ? 'active' : ''}`}
+                            onClick={() => setActiveSection(2)}
+                        >
+                            ٢. ربط خصائص العناصر
+                        </button>
+                        <button 
+                            className={`nav-button ${activeSection === 3 ? 'active' : ''}`}
+                            onClick={() => setActiveSection(3)}
+                        >
+                            ٣. ربط القوائم
+                        </button>
+                    </nav>
+
+                    {/* Content Sections */}
+                    <div className="content-sections">
+                        {/* 1. Text Binding Section */}
+                        <section className={`binding-section ${activeSection === 1 ? 'active' : ''}`}>
+                            <div className="demo-box">
+                                <h2>1. ربط النصوص البسيط</h2>
+                                <p>هذا المثال يوضح كيفية ربط قيمة متغير مع عنصر JSX:</p>
+                                <input
+                                    type="text"
+                                    value={name}
+                                    onChange={handleNameChange}
+                                    placeholder="أدخل اسمك"
+                                />
+                                <p>مرحباً، <span className="highlight">{name}</span>!</p>
+                            </div>
+                            <div className="code-box">
+                                <pre><code>
+{`/* ====== Logic Layer (Business Logic) ====== */`}
+<div class="logic-layer">
+{`// State declaration
+const [name, setName] = React.useState('زائر');
+
+// Event handler
+const handleNameChange = (e) => setName(e.target.value);`}
+</div>
+
+{`/* ====== View Layer (Presentation) ====== */`}
+<div class="view-layer">
+{`// JSX Template
+<input
+    value={name}
+    onChange={handleNameChange}
+    placeholder="أدخل اسمك"
+/>
+<p>مرحباً، {name}!</p>`}
+</div>
+                                </code></pre>
+                            </div>
+                        </section>
+
+                        {/* 2. Attribute Binding Section */}
+                        <section className={`binding-section ${activeSection === 2 ? 'active' : ''}`}>
+                            <div className="demo-box">
+                                <h2>2. ربط خصائص العناصر</h2>
+                                <p>هذا المثال يوضح كيفية ربط خصائص العناصر مثل الصور:</p>
+                                <input
+                                    type="text"
+                                    value={imageUrl}
+                                    onChange={handleImageChange}
+                                    placeholder="أدخل رابط الصورة"
+                                />
+                                <div>
+                                    <img src={imageUrl} alt="معاينة" style={{ maxWidth: '150px' }} />
+                                </div>
+                            </div>
+                            <div className="code-box">
+                                <pre><code>
+{`/* ====== Logic Layer (Business Logic) ====== */`}
+<div class="logic-layer">
+{`// State declaration
+const [imageUrl, setImageUrl] = React.useState(
+    'https://via.placeholder.com/150'
+);
+
+// Event handler with fallback
+const handleImageChange = (e) => 
+    setImageUrl(e.target.value || 'https://via.placeholder.com/150');`}
+</div>
+
+{`/* ====== View Layer (Presentation) ====== */`}
+<div class="view-layer">
+{`// JSX Template
+<input
+    value={imageUrl}
+    onChange={handleImageChange}
+    placeholder="أدخل رابط الصورة"
+/>
+<img 
+    src={imageUrl} 
+    alt="معاينة" 
+    style={{ maxWidth: '150px' }} 
+/>`}
+</div>
+                                </code></pre>
+                            </div>
+                        </section>
+
+                        {/* 3. List Binding Section */}
+                        <section className={`binding-section ${activeSection === 3 ? 'active' : ''}`}>
+                            <div className="demo-box">
+                                <h2>3. ربط القوائم</h2>
+                                <p>هذا المثال يوضح كيفية ربط مصفوفة مع قائمة:</p>
+                                <div className="input-group">
+                                    <input
+                                        type="text"
+                                        value={newItem}
+                                        onChange={handleNewItemChange}
+                                        placeholder="أدخل عنصراً جديداً"
+                                    />
+                                    <button onClick={handleAddItem}>إضافة</button>
+                                </div>
+                                <ul>
+                                    {items.map((item, index) => (
+                                        <li key={index}>
+                                            {item}
+                                            <button onClick={() => handleDeleteItem(index)}>
+                                                حذف
+                                            </button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div className="code-box">
+                                <pre><code>
+{`/* ====== Logic Layer (Business Logic) ====== */`}
+<div class="logic-layer">
+{`// State declarations
+const [items, setItems] = React.useState([
+    'عنصر 1', 'عنصر 2', 'عنصر 3'
+]);
+const [newItem, setNewItem] = React.useState('');
+
+// Event handlers
+const handleNewItemChange = (e) => 
+    setNewItem(e.target.value);
+
+const handleAddItem = () => {
+    if (newItem.trim()) {
+        setItems([...items, newItem]);
+        setNewItem('');
+    }
+};
+
+const handleDeleteItem = (index) => {
+    setItems(items.filter((_, i) => i !== index));
+};`}
+</div>
+
+{`/* ====== View Layer (Presentation) ====== */`}
+<div class="view-layer">
+{`// JSX Template
+<div className="input-group">
+    <input
+        value={newItem}
+        onChange={handleNewItemChange}
+        placeholder="أدخل عنصراً جديداً"
+    />
+    <button onClick={handleAddItem}>
+        إضافة
+    </button>
+</div>
+<ul>
+    {items.map((item, index) => (
+        <li key={index}>
+            {item}
+            <button onClick={() => handleDeleteItem(index)}>
+                حذف
+            </button>
+        </li>
+    ))}
+</ul>`}
+</div>
+                                </code></pre>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            );
+        };
+
+        // Render the app
+        ReactDOM.render(
+            <DataBindingDemo />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+</html>

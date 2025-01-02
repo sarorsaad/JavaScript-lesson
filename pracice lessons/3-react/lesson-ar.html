@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درس React للمبتدئين</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .lesson-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
+        .navigation {
+            width: 300px;
+            background-color: #252526;
+            padding: 20px;
+            border-radius: 8px;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        .content {
+            flex: 1;
+            background-color: #252526;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .nav-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #2d2d2d;
+            border: 1px solid #3e3e3e;
+            color: #fff;
+            text-align: right;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: #3e3e3e;
+        }
+        .nav-button.active {
+            background-color: #0e639c;
+        }
+        .code-section {
+            background-color: #1e1e1e;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .code-title {
+            background-color: #2d2d2d;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-bottom: 1px solid #3e3e3e;
+        }
+        .code-content {
+            padding: 20px;
+            color: #d4d4d4;
+            font-family: 'Consolas', monospace;
+            line-height: 1.5;
+            direction: ltr;
+            white-space: pre;
+        }
+        .code-explanation {
+            background-color: #2d2d2d;
+            color: #9cdcfe;
+            padding: 15px 20px;
+            line-height: 1.6;
+            direction: rtl;
+        }
+        .code-explanation ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .code-explanation li {
+            margin: 8px 0;
+            position: relative;
+            padding-right: 20px;
+        }
+        .code-explanation li:before {
+            content: "•";
+            color: #569cd6;
+            position: absolute;
+            right: 0;
+        }
+        .keyword { color: #569cd6; }
+        .tag { color: #4ec9b0; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .function { color: #dcdcaa; }
+        .component { color: #4ec9b0; }
+        h1, h2 {
+            color: #fff;
+            border-bottom: 1px solid #3e3e3e;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="lesson-container">
+        <nav class="navigation">
+            <button class="nav-button" onclick="showSection('intro')">مقدمة React</button>
+            <button class="nav-button" onclick="showSection('setup')">١. الإعداد الأساسي</button>
+            <button class="nav-button" onclick="showSection('components')">٢. المكونات header Component</button>
+            <button class="nav-button" onclick="showSection('props')">٣. الخصائص Props</button>
+            <button class="nav-button" onclick="showSection('sections')">٤. التكرار والمصفوفات</button>
+            <button class="nav-button" onclick="showSection('events')">٥. معالجة الأحداث</button>
+        </nav>
+        
+        <main class="content">
+            <section id="intro">
+                <h1>شرح React للمبتدئين</h1>
+                <div class="code-explanation">
+                    سنتعلم في هذا الدرس كيفية استخدام React لبناء واجهات مستخدم تفاعلية
+                </div>
+            </section>
+
+            <section id="setup" style="display: none;">
+                <h2>١. الإعداد الأساسي</h2>
+                <div class="code-section">
+                    <div class="code-title">index.html</div>
+                    <div class="code-content">
+<span class="tag">&lt;!DOCTYPE</span> <span class="keyword">html</span><span class="tag">&gt;</span>
+<span class="tag">&lt;html</span> <span class="keyword">lang</span>=<span class="string">"en"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="keyword">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="keyword">name</span>=<span class="string">"viewport"</span> 
+          <span class="keyword">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span>React App<span class="tag">&lt;/title&gt;</span>
+    <span class="tag">&lt;script</span> <span class="keyword">src</span>=<span class="string">"https://unpkg.com/react@17/umd/react.development.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+    <span class="tag">&lt;script</span> <span class="keyword">src</span>=<span class="string">"https://unpkg.com/react-dom@17/umd/react-dom.development.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+    <span class="tag">&lt;script</span> <span class="keyword">src</span>=<span class="string">"https://unpkg.com/babel-standalone@6/babel.min.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+    <span class="tag">&lt;div</span> <span class="keyword">id</span>=<span class="string">"root"</span><span class="tag">&gt;&lt;/div&gt;</span>
+    <span class="tag">&lt;script</span> <span class="keyword">type</span>=<span class="string">"text/babel"</span> <span class="keyword">src</span>=<span class="string">"App.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></div>
+                    <div class="code-explanation">
+                        <ul>
+                            <li>إضافة مكتبات React الأساسية</li>
+                            <li>إضافة Babel لترجمة JSX</li>
+                            <li>إنشاء عنصر root لتركيب التطبيق</li>
+                            <li>ربط ملف App.js</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="components" style="display: none;">
+                <h2>٢. المكونات (header Component)</h2>
+                <div class="code-section">
+                    <div class="code-title">App.js - Basic Component</div>
+                    <div class="code-content">
+<span class="keyword">const</span> <span class="component">App</span> = () => {
+    <span class="keyword">return</span>(
+        <span class="tag">&lt;div&gt;</span>
+            <span class="tag">&lt;h2&gt;</span>sarorAcademy<span class="tag">&lt;/h2&gt;</span>
+            <span class="tag">&lt;p&gt;</span>this is create website with stastic code<span class="tag">&lt;/p&gt;</span>
+        <span class="tag">&lt;/div&gt;</span>
+    )
+}
+
+<span class="keyword">const</span> root = <span class="keyword">ReactDOM</span>.<span class="function">createRoot</span>(document.<span class="function">getElementById</span>(<span class="string">"root"</span>));
+root.<span class="function">render</span>(<span class="tag">&lt;App/&gt;</span>);</div>
+                    <div class="code-explanation">
+                        <ul>
+                            <li>تعريف مكون App باستخدام Arrow Function</li>
+                            <li>استخدام JSX لكتابة HTML داخل JavaScript</li>
+                            <li>إنشاء root للتطبيق باستخدام createRoot</li>
+                            <li>تركيب المكون App في العنصر root</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="props" style="display: none;">
+                <h2>٣. الخصائص (Props)</h2>
+                <div class="code-section">
+                    <div class="code-title">App.js - Using Props</div>
+                    <div class="code-content">
+<span class="keyword">const</span> <span class="component">App</span> = () => {
+    <span class="keyword">return</span> (
+        <span class="tag">&lt;Header</span> 
+            <span class="keyword">title</span>=<span class="string">"مشروعي الجميل"</span>
+            <span class="keyword">subtitle</span>=<span class="string">"هذا هو مشروعي الأول بـ React"</span>
+        <span class="tag">/&gt;</span>
+    );
+};</div>
+                    <div class="code-explanation">
+                        <ul>
+                            <li>تمرير البيانات للمكون عبر Props</li>
+                            <li>استخدام علامة self-closing للمكون</li>
+                            <li>يمكن تمرير أي نوع من البيانات</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sections" style="display: none;">
+                <h2>٤. التكرار والمصفوفات</h2>
+                <div class="code-section">
+                    <div class="code-title">App.js - Mapping Arrays</div>
+                    <div class="code-content">
+<span class="keyword">const</span> sections = [
+    { title: <span class="string">'القسم الأول'</span>, content: <span class="string">'محتوى القسم الأول'</span> },
+    { title: <span class="string">'القسم الثاني'</span>, content: <span class="string">'محتوى القسم الثاني'</span> }
+];
+
+<span class="keyword">const</span> <span class="component">App</span> = () => {
+    <span class="keyword">return</span> (
+        <span class="tag">&lt;div&gt;</span>
+            {sections.map((section, index) => (
+                <span class="tag">&lt;Section</span>
+                    <span class="keyword">key</span>={index}
+                    <span class="keyword">title</span>={section.title}
+                    <span class="keyword">content</span>={section.content}
+                <span class="tag">/&gt;</span>
+            ))}
+        <span class="tag">&lt;/div&gt;</span>
+    );
+};</div>
+                    <div class="code-explanation">
+                        <ul>
+                            <li>استخدام map() لتكرار المكونات</li>
+                            <li>إضافة key لكل عنصر مكرر</li>
+                            <li>تمرير بيانات كل قسم كـ props</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="events" style="display: none;">
+                <h2>٥. معالجة الأحداث</h2>
+                <div class="code-section">
+                    <div class="code-title">App.js - Event Handling</div>
+                    <div class="code-content">
+<span class="keyword">const</span> <span class="component">LinkComponent</span> = ({ title, linkText }) => {
+    <span class="keyword">const</span> <span class="function">handleClick</span> = (e) => {
+        e.preventDefault();
+        console.log(<span class="string">'تم النقر على الرابط!'</span>);
+    };
+
+    <span class="keyword">return</span> (
+        <span class="tag">&lt;div</span> <span class="keyword">className</span>=<span class="string">"link-container"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;h1&gt;</span>{title}<span class="tag">&lt;/h1&gt;</span>
+            <span class="tag">&lt;a</span> <span class="keyword">href</span>=<span class="string">"#"</span> <span class="keyword">onClick</span>={handleClick}<span class="tag">&gt;</span>
+                {linkText}
+            <span class="tag">&lt;/a&gt;</span>
+        <span class="tag">&lt;/div&gt;</span>
+    );
+};</div>
+                    <div class="code-explanation">
+                        <ul>
+                            <li>تعريف دالة معالجة الحدث</li>
+                            <li>استخدام onClick لربط الحدث</li>
+                            <li>منع السلوك الافتراضي للرابط</li>
+                            <li>استخدام Arrow Function للحفاظ على this</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('main section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`[onclick="showSection('${sectionId}')"]`).classList.add('active');
+        }
+
+        // Show intro section by default
+        document.getElementById('intro').style.display = 'block';
+        document.querySelector('[onclick="showSection(\'intro\')"]').classList.add('active');
+    </script>
+</body>
+</html>
