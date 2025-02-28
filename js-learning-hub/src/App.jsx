@@ -28,7 +28,11 @@ function App() {
           </Routes>
         </main>
         <footer>
-          <p>&copy; 2024 JavaScript Learning Hub. All rights reserved.</p>
+          <p>&copy; 2025 JavaScript Learning Hub. All rights reserved.</p>
+          <p>Last updated: February 28, 2025</p>
+          <div className="social-links">
+            <a href="https://github.com/sarorsaad/JavaScript-lesson" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
         </footer>
       </div>
     </Router>
